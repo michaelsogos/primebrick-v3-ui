@@ -1,0 +1,27 @@
+---
+title: Utilities
+description: Shared utility functions and prop-helper types exported by @primebrick/ui.
+---
+
+## `cn`
+
+```ts
+import { cn } from "@primebrick/ui";
+
+cn("p-2", cond && "bg-muted", "p-4"); // → "bg-muted p-4" (tw-merge wins)
+```
+
+`clsx` + `tailwind-merge`: conditional class joining with Tailwind-conflict
+resolution (last conflicting class wins).
+
+## Prop-helper types
+
+| Type | Purpose |
+|------|---------|
+| `WithoutChild<T>` | strip a `child` prop — as-child composition |
+| `WithoutChildren<T>` | strip `children` |
+| `WithoutChildrenOrChild<T>` | strip both |
+| `WithElementRef<T, U>` | add a bindable element `ref` prop |
+
+These mirror the shadcn-svelte conventions used across Primebrick components —
+import them instead of re-declaring.
