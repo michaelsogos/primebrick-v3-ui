@@ -1,1 +1,119 @@
-[]
+[
+  {
+    "file": "src/lib/components/SparklineBars.svelte",
+    "component": "SparklineBars",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 97,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "buckets",
+          "kind": "let",
+          "type": "SparklineBucket[] | undefined",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 31,
+              "column": 2
+            },
+            "end": {
+              "line": 31,
+              "column": 9
+            }
+          }
+        },
+        {
+          "name": "bucketUnit",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 32,
+              "column": 2
+            },
+            "end": {
+              "line": 32,
+              "column": 12
+            }
+          }
+        },
+        {
+          "name": "series",
+          "kind": "let",
+          "type": "SparklineSeries[]",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 33,
+              "column": 2
+            },
+            "end": {
+              "line": 33,
+              "column": 8
+            }
+          }
+        },
+        {
+          "name": "bucketField",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "value": "'bucket_start'",
+          "defaultValue": {
+            "raw": "'bucket_start'",
+            "kind": "literal",
+            "value": "bucket_start"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 34,
+              "column": 2
+            },
+            "end": {
+              "line": 34,
+              "column": 30
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "contexts": [],
+      "diagnostics": []
+    }
+  }
+]
