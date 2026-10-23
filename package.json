@@ -34,6 +34,31 @@
       "types": "./dist/transformers.d.ts",
       "svelte": "./dist/transformers.js",
       "default": "./dist/transformers.js"
+    },
+    "./vendor/clsx": {
+      "types": "./dist/vendor/clsx.d.ts",
+      "svelte": "./dist/vendor/clsx.js",
+      "default": "./dist/vendor/clsx.js"
+    },
+    "./vendor/tailwind-merge": {
+      "types": "./dist/vendor/tailwind-merge.d.ts",
+      "svelte": "./dist/vendor/tailwind-merge.js",
+      "default": "./dist/vendor/tailwind-merge.js"
+    },
+    "./vendor/tailwind-variants": {
+      "types": "./dist/vendor/tailwind-variants.d.ts",
+      "svelte": "./dist/vendor/tailwind-variants.js",
+      "default": "./dist/vendor/tailwind-variants.js"
+    },
+    "./vendor/lucide": {
+      "types": "./dist/vendor/lucide.d.ts",
+      "svelte": "./dist/vendor/lucide.js",
+      "default": "./dist/vendor/lucide.js"
+    },
+    "./vendor/bits-ui": {
+      "types": "./dist/vendor/bits-ui.d.ts",
+      "svelte": "./dist/vendor/bits-ui.js",
+      "default": "./dist/vendor/bits-ui.js"
     }
   },
   "files": [
@@ -56,8 +81,11 @@
   "dependencies": {
     "@primebrick/core": "workspace:*",
     "@huggingface/transformers": "4.3.1",
+    "@lucide/svelte": "1.59.0",
+    "bits-ui": "2.19.5",
     "clsx": "2.1.1",
-    "tailwind-merge": "3.7.0"
+    "tailwind-merge": "3.7.0",
+    "tailwind-variants": "3.3.1"
   },
   "devDependencies": {
     "@sveltejs/package": "3.0.1",
