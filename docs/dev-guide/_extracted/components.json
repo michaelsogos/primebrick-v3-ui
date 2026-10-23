@@ -1,5 +1,1062 @@
 [
   {
+    "file": "src/lib/components/sheet/sheet-close.svelte",
+    "component": "sheet-close",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 8,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 4,
+              "column": 7
+            },
+            "end": {
+              "line": 4,
+              "column": 28
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "SheetPrimitive.Close"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/sheet/sheet-close.svelte",
+          "kind": "prop-unknown-type",
+          "name": "ref",
+          "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 4,
+              "column": 7
+            },
+            "end": {
+              "line": 4,
+              "column": 28
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/sheet/sheet-content.svelte",
+    "component": "sheet-content",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 67,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 32,
+              "column": 2
+            },
+            "end": {
+              "line": 32,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 33,
+              "column": 2
+            },
+            "end": {
+              "line": 33,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "side",
+          "kind": "let",
+          "type": "Side",
+          "typeSource": "typescript",
+          "value": "\"right\"",
+          "defaultValue": {
+            "raw": "\"right\"",
+            "kind": "literal",
+            "value": "right"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 34,
+              "column": 2
+            },
+            "end": {
+              "line": 34,
+              "column": 16
+            }
+          }
+        },
+        {
+          "name": "showClose",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "true",
+          "defaultValue": {
+            "raw": "true",
+            "kind": "literal",
+            "value": true
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 35,
+              "column": 2
+            },
+            "end": {
+              "line": 35,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "modal",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "true",
+          "defaultValue": {
+            "raw": "true",
+            "kind": "literal",
+            "value": true
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 36,
+              "column": 2
+            },
+            "end": {
+              "line": 36,
+              "column": 14
+            }
+          }
+        },
+        {
+          "name": "portalProps",
+          "kind": "let",
+          "type": "SheetPrimitive.PortalProps",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 37,
+              "column": 2
+            },
+            "end": {
+              "line": 37,
+              "column": 13
+            }
+          }
+        }
+      ],
+      "moduleExports": [
+        {
+          "name": "sheetVariants",
+          "kind": "const",
+          "typeSource": "unknown",
+          "value": "tv({\n\t\tbase: \"bg-background data-[state=open]:animate-in data-[state=closed]:animate-out fixed z-100 gap-4 p-6 transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500\",\n\t\tvariants: {\n\t\t\tside: {\n\t\t\t\ttop: \"data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top inset-x-0 top-0 border-b\",\n\t\t\t\tbottom: \"data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 border-t\",\n\t\t\t\tleft: \"data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm\",\n\t\t\t\tright: \"data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm\",\n\t\t\t},\n\t\t},\n\t\tdefaultVariants: {\n\t\t\tside: \"right\",\n\t\t},\n\t})",
+          "defaultValue": {
+            "raw": "tv({ \t\tbase: \"bg-background data-[state=open]:animate-in data-[state=closed]:animate-out fixed z-100 gap-4 p-6 transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500\", \t\tvariants: { \t\t\tside: { \t\t\t\ttop: \"data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top inset-x-0 top-0 border-b\", \t\t\t\tbottom: \"data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 border-t\", \t\t\t\tleft: \"data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm\", \t\t\t\tright: \"data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm\", \t\t\t}, \t\t}, \t\tdefaultVariants: { \t\t\tside: \"right\", \t\t}, \t})",
+            "kind": "expression"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": true,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 3,
+              "column": 1
+            },
+            "end": {
+              "line": 16,
+              "column": 4
+            }
+          }
+        }
+      ],
+      "slots": [
+        {
+          "name": null,
+          "default": true,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 56,
+              "column": 2
+            },
+            "end": {
+              "line": 56,
+              "column": 24
+            }
+          }
+        }
+      ],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "SheetPrimitive.Content"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/sheet/sheet-content.svelte",
+          "kind": "prop-unknown-type",
+          "name": "ref",
+          "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 32,
+              "column": 2
+            },
+            "end": {
+              "line": 32,
+              "column": 23
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/sheet/sheet-content.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 33,
+              "column": 2
+            },
+            "end": {
+              "line": 33,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/sheet/sheet-description.svelte",
+    "component": "sheet-description",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 17,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 18
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "SheetPrimitive.Description"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/sheet/sheet-description.svelte",
+          "kind": "prop-unknown-type",
+          "name": "ref",
+          "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/sheet/sheet-description.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/sheet/sheet-footer.svelte",
+    "component": "sheet-footer",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 21,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "type": "null | HTMLDivElement",
+          "typeSource": "inferred",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 18
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [
+        {
+          "name": null,
+          "default": true,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 19,
+              "column": 1
+            },
+            "end": {
+              "line": 19,
+              "column": 23
+            }
+          }
+        }
+      ],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "Element",
+        "name": "div"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/sheet/sheet-footer.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/sheet/sheet-header.svelte",
+    "component": "sheet-header",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 21,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "type": "null | HTMLDivElement",
+          "typeSource": "inferred",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 18
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [
+        {
+          "name": null,
+          "default": true,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 19,
+              "column": 1
+            },
+            "end": {
+              "line": 19,
+              "column": 23
+            }
+          }
+        }
+      ],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "Element",
+        "name": "div"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/sheet/sheet-header.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/sheet/sheet-overlay.svelte",
+    "component": "sheet-overlay",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 22,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 18
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "SheetPrimitive.Overlay"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/sheet/sheet-overlay.svelte",
+          "kind": "prop-unknown-type",
+          "name": "ref",
+          "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/sheet/sheet-overlay.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/sheet/sheet-portal.svelte",
+    "component": "sheet-portal",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 8,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "SheetPrimitive.Portal"
+      },
+      "contexts": [],
+      "diagnostics": []
+    }
+  },
+  {
+    "file": "src/lib/components/sheet/sheet-title.svelte",
+    "component": "sheet-title",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 17,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 18
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "SheetPrimitive.Title"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/sheet/sheet-title.svelte",
+          "kind": "prop-unknown-type",
+          "name": "ref",
+          "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/sheet/sheet-title.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/sheet/sheet-trigger.svelte",
+    "component": "sheet-trigger",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 8,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 4,
+              "column": 7
+            },
+            "end": {
+              "line": 4,
+              "column": 28
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "SheetPrimitive.Trigger"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/sheet/sheet-trigger.svelte",
+          "kind": "prop-unknown-type",
+          "name": "ref",
+          "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 4,
+              "column": 7
+            },
+            "end": {
+              "line": 4,
+              "column": 28
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/sheet/sheet.svelte",
+    "component": "sheet",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 8,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "open",
+          "kind": "let",
+          "bindable": true,
+          "type": "boolean",
+          "typeSource": "default",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 4,
+              "column": 7
+            },
+            "end": {
+              "line": 4,
+              "column": 30
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "SheetPrimitive.Root"
+      },
+      "contexts": [],
+      "diagnostics": []
+    }
+  },
+  {
     "file": "src/lib/components/SparklineBars.svelte",
     "component": "SparklineBars",
     "data": {
