@@ -28,7 +28,7 @@
  */
 
 import { readable, type Readable } from 'svelte/store';
-import type { MfaStepUpFn, ModuleHostBase, OpenSheetFn } from '@primebrick/core';
+import type { MfaStepUpFn, ModuleHostBase, ModuleNotifyInput, OpenSheetFn } from '@primebrick/core';
 
 /** Translation function shape — matches `ctx.i18n.t` and the FE `$t` body. */
 export type TranslateFn = (key: string, params?: Record<string, unknown>) => string;
@@ -39,6 +39,9 @@ export type TranslateFn = (key: string, params?: Record<string, unknown>) => str
  * `Promise<Response>` out.
  */
 export type ServiceApiFn = (path: string, init?: RequestInit) => Promise<Response>;
+
+/** User-facing notification — the canonical `ctx.notify` / FE `pushNotification` shape. */
+export type NotifyFn = (input: ModuleNotifyInput) => void;
 
 /** Named service-api slots: `'host'` = raw host API base; `'ai'`/`'job'`/… = `/ws/<code>`-bound. */
 export type ServiceApiName = 'host' | (string & {});
@@ -63,6 +66,7 @@ type BridgeStore = {
 	locale?: () => string;
 	openSheet?: OpenSheetFn;
 	mfaStepUp?: MfaStepUpFn;
+	notify?: NotifyFn;
 	serviceApis: Map<string, ServiceApiFn>;
 };
 
@@ -115,6 +119,17 @@ export function getOpenSheet(): OpenSheetFn {
 	return _store.openSheet;
 }
 
+/** Bind the notification sink (host `pushNotification` or remote `ctx.notify`). */
+export function bindNotify(fn: NotifyFn): void {
+	_store.notify = fn;
+}
+
+/** The bound notification sink — throws when unbound. */
+export function getNotify(): NotifyFn {
+	if (!_store.notify) unbound('notify');
+	return _store.notify;
+}
+
 /** Bind the host step-up MFA bridge (`ctx.components.mfaStepUp`). */
 export function bindStepUp(fn: MfaStepUpFn): void {
 	_store.mfaStepUp = fn;
@@ -157,6 +172,7 @@ export function bindRemoteCtx(ctx: ModuleHostBase, opts?: { service?: string }):
 		readable((key: string, params?: Record<string, unknown>) => ctx.i18n.t(key, params)),
 		() => ctx.i18n.locale,
 	);
+	if (ctx.notify) bindNotify(ctx.notify);
 	if (ctx.components?.openSheet) bindSheet(ctx.components.openSheet);
 	if (ctx.components?.mfaStepUp) bindStepUp(ctx.components.mfaStepUp);
 	const hostApi = ctx.components?.hostApi as ServiceApiFn | undefined;

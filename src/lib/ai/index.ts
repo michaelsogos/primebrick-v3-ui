@@ -8,3 +8,4 @@ export * from './types.js';
 export * from './ai-model-test-scores.js';
 export * from './ai-cerebellum.js';
 export * from './resumable-fetch.js';
+export { fetchAiModels, fetchAiCerebellum } from './service-api.js';

@@ -1,0 +1,8 @@
+{
+  "@primebrick/ui/vendor/transformers": "@huggingface/transformers",
+  "@primebrick/ui/vendor/clsx": "clsx",
+  "@primebrick/ui/vendor/tailwind-merge": "tailwind-merge",
+  "@primebrick/ui/vendor/tailwind-variants": "tailwind-variants",
+  "@primebrick/ui/vendor/lucide": "@lucide/svelte",
+  "@primebrick/ui/vendor/bits-ui": "bits-ui"
+}
