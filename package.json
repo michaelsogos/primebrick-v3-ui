@@ -30,10 +30,10 @@
       "svelte": "./dist/utils/index.js",
       "default": "./dist/utils/index.js"
     },
-    "./transformers": {
-      "types": "./dist/transformers.d.ts",
-      "svelte": "./dist/transformers.js",
-      "default": "./dist/transformers.js"
+    "./vendor/transformers": {
+      "types": "./dist/vendor/transformers.d.ts",
+      "svelte": "./dist/vendor/transformers.js",
+      "default": "./dist/vendor/transformers.js"
     },
     "./vendor/clsx": {
       "types": "./dist/vendor/clsx.d.ts",
