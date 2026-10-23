@@ -8,6 +8,7 @@
  *
  * Paths are service-relative (`/api/v1/…`) — the slot prepends `/ws/ai`.
  */
+import { extJsonStringify } from '@primebrick/core';
 import { getServiceApi } from '../bridges.js';
 import type { AiCerebellum, AiModel } from './types.js';
 
@@ -55,4 +56,118 @@ export async function fetchAiCerebellum(filters?: {
 	if (!res.ok) throw new Error(`AI cerebellum fetch failed (${res.status})`);
 	const data = (await res.json()) as { rows: AiCerebellum[] };
 	return data.rows;
+}
+
+// ─── Module config entries (ai-schema-owned config rows) ────────────────────
+
+/** Row shape of `ai.config_entries` as served by the ai config_entry routes. */
+export type AiConfigEntry = {
+	uuid: string;
+	key: string;
+	value: string | null;
+	type?: string;
+	label_key?: string;
+	description_key?: string;
+	group_key?: string;
+	reserved?: boolean;
+	version: number;
+};
+
+export async function fetchAiConfigEntries(): Promise<AiConfigEntry[]> {
+	const res = await getServiceApi('ai')('/api/v1/entities/config_entry/list');
+	if (!res.ok) throw new Error(`Config fetch failed (${res.status})`);
+	const data = (await res.json()) as { config_entries: AiConfigEntry[] };
+	return data.config_entries;
+}
+
+export async function updateAiConfigEntry(
+	uuid: string,
+	value: string | number | bigint,
+	version: number,
+): Promise<AiConfigEntry> {
+	const res = await getServiceApi('ai')(
+		`/api/v1/entities/config_entry/${encodeURIComponent(uuid)}`,
+		{
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			body: extJsonStringify({ entity: { value, version } }),
+		},
+	);
+	if (!res.ok) throw new Error(`Config update failed (${res.status})`);
+	const data = (await res.json()) as { config_entries: AiConfigEntry };
+	return data.config_entries;
+}
+
+// ─── Docs index admin (ai-owned knowledge-base index) ───────────────────────
+
+export interface DocsIndexRepoRow {
+	repo: string;
+	docs: bigint;
+	chunks: bigint;
+	unembedded_chunks: bigint;
+	content_bytes: bigint;
+	vector_bytes: bigint;
+}
+
+export interface DocsIndexDrift {
+	service: string;
+	repo?: string;
+	error?: string;
+	expected_docs?: bigint;
+	expected_chunks?: bigint;
+	missing_from_index?: string[];
+	stale?: string[];
+	orphans?: string[];
+	unembedded_chunks?: bigint;
+}
+
+export interface DocsIngestLogRow {
+	id: bigint;
+	repo: string | null;
+	service_code: string;
+	trigger_source: string;
+	ok: boolean;
+	stats: Record<string, unknown>;
+	error: string | null;
+	created_at: string;
+}
+
+export interface DocsIndexProbe {
+	query: string;
+	expect_path_includes: string;
+	ok: boolean;
+	top: Array<{ repo: string; path: string; similarity: number }>;
+}
+
+export interface DocsIndexStatus {
+	repos: DocsIndexRepoRow[];
+	drift: DocsIndexDrift[];
+	history: DocsIngestLogRow[];
+	probes?: DocsIndexProbe[];
+	storage: { total_bytes: bigint } | null;
+}
+
+export async function fetchDocsIndexStatus(probe = false): Promise<DocsIndexStatus> {
+	const res = await getServiceApi('ai')(`/api/v1/ai/docs/index-status${probe ? '?probe=1' : ''}`);
+	if (!res.ok) throw new Error(`Docs index status failed (${res.status})`);
+	return (await res.json()) as DocsIndexStatus;
+}
+
+export interface DocsReindexResult {
+	service: string;
+	repo?: string;
+	ok: boolean;
+	stats?: Record<string, unknown>;
+	error?: string;
+}
+
+export async function reindexDocsPacks(repo?: string): Promise<DocsReindexResult[]> {
+	const res = await getServiceApi('ai')('/api/v1/ai/reindex', {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: extJsonStringify({ mode: 'packs', ...(repo ? { repo } : {}) }),
+	});
+	if (!res.ok) throw new Error(`Reindex failed (${res.status})`);
+	const data = (await res.json()) as { results: DocsReindexResult[] };
+	return data.results;
 }

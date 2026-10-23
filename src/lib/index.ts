@@ -57,6 +57,28 @@ export { SliderField } from './components/slider-field/index.js';
 export { SwitchField } from './components/switch-field/index.js';
 export { SelectableFieldset, SelectableRow, SelectableToolbar } from './components/selectable-fieldset/index.js';
 export { RefreshButton } from './components/refresh-button/index.js';
+export {
+	Toolbar,
+	ToolbarButton,
+	ToolbarLink,
+	ToolbarGroup,
+	ToolbarGroupItem,
+	ToolbarDivider,
+} from './components/toolbar/index.js';
+export {
+	ButtonGroup,
+	ButtonGroupText,
+	ButtonGroupSeparator,
+	buttonGroupVariants,
+	type ButtonGroupOrientation,
+} from './components/button-group/index.js';
+export { Separator } from './components/separator/index.js';
+export { StatCard } from './components/stat-card/index.js';
+export { NumberTicker } from './components/number-ticker/index.js';
+export { DeleteDialog, EntityConfirmQuestion, DeletionFilterToggle } from './components/entity-list/index.js';
+export { getEntitiesNsContext, setEntitiesNsContext } from './components/entity-list/index.js';
+export { useMachineCapabilities } from './composables/useMachineCapabilities.svelte.js';
+export type { MachineCapabilities } from './composables/useMachineCapabilities.svelte.js';
 export { default as BorderedDialog } from './components/dialog-bordered.svelte';
 export { default as DynamicIcon } from './components/dynamic-icon/DynamicIcon.svelte';
 export { default as FormLabelWithPriorityHelp } from './components/forms/FormLabelWithPriorityHelp.svelte';

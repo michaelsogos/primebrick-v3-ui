@@ -35,6 +35,16 @@
       "svelte": "./dist/ai/index.js",
       "default": "./dist/ai/index.js"
     },
+    "./cache": {
+      "types": "./dist/cache/etag-store.d.ts",
+      "svelte": "./dist/cache/etag-store.js",
+      "default": "./dist/cache/etag-store.js"
+    },
+    "./bridges": {
+      "types": "./dist/bridges.d.ts",
+      "svelte": "./dist/bridges.js",
+      "default": "./dist/bridges.js"
+    },
     "./vendor/transformers": {
       "types": "./dist/vendor/transformers.d.ts",
       "svelte": "./dist/vendor/transformers.js",
