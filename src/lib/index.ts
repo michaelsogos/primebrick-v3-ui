@@ -15,3 +15,9 @@ export type { SparklineBucket, SparklineSeries } from './components/SparklineBar
 // remote sheet consumers share (`import { Sheet } from '@primebrick/ui'` →
 // `<Sheet.Root>`/`<Sheet.Content>`/…).
 export * as Sheet from './components/sheet/index.js';
+
+// AI domain leaf libs — dual-realm consumption mirror (shell chrome AND
+// remote module chunks); the domain truth stays service-side. Also
+// reachable as the narrow `@primebrick/ui/ai` subpath.
+export * from './ai/index.js';
+export * from './cache/etag-store.js';
