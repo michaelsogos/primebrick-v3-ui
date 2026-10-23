@@ -47,4 +47,4 @@ trigger: always_on
 
 ## Deep dive
 
-The normative rules live here; the full mechanics and rationale are in `docs/dev-guide/entities.mdx` — link, do not duplicate.
+The normative rules live here; the library conventions are in `docs/dev-guide/overview.mdx` — link, do not duplicate.

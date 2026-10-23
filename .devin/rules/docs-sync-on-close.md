@@ -43,16 +43,15 @@ and/or lock files, SKIP docs entirely. Docs were already updated during
 feature closes. Proceed to step 6.
 
 **For feature/hotfix branches**: check if the changed files affect
-user-facing behavior. For this repo (DAL library), user-facing changes
-include:
-- Public API changes (src/index.ts exports, new/removed exports)
-- Repository class changes (methods, signatures, options)
-- Entity decorator changes (@Entity, @Column, @Key, @Unique, etc.)
-- Type changes (src/types/**)
-- Query builder changes (src/query/**)
-- Error class changes (src/errors/**)
-- Connection / pool management changes
-- Migration / schema management changes
+user-facing behavior. For this repo (UI component library), user-facing
+changes include:
+- Public export changes (src/lib/index.ts, package.json `exports` —
+  including the `./vendor/<lib>` sanctioned vendor subpaths)
+- Component API changes (props, events, slots/snippets — src/lib/components/**)
+- Composable/utility signature changes (src/lib/utils/**)
+- Vendor surface changes (src/lib/vendor/** — what each sanctioned subpath
+  re-exports; FE host + remote modules consume these as singletons)
+- Type changes that consumers import (contract types, props types)
 
 If NO user-facing files changed, skip to step 6 (proceed with normal close).
 
