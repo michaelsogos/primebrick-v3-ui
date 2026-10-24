@@ -67,6 +67,12 @@ Build is `svelte-package` — `src/lib` ships as `.svelte` sources + `.d.ts` in
   required semantics for libraries; `svelte: ^5.0.0` is intentional).
 - **Components live under `src/lib/components/`**, utilities under
   `src/lib/utils/`, composables under `src/lib/composables/`.
+- **Every component/composable judged reusable lands HERE at creation —
+  never in a consumer repo.** Remote module bundles can only consume
+  vendored packages; anything FE-local is unreachable to remotes, so
+  "reusable" and "FE-local" are contradictory by definition. If a
+  component is domain-specific and consumed only by one service's remote
+  bundle, it stays in that service's `fe/` — that is not reusability.
 
 ## GitFlow
 

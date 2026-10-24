@@ -7270,6 +7270,525 @@
     }
   },
   {
+    "file": "src/lib/components/input-otp/input-otp-group.svelte",
+    "component": "input-otp-group",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 16,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "type": "null | HTMLDivElement",
+          "typeSource": "inferred",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 18
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [
+        {
+          "name": null,
+          "default": true,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 14,
+              "column": 1
+            },
+            "end": {
+              "line": 14,
+              "column": 23
+            }
+          }
+        }
+      ],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "Element",
+        "name": "div"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/input-otp/input-otp-group.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/input-otp/input-otp-separator.svelte",
+    "component": "input-otp-separator",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 20,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "type": "null | HTMLDivElement",
+          "typeSource": "inferred",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 23
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [
+        {
+          "name": null,
+          "default": true,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 15,
+              "column": 2
+            },
+            "end": {
+              "line": 15,
+              "column": 22
+            }
+          }
+        }
+      ],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "Element",
+        "name": "div"
+      },
+      "contexts": [],
+      "diagnostics": []
+    }
+  },
+  {
+    "file": "src/lib/components/input-otp/input-otp-slot.svelte",
+    "component": "input-otp-slot",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 31,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "cell",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 6
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 18
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "InputOTPPrimitive.Cell"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/input-otp/input-otp-slot.svelte",
+          "kind": "prop-unknown-type",
+          "name": "ref",
+          "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/input-otp/input-otp-slot.svelte",
+          "kind": "prop-unknown-type",
+          "name": "cell",
+          "message": "Prop \"cell\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 6
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/input-otp/input-otp-slot.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/input-otp/input-otp.svelte",
+    "component": "input-otp",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 22,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "inputRef",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 28
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "value",
+          "kind": "let",
+          "bindable": true,
+          "type": "string",
+          "typeSource": "default",
+          "value": "\"\"",
+          "defaultValue": {
+            "raw": "\"\"",
+            "kind": "literal",
+            "value": ""
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 9,
+              "column": 2
+            },
+            "end": {
+              "line": 9,
+              "column": 23
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "InputOTPPrimitive.Root"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/input-otp/input-otp.svelte",
+          "kind": "prop-unknown-type",
+          "name": "ref",
+          "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/input-otp/input-otp.svelte",
+          "kind": "prop-unknown-type",
+          "name": "inputRef",
+          "message": "Prop \"inputRef\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 28
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/input-otp/input-otp.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
     "file": "src/lib/components/number-ticker/number-ticker.svelte",
     "component": "number-ticker",
     "data": {
@@ -7472,6 +7991,228 @@
           }
         }
       ]
+    }
+  },
+  {
+    "file": "src/lib/components/otp-input/otp-input.svelte",
+    "component": "otp-input",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 115,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "value",
+          "kind": "let",
+          "bindable": true,
+          "type": "string",
+          "typeSource": "typescript",
+          "value": "\"\"",
+          "defaultValue": {
+            "raw": "\"\"",
+            "kind": "literal",
+            "value": ""
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 23,
+              "column": 2
+            },
+            "end": {
+              "line": 23,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "maxlength",
+          "kind": "let",
+          "type": "number",
+          "typeSource": "typescript",
+          "value": "6",
+          "defaultValue": {
+            "raw": "6",
+            "kind": "literal",
+            "value": 6
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 24,
+              "column": 2
+            },
+            "end": {
+              "line": 24,
+              "column": 15
+            }
+          }
+        },
+        {
+          "name": "disabled",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 25,
+              "column": 2
+            },
+            "end": {
+              "line": 25,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "autofocus",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "true",
+          "defaultValue": {
+            "raw": "true",
+            "kind": "literal",
+            "value": true
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 26,
+              "column": 2
+            },
+            "end": {
+              "line": 26,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "id",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 27,
+              "column": 2
+            },
+            "end": {
+              "line": 27,
+              "column": 4
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 28,
+              "column": 2
+            },
+            "end": {
+              "line": 28,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "data-testid",
+          "localName": "dataTestid",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 29,
+              "column": 2
+            },
+            "end": {
+              "line": 29,
+              "column": 27
+            }
+          }
+        },
+        {
+          "name": "onsubmit",
+          "kind": "let",
+          "type": "(value: string) => void",
+          "typeSource": "typescript",
+          "isFunction": true,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 30,
+              "column": 2
+            },
+            "end": {
+              "line": 30,
+              "column": 10
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "contexts": [],
+      "diagnostics": []
     }
   },
   {
