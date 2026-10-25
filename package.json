@@ -1,0 +1,127 @@
+{
+  "name": "@primebrick/ui",
+  "version": "3.0.0",
+  "description": "Shared Svelte 5 component library for Primebrick v3 — reusable components, composables, primitives and utilities consumed by the core frontend app and remote module pages.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": "24"
+  },
+  "author": "Michael Sogos",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaelsogos/primebrick-v3-ui.git"
+  },
+  "homepage": "https://github.com/michaelsogos/primebrick-v3-ui#readme",
+  "bugs": {
+    "url": "https://github.com/michaelsogos/primebrick-v3-ui/issues"
+  },
+  "svelte": "./dist/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./utils": {
+      "types": "./dist/utils/index.d.ts",
+      "svelte": "./dist/utils/index.js",
+      "default": "./dist/utils/index.js"
+    },
+    "./ai": {
+      "types": "./dist/ai/index.d.ts",
+      "svelte": "./dist/ai/index.js",
+      "default": "./dist/ai/index.js"
+    },
+    "./cache": {
+      "types": "./dist/cache/etag-store.d.ts",
+      "svelte": "./dist/cache/etag-store.js",
+      "default": "./dist/cache/etag-store.js"
+    },
+    "./bridges": {
+      "types": "./dist/bridges.d.ts",
+      "svelte": "./dist/bridges.js",
+      "default": "./dist/bridges.js"
+    },
+    "./vendor/transformers": {
+      "types": "./dist/vendor/transformers.d.ts",
+      "svelte": "./dist/vendor/transformers.js",
+      "default": "./dist/vendor/transformers.js"
+    },
+    "./vendor/clsx": {
+      "types": "./dist/vendor/clsx.d.ts",
+      "svelte": "./dist/vendor/clsx.js",
+      "default": "./dist/vendor/clsx.js"
+    },
+    "./vendor/tailwind-merge": {
+      "types": "./dist/vendor/tailwind-merge.d.ts",
+      "svelte": "./dist/vendor/tailwind-merge.js",
+      "default": "./dist/vendor/tailwind-merge.js"
+    },
+    "./vendor/tailwind-variants": {
+      "types": "./dist/vendor/tailwind-variants.d.ts",
+      "svelte": "./dist/vendor/tailwind-variants.js",
+      "default": "./dist/vendor/tailwind-variants.js"
+    },
+    "./vendor/lucide": {
+      "types": "./dist/vendor/lucide.d.ts",
+      "svelte": "./dist/vendor/lucide.js",
+      "default": "./dist/vendor/lucide.js"
+    },
+    "./vendor/bits-ui": {
+      "types": "./dist/vendor/bits-ui.d.ts",
+      "svelte": "./dist/vendor/bits-ui.js",
+      "default": "./dist/vendor/bits-ui.js"
+    },
+    "./vendor-map.json": "./vendor-map.json",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist/",
+    "vendor-map.json"
+  ],
+  "scripts": {
+    "version:auto": "node scripts/version-sync.mjs",
+    "prebuild": "node scripts/version-sync.mjs && pnpm check:standards && pnpm extract-docs",
+    "build": "svelte-package && node scripts/fix-vendor-depth.mjs",
+    "prepare": "svelte-package && node scripts/fix-vendor-depth.mjs",
+    "test": "pnpm check:standards && vitest run",
+    "test:watch": "vitest",
+    "check": "svelte-check --tsconfig tsconfig.json",
+    "extract-docs": "node scripts/extract-component-docs.mjs",
+    "check:standards": "node tools/check-standards.ts src --profile=lib"
+  },
+  "peerDependencies": {
+    "svelte": "^5.56.4"
+  },
+  "dependencies": {
+    "@primebrick/core": "workspace:*",
+    "@huggingface/transformers": "4.3.1",
+    "@lucide/svelte": "1.59.0",
+    "bits-ui": "2.19.5",
+    "clsx": "2.1.1",
+    "tailwind-merge": "3.7.0",
+    "tailwind-variants": "3.3.1",
+    "tailwindcss": "4.3.3",
+    "esm-env": "1.2.2"
+  },
+  "devDependencies": {
+    "@sveltejs/package": "3.0.1",
+    "@sveltejs/vite-plugin-svelte": "7.3.1",
+    "@tsconfig/svelte": "5.0.8",
+    "@types/node": "24.13.3",
+    "sveld": "0.36.0",
+    "svelte": "5.57.2",
+    "svelte-check": "4.7.7",
+    "typescript": "6.0.3",
+    "vite": "8.3.4",
+    "vitest": "4.1.10"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "packageManager": "pnpm@9.15.9"
+}

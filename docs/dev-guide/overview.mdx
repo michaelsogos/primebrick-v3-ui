@@ -1,0 +1,29 @@
+---
+title: Overview
+description: @primebrick/ui — the shared Svelte 5 component library consumed by the Primebrick frontend and remote module pages.
+---
+
+`@primebrick/ui` is the reusable UI layer of Primebrick v3. It ships via
+`svelte-package` — `src/lib` is published as `.svelte` sources + `.d.ts`, so
+consumers compile components with their own Svelte 5 compiler.
+
+<Mermaid chart={`graph LR
+  UI["@primebrick/ui"] --> FE["primebrick-fe-v3"]
+  UI --> REM["remote module pages (ESM chunks)"]
+  CORE["@primebrick/core"] --> UI
+`} />
+
+## Why sources, not bundles
+
+Remote module pages (`mountPage(el, ctx)` ESM chunks) bundle their own copy of
+this library at their build time. Svelte rune state is bundle-local — host and
+remote must not share component instances' reactivity, so shipping sources and
+letting each consumer compile is the correct boundary.
+
+## Rules for components in this package
+
+- Svelte 5 runes only (`$props`, `$state`, `$derived`, snippets).
+- No app-coupled imports (`$app/*`, host `$lib` aliases, router navigation).
+- Host-specific capabilities (i18n, permissions, navigation) arrive via plain
+  prop/callback injection — never via app stores.
+- Contract-shaped props/fields stay `snake_case` end-to-end.
