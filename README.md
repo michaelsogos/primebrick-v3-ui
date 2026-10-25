@@ -1,12 +1,14 @@
 # @primebrick/ui
 
-Shared Svelte 5 component library for Primebrick v3 — components, composables,
-primitives and utilities consumed by the core frontend app and remote module
-pages.
+Shared Svelte 5 component library for Primebrick v3 — components,
+composables, primitives and utilities consumed by the core frontend app
+and remote module pages. Also owns the **vendor plane**: sanctioned
+`./vendor/<lib>` subpaths (clsx, tailwind-merge, tailwind-variants,
+lucide, bits-ui, transformers) that the host import map resolves to
+prebuilt bundles — one library instance shared between host and remotes.
 
 Distributed via `svelte-package`: `src/lib` ships as `.svelte` sources +
-`.d.ts` — consumers compile with their own Svelte 5 compiler (remote ESM module
-pages bundle their own copy; rune state is bundle-local by design).
+`.d.ts` — consumers compile with their own Svelte 5 compiler.
 
 ## Install
 
@@ -16,21 +18,13 @@ pnpm add @primebrick/ui
 
 Requires `svelte ^5` (peer dependency).
 
-## Usage
+## Documentation
 
-```ts
-import { cn, type WithElementRef } from "@primebrick/ui";
-```
-
-## Contents (v3.0.0 — bootstrap)
-
-| Export | Purpose |
-|--------|---------|
-| `cn` | `clsx` + `tailwind-merge` class combiner |
-| `WithoutChild` / `WithoutChildren` / `WithoutChildrenOrChild` / `WithElementRef` | prop-helper types for component composition |
-
-Components migrate here from `primebrick-fe-v3` as the shared-library extraction
-lands (entity list system, ui primitives, composables).
+- [AGENTS.md](./AGENTS.md) — agent entry point, repo conventions
+- [docs/dev-guide/](./docs/dev-guide/) — component catalog + generated API
+  reference
+- `package.json` `exports` — the source of truth for every importable
+  subpath (components, utils, `./vendor/<lib>`)
 
 ## License
 

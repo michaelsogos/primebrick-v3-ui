@@ -1,5 +1,23 @@
 # AI AGENT INSTRUCTIONS - @primebrick/ui
 
+## Documentation is the contract — code is the proof
+
+- Docs (AGENTS.md, .devin/rules/, docs/ai/, docs/dev-guide/, docs/user-guide/)
+  are the source of truth for HOW things work. Source code is NEVER
+  documentation: pages are composed dynamically (mountPage, remote chunks,
+  layout.sections, runtime wiring) — reading a +page.svelte alone tells you
+  little about what actually renders.
+- Need to know how to do something (tests, auth, dev servers, conventions)?
+  Find it in the doc FIRST. Read code only as the "prova del 9" — to verify
+  the code behaves as the doc says. Never the reverse.
+- Doc and code disagree? Report the discrepancy — the doc is probably stale.
+  Do NOT fix docs silently and do NOT create new files in .devin/rules/,
+  docs/, or AGENTS.md on your own initiative: propose the text, write only
+  after approval.
+- Before claiming "a doc is missing", check the indexes:
+  docs/ai/README.md, .devin/rules/, docs/dev-guide/_order.json.
+  The missing doc is usually a doc you haven't read.
+
 ## ⚠️ CRITICAL: NEVER COMMIT AUTOMATICALLY
 
 **AI agents MUST NEVER commit changes without explicit user instruction.**
@@ -49,6 +67,12 @@ Build is `svelte-package` — `src/lib` ships as `.svelte` sources + `.d.ts` in
   required semantics for libraries; `svelte: ^5.0.0` is intentional).
 - **Components live under `src/lib/components/`**, utilities under
   `src/lib/utils/`, composables under `src/lib/composables/`.
+- **Every component/composable judged reusable lands HERE at creation —
+  never in a consumer repo.** Remote module bundles can only consume
+  vendored packages; anything FE-local is unreachable to remotes, so
+  "reusable" and "FE-local" are contradictory by definition. If a
+  component is domain-specific and consumed only by one service's remote
+  bundle, it stays in that service's `fe/` — that is not reusability.
 
 ## GitFlow
 
