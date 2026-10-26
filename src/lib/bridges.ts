@@ -10,7 +10,7 @@
  * - HOST realm (the FE app bundles ui at build time) — bind once at app
  *   boot via `host-bindings.ts`: `bindI18n(t)`, `bindSheet(openSheet)`,
  *   `bindServiceApi('host', apiFetch)`,
- *   `bindServiceApi('ai', (p,i) => apiFetch('/ws/ai'+p, i))`.
+ *   `bindServiceApi('ai', (p,i) => apiFetch('/svc/ai'+p, i))`.
  * - REMOTE realm (module pages resolve the vendored `primebrick-ui.js`
  *   through the import map — a second module instance) — the remote
  *   `mountPage` binds its OWN vendored copy once via
@@ -43,7 +43,7 @@ export type ServiceApiFn = (path: string, init?: RequestInit) => Promise<Respons
 /** User-facing notification — the canonical `ctx.notify` / FE `pushNotification` shape. */
 export type NotifyFn = (input: ModuleNotifyInput) => void;
 
-/** Named service-api slots: `'host'` = raw host API base; `'ai'`/`'job'`/… = `/ws/<code>`-bound. */
+/** Named service-api slots: `'host'` = raw host API base; `'ai'`/`'job'`/… = `/svc/<code>`-bound. */
 export type ServiceApiName = 'host' | (string & {});
 
 /**
@@ -144,7 +144,7 @@ export function getStepUp(): MfaStepUpFn {
 /**
  * Bind a named service-api slot. `'host'` = raw authenticated fetch
  * (BE-owned `/api/v1/…` paths); a service code (`'ai'`, `'job'`, …) =
- * fetch already bound to that service's `/ws/<code>` base.
+ * fetch already bound to that service's `/svc/<code>` base.
  */
 export function bindServiceApi(name: ServiceApiName, fn: ServiceApiFn): void {
 	_store.serviceApis.set(name, fn);
@@ -163,7 +163,7 @@ export function getServiceApi(name: ServiceApiName): ServiceApiFn {
  *
  *   export function mountPage(el, ctx) { bindRemoteCtx(ctx, { service: 'job' }); … }
  *
- * `ctx.api` is already bound to the owning service's `/ws/<code>` base by
+ * `ctx.api` is already bound to the owning service's `/svc/<code>` base by
  * the host — it is registered under `service` when provided, so
  * service-owning ui composables keep working inside remotes.
  */

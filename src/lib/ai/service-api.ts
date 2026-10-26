@@ -2,11 +2,11 @@
  * ai service entity fetches — ride the named `'ai'` service-api slot so the
  * same code runs in BOTH realms:
  *
- * - host realm: `bindServiceApi('ai', p => apiFetch('/ws/ai' + p))` (host-bindings)
+ * - host realm: `bindServiceApi('ai', p => apiFetch('/svc/ai' + p))` (host-bindings)
  * - remote realm: `bindRemoteCtx(ctx, { service: 'ai' })` → `ctx.api`
- *   (already `/ws/ai`-bound by the host for ai-owned mounts)
+ *   (already `/svc/ai`-bound by the host for ai-owned mounts)
  *
- * Paths are service-relative (`/api/v1/…`) — the slot prepends `/ws/ai`.
+ * Paths are service-relative (`/api/v1/…`) — the slot prepends `/svc/ai`.
  */
 import { extJsonStringify } from '@primebrick/core';
 import { getServiceApi } from '../bridges.js';
