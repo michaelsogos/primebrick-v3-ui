@@ -87,6 +87,37 @@ export { default as BorderedDialog } from './components/dialog-bordered.svelte';
 export { default as DynamicIcon } from './components/dynamic-icon/DynamicIcon.svelte';
 export { default as FormLabelWithPriorityHelp } from './components/forms/FormLabelWithPriorityHelp.svelte';
 export type { FieldHelp } from './components/forms/field-help.js';
+export { Label } from './components/label/index.js';
+export {
+	FormField,
+	FormControl,
+	FormLabel,
+	FormDescription,
+	FormFieldErrors,
+	TranslatedFormFieldErrors,
+	FormFieldset,
+	FormLegend,
+	FormElementField,
+	FormButton,
+	PrimeField,
+} from './components/forms/index.js';
+export type { PrimeFieldHelp, MetaTooltipHelp } from './components/forms/index.js';
+export { default as Input } from './components/input/input.svelte';
+export { default as TextInput } from './components/input/text-input.svelte';
+export { CopyButton } from './components/copy-button/index.js';
+export type { CopyButtonProps, CopyButtonPropsWithoutHTML } from './components/copy-button/index.js';
+export { UseClipboard, copyText } from './composables/useClipboard.svelte.js';
+export { JsonCodeBlock, JsonEditor } from './components/json-code-block/index.js';
+export { default as JsonValueEditor } from './components/json-value-editor/json-value-editor.svelte';
+export { default as AiIcon } from './components/ai-icon/ai-icon.svelte';
+export {
+	ScheduleSpecInput,
+	parseScheduleSpec,
+	nextScheduleRuns,
+	describeScheduleSpec,
+	type ScheduleSpec,
+	type ParsedScheduleSpec,
+} from './components/schedule-spec-input/index.js';
 
 // CSS-chrome helpers — class-string constants shared by form controls.
 export {
@@ -96,7 +127,7 @@ export {
 	inputTrailingIconColorClasses,
 	inputTrailingIconButtonClasses,
 } from './components/input/input-chrome.js';
-export { badgeClassesFromToken, tailwindSwatches, tailwindFamilies } from './colors/badge.js';
+export { badgeClassesFromToken, colorCssFromToken, tailwindSwatches, tailwindFamilies } from './colors/badge.js';
 export type { TailwindColorToken, TailwindSwatch } from './colors/badge.js';
 export * from './components/menu-row-chrome.js';
 

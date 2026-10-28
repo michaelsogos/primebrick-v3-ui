@@ -17,6 +17,7 @@
 | [`docs-sync-on-close.md`](./docs-sync-on-close.md) | Sync Docs on GitFlow Close |
 | [`file-operations.md`](./file-operations.md) | File Operations |
 | [`package-versioning.md`](./package-versioning.md) | Fixed Package Versions (No Ranges) |
+| [`pre-implementation-anatomy.md`](./pre-implementation-anatomy.md) | ⚠️ MANDATORY before any UI/component work — reference lock, contract read, allocation check, contract-level tests, visual gate |
 | [`temp-files.md`](./temp-files.md) | Temporary Files Location |
 | [`verify-file-creation.md`](./verify-file-creation.md) | Verify File Creation (Prevent Truncated Filename Bug) |
 | [`workflow.md`](./workflow.md) | Devin Workflow Rule: Tic-Toc Planning |

@@ -81,6 +81,24 @@ function clampShade(v: number) {
   return best as (typeof allowed)[number];
 }
 
+/** Resolve a color token (`"amber-500"`, hex, `rgb()/oklch()` css) to a raw
+ *  CSS color string — same vocabulary as {@link badgeClassesFromToken},
+ *  minus the badge box model. For icon/text `style="color: …"` use where a
+ *  Tailwind class can't be generated from option data. */
+export function colorCssFromToken(token: TailwindColorToken | string | null | undefined): string | null {
+	if (token == null || token === '') return null;
+	const m = token.match(/^([a-z]+)-(\d{2,3})$/);
+	if (m) {
+		const family = (tailwindColors as Record<string, unknown>)[m[1]];
+		const shade = clampShade(Number(m[2]));
+		return family && typeof family === 'object'
+			? ((family as Record<number, string>)[shade] ?? (family as Record<number, string>)[300])
+			: null;
+	}
+	if (token.startsWith('#') || /^[a-z]+\s*\(/.test(token)) return token;
+	return null;
+}
+
 export function badgeClassesFromToken(token: TailwindColorToken | string | null | undefined) {
   // token example: "zinc-300"
   const m = token?.match(/^([a-z]+)-(\d{2,3})$/);

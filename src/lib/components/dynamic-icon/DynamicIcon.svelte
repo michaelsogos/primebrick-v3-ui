@@ -37,10 +37,14 @@
     name,
     size = 16,
     class: className,
+    style,
   }: {
     name: string;
     size?: number;
     class?: string;
+    /** Inline style — for colors resolved from option data (token → CSS)
+     *  where a Tailwind class cannot be generated. */
+    style?: string;
   } = $props();
 
   let IconComp = $state<any>(null);
@@ -62,7 +66,7 @@
 </script>
 
 {#if IconComp}
-  <IconComp {size} class={cn(className)} />
+  <IconComp {size} class={cn(className)} {style} />
 {:else if missing}
   <span
     role="img"

@@ -37,7 +37,7 @@
 				"placeholder:text-muted-foreground",
 				"selection:bg-primary selection:text-primary-foreground",
 				"focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0",
-				value && "pr-8",
+				"pr-8",
 				className
 			)}
 			{...restProps}
@@ -47,17 +47,18 @@
 			{/snippet}
 		</CommandPrimitive.Input>
 		<!-- X clear button: absolute-positioned on the right, same pattern as
-		     TextInput's clear button (inputTrailingIconButtonClasses). DRY. -->
-		{#if value}
-			<button
-				type="button"
-				onclick={() => { value = ''; ref?.focus(); }}
-				class={inputTrailingIconButtonClasses}
-				aria-label="Clear search"
-				data-testid="command-input-clear"
-			>
-				<Eraser class="size-4" />
-			</button>
-		{/if}
+		     TextInput's clear button (inputTrailingIconButtonClasses). DRY.
+		     Always rendered — disabled while the query is empty so the CTA
+		     never pops the row's layout in and out. -->
+		<button
+			type="button"
+			onclick={() => { value = ''; ref?.focus(); }}
+			class={inputTrailingIconButtonClasses}
+			aria-label="Clear search"
+			disabled={!value}
+			data-testid="command-input-clear"
+		>
+			<Eraser class="size-4" />
+		</button>
 	</div>
 </div>
