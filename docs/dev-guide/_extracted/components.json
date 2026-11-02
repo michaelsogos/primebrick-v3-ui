@@ -1894,6 +1894,136 @@
     }
   },
   {
+    "file": "src/lib/components/ai-icon/ai-icon.svelte",
+    "component": "ai-icon",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 77,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "size",
+          "kind": "let",
+          "type": "number",
+          "typeSource": "typescript",
+          "value": "24",
+          "defaultValue": {
+            "raw": "24",
+            "kind": "literal",
+            "value": 24
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 27,
+              "column": 8
+            },
+            "end": {
+              "line": 27,
+              "column": 17
+            }
+          }
+        },
+        {
+          "name": "stroke_width",
+          "kind": "let",
+          "type": "number",
+          "typeSource": "typescript",
+          "value": "2",
+          "defaultValue": {
+            "raw": "2",
+            "kind": "literal",
+            "value": 2
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 27,
+              "column": 19
+            },
+            "end": {
+              "line": 27,
+              "column": 35
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 27,
+              "column": 37
+            },
+            "end": {
+              "line": 27,
+              "column": 53
+            }
+          }
+        },
+        {
+          "name": "no_animation",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 27,
+              "column": 55
+            },
+            "end": {
+              "line": 27,
+              "column": 75
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "contexts": [],
+      "diagnostics": []
+    }
+  },
+  {
     "file": "src/lib/components/badge/badge.svelte",
     "component": "badge",
     "data": {
@@ -2012,7 +2142,7 @@
           "name": "badgeVariants",
           "kind": "const",
           "typeSource": "unknown",
-          "value": "tv({\n\t\tbase: \"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-full border px-2 py-0.5 text-xs font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:ring-[3px] [&>svg]:pointer-events-none [&>svg]:size-3\",\n\t\tvariants: {\n\t\t\tvariant: {\n\t\t\t\tdefault:\n\t\t\t\t\t\"bg-primary text-primary-foreground [a&]:hover:bg-primary/90 border-transparent\",\n\t\t\t\tsecondary:\n\t\t\t\t\t\"bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90 border-muted-foreground/30\",\n\t\t\t\tdestructive:\n\t\t\t\t\t\"bg-destructive [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/70 border-transparent text-white\",\n\t\t\t\toutline: \"text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground\",\n\t\t\t},\n\t\t},\n\t\tdefaultVariants: {\n\t\t\tvariant: \"default\",\n\t\t},\n\t})",
+          "value": "tv({\r\n\t\tbase: \"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-full border px-2 py-0.5 text-xs font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:ring-[3px] [&>svg]:pointer-events-none [&>svg]:size-3\",\r\n\t\tvariants: {\r\n\t\t\tvariant: {\r\n\t\t\t\tdefault:\r\n\t\t\t\t\t\"bg-primary text-primary-foreground [a&]:hover:bg-primary/90 border-transparent\",\r\n\t\t\t\tsecondary:\r\n\t\t\t\t\t\"bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90 border-muted-foreground/30\",\r\n\t\t\t\tdestructive:\r\n\t\t\t\t\t\"bg-destructive [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/70 border-transparent text-white\",\r\n\t\t\t\toutline: \"text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground\",\r\n\t\t\t},\r\n\t\t},\r\n\t\tdefaultVariants: {\r\n\t\t\tvariant: \"default\",\r\n\t\t},\r\n\t})",
           "defaultValue": {
             "raw": "tv({ \t\tbase: \"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-full border px-2 py-0.5 text-xs font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:ring-[3px] [&>svg]:pointer-events-none [&>svg]:size-3\", \t\tvariants: { \t\t\tvariant: { \t\t\t\tdefault: \t\t\t\t\t\"bg-primary text-primary-foreground [a&]:hover:bg-primary/90 border-transparent\", \t\t\t\tsecondary: \t\t\t\t\t\"bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90 border-muted-foreground/30\", \t\t\t\tdestructive: \t\t\t\t\t\"bg-destructive [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/70 border-transparent text-white\", \t\t\t\toutline: \"text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground\", \t\t\t}, \t\t}, \t\tdefaultVariants: { \t\t\tvariant: \"default\", \t\t}, \t})",
             "kind": "expression"
@@ -2320,7 +2450,7 @@
           "name": "buttonVariants",
           "kind": "const",
           "typeSource": "unknown",
-          "value": "tv({\n\t\t// AGGIUNTO: group/button e active:not-aria-[haspopup]:translate-y-px dal suggerito\n\t\tbase: \"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive group/button inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-hidden focus-visible:ring-[3px] cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 active:not-aria-[haspopup]:translate-y-px [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4\",\n\t\tvariants: {\n\t\t\tvariant: {\n\t\t\t\tdefault:\n\t\t\t\t\t\"bg-linear-to-br from-sky-400 to-indigo-400 text-white shadow-xs hover:from-sky-500 hover:to-indigo-500 hover:brightness-105\",\n\t\t\t\t// MANTENUTO: Il tuo stile originale glass\n\t\t\t\tglass:\n\t\t\t\t\t\"bg-primary/80 text-primary-foreground shadow-xs backdrop-blur-xs ring-1 ring-white/15 hover:bg-primary/75 active:bg-primary/85\",\n\t\t\t\t// AGGIUNTO: aria-invalid del suggerito incorporato nel tuo destructive\n\t\t\t\tdestructive:\n\t\t\t\t\t\"bg-linear-to-br from-rose-400 to-red-600 text-white shadow-xs hover:from-rose-500 hover:to-red-700 hover:brightness-105 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 focus-visible:border-destructive/40\",\n\t\t\t\twarning:\n\t\t\t\t\t\"bg-linear-to-br from-yellow-300 to-yellow-500 text-yellow-950 shadow-xs hover:from-yellow-400 hover:to-yellow-600 hover:brightness-105\",\n\t\t\t\tsuccess:\n\t\t\t\t\t\"bg-linear-to-br from-emerald-400 to-emerald-600 text-white shadow-xs hover:from-emerald-500 hover:to-emerald-700 hover:brightness-105\",\n\t\t\t\tinfo:\n\t\t\t\t\t\"bg-linear-to-br from-sky-400 to-blue-600 text-white shadow-xs hover:from-sky-500 hover:to-blue-700 hover:brightness-105\",\n\t\t\t\t// Soft: structural base only — color/border come from tone compound variants\n\t\t\t\tsoft: \"shadow-xs\",\n\t\t\t\t// AGGIUNTO: aria-expanded dal suggerito\n\t\t\t\toutline:\n\t\t\t\t\t\"bg-background hover:brightness-105 dark:bg-input/30 dark:hover:bg-input/50 border-primary-gradient shadow-xs aria-expanded:bg-muted aria-expanded:text-foreground\",\n\t\t\t\t// AGGIUNTO: aria-expanded dal suggerito\n\t\t\t\tsecondary: \"bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-xs aria-expanded:bg-secondary aria-expanded:text-secondary-foreground\",\n\t\t\t\t// MANTENUTO: Il tuo stile originale secondary-outline\n\t\t\t\t\"secondary-outline\": \"bg-neutral-100 border border-neutral-300 hover:bg-neutral-200 hover:text-neutral-900 dark:bg-neutral-800 dark:border-neutral-600 dark:hover:bg-neutral-700 dark:hover:text-neutral-100 shadow-xs\",\n\t\t\t\t// AGGIUNTO: aria-expanded dal suggerito\n\t\t\t\tghost: \"hover:bg-neutral-200/80 hover:text-neutral-900 dark:hover:bg-neutral-700/80 dark:hover:text-neutral-100 aria-expanded:bg-muted aria-expanded:text-foreground\",\n\t\t\t\tlink: \"text-primary underline-offset-4 hover:underline\",\n\t\t\t},\n\t\t\ttone: {\n\t\t\t\tprimary: \"\",\n\t\t\t\tdestructive: \"\",\n\t\t\t\twarning: \"\",\n\t\t\t\tsuccess: \"\",\n\t\t\t\tinfo: \"\",\n\t\t\t},\n\t\t\tsize: {\n\t\t\t\t// AGGIUNTI: in-data-[slot] e has-data-[icon] dal suggerito per spaziare i gruppi e le icone\n\t\t\t\tdefault: \"h-9 px-4 py-2 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 has-[>svg]:px-3\",\n\t\t\t\tsm: \"h-8 gap-1.5 rounded-md px-3 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 has-[>svg]:px-2.5\",\n\t\t\t\txs: \"h-7 gap-1 px-2 text-xs in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 has-[>svg]:px-2 [&_svg:not([class*='size-'])]:size-3.5\",\n\t\t\t\tlg: \"h-10 rounded-md px-6 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 has-[>svg]:px-4\",\n\t\t\t\ticon: \"size-9\",\n\t\t\t\t\"icon-xs\": \"size-6 rounded-[min(var(--radius-md),8px)] in-data-[slot=button-group]:rounded-md [&_svg:not([class*='size-'])]:size-3\",\n\t\t\t\t\"icon-sm\": \"size-8 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-md\",\n\t\t\t\t\"icon-lg\": \"size-10\",\n\t\t\t},\n\t\t},\n\t\tcompoundVariants: [\n\t\t\t// Soft + primary: gradient border + tenue gradient background, dark text (not in tinta)\n\t\t\t{\n\t\t\t\tvariant: \"soft\",\n\t\t\t\ttone: \"primary\",\n\t\t\t\tclass: \"border-primary-gradient-soft text-foreground hover:brightness-105\",\n\t\t\t},\n\t\t\t// Soft + success: emerald gradient border + tenue emerald background\n\t\t\t{\n\t\t\t\tvariant: \"soft\",\n\t\t\t\ttone: \"success\",\n\t\t\t\tclass: \"border-success-gradient-soft text-foreground hover:brightness-105\",\n\t\t\t},\n\t\t\t// Soft + info: sky→blue gradient border + tenue sky/blue background\n\t\t\t{\n\t\t\t\tvariant: \"soft\",\n\t\t\t\ttone: \"info\",\n\t\t\t\tclass: \"border-info-gradient-soft text-foreground hover:brightness-105\",\n\t\t\t},\n\t\t\t// Soft + destructive: rose→red gradient border + tenue rose/red background\n\t\t\t{\n\t\t\t\tvariant: \"soft\",\n\t\t\t\ttone: \"destructive\",\n\t\t\t\tclass: \"border-destructive-gradient-soft text-foreground hover:brightness-105\",\n\t\t\t},\n\t\t\t// Soft + warning: yellow gradient border + tenue yellow background\n\t\t\t{\n\t\t\t\tvariant: \"soft\",\n\t\t\t\ttone: \"warning\",\n\t\t\t\tclass: \"border-warning-gradient-soft text-foreground hover:brightness-105\",\n\t\t\t},\n\t\t\t// Outline + primary: sky→indigo gradient border (default, already in variant base)\n\t\t\t{\n\t\t\t\tvariant: \"outline\",\n\t\t\t\ttone: \"primary\",\n\t\t\t\tclass: \"border-primary-gradient\",\n\t\t\t},\n\t\t\t// Outline + destructive: rose→red gradient border\n\t\t\t{\n\t\t\t\tvariant: \"outline\",\n\t\t\t\ttone: \"destructive\",\n\t\t\t\tclass: \"border-destructive-gradient\",\n\t\t\t},\n\t\t\t// Outline + warning: yellow gradient border\n\t\t\t{\n\t\t\t\tvariant: \"outline\",\n\t\t\t\ttone: \"warning\",\n\t\t\t\tclass: \"border-warning-gradient\",\n\t\t\t},\n\t\t\t// Outline + success: emerald gradient border\n\t\t\t{\n\t\t\t\tvariant: \"outline\",\n\t\t\t\ttone: \"success\",\n\t\t\t\tclass: \"border-success-gradient\",\n\t\t\t},\n\t\t\t// Outline + info: sky→blue gradient border\n\t\t\t{\n\t\t\t\tvariant: \"outline\",\n\t\t\t\ttone: \"info\",\n\t\t\t\tclass: \"border-info-gradient\",\n\t\t\t},\n\t\t],\n\t\tdefaultVariants: {\n\t\t\tvariant: \"default\",\n\t\t\tsize: \"default\",\n\t\t\ttone: \"primary\",\n\t\t},\n\t})",
+          "value": "tv({\r\n\t\t// AGGIUNTO: group/button e active:not-aria-[haspopup]:translate-y-px dal suggerito\r\n\t\tbase: \"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive group/button inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-hidden focus-visible:ring-[3px] cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 active:not-aria-[haspopup]:translate-y-px [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4\",\r\n\t\tvariants: {\r\n\t\t\tvariant: {\r\n\t\t\t\tdefault:\r\n\t\t\t\t\t\"bg-linear-to-br from-sky-400 to-indigo-400 text-white shadow-xs hover:from-sky-500 hover:to-indigo-500 hover:brightness-105\",\r\n\t\t\t\t// MANTENUTO: Il tuo stile originale glass\r\n\t\t\t\tglass:\r\n\t\t\t\t\t\"bg-primary/80 text-primary-foreground shadow-xs backdrop-blur-xs ring-1 ring-white/15 hover:bg-primary/75 active:bg-primary/85\",\r\n\t\t\t\t// AGGIUNTO: aria-invalid del suggerito incorporato nel tuo destructive\r\n\t\t\t\tdestructive:\r\n\t\t\t\t\t\"bg-linear-to-br from-rose-400 to-red-600 text-white shadow-xs hover:from-rose-500 hover:to-red-700 hover:brightness-105 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 focus-visible:border-destructive/40\",\r\n\t\t\t\twarning:\r\n\t\t\t\t\t\"bg-linear-to-br from-yellow-300 to-yellow-500 text-yellow-950 shadow-xs hover:from-yellow-400 hover:to-yellow-600 hover:brightness-105\",\r\n\t\t\t\tsuccess:\r\n\t\t\t\t\t\"bg-linear-to-br from-emerald-400 to-emerald-600 text-white shadow-xs hover:from-emerald-500 hover:to-emerald-700 hover:brightness-105\",\r\n\t\t\t\tinfo:\r\n\t\t\t\t\t\"bg-linear-to-br from-sky-400 to-blue-600 text-white shadow-xs hover:from-sky-500 hover:to-blue-700 hover:brightness-105\",\r\n\t\t\t\t// Soft: structural base only — color/border come from tone compound variants\r\n\t\t\t\tsoft: \"shadow-xs\",\r\n\t\t\t\t// AGGIUNTO: aria-expanded dal suggerito\r\n\t\t\t\toutline:\r\n\t\t\t\t\t\"bg-background hover:brightness-105 dark:bg-input/30 dark:hover:bg-input/50 border-primary-gradient shadow-xs aria-expanded:bg-muted aria-expanded:text-foreground\",\r\n\t\t\t\t// AGGIUNTO: aria-expanded dal suggerito\r\n\t\t\t\tsecondary: \"bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-xs aria-expanded:bg-secondary aria-expanded:text-secondary-foreground\",\r\n\t\t\t\t// MANTENUTO: Il tuo stile originale secondary-outline\r\n\t\t\t\t\"secondary-outline\": \"bg-neutral-100 border border-neutral-300 hover:bg-neutral-200 hover:text-neutral-900 dark:bg-neutral-800 dark:border-neutral-600 dark:hover:bg-neutral-700 dark:hover:text-neutral-100 shadow-xs\",\r\n\t\t\t\t// AGGIUNTO: aria-expanded dal suggerito\r\n\t\t\t\tghost: \"hover:bg-neutral-200/80 hover:text-neutral-900 dark:hover:bg-neutral-700/80 dark:hover:text-neutral-100 aria-expanded:bg-muted aria-expanded:text-foreground\",\r\n\t\t\t\tlink: \"text-primary underline-offset-4 hover:underline\",\r\n\t\t\t},\r\n\t\t\ttone: {\r\n\t\t\t\tprimary: \"\",\r\n\t\t\t\tdestructive: \"\",\r\n\t\t\t\twarning: \"\",\r\n\t\t\t\tsuccess: \"\",\r\n\t\t\t\tinfo: \"\",\r\n\t\t\t},\r\n\t\t\tsize: {\r\n\t\t\t\t// AGGIUNTI: in-data-[slot] e has-data-[icon] dal suggerito per spaziare i gruppi e le icone\r\n\t\t\t\tdefault: \"h-9 px-4 py-2 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 has-[>svg]:px-3\",\r\n\t\t\t\tsm: \"h-8 gap-1.5 rounded-md px-3 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 has-[>svg]:px-2.5\",\r\n\t\t\t\txs: \"h-7 gap-1 px-2 text-xs in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 has-[>svg]:px-2 [&_svg:not([class*='size-'])]:size-3.5\",\r\n\t\t\t\tlg: \"h-10 rounded-md px-6 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 has-[>svg]:px-4\",\r\n\t\t\t\ticon: \"size-9\",\r\n\t\t\t\t\"icon-xs\": \"size-6 rounded-[min(var(--radius-md),8px)] in-data-[slot=button-group]:rounded-md [&_svg:not([class*='size-'])]:size-3\",\r\n\t\t\t\t\"icon-sm\": \"size-8 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-md\",\r\n\t\t\t\t\"icon-lg\": \"size-10\",\r\n\t\t\t},\r\n\t\t},\r\n\t\tcompoundVariants: [\r\n\t\t\t// Soft + primary: gradient border + tenue gradient background, dark text (not in tinta)\r\n\t\t\t{\r\n\t\t\t\tvariant: \"soft\",\r\n\t\t\t\ttone: \"primary\",\r\n\t\t\t\tclass: \"border-primary-gradient-soft text-foreground hover:brightness-105\",\r\n\t\t\t},\r\n\t\t\t// Soft + success: emerald gradient border + tenue emerald background\r\n\t\t\t{\r\n\t\t\t\tvariant: \"soft\",\r\n\t\t\t\ttone: \"success\",\r\n\t\t\t\tclass: \"border-success-gradient-soft text-foreground hover:brightness-105\",\r\n\t\t\t},\r\n\t\t\t// Soft + info: sky→blue gradient border + tenue sky/blue background\r\n\t\t\t{\r\n\t\t\t\tvariant: \"soft\",\r\n\t\t\t\ttone: \"info\",\r\n\t\t\t\tclass: \"border-info-gradient-soft text-foreground hover:brightness-105\",\r\n\t\t\t},\r\n\t\t\t// Soft + destructive: rose→red gradient border + tenue rose/red background\r\n\t\t\t{\r\n\t\t\t\tvariant: \"soft\",\r\n\t\t\t\ttone: \"destructive\",\r\n\t\t\t\tclass: \"border-destructive-gradient-soft text-foreground hover:brightness-105\",\r\n\t\t\t},\r\n\t\t\t// Soft + warning: yellow gradient border + tenue yellow background\r\n\t\t\t{\r\n\t\t\t\tvariant: \"soft\",\r\n\t\t\t\ttone: \"warning\",\r\n\t\t\t\tclass: \"border-warning-gradient-soft text-foreground hover:brightness-105\",\r\n\t\t\t},\r\n\t\t\t// Outline + primary: sky→indigo gradient border (default, already in variant base)\r\n\t\t\t{\r\n\t\t\t\tvariant: \"outline\",\r\n\t\t\t\ttone: \"primary\",\r\n\t\t\t\tclass: \"border-primary-gradient\",\r\n\t\t\t},\r\n\t\t\t// Outline + destructive: rose→red gradient border\r\n\t\t\t{\r\n\t\t\t\tvariant: \"outline\",\r\n\t\t\t\ttone: \"destructive\",\r\n\t\t\t\tclass: \"border-destructive-gradient\",\r\n\t\t\t},\r\n\t\t\t// Outline + warning: yellow gradient border\r\n\t\t\t{\r\n\t\t\t\tvariant: \"outline\",\r\n\t\t\t\ttone: \"warning\",\r\n\t\t\t\tclass: \"border-warning-gradient\",\r\n\t\t\t},\r\n\t\t\t// Outline + success: emerald gradient border\r\n\t\t\t{\r\n\t\t\t\tvariant: \"outline\",\r\n\t\t\t\ttone: \"success\",\r\n\t\t\t\tclass: \"border-success-gradient\",\r\n\t\t\t},\r\n\t\t\t// Outline + info: sky→blue gradient border\r\n\t\t\t{\r\n\t\t\t\tvariant: \"outline\",\r\n\t\t\t\ttone: \"info\",\r\n\t\t\t\tclass: \"border-info-gradient\",\r\n\t\t\t},\r\n\t\t],\r\n\t\tdefaultVariants: {\r\n\t\t\tvariant: \"default\",\r\n\t\t\tsize: \"default\",\r\n\t\t\ttone: \"primary\",\r\n\t\t},\r\n\t})",
           "defaultValue": {
             "raw": "tv({ \t\t// AGGIUNTO: group/button e active:not-aria-[haspopup]:translate-y-px dal suggerito \t\tbase: \"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive group/button inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-hidden focus-visible:ring-[3px] cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 active:not-aria-[haspopup]:translate-y-px [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4\", \t\tvariants: { \t\t\tvariant: { \t\t\t\tdefault: \t\t\t\t\t\"bg-linear-to-br from-sky-400 to-indigo-400 text-white shadow-xs hover:from-sky-500 hover:to-indigo-500 hover:brightness-105\", \t\t\t\t// MANTENUTO: Il tuo stile originale glass \t\t\t\tglass: \t\t\t\t\t\"bg-primary/80 text-primary-foreground shadow-xs backdrop-blur-xs ring-1 ring-white/15 hover:bg-primary/75 active:bg-primary/85\", \t\t\t\t// AGGIUNTO: aria-invalid del suggerito incorporato nel tuo destructive \t\t\t\tdestructive: \t\t\t\t\t\"bg-linear-to-br from-rose-400 to-red-600 text-white shadow-xs hover:from-rose-500 hover:to-red-700 hover:brightness-105 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 focus-visible:border-destructive/40\", \t\t\t\twarning: \t\t\t\t\t\"bg-linear-to-br from-yellow-300 to-yellow-500 text-yellow-950 shadow-xs hover:from-yellow-400 hover:to-yellow-600 hover:brightness-105\", \t\t\t\tsuccess: \t\t\t\t\t\"bg-linear-to-br from-emerald-400 to-emerald-600 text-white shadow-xs hover:from-emerald-500 hover:to-emerald-700 hover:brightness-105\", \t\t\t\tinfo: \t\t\t\t\t\"bg-linear-to-br from-sky-400 to-blue-600 text-white shadow-xs hover:from-sky-500 hover:to-blue-700 hover:brightness-105\", \t\t\t\t// Soft: structural base only — color/border come from tone compound variants \t\t\t\tsoft: \"shadow-xs\", \t\t\t\t// AGGIUNTO: aria-expanded dal suggerito \t\t\t\toutline: \t\t\t\t\t\"bg-background hover:brightness-105 dark:bg-input/30 dark:hover:bg-input/50 border-primary-gradient shadow-xs aria-expanded:bg-muted aria-expanded:text-foreground\", \t\t\t\t// AGGIUNTO: aria-expanded dal suggerito \t\t\t\tsecondary: \"bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-xs aria-expanded:bg-secondary aria-expanded:text-secondary-foreground\", \t\t\t\t// MANTENUTO: Il tuo stile originale secondary-outline \t\t\t\t\"secondary-outline\": \"bg-neutral-100 border border-neutral-300 hover:bg-neutral-200 hover:text-neutral-900 dark:bg-neutral-800 dark:border-neutral-600 dark:hover:bg-neutral-700 dark:hover:text-neutral-100 shadow-xs\", \t\t\t\t// AGGIUNTO: aria-expanded dal suggerito \t\t\t\tghost: \"hover:bg-neutral-200/80 hover:text-neutral-900 dark:hover:bg-neutral-700/80 dark:hover:text-neutral-100 aria-expanded:bg-muted aria-expanded:text-foreground\", \t\t\t\tlink: \"text-primary underline-offset-4 hover:underline\", \t\t\t}, \t\t\ttone: { \t\t\t\tprimary: \"\", \t\t\t\tdestructive: \"\", \t\t\t\twarning: \"\", \t\t\t\tsuccess: \"\", \t\t\t\tinfo: \"\", \t\t\t}, \t\t\tsize: { \t\t\t\t// AGGIUNTI: in-data-[slot] e has-data-[icon] dal suggerito per spaziare i gruppi e le icone \t\t\t\tdefault: \"h-9 px-4 py-2 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 has-[>svg]:px-3\", \t\t\t\tsm: \"h-8 gap-1.5 rounded-md px-3 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 has-[>svg]:px-2.5\", \t\t\t\txs: \"h-7 gap-1 px-2 text-xs in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 has-[>svg]:px-2 [&_svg:not([class*='size-'])]:size-3.5\", \t\t\t\tlg: \"h-10 rounded-md px-6 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 has-[>svg]:px-4\", \t\t\t\ticon: \"size-9\", \t\t\t\t\"icon-xs\": \"size-6 rounded-[min(var(--radius-md),8px)] in-data-[slot=button-group]:rounded-md [&_svg:not([class*='size-'])]:size-3\", \t\t\t\t\"icon-sm\": \"size-8 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-md\", \t\t\t\t\"icon-lg\": \"size-10\", \t\t\t}, \t\t}, \t\tcompoundVariants: [ \t\t\t// Soft + primary: gradient border + tenue gradient background, dark text (not in tinta) \t\t\t{ \t\t\t\tvariant: \"soft\", \t\t\t\ttone: \"primary\", \t\t\t\tclass: \"border-primary-gradient-soft text-foreground hover:brightness-105\", \t\t\t}, \t\t\t// Soft + success: emerald gradient border + tenue emerald background \t\t\t{ \t\t\t\tvariant: \"soft\", \t\t\t\ttone: \"success\", \t\t\t\tclass: \"border-success-gradient-soft text-foreground hover:brightness-105\", \t\t\t}, \t\t\t// Soft + info: sky→blue gradient border + tenue sky/blue background \t\t\t{ \t\t\t\tvariant: \"soft\", \t\t\t\ttone: \"info\", \t\t\t\tclass: \"border-info-gradient-soft text-foreground hover:brightness-105\", \t\t\t}, \t\t\t// Soft + destructive: rose→red gradient border + tenue rose/red background \t\t\t{ \t\t\t\tvariant: \"soft\", \t\t\t\ttone: \"destructive\", \t\t\t\tclass: \"border-destructive-gradient-soft text-foreground hover:brightness-105\", \t\t\t}, \t\t\t// Soft + warning: yellow gradient border + tenue yellow background \t\t\t{ \t\t\t\tvariant: \"soft\", \t\t\t\ttone: \"warning\", \t\t\t\tclass: \"border-warning-gradient-soft text-foreground hover:brightness-105\", \t\t\t}, \t\t\t// Outline + primary: sky→indigo gradient border (default, already in variant base) \t\t\t{ \t\t\t\tvariant: \"outline\", \t\t\t\ttone: \"primary\", \t\t\t\tclass: \"border-primary-gradient\", \t\t\t}, \t\t\t// Outline + destructive: rose→red gradient border \t\t\t{ \t\t\t\tvariant: \"outline\", \t\t\t\ttone: \"destructive\", \t\t\t\tclass: \"border-destructive-gradient\", \t\t\t}, \t\t\t// Outline + warning: yellow gradient border \t\t\t{ \t\t\t\tvariant: \"outline\", \t\t\t\ttone: \"warning\", \t\t\t\tclass: \"border-warning-gradient\", \t\t\t}, \t\t\t// Outline + success: emerald gradient border \t\t\t{ \t\t\t\tvariant: \"outline\", \t\t\t\ttone: \"success\", \t\t\t\tclass: \"border-success-gradient\", \t\t\t}, \t\t\t// Outline + info: sky→blue gradient border \t\t\t{ \t\t\t\tvariant: \"outline\", \t\t\t\ttone: \"info\", \t\t\t\tclass: \"border-info-gradient\", \t\t\t}, \t\t], \t\tdefaultVariants: { \t\t\tvariant: \"default\", \t\t\tsize: \"default\", \t\t\ttone: \"primary\", \t\t}, \t})",
             "kind": "expression"
@@ -2793,7 +2923,7 @@
           "name": "buttonGroupVariants",
           "kind": "const",
           "typeSource": "unknown",
-          "value": "tv({\n\t\tbase: \"has-[>[data-slot=button-group]]:gap-2 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-lg flex w-fit items-stretch [&>*]:focus-visible:relative [&>*]:focus-visible:z-10 [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1\",\n\t\tvariants: {\n\t\t\torientation: {\n\t\t\t\thorizontal:\n\t\t\t\t\t\"[&>[data-slot]:not(:has(~[data-slot]))]:rounded-r-md! [&>[data-slot]]:rounded-r-none [&>[data-slot]~[data-slot]]:rounded-l-none [&>[data-slot]~[data-slot]]:border-l-0\",\n\t\t\t\tvertical:\n\t\t\t\t\t\"[&>[data-slot]:not(:has(~[data-slot]))]:rounded-b-md! flex-col [&>[data-slot]]:rounded-b-none [&>[data-slot]~[data-slot]]:rounded-t-none [&>[data-slot]~[data-slot]]:border-t-0\",\n\t\t\t},\n\t\t\t// segmented = frameless cluster for borderless variants (ghost):\n\t\t\t// children keep their own full radius, no inner borders, minimal gap.\n\t\t\tsegmented: {\n\t\t\t\ttrue: \"gap-0.5\",\n\t\t\t},\n\t\t},\n\t\tcompoundVariants: [\n\t\t\t// segmented children keep full radius on every corner — the join\n\t\t\t// flattening is only meaningful for joined (border-sharing) groups.\n\t\t\t{ orientation: \"horizontal\", segmented: true, class: \"[&>[data-slot]]:rounded-md!\" },\n\t\t\t{ orientation: \"vertical\", segmented: true, class: \"flex-col [&>[data-slot]]:rounded-md!\" },\n\t\t],\n\t\tdefaultVariants: {\n\t\t\torientation: \"horizontal\",\n\t\t\tsegmented: false,\n\t\t},\n\t})",
+          "value": "tv({\r\n\t\tbase: \"has-[>[data-slot=button-group]]:gap-2 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-lg flex w-fit items-stretch [&>*]:focus-visible:relative [&>*]:focus-visible:z-10 [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1\",\r\n\t\tvariants: {\r\n\t\t\torientation: {\r\n\t\t\t\thorizontal:\r\n\t\t\t\t\t\"[&>[data-slot]:not(:has(~[data-slot]))]:rounded-r-md! [&>[data-slot]]:rounded-r-none [&>[data-slot]~[data-slot]]:rounded-l-none [&>[data-slot]~[data-slot]]:border-l-0\",\r\n\t\t\t\tvertical:\r\n\t\t\t\t\t\"[&>[data-slot]:not(:has(~[data-slot]))]:rounded-b-md! flex-col [&>[data-slot]]:rounded-b-none [&>[data-slot]~[data-slot]]:rounded-t-none [&>[data-slot]~[data-slot]]:border-t-0\",\r\n\t\t\t},\r\n\t\t\t// segmented = frameless cluster for borderless variants (ghost):\r\n\t\t\t// children keep their own full radius, no inner borders, minimal gap.\r\n\t\t\tsegmented: {\r\n\t\t\t\ttrue: \"gap-0.5\",\r\n\t\t\t},\r\n\t\t},\r\n\t\tcompoundVariants: [\r\n\t\t\t// segmented children keep full radius on every corner — the join\r\n\t\t\t// flattening is only meaningful for joined (border-sharing) groups.\r\n\t\t\t{ orientation: \"horizontal\", segmented: true, class: \"[&>[data-slot]]:rounded-md!\" },\r\n\t\t\t{ orientation: \"vertical\", segmented: true, class: \"flex-col [&>[data-slot]]:rounded-md!\" },\r\n\t\t],\r\n\t\tdefaultVariants: {\r\n\t\t\torientation: \"horizontal\",\r\n\t\t\tsegmented: false,\r\n\t\t},\r\n\t})",
           "defaultValue": {
             "raw": "tv({ \t\tbase: \"has-[>[data-slot=button-group]]:gap-2 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-lg flex w-fit items-stretch [&>*]:focus-visible:relative [&>*]:focus-visible:z-10 [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1\", \t\tvariants: { \t\t\torientation: { \t\t\t\thorizontal: \t\t\t\t\t\"[&>[data-slot]:not(:has(~[data-slot]))]:rounded-r-md! [&>[data-slot]]:rounded-r-none [&>[data-slot]~[data-slot]]:rounded-l-none [&>[data-slot]~[data-slot]]:border-l-0\", \t\t\t\tvertical: \t\t\t\t\t\"[&>[data-slot]:not(:has(~[data-slot]))]:rounded-b-md! flex-col [&>[data-slot]]:rounded-b-none [&>[data-slot]~[data-slot]]:rounded-t-none [&>[data-slot]~[data-slot]]:border-t-0\", \t\t\t}, \t\t\t// segmented = frameless cluster for borderless variants (ghost): \t\t\t// children keep their own full radius, no inner borders, minimal gap. \t\t\tsegmented: { \t\t\t\ttrue: \"gap-0.5\", \t\t\t}, \t\t}, \t\tcompoundVariants: [ \t\t\t// segmented children keep full radius on every corner — the join \t\t\t// flattening is only meaningful for joined (border-sharing) groups. \t\t\t{ orientation: \"horizontal\", segmented: true, class: \"[&>[data-slot]]:rounded-md!\" }, \t\t\t{ orientation: \"vertical\", segmented: true, class: \"flex-col [&>[data-slot]]:rounded-md!\" }, \t\t], \t\tdefaultVariants: { \t\t\torientation: \"horizontal\", \t\t\tsegmented: false, \t\t}, \t})",
             "kind": "expression"
@@ -3065,7 +3195,7 @@
           "column": 0
         },
         "end": {
-          "line": 635,
+          "line": 751,
           "column": 0
         }
       },
@@ -3084,11 +3214,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 131,
+              "line": 165,
               "column": 4
             },
             "end": {
-              "line": 131,
+              "line": 165,
               "column": 8
             }
           }
@@ -3106,11 +3236,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 132,
+              "line": 166,
               "column": 4
             },
             "end": {
-              "line": 132,
+              "line": 166,
               "column": 23
             }
           }
@@ -3127,11 +3257,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 133,
+              "line": 167,
               "column": 4
             },
             "end": {
-              "line": 133,
+              "line": 167,
               "column": 12
             }
           }
@@ -3139,7 +3269,7 @@
         {
           "name": "options",
           "kind": "let",
-          "type": "string[] | Record<string, any>[]",
+          "type": "string[] | Record<string, unknown>[]",
           "typeSource": "typescript",
           "isFunction": false,
           "isFunctionDeclaration": false,
@@ -3148,11 +3278,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 134,
+              "line": 168,
               "column": 4
             },
             "end": {
-              "line": 134,
+              "line": 168,
               "column": 11
             }
           }
@@ -3169,11 +3299,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 135,
+              "line": 169,
               "column": 4
             },
             "end": {
-              "line": 135,
+              "line": 169,
               "column": 14
             }
           }
@@ -3190,11 +3320,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 136,
+              "line": 170,
               "column": 4
             },
             "end": {
-              "line": 136,
+              "line": 170,
               "column": 14
             }
           }
@@ -3217,11 +3347,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 137,
+              "line": 171,
               "column": 4
             },
             "end": {
-              "line": 137,
+              "line": 171,
               "column": 29
             }
           }
@@ -3244,11 +3374,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 138,
+              "line": 172,
               "column": 4
             },
             "end": {
-              "line": 138,
+              "line": 172,
               "column": 29
             }
           }
@@ -3271,11 +3401,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 139,
+              "line": 173,
               "column": 4
             },
             "end": {
-              "line": 139,
+              "line": 173,
               "column": 20
             }
           }
@@ -3298,11 +3428,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 140,
+              "line": 174,
               "column": 4
             },
             "end": {
-              "line": 140,
+              "line": 174,
               "column": 19
             }
           }
@@ -3319,11 +3449,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 141,
+              "line": 175,
               "column": 4
             },
             "end": {
-              "line": 141,
+              "line": 175,
               "column": 6
             }
           }
@@ -3346,11 +3476,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 142,
+              "line": 176,
               "column": 4
             },
             "end": {
-              "line": 142,
+              "line": 176,
               "column": 21
             }
           }
@@ -3360,11 +3490,10 @@
           "kind": "let",
           "type": "string",
           "typeSource": "typescript",
-          "value": "\"Search...\"",
+          "value": "undefined",
           "defaultValue": {
-            "raw": "\"Search...\"",
-            "kind": "literal",
-            "value": "Search..."
+            "raw": "undefined",
+            "kind": "expression"
           },
           "isFunction": false,
           "isFunctionDeclaration": false,
@@ -3373,12 +3502,12 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 143,
+              "line": 177,
               "column": 4
             },
             "end": {
-              "line": 143,
-              "column": 35
+              "line": 177,
+              "column": 33
             }
           }
         },
@@ -3400,11 +3529,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 144,
+              "line": 178,
               "column": 4
             },
             "end": {
-              "line": 144,
+              "line": 178,
               "column": 23
             }
           }
@@ -3427,11 +3556,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 145,
+              "line": 179,
               "column": 4
             },
             "end": {
-              "line": 145,
+              "line": 179,
               "column": 24
             }
           }
@@ -3448,12 +3577,168 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 146,
+              "line": 180,
               "column": 4
             },
             "end": {
-              "line": 146,
+              "line": 180,
               "column": 18
+            }
+          }
+        },
+        {
+          "name": "descriptionField",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 181,
+              "column": 4
+            },
+            "end": {
+              "line": 181,
+              "column": 20
+            }
+          }
+        },
+        {
+          "name": "showIcons",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "true",
+          "defaultValue": {
+            "raw": "true",
+            "kind": "literal",
+            "value": true
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 182,
+              "column": 4
+            },
+            "end": {
+              "line": 182,
+              "column": 20
+            }
+          }
+        },
+        {
+          "name": "showDescription",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "true",
+          "defaultValue": {
+            "raw": "true",
+            "kind": "literal",
+            "value": true
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 183,
+              "column": 4
+            },
+            "end": {
+              "line": 183,
+              "column": 26
+            }
+          }
+        },
+        {
+          "name": "showTechName",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "true",
+          "defaultValue": {
+            "raw": "true",
+            "kind": "literal",
+            "value": true
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 184,
+              "column": 4
+            },
+            "end": {
+              "line": 184,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "isDescriptionTranslated",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 185,
+              "column": 4
+            },
+            "end": {
+              "line": 185,
+              "column": 35
+            }
+          }
+        },
+        {
+          "name": "isSecondaryTranslated",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 186,
+              "column": 4
+            },
+            "end": {
+              "line": 186,
+              "column": 33
             }
           }
         },
@@ -3469,19 +3754,82 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 147,
+              "line": 187,
               "column": 4
             },
             "end": {
-              "line": 147,
+              "line": 187,
               "column": 13
+            }
+          }
+        },
+        {
+          "name": "iconColorField",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 188,
+              "column": 4
+            },
+            "end": {
+              "line": 188,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "flagField",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 189,
+              "column": 4
+            },
+            "end": {
+              "line": 189,
+              "column": 13
+            }
+          }
+        },
+        {
+          "name": "iconDashedField",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 190,
+              "column": 4
+            },
+            "end": {
+              "line": 190,
+              "column": 19
             }
           }
         },
         {
           "name": "isOptionDisabled",
           "kind": "let",
-          "type": "(option: string | Record<string, any>) => boolean",
+          "type": "(option: string | Record<string, unknown>) => boolean",
           "typeSource": "typescript",
           "isFunction": true,
           "isFunctionDeclaration": false,
@@ -3490,11 +3838,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 149,
+              "line": 192,
               "column": 4
             },
             "end": {
-              "line": 149,
+              "line": 192,
               "column": 20
             }
           }
@@ -3502,7 +3850,7 @@
         {
           "name": "getSearchKeywords",
           "kind": "let",
-          "type": "(option: string | Record<string, any>) => string[]",
+          "type": "(option: string | Record<string, unknown>) => string[]",
           "typeSource": "typescript",
           "isFunction": true,
           "isFunctionDeclaration": false,
@@ -3511,11 +3859,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 150,
+              "line": 193,
               "column": 4
             },
             "end": {
-              "line": 150,
+              "line": 193,
               "column": 21
             }
           }
@@ -3538,11 +3886,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 152,
+              "line": 195,
               "column": 4
             },
             "end": {
-              "line": 152,
+              "line": 195,
               "column": 23
             }
           }
@@ -3559,11 +3907,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 153,
+              "line": 196,
               "column": 4
             },
             "end": {
-              "line": 153,
+              "line": 196,
               "column": 12
             }
           }
@@ -3580,11 +3928,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 154,
+              "line": 197,
               "column": 4
             },
             "end": {
-              "line": 154,
+              "line": 197,
               "column": 17
             }
           }
@@ -3601,11 +3949,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 155,
+              "line": 198,
               "column": 4
             },
             "end": {
-              "line": 155,
+              "line": 198,
               "column": 14
             }
           }
@@ -3628,11 +3976,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 156,
+              "line": 199,
               "column": 4
             },
             "end": {
-              "line": 156,
+              "line": 199,
               "column": 23
             }
           }
@@ -3655,11 +4003,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 157,
+              "line": 200,
               "column": 4
             },
             "end": {
-              "line": 157,
+              "line": 200,
               "column": 22
             }
           }
@@ -3682,11 +4030,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 158,
+              "line": 201,
               "column": 4
             },
             "end": {
-              "line": 158,
+              "line": 201,
               "column": 24
             }
           }
@@ -3704,11 +4052,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 159,
+              "line": 202,
               "column": 4
             },
             "end": {
-              "line": 159,
+              "line": 202,
               "column": 31
             }
           }
@@ -3726,11 +4074,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 160,
+              "line": 203,
               "column": 4
             },
             "end": {
-              "line": 160,
+              "line": 203,
               "column": 39
             }
           }
@@ -3748,11 +4096,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 161,
+              "line": 204,
               "column": 4
             },
             "end": {
-              "line": 161,
+              "line": 204,
               "column": 33
             }
           }
@@ -3770,11 +4118,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 162,
+              "line": 205,
               "column": 4
             },
             "end": {
-              "line": 162,
+              "line": 205,
               "column": 32
             }
           }
@@ -3797,11 +4145,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 163,
+              "line": 206,
               "column": 4
             },
             "end": {
-              "line": 163,
+              "line": 206,
               "column": 23
             }
           }
@@ -3819,11 +4167,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 164,
+              "line": 207,
               "column": 4
             },
             "end": {
-              "line": 164,
+              "line": 207,
               "column": 20
             }
           }
@@ -3840,11 +4188,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 165,
+              "line": 208,
               "column": 4
             },
             "end": {
-              "line": 165,
+              "line": 208,
               "column": 29
             }
           }
@@ -3858,11 +4206,11 @@
           "slot_props": "{\n  option: any;\n  selected: any;\n  resolvedLabel: any;\n  resolvedValue: any;\n}",
           "source": {
             "start": {
-              "line": 595,
+              "line": 685,
               "column": 18
             },
             "end": {
-              "line": 600,
+              "line": 690,
               "column": 21
             }
           }
@@ -3873,11 +4221,11 @@
           "slot_props": "{\n  option: any;\n  resolvedLabel: any;\n  resolvedValue: any;\n}",
           "source": {
             "start": {
-              "line": 428,
+              "line": 514,
               "column": 14
             },
             "end": {
-              "line": 432,
+              "line": 518,
               "column": 17
             }
           }
@@ -3895,11 +4243,11 @@
           "message": "Prop \"data-testid\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 165,
+              "line": 208,
               "column": 4
             },
             "end": {
-              "line": 165,
+              "line": 208,
               "column": 29
             }
           }
@@ -4453,7 +4801,7 @@
           "column": 0
         },
         "end": {
-          "line": 64,
+          "line": 65,
           "column": 0
         }
       },
@@ -5381,6 +5729,325 @@
             },
             "end": {
               "line": 11,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/copy-button/copy-button.svelte",
+    "component": "copy-button",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 95,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 32,
+              "column": 2
+            },
+            "end": {
+              "line": 32,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "text",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 33,
+              "column": 2
+            },
+            "end": {
+              "line": 33,
+              "column": 6
+            }
+          }
+        },
+        {
+          "name": "animationDuration",
+          "kind": "let",
+          "type": "number",
+          "typeSource": "default",
+          "value": "500",
+          "defaultValue": {
+            "raw": "500",
+            "kind": "literal",
+            "value": 500
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 35,
+              "column": 2
+            },
+            "end": {
+              "line": 35,
+              "column": 25
+            }
+          }
+        },
+        {
+          "name": "variant",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "default",
+          "value": "'ghost'",
+          "defaultValue": {
+            "raw": "'ghost'",
+            "kind": "literal",
+            "value": "ghost"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 36,
+              "column": 2
+            },
+            "end": {
+              "line": 36,
+              "column": 19
+            }
+          }
+        },
+        {
+          "name": "size",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "default",
+          "value": "'icon'",
+          "defaultValue": {
+            "raw": "'icon'",
+            "kind": "literal",
+            "value": "icon"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 37,
+              "column": 2
+            },
+            "end": {
+              "line": 37,
+              "column": 15
+            }
+          }
+        },
+        {
+          "name": "onCopy",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 38,
+              "column": 2
+            },
+            "end": {
+              "line": 38,
+              "column": 8
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 39,
+              "column": 2
+            },
+            "end": {
+              "line": 39,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "tabindex",
+          "kind": "let",
+          "type": "number",
+          "typeSource": "default",
+          "value": "-1",
+          "defaultValue": {
+            "raw": "-1",
+            "kind": "literal",
+            "value": -1
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 40,
+              "column": 2
+            },
+            "end": {
+              "line": 40,
+              "column": 15
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [
+        {
+          "name": null,
+          "default": true,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 93,
+              "column": 1
+            },
+            "end": {
+              "line": 93,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "icon",
+          "default": false,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 86,
+              "column": 4
+            },
+            "end": {
+              "line": 86,
+              "column": 20
+            }
+          }
+        }
+      ],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/copy-button/copy-button.svelte",
+          "kind": "prop-unknown-type",
+          "name": "ref",
+          "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 32,
+              "column": 2
+            },
+            "end": {
+              "line": 32,
+              "column": 23
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/copy-button/copy-button.svelte",
+          "kind": "prop-unknown-type",
+          "name": "text",
+          "message": "Prop \"text\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 33,
+              "column": 2
+            },
+            "end": {
+              "line": 33,
+              "column": 6
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/copy-button/copy-button.svelte",
+          "kind": "prop-unknown-type",
+          "name": "onCopy",
+          "message": "Prop \"onCopy\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 38,
+              "column": 2
+            },
+            "end": {
+              "line": 38,
+              "column": 8
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/copy-button/copy-button.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 39,
+              "column": 2
+            },
+            "end": {
+              "line": 39,
               "column": 18
             }
           }
@@ -6456,7 +7123,7 @@
           "column": 0
         },
         "end": {
-          "line": 97,
+          "line": 99,
           "column": 0
         }
       },
@@ -6486,6 +7153,27 @@
           }
         },
         {
+          "name": "onOpenChange",
+          "kind": "let",
+          "type": "(open: boolean) => void",
+          "typeSource": "typescript",
+          "isFunction": true,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 18,
+              "column": 2
+            },
+            "end": {
+              "line": 18,
+              "column": 14
+            }
+          }
+        },
+        {
           "name": "severity",
           "kind": "let",
           "type": "DialogSeverity",
@@ -6503,11 +7191,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 18,
+              "line": 19,
               "column": 2
             },
             "end": {
-              "line": 18,
+              "line": 19,
               "column": 22
             }
           }
@@ -6530,11 +7218,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 19,
+              "line": 20,
               "column": 2
             },
             "end": {
-              "line": 19,
+              "line": 20,
               "column": 11
             }
           }
@@ -6557,11 +7245,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 20,
+              "line": 21,
               "column": 2
             },
             "end": {
-              "line": 20,
+              "line": 21,
               "column": 24
             }
           }
@@ -6585,11 +7273,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 21,
+              "line": 22,
               "column": 2
             },
             "end": {
-              "line": 21,
+              "line": 22,
               "column": 23
             }
           }
@@ -6603,11 +7291,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 92,
+              "line": 94,
               "column": 4
             },
             "end": {
-              "line": 92,
+              "line": 94,
               "column": 24
             }
           }
@@ -6634,7 +7322,7 @@
           "column": 0
         },
         "end": {
-          "line": 81,
+          "line": 194,
           "column": 0
         }
       },
@@ -6653,11 +7341,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 37,
+              "line": 87,
               "column": 4
             },
             "end": {
-              "line": 37,
+              "line": 87,
               "column": 8
             }
           }
@@ -6680,11 +7368,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 38,
+              "line": 88,
               "column": 4
             },
             "end": {
-              "line": 38,
+              "line": 88,
               "column": 13
             }
           }
@@ -6702,17 +7390,60 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 39,
+              "line": 89,
               "column": 4
             },
             "end": {
-              "line": 39,
+              "line": 89,
               "column": 20
+            }
+          }
+        },
+        {
+          "name": "style",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 90,
+              "column": 4
+            },
+            "end": {
+              "line": 90,
+              "column": 9
             }
           }
         }
       ],
-      "moduleExports": [],
+      "moduleExports": [
+        {
+          "name": "nextMaskId",
+          "kind": "function",
+          "type": "() => any",
+          "typeSource": "inferred",
+          "isFunction": true,
+          "isFunctionDeclaration": true,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 77,
+              "column": 2
+            },
+            "end": {
+              "line": 79,
+              "column": 3
+            }
+          }
+        }
+      ],
       "slots": [],
       "events": [],
       "typedefs": [],
@@ -7098,6 +7829,1172 @@
     }
   },
   {
+    "file": "src/lib/components/forms/form-button.svelte",
+    "component": "form-button",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 8,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 4,
+              "column": 7
+            },
+            "end": {
+              "line": 4,
+              "column": 28
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "Button"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/forms/form-button.svelte",
+          "kind": "prop-unknown-type",
+          "name": "ref",
+          "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 4,
+              "column": 7
+            },
+            "end": {
+              "line": 4,
+              "column": 28
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/forms/form-description.svelte",
+    "component": "form-description",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 18,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 18
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "FormPrimitive.Description"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/forms/form-description.svelte",
+          "kind": "prop-unknown-type",
+          "name": "ref",
+          "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/forms/form-description.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/forms/form-element-field.svelte",
+    "component": "form-element-field",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 25,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "type": "null | HTMLDivElement",
+          "typeSource": "inferred",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 9,
+              "column": 2
+            },
+            "end": {
+              "line": 9,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "form",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 10,
+              "column": 2
+            },
+            "end": {
+              "line": 10,
+              "column": 6
+            }
+          }
+        },
+        {
+          "name": "name",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 11,
+              "column": 2
+            },
+            "end": {
+              "line": 11,
+              "column": 6
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [
+        {
+          "name": null,
+          "default": true,
+          "slot_props": "{\n  constraints: any;\n  errors: any;\n  tainted: any;\n  value: any;\n}",
+          "source": {
+            "start": {
+              "line": 21,
+              "column": 3
+            },
+            "end": {
+              "line": 21,
+              "column": 83
+            }
+          }
+        }
+      ],
+      "events": [],
+      "typedefs": [],
+      "generics": [
+        "T, U",
+        "T extends Record<string, unknown>, U extends FormPathLeaves<T>"
+      ],
+      "rest_props": {
+        "type": "Element",
+        "name": "div"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/forms/form-element-field.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 9,
+              "column": 2
+            },
+            "end": {
+              "line": 9,
+              "column": 18
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/forms/form-element-field.svelte",
+          "kind": "prop-unknown-type",
+          "name": "form",
+          "message": "Prop \"form\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 10,
+              "column": 2
+            },
+            "end": {
+              "line": 10,
+              "column": 6
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/forms/form-element-field.svelte",
+          "kind": "prop-unknown-type",
+          "name": "name",
+          "message": "Prop \"name\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 11,
+              "column": 2
+            },
+            "end": {
+              "line": 11,
+              "column": 6
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/forms/form-field-errors.svelte",
+    "component": "form-field-errors",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 31,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "errorClasses",
+          "kind": "let",
+          "type": "string | undefined | null",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 14
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [
+        {
+          "name": null,
+          "default": true,
+          "slot_props": "{\n  errors: any;\n  errorProps: any;\n}",
+          "source": {
+            "start": {
+              "line": 23,
+              "column": 3
+            },
+            "end": {
+              "line": 23,
+              "column": 49
+            }
+          }
+        }
+      ],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "FormPrimitive.FieldErrors"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/forms/form-field-errors.svelte",
+          "kind": "prop-unknown-type",
+          "name": "ref",
+          "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/forms/form-field-errors.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/forms/form-field.svelte",
+    "component": "form-field",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 30,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "type": "null | HTMLDivElement",
+          "typeSource": "inferred",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 9,
+              "column": 2
+            },
+            "end": {
+              "line": 9,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "form",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 10,
+              "column": 2
+            },
+            "end": {
+              "line": 10,
+              "column": 6
+            }
+          }
+        },
+        {
+          "name": "name",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 11,
+              "column": 2
+            },
+            "end": {
+              "line": 11,
+              "column": 6
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [
+        {
+          "name": null,
+          "default": true,
+          "slot_props": "{\n  constraints: any;\n  errors: any;\n  tainted: any;\n  value: any;\n}",
+          "source": {
+            "start": {
+              "line": 26,
+              "column": 3
+            },
+            "end": {
+              "line": 26,
+              "column": 83
+            }
+          }
+        }
+      ],
+      "events": [],
+      "typedefs": [],
+      "generics": [
+        "T, U",
+        "T extends Record<string, unknown>, U extends FormPath<T>"
+      ],
+      "rest_props": {
+        "type": "Element",
+        "name": "div"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/forms/form-field.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 9,
+              "column": 2
+            },
+            "end": {
+              "line": 9,
+              "column": 18
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/forms/form-field.svelte",
+          "kind": "prop-unknown-type",
+          "name": "form",
+          "message": "Prop \"form\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 10,
+              "column": 2
+            },
+            "end": {
+              "line": 10,
+              "column": 6
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/forms/form-field.svelte",
+          "kind": "prop-unknown-type",
+          "name": "name",
+          "message": "Prop \"name\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 11,
+              "column": 2
+            },
+            "end": {
+              "line": 11,
+              "column": 6
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/forms/form-fieldset.svelte",
+    "component": "form-fieldset",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 16,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "form",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 9,
+              "column": 2
+            },
+            "end": {
+              "line": 9,
+              "column": 6
+            }
+          }
+        },
+        {
+          "name": "name",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 10,
+              "column": 2
+            },
+            "end": {
+              "line": 10,
+              "column": 6
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": [
+        "T, U",
+        "T extends Record<string, unknown>, U extends FormPath<T>"
+      ],
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "FormPrimitive.Fieldset"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/forms/form-fieldset.svelte",
+          "kind": "prop-unknown-type",
+          "name": "ref",
+          "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 23
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/forms/form-fieldset.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 18
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/forms/form-fieldset.svelte",
+          "kind": "prop-unknown-type",
+          "name": "form",
+          "message": "Prop \"form\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 9,
+              "column": 2
+            },
+            "end": {
+              "line": 9,
+              "column": 6
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/forms/form-fieldset.svelte",
+          "kind": "prop-unknown-type",
+          "name": "name",
+          "message": "Prop \"name\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 10,
+              "column": 2
+            },
+            "end": {
+              "line": 10,
+              "column": 6
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/forms/form-label.svelte",
+    "component": "form-label",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 27,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 9,
+              "column": 2
+            },
+            "end": {
+              "line": 9,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "required",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 10,
+              "column": 2
+            },
+            "end": {
+              "line": 10,
+              "column": 18
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [
+        {
+          "name": null,
+          "default": true,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 22,
+              "column": 3
+            },
+            "end": {
+              "line": 22,
+              "column": 25
+            }
+          }
+        }
+      ],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "FormPrimitive.Label"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/forms/form-label.svelte",
+          "kind": "prop-unknown-type",
+          "name": "ref",
+          "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 23
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/forms/form-label.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 9,
+              "column": 2
+            },
+            "end": {
+              "line": 9,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/forms/form-legend.svelte",
+    "component": "form-legend",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 17,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 18
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "FormPrimitive.Legend"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/forms/form-legend.svelte",
+          "kind": "prop-unknown-type",
+          "name": "ref",
+          "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/forms/form-legend.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
     "file": "src/lib/components/forms/FormLabelWithPriorityHelp.svelte",
     "component": "FormLabelWithPriorityHelp",
     "data": {
@@ -7263,6 +9160,1108 @@
             "end": {
               "line": 28,
               "column": 39
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/forms/prime-field.svelte",
+    "component": "prime-field",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 183,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "id",
+          "localName": "idProp",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 60,
+              "column": 4
+            },
+            "end": {
+              "line": 60,
+              "column": 14
+            }
+          }
+        },
+        {
+          "name": "label",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 61,
+              "column": 4
+            },
+            "end": {
+              "line": 61,
+              "column": 9
+            }
+          }
+        },
+        {
+          "name": "required",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 62,
+              "column": 4
+            },
+            "end": {
+              "line": 62,
+              "column": 20
+            }
+          }
+        },
+        {
+          "name": "hint",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 63,
+              "column": 4
+            },
+            "end": {
+              "line": 63,
+              "column": 8
+            }
+          }
+        },
+        {
+          "name": "error",
+          "kind": "let",
+          "type": "string | string[]",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 64,
+              "column": 4
+            },
+            "end": {
+              "line": 64,
+              "column": 9
+            }
+          }
+        },
+        {
+          "name": "help",
+          "kind": "let",
+          "type": "PrimeFieldHelp",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 65,
+              "column": 4
+            },
+            "end": {
+              "line": 65,
+              "column": 8
+            }
+          }
+        },
+        {
+          "name": "layout",
+          "kind": "let",
+          "type": "'stacked' | 'inline'",
+          "typeSource": "typescript",
+          "value": "'stacked'",
+          "defaultValue": {
+            "raw": "'stacked'",
+            "kind": "literal",
+            "value": "stacked"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 66,
+              "column": 4
+            },
+            "end": {
+              "line": 66,
+              "column": 22
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 68,
+              "column": 4
+            },
+            "end": {
+              "line": 68,
+              "column": 20
+            }
+          }
+        },
+        {
+          "name": "data-testid",
+          "localName": "dataTestId",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 69,
+              "column": 4
+            },
+            "end": {
+              "line": 69,
+              "column": 29
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [
+        {
+          "name": "control",
+          "default": false,
+          "slot_props": "{ id: string }",
+          "source": {
+            "start": {
+              "line": 173,
+              "column": 4
+            },
+            "end": {
+              "line": 173,
+              "column": 29
+            }
+          }
+        }
+      ],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "contexts": [],
+      "diagnostics": []
+    }
+  },
+  {
+    "file": "src/lib/components/forms/translated-field-errors.svelte",
+    "component": "translated-field-errors",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 49,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 9,
+              "column": 2
+            },
+            "end": {
+              "line": 9,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 10,
+              "column": 2
+            },
+            "end": {
+              "line": 10,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "errorClasses",
+          "kind": "let",
+          "type": "string | undefined | null",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 11,
+              "column": 2
+            },
+            "end": {
+              "line": 11,
+              "column": 14
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [
+        {
+          "name": null,
+          "default": true,
+          "slot_props": "{\n  errors: any;\n  errorProps: any;\n}",
+          "source": {
+            "start": {
+              "line": 41,
+              "column": 3
+            },
+            "end": {
+              "line": 41,
+              "column": 49
+            }
+          }
+        }
+      ],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "FormPrimitive.FieldErrors"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/forms/translated-field-errors.svelte",
+          "kind": "prop-unknown-type",
+          "name": "ref",
+          "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 9,
+              "column": 2
+            },
+            "end": {
+              "line": 9,
+              "column": 23
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/forms/translated-field-errors.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 10,
+              "column": 2
+            },
+            "end": {
+              "line": 10,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/input/input.svelte",
+    "component": "input",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 57,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "type": "null | HTMLInputElement",
+          "typeSource": "inferred",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 13,
+              "column": 2
+            },
+            "end": {
+              "line": 13,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "value",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 14,
+              "column": 2
+            },
+            "end": {
+              "line": 14,
+              "column": 21
+            }
+          }
+        },
+        {
+          "name": "type",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 15,
+              "column": 2
+            },
+            "end": {
+              "line": 15,
+              "column": 6
+            }
+          }
+        },
+        {
+          "name": "files",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 16,
+              "column": 2
+            },
+            "end": {
+              "line": 16,
+              "column": 21
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 17,
+              "column": 2
+            },
+            "end": {
+              "line": 17,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "data-slot",
+          "localName": "dataSlot",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "default",
+          "value": "\"input\"",
+          "defaultValue": {
+            "raw": "\"input\"",
+            "kind": "literal",
+            "value": "input"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 18,
+              "column": 2
+            },
+            "end": {
+              "line": 18,
+              "column": 33
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "Element",
+        "name": "input"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/input/input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "value",
+          "message": "Prop \"value\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 14,
+              "column": 2
+            },
+            "end": {
+              "line": 14,
+              "column": 21
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/input/input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "type",
+          "message": "Prop \"type\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 15,
+              "column": 2
+            },
+            "end": {
+              "line": 15,
+              "column": 6
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/input/input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "files",
+          "message": "Prop \"files\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 16,
+              "column": 2
+            },
+            "end": {
+              "line": 16,
+              "column": 21
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/input/input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 17,
+              "column": 2
+            },
+            "end": {
+              "line": 17,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/input/text-input.svelte",
+    "component": "text-input",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 212,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 65,
+              "column": 2
+            },
+            "end": {
+              "line": 65,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "value",
+          "kind": "let",
+          "bindable": true,
+          "type": "string",
+          "typeSource": "default",
+          "value": "\"\"",
+          "defaultValue": {
+            "raw": "\"\"",
+            "kind": "literal",
+            "value": ""
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 66,
+              "column": 2
+            },
+            "end": {
+              "line": 66,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "type",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 67,
+              "column": 2
+            },
+            "end": {
+              "line": 67,
+              "column": 6
+            }
+          }
+        },
+        {
+          "name": "readonly",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "default",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 68,
+              "column": 2
+            },
+            "end": {
+              "line": 68,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "disabled",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "default",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 69,
+              "column": 2
+            },
+            "end": {
+              "line": 69,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "clearable",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "default",
+          "value": "true",
+          "defaultValue": {
+            "raw": "true",
+            "kind": "literal",
+            "value": true
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 70,
+              "column": 2
+            },
+            "end": {
+              "line": 70,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "onClear",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 71,
+              "column": 2
+            },
+            "end": {
+              "line": 71,
+              "column": 9
+            }
+          }
+        },
+        {
+          "name": "clearLabel",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "default",
+          "value": "\"Clear\"",
+          "defaultValue": {
+            "raw": "\"Clear\"",
+            "kind": "literal",
+            "value": "Clear"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 72,
+              "column": 2
+            },
+            "end": {
+              "line": 72,
+              "column": 22
+            }
+          }
+        },
+        {
+          "name": "onCopy",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 73,
+              "column": 2
+            },
+            "end": {
+              "line": 73,
+              "column": 8
+            }
+          }
+        },
+        {
+          "name": "copyTooltipLabel",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 74,
+              "column": 2
+            },
+            "end": {
+              "line": 74,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "copyAnimationDuration",
+          "kind": "let",
+          "type": "number",
+          "typeSource": "default",
+          "value": "2000",
+          "defaultValue": {
+            "raw": "2000",
+            "kind": "literal",
+            "value": 2000
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 75,
+              "column": 2
+            },
+            "end": {
+              "line": 75,
+              "column": 30
+            }
+          }
+        },
+        {
+          "name": "trailing_ctas",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 77,
+              "column": 2
+            },
+            "end": {
+              "line": 77,
+              "column": 15
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 78,
+              "column": 2
+            },
+            "end": {
+              "line": 78,
+              "column": 18
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [
+        {
+          "name": "trailing",
+          "default": false,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 165,
+              "column": 2
+            },
+            "end": {
+              "line": 165,
+              "column": 22
+            }
+          }
+        }
+      ],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "Input"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/input/text-input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "ref",
+          "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 65,
+              "column": 2
+            },
+            "end": {
+              "line": 65,
+              "column": 23
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/input/text-input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "type",
+          "message": "Prop \"type\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 67,
+              "column": 2
+            },
+            "end": {
+              "line": 67,
+              "column": 6
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/input/text-input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "onClear",
+          "message": "Prop \"onClear\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 71,
+              "column": 2
+            },
+            "end": {
+              "line": 71,
+              "column": 9
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/input/text-input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "onCopy",
+          "message": "Prop \"onCopy\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 73,
+              "column": 2
+            },
+            "end": {
+              "line": 73,
+              "column": 8
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/input/text-input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "copyTooltipLabel",
+          "message": "Prop \"copyTooltipLabel\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 74,
+              "column": 2
+            },
+            "end": {
+              "line": 74,
+              "column": 18
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/input/text-input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "trailing_ctas",
+          "message": "Prop \"trailing_ctas\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 77,
+              "column": 2
+            },
+            "end": {
+              "line": 77,
+              "column": 15
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/input/text-input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 78,
+              "column": 2
+            },
+            "end": {
+              "line": 78,
+              "column": 18
             }
           }
         }
@@ -7789,6 +10788,877 @@
     }
   },
   {
+    "file": "src/lib/components/json-code-block/json-code-block.svelte",
+    "component": "json-code-block",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 119,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "code",
+          "kind": "let",
+          "type": "unknown",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 4
+            },
+            "end": {
+              "line": 8,
+              "column": 8
+            }
+          }
+        },
+        {
+          "name": "lineNumbers",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 9,
+              "column": 4
+            },
+            "end": {
+              "line": 9,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "copyable",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 10,
+              "column": 4
+            },
+            "end": {
+              "line": 10,
+              "column": 20
+            }
+          }
+        },
+        {
+          "name": "minRows",
+          "kind": "let",
+          "type": "number",
+          "typeSource": "typescript",
+          "value": "0",
+          "defaultValue": {
+            "raw": "0",
+            "kind": "literal",
+            "value": 0
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 11,
+              "column": 4
+            },
+            "end": {
+              "line": 11,
+              "column": 15
+            }
+          }
+        },
+        {
+          "name": "maxHeight",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 12,
+              "column": 4
+            },
+            "end": {
+              "line": 12,
+              "column": 13
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 13,
+              "column": 4
+            },
+            "end": {
+              "line": 13,
+              "column": 20
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "Element",
+        "name": "div"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/json-code-block/json-code-block.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 13,
+              "column": 4
+            },
+            "end": {
+              "line": 13,
+              "column": 20
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/json-code-block/json-editor.svelte",
+    "component": "json-editor",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 203,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "value",
+          "kind": "let",
+          "bindable": true,
+          "type": "string",
+          "typeSource": "typescript",
+          "value": "''",
+          "defaultValue": {
+            "raw": "''",
+            "kind": "literal",
+            "value": ""
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 9,
+              "column": 4
+            },
+            "end": {
+              "line": 9,
+              "column": 25
+            }
+          }
+        },
+        {
+          "name": "minRows",
+          "kind": "let",
+          "type": "number",
+          "typeSource": "typescript",
+          "value": "0",
+          "defaultValue": {
+            "raw": "0",
+            "kind": "literal",
+            "value": 0
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 10,
+              "column": 4
+            },
+            "end": {
+              "line": 10,
+              "column": 15
+            }
+          }
+        },
+        {
+          "name": "maxHeight",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 11,
+              "column": 4
+            },
+            "end": {
+              "line": 11,
+              "column": 13
+            }
+          }
+        },
+        {
+          "name": "placeholder",
+          "localName": "placeholderText",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 12,
+              "column": 4
+            },
+            "end": {
+              "line": 12,
+              "column": 32
+            }
+          }
+        },
+        {
+          "name": "onChange",
+          "kind": "let",
+          "type": "(v: string) => void",
+          "typeSource": "typescript",
+          "isFunction": true,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 13,
+              "column": 4
+            },
+            "end": {
+              "line": 13,
+              "column": 12
+            }
+          }
+        },
+        {
+          "name": "schema",
+          "kind": "let",
+          "type": "Record<string, unknown>",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 14,
+              "column": 4
+            },
+            "end": {
+              "line": 14,
+              "column": 10
+            }
+          }
+        },
+        {
+          "name": "extra_completions",
+          "kind": "let",
+          "type": "((context: {\n      pos: number;\n      explicit: boolean;\n      state: import('@codemirror/state').EditorState;\n    }) => unknown)[]",
+          "typeSource": "typescript",
+          "isFunction": true,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 15,
+              "column": 4
+            },
+            "end": {
+              "line": 15,
+              "column": 21
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 16,
+              "column": 4
+            },
+            "end": {
+              "line": 16,
+              "column": 20
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "Element",
+        "name": "div"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/json-code-block/json-editor.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 16,
+              "column": 4
+            },
+            "end": {
+              "line": 16,
+              "column": 20
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/json-value-editor/json-value-editor.svelte",
+    "component": "json-value-editor",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 185,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "value",
+          "kind": "let",
+          "bindable": true,
+          "type": "string",
+          "typeSource": "typescript",
+          "value": "''",
+          "defaultValue": {
+            "raw": "''",
+            "kind": "literal",
+            "value": ""
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 32,
+              "column": 4
+            },
+            "end": {
+              "line": 32,
+              "column": 25
+            }
+          }
+        },
+        {
+          "name": "schema",
+          "kind": "let",
+          "type": "Record<string, unknown>",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 33,
+              "column": 4
+            },
+            "end": {
+              "line": 33,
+              "column": 10
+            }
+          }
+        },
+        {
+          "name": "minRows",
+          "kind": "let",
+          "type": "number",
+          "typeSource": "typescript",
+          "value": "10",
+          "defaultValue": {
+            "raw": "10",
+            "kind": "literal",
+            "value": 10
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 34,
+              "column": 4
+            },
+            "end": {
+              "line": 34,
+              "column": 16
+            }
+          }
+        },
+        {
+          "name": "maxHeight",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "value": "'24rem'",
+          "defaultValue": {
+            "raw": "'24rem'",
+            "kind": "literal",
+            "value": "24rem"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 35,
+              "column": 4
+            },
+            "end": {
+              "line": 35,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "preview_open",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "true",
+          "defaultValue": {
+            "raw": "true",
+            "kind": "literal",
+            "value": true
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 36,
+              "column": 4
+            },
+            "end": {
+              "line": 36,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "placeholder",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 37,
+              "column": 4
+            },
+            "end": {
+              "line": 37,
+              "column": 15
+            }
+          }
+        },
+        {
+          "name": "readonly",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 38,
+              "column": 4
+            },
+            "end": {
+              "line": 38,
+              "column": 20
+            }
+          }
+        },
+        {
+          "name": "disabled",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 39,
+              "column": 4
+            },
+            "end": {
+              "line": 39,
+              "column": 20
+            }
+          }
+        },
+        {
+          "name": "on_ai_assist",
+          "kind": "let",
+          "type": "() => void",
+          "typeSource": "typescript",
+          "isFunction": true,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 40,
+              "column": 4
+            },
+            "end": {
+              "line": 40,
+              "column": 16
+            }
+          }
+        },
+        {
+          "name": "ai_label",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 41,
+              "column": 4
+            },
+            "end": {
+              "line": 41,
+              "column": 12
+            }
+          }
+        },
+        {
+          "name": "extra_completions",
+          "kind": "let",
+          "type": "((context: {\n      pos: number;\n      explicit: boolean;\n      state: import('@codemirror/state').EditorState;\n    }) => unknown)[]",
+          "typeSource": "typescript",
+          "isFunction": true,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 42,
+              "column": 4
+            },
+            "end": {
+              "line": 42,
+              "column": 21
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 43,
+              "column": 4
+            },
+            "end": {
+              "line": 43,
+              "column": 20
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "Element",
+        "name": "div"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/json-value-editor/json-value-editor.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 43,
+              "column": 4
+            },
+            "end": {
+              "line": 43,
+              "column": 20
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/label/label.svelte",
+    "component": "label",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 21,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 18
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "LabelPrimitive.Root"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/label/label.svelte",
+          "kind": "prop-unknown-type",
+          "name": "ref",
+          "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/label/label.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
     "file": "src/lib/components/number-ticker/number-ticker.svelte",
     "component": "number-ticker",
     "data": {
@@ -8213,6 +12083,304 @@
       "generics": null,
       "contexts": [],
       "diagnostics": []
+    }
+  },
+  {
+    "file": "src/lib/components/payload-map-editor/payload-map-editor.svelte",
+    "component": "payload-map-editor",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 871,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "value",
+          "kind": "let",
+          "bindable": true,
+          "type": "string",
+          "typeSource": "typescript",
+          "value": "''",
+          "defaultValue": {
+            "raw": "''",
+            "kind": "literal",
+            "value": ""
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 94,
+              "column": 4
+            },
+            "end": {
+              "line": 94,
+              "column": 25
+            }
+          }
+        },
+        {
+          "name": "target_schema",
+          "kind": "let",
+          "type": "Record<string, unknown>",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 95,
+              "column": 4
+            },
+            "end": {
+              "line": 95,
+              "column": 17
+            }
+          }
+        },
+        {
+          "name": "source_schema",
+          "kind": "let",
+          "type": "Record<string, unknown>",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 96,
+              "column": 4
+            },
+            "end": {
+              "line": 96,
+              "column": 17
+            }
+          }
+        },
+        {
+          "name": "source_entity",
+          "kind": "let",
+          "type": "{ key: string; entity: string; table: string }",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 97,
+              "column": 4
+            },
+            "end": {
+              "line": 97,
+              "column": 17
+            }
+          }
+        },
+        {
+          "name": "options_resolver",
+          "kind": "let",
+          "type": "(src: PayloadOptionsSource) => Promise<ResolvedOption[]>",
+          "typeSource": "typescript",
+          "isFunction": true,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 98,
+              "column": 4
+            },
+            "end": {
+              "line": 98,
+              "column": 20
+            }
+          }
+        },
+        {
+          "name": "readonly",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 99,
+              "column": 4
+            },
+            "end": {
+              "line": 99,
+              "column": 20
+            }
+          }
+        },
+        {
+          "name": "disabled",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 100,
+              "column": 4
+            },
+            "end": {
+              "line": 100,
+              "column": 20
+            }
+          }
+        },
+        {
+          "name": "on_ai_assist",
+          "kind": "let",
+          "type": "() => void",
+          "typeSource": "typescript",
+          "isFunction": true,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 101,
+              "column": 4
+            },
+            "end": {
+              "line": 101,
+              "column": 16
+            }
+          }
+        },
+        {
+          "name": "ai_label",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 102,
+              "column": 4
+            },
+            "end": {
+              "line": 102,
+              "column": 12
+            }
+          }
+        },
+        {
+          "name": "extra_completions",
+          "kind": "let",
+          "type": "((context: {\n      pos: number;\n      explicit: boolean;\n      state: import('@codemirror/state').EditorState;\n    }) => unknown)[]",
+          "typeSource": "typescript",
+          "isFunction": true,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 103,
+              "column": 4
+            },
+            "end": {
+              "line": 103,
+              "column": 21
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 104,
+              "column": 4
+            },
+            "end": {
+              "line": 104,
+              "column": 20
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "Element",
+        "name": "div"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/payload-map-editor/payload-map-editor.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 104,
+              "column": 4
+            },
+            "end": {
+              "line": 104,
+              "column": 20
+            }
+          }
+        }
+      ]
     }
   },
   {
@@ -8718,6 +12886,232 @@
       "events": [],
       "typedefs": [],
       "generics": null,
+      "contexts": [],
+      "diagnostics": []
+    }
+  },
+  {
+    "file": "src/lib/components/schedule-spec-input/schedule-spec-input.svelte",
+    "component": "schedule-spec-input",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 263,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "value",
+          "kind": "let",
+          "bindable": true,
+          "type": "string",
+          "typeSource": "typescript",
+          "value": "''",
+          "defaultValue": {
+            "raw": "''",
+            "kind": "literal",
+            "value": ""
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 45,
+              "column": 4
+            },
+            "end": {
+              "line": 45,
+              "column": 25
+            }
+          }
+        },
+        {
+          "name": "id",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 46,
+              "column": 4
+            },
+            "end": {
+              "line": 46,
+              "column": 6
+            }
+          }
+        },
+        {
+          "name": "name",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 47,
+              "column": 4
+            },
+            "end": {
+              "line": 47,
+              "column": 8
+            }
+          }
+        },
+        {
+          "name": "placeholder",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 48,
+              "column": 4
+            },
+            "end": {
+              "line": 48,
+              "column": 15
+            }
+          }
+        },
+        {
+          "name": "readonly",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 49,
+              "column": 4
+            },
+            "end": {
+              "line": 49,
+              "column": 20
+            }
+          }
+        },
+        {
+          "name": "disabled",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 50,
+              "column": 4
+            },
+            "end": {
+              "line": 50,
+              "column": 20
+            }
+          }
+        },
+        {
+          "name": "data-testid",
+          "localName": "dataTestId",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "value": "'schedule-spec-input'",
+          "defaultValue": {
+            "raw": "'schedule-spec-input'",
+            "kind": "literal",
+            "value": "schedule-spec-input"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 51,
+              "column": 4
+            },
+            "end": {
+              "line": 51,
+              "column": 53
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 52,
+              "column": 4
+            },
+            "end": {
+              "line": 52,
+              "column": 20
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "TextInput"
+      },
       "contexts": [],
       "diagnostics": []
     }
@@ -9577,7 +13971,7 @@
           "name": "sheetVariants",
           "kind": "const",
           "typeSource": "unknown",
-          "value": "tv({\n\t\tbase: \"bg-background data-[state=open]:animate-in data-[state=closed]:animate-out fixed z-100 gap-4 p-6 transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500\",\n\t\tvariants: {\n\t\t\tside: {\n\t\t\t\ttop: \"data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top inset-x-0 top-0 border-b\",\n\t\t\t\tbottom: \"data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 border-t\",\n\t\t\t\tleft: \"data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm\",\n\t\t\t\tright: \"data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm\",\n\t\t\t},\n\t\t},\n\t\tdefaultVariants: {\n\t\t\tside: \"right\",\n\t\t},\n\t})",
+          "value": "tv({\r\n\t\tbase: \"bg-background data-[state=open]:animate-in data-[state=closed]:animate-out fixed z-100 gap-4 p-6 transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500\",\r\n\t\tvariants: {\r\n\t\t\tside: {\r\n\t\t\t\ttop: \"data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top inset-x-0 top-0 border-b\",\r\n\t\t\t\tbottom: \"data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 border-t\",\r\n\t\t\t\tleft: \"data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm\",\r\n\t\t\t\tright: \"data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm\",\r\n\t\t\t},\r\n\t\t},\r\n\t\tdefaultVariants: {\r\n\t\t\tside: \"right\",\r\n\t\t},\r\n\t})",
           "defaultValue": {
             "raw": "tv({ \t\tbase: \"bg-background data-[state=open]:animate-in data-[state=closed]:animate-out fixed z-100 gap-4 p-6 transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500\", \t\tvariants: { \t\t\tside: { \t\t\t\ttop: \"data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top inset-x-0 top-0 border-b\", \t\t\t\tbottom: \"data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 border-t\", \t\t\t\tleft: \"data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm\", \t\t\t\tright: \"data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm\", \t\t\t}, \t\t}, \t\tdefaultVariants: { \t\t\tside: \"right\", \t\t}, \t})",
             "kind": "expression"
@@ -11764,7 +16158,7 @@
           "column": 0
         },
         "end": {
-          "line": 104,
+          "line": 109,
           "column": 0
         }
       },
@@ -12071,6 +16465,10 @@
       "events": [],
       "typedefs": [],
       "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "Switch"
+      },
       "contexts": [],
       "diagnostics": []
     }

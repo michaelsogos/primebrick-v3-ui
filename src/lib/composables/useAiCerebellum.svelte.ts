@@ -15,7 +15,7 @@ import { fetchAiCerebellum } from '../ai/index.js';
 import { modelVariantKey, type AiCerebellum } from '../ai/index.js';
 import { clearCachedETag } from '../cache/etag-store.js';
 
-const AI_CEREBELLUM_URL = '/ws/ai/api/v1/entities/ai_cerebellum/list';
+const AI_CEREBELLUM_URL = '/svc/ai/api/v1/entities/ai_cerebellum/list';
 
 interface AssistantCache {
   tunings: AiCerebellum[];

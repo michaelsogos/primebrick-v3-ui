@@ -36,6 +36,7 @@
     id,
     class: className,
     'data-testid': dataTestId,
+    ...restProps
   }: {
     checked?: boolean;
     /** Alternative to bind:checked for external stores (superForm, builders). */
@@ -65,6 +66,9 @@
     id?: string;
     class?: string;
     'data-testid'?: string;
+    /** Extra props (aria-*, data-fs-error) forwarded to the inner Switch —
+     *  FormControl wiring reaches the real control. */
+    [key: string]: unknown;
   } = $props();
 </script>
 
@@ -76,6 +80,7 @@
       {disabled}
       onCheckedChange={onCheckedChange}
       data-testid={dataTestId ? `${dataTestId}-switch` : undefined}
+      {...restProps}
     />
     {#if label}
       <label
