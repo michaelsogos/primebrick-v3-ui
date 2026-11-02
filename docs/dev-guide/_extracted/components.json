@@ -3195,7 +3195,7 @@
           "column": 0
         },
         "end": {
-          "line": 688,
+          "line": 751,
           "column": 0
         }
       },
@@ -3214,11 +3214,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 139,
+              "line": 165,
               "column": 4
             },
             "end": {
-              "line": 139,
+              "line": 165,
               "column": 8
             }
           }
@@ -3236,11 +3236,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 140,
+              "line": 166,
               "column": 4
             },
             "end": {
-              "line": 140,
+              "line": 166,
               "column": 23
             }
           }
@@ -3257,11 +3257,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 141,
+              "line": 167,
               "column": 4
             },
             "end": {
-              "line": 141,
+              "line": 167,
               "column": 12
             }
           }
@@ -3278,11 +3278,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 142,
+              "line": 168,
               "column": 4
             },
             "end": {
-              "line": 142,
+              "line": 168,
               "column": 11
             }
           }
@@ -3299,11 +3299,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 143,
+              "line": 169,
               "column": 4
             },
             "end": {
-              "line": 143,
+              "line": 169,
               "column": 14
             }
           }
@@ -3320,11 +3320,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 144,
+              "line": 170,
               "column": 4
             },
             "end": {
-              "line": 144,
+              "line": 170,
               "column": 14
             }
           }
@@ -3347,11 +3347,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 145,
+              "line": 171,
               "column": 4
             },
             "end": {
-              "line": 145,
+              "line": 171,
               "column": 29
             }
           }
@@ -3374,11 +3374,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 146,
+              "line": 172,
               "column": 4
             },
             "end": {
-              "line": 146,
+              "line": 172,
               "column": 29
             }
           }
@@ -3401,11 +3401,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 147,
+              "line": 173,
               "column": 4
             },
             "end": {
-              "line": 147,
+              "line": 173,
               "column": 20
             }
           }
@@ -3428,11 +3428,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 148,
+              "line": 174,
               "column": 4
             },
             "end": {
-              "line": 148,
+              "line": 174,
               "column": 19
             }
           }
@@ -3449,11 +3449,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 149,
+              "line": 175,
               "column": 4
             },
             "end": {
-              "line": 149,
+              "line": 175,
               "column": 6
             }
           }
@@ -3476,11 +3476,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 150,
+              "line": 176,
               "column": 4
             },
             "end": {
-              "line": 150,
+              "line": 176,
               "column": 21
             }
           }
@@ -3490,11 +3490,10 @@
           "kind": "let",
           "type": "string",
           "typeSource": "typescript",
-          "value": "\"Search...\"",
+          "value": "undefined",
           "defaultValue": {
-            "raw": "\"Search...\"",
-            "kind": "literal",
-            "value": "Search..."
+            "raw": "undefined",
+            "kind": "expression"
           },
           "isFunction": false,
           "isFunctionDeclaration": false,
@@ -3503,12 +3502,12 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 151,
+              "line": 177,
               "column": 4
             },
             "end": {
-              "line": 151,
-              "column": 35
+              "line": 177,
+              "column": 33
             }
           }
         },
@@ -3530,11 +3529,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 152,
+              "line": 178,
               "column": 4
             },
             "end": {
-              "line": 152,
+              "line": 178,
               "column": 23
             }
           }
@@ -3557,11 +3556,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 153,
+              "line": 179,
               "column": 4
             },
             "end": {
-              "line": 153,
+              "line": 179,
               "column": 24
             }
           }
@@ -3578,11 +3577,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 154,
+              "line": 180,
               "column": 4
             },
             "end": {
-              "line": 154,
+              "line": 180,
               "column": 18
             }
           }
@@ -3599,12 +3598,147 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 155,
+              "line": 181,
               "column": 4
             },
             "end": {
-              "line": 155,
+              "line": 181,
               "column": 20
+            }
+          }
+        },
+        {
+          "name": "showIcons",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "true",
+          "defaultValue": {
+            "raw": "true",
+            "kind": "literal",
+            "value": true
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 182,
+              "column": 4
+            },
+            "end": {
+              "line": 182,
+              "column": 20
+            }
+          }
+        },
+        {
+          "name": "showDescription",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "true",
+          "defaultValue": {
+            "raw": "true",
+            "kind": "literal",
+            "value": true
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 183,
+              "column": 4
+            },
+            "end": {
+              "line": 183,
+              "column": 26
+            }
+          }
+        },
+        {
+          "name": "showTechName",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "true",
+          "defaultValue": {
+            "raw": "true",
+            "kind": "literal",
+            "value": true
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 184,
+              "column": 4
+            },
+            "end": {
+              "line": 184,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "isDescriptionTranslated",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 185,
+              "column": 4
+            },
+            "end": {
+              "line": 185,
+              "column": 35
+            }
+          }
+        },
+        {
+          "name": "isSecondaryTranslated",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 186,
+              "column": 4
+            },
+            "end": {
+              "line": 186,
+              "column": 33
             }
           }
         },
@@ -3620,11 +3754,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 156,
+              "line": 187,
               "column": 4
             },
             "end": {
-              "line": 156,
+              "line": 187,
               "column": 13
             }
           }
@@ -3641,12 +3775,54 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 157,
+              "line": 188,
               "column": 4
             },
             "end": {
-              "line": 157,
+              "line": 188,
               "column": 18
+            }
+          }
+        },
+        {
+          "name": "flagField",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 189,
+              "column": 4
+            },
+            "end": {
+              "line": 189,
+              "column": 13
+            }
+          }
+        },
+        {
+          "name": "iconDashedField",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 190,
+              "column": 4
+            },
+            "end": {
+              "line": 190,
+              "column": 19
             }
           }
         },
@@ -3662,11 +3838,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 159,
+              "line": 192,
               "column": 4
             },
             "end": {
-              "line": 159,
+              "line": 192,
               "column": 20
             }
           }
@@ -3683,11 +3859,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 160,
+              "line": 193,
               "column": 4
             },
             "end": {
-              "line": 160,
+              "line": 193,
               "column": 21
             }
           }
@@ -3710,11 +3886,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 162,
+              "line": 195,
               "column": 4
             },
             "end": {
-              "line": 162,
+              "line": 195,
               "column": 23
             }
           }
@@ -3731,11 +3907,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 163,
+              "line": 196,
               "column": 4
             },
             "end": {
-              "line": 163,
+              "line": 196,
               "column": 12
             }
           }
@@ -3752,11 +3928,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 164,
+              "line": 197,
               "column": 4
             },
             "end": {
-              "line": 164,
+              "line": 197,
               "column": 17
             }
           }
@@ -3773,11 +3949,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 165,
+              "line": 198,
               "column": 4
             },
             "end": {
-              "line": 165,
+              "line": 198,
               "column": 14
             }
           }
@@ -3800,11 +3976,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 166,
+              "line": 199,
               "column": 4
             },
             "end": {
-              "line": 166,
+              "line": 199,
               "column": 23
             }
           }
@@ -3827,11 +4003,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 167,
+              "line": 200,
               "column": 4
             },
             "end": {
-              "line": 167,
+              "line": 200,
               "column": 22
             }
           }
@@ -3854,11 +4030,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 168,
+              "line": 201,
               "column": 4
             },
             "end": {
-              "line": 168,
+              "line": 201,
               "column": 24
             }
           }
@@ -3876,11 +4052,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 169,
+              "line": 202,
               "column": 4
             },
             "end": {
-              "line": 169,
+              "line": 202,
               "column": 31
             }
           }
@@ -3898,11 +4074,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 170,
+              "line": 203,
               "column": 4
             },
             "end": {
-              "line": 170,
+              "line": 203,
               "column": 39
             }
           }
@@ -3920,11 +4096,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 171,
+              "line": 204,
               "column": 4
             },
             "end": {
-              "line": 171,
+              "line": 204,
               "column": 33
             }
           }
@@ -3942,11 +4118,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 172,
+              "line": 205,
               "column": 4
             },
             "end": {
-              "line": 172,
+              "line": 205,
               "column": 32
             }
           }
@@ -3969,11 +4145,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 173,
+              "line": 206,
               "column": 4
             },
             "end": {
-              "line": 173,
+              "line": 206,
               "column": 23
             }
           }
@@ -3991,11 +4167,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 174,
+              "line": 207,
               "column": 4
             },
             "end": {
-              "line": 174,
+              "line": 207,
               "column": 20
             }
           }
@@ -4012,11 +4188,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 175,
+              "line": 208,
               "column": 4
             },
             "end": {
-              "line": 175,
+              "line": 208,
               "column": 29
             }
           }
@@ -4030,11 +4206,11 @@
           "slot_props": "{\n  option: any;\n  selected: any;\n  resolvedLabel: any;\n  resolvedValue: any;\n}",
           "source": {
             "start": {
-              "line": 630,
+              "line": 685,
               "column": 18
             },
             "end": {
-              "line": 635,
+              "line": 690,
               "column": 21
             }
           }
@@ -4045,11 +4221,11 @@
           "slot_props": "{\n  option: any;\n  resolvedLabel: any;\n  resolvedValue: any;\n}",
           "source": {
             "start": {
-              "line": 461,
+              "line": 514,
               "column": 14
             },
             "end": {
-              "line": 465,
+              "line": 518,
               "column": 17
             }
           }
@@ -4067,11 +4243,11 @@
           "message": "Prop \"data-testid\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 175,
+              "line": 208,
               "column": 4
             },
             "end": {
-              "line": 175,
+              "line": 208,
               "column": 29
             }
           }
@@ -6947,7 +7123,7 @@
           "column": 0
         },
         "end": {
-          "line": 97,
+          "line": 99,
           "column": 0
         }
       },
@@ -6977,6 +7153,27 @@
           }
         },
         {
+          "name": "onOpenChange",
+          "kind": "let",
+          "type": "(open: boolean) => void",
+          "typeSource": "typescript",
+          "isFunction": true,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 18,
+              "column": 2
+            },
+            "end": {
+              "line": 18,
+              "column": 14
+            }
+          }
+        },
+        {
           "name": "severity",
           "kind": "let",
           "type": "DialogSeverity",
@@ -6994,11 +7191,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 18,
+              "line": 19,
               "column": 2
             },
             "end": {
-              "line": 18,
+              "line": 19,
               "column": 22
             }
           }
@@ -7021,11 +7218,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 19,
+              "line": 20,
               "column": 2
             },
             "end": {
-              "line": 19,
+              "line": 20,
               "column": 11
             }
           }
@@ -7048,11 +7245,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 20,
+              "line": 21,
               "column": 2
             },
             "end": {
-              "line": 20,
+              "line": 21,
               "column": 24
             }
           }
@@ -7076,11 +7273,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 21,
+              "line": 22,
               "column": 2
             },
             "end": {
-              "line": 21,
+              "line": 22,
               "column": 23
             }
           }
@@ -7094,11 +7291,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 92,
+              "line": 94,
               "column": 4
             },
             "end": {
-              "line": 92,
+              "line": 94,
               "column": 24
             }
           }
@@ -7125,7 +7322,7 @@
           "column": 0
         },
         "end": {
-          "line": 85,
+          "line": 194,
           "column": 0
         }
       },
@@ -7144,11 +7341,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 37,
+              "line": 87,
               "column": 4
             },
             "end": {
-              "line": 37,
+              "line": 87,
               "column": 8
             }
           }
@@ -7171,11 +7368,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 38,
+              "line": 88,
               "column": 4
             },
             "end": {
-              "line": 38,
+              "line": 88,
               "column": 13
             }
           }
@@ -7193,11 +7390,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 39,
+              "line": 89,
               "column": 4
             },
             "end": {
-              "line": 39,
+              "line": 89,
               "column": 20
             }
           }
@@ -7214,17 +7411,39 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 40,
+              "line": 90,
               "column": 4
             },
             "end": {
-              "line": 40,
+              "line": 90,
               "column": 9
             }
           }
         }
       ],
-      "moduleExports": [],
+      "moduleExports": [
+        {
+          "name": "nextMaskId",
+          "kind": "function",
+          "type": "() => any",
+          "typeSource": "inferred",
+          "isFunction": true,
+          "isFunctionDeclaration": true,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 77,
+              "column": 2
+            },
+            "end": {
+              "line": 79,
+              "column": 3
+            }
+          }
+        }
+      ],
       "slots": [],
       "events": [],
       "typedefs": [],
@@ -9588,7 +9807,7 @@
           "column": 0
         },
         "end": {
-          "line": 145,
+          "line": 212,
           "column": 0
         }
       },
@@ -9613,11 +9832,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 44,
+              "line": 65,
               "column": 2
             },
             "end": {
-              "line": 44,
+              "line": 65,
               "column": 23
             }
           }
@@ -9641,11 +9860,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 45,
+              "line": 66,
               "column": 2
             },
             "end": {
-              "line": 45,
+              "line": 66,
               "column": 23
             }
           }
@@ -9661,11 +9880,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 46,
+              "line": 67,
               "column": 2
             },
             "end": {
-              "line": 46,
+              "line": 67,
               "column": 6
             }
           }
@@ -9688,11 +9907,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 47,
+              "line": 68,
               "column": 2
             },
             "end": {
-              "line": 47,
+              "line": 68,
               "column": 18
             }
           }
@@ -9715,11 +9934,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 48,
+              "line": 69,
               "column": 2
             },
             "end": {
-              "line": 48,
+              "line": 69,
               "column": 18
             }
           }
@@ -9742,11 +9961,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 49,
+              "line": 70,
               "column": 2
             },
             "end": {
-              "line": 49,
+              "line": 70,
               "column": 18
             }
           }
@@ -9762,11 +9981,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 50,
+              "line": 71,
               "column": 2
             },
             "end": {
-              "line": 50,
+              "line": 71,
               "column": 9
             }
           }
@@ -9789,11 +10008,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 51,
+              "line": 72,
               "column": 2
             },
             "end": {
-              "line": 51,
+              "line": 72,
               "column": 22
             }
           }
@@ -9809,11 +10028,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 52,
+              "line": 73,
               "column": 2
             },
             "end": {
-              "line": 52,
+              "line": 73,
               "column": 8
             }
           }
@@ -9829,11 +10048,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 53,
+              "line": 74,
               "column": 2
             },
             "end": {
-              "line": 53,
+              "line": 74,
               "column": 18
             }
           }
@@ -9856,12 +10075,32 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 54,
+              "line": 75,
               "column": 2
             },
             "end": {
-              "line": 54,
+              "line": 75,
               "column": 30
+            }
+          }
+        },
+        {
+          "name": "trailing_ctas",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 77,
+              "column": 2
+            },
+            "end": {
+              "line": 77,
+              "column": 15
             }
           }
         },
@@ -9877,11 +10116,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 56,
+              "line": 78,
               "column": 2
             },
             "end": {
-              "line": 56,
+              "line": 78,
               "column": 18
             }
           }
@@ -9895,11 +10134,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 128,
+              "line": 165,
               "column": 2
             },
             "end": {
-              "line": 128,
+              "line": 165,
               "column": 22
             }
           }
@@ -9921,11 +10160,11 @@
           "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 44,
+              "line": 65,
               "column": 2
             },
             "end": {
-              "line": 44,
+              "line": 65,
               "column": 23
             }
           }
@@ -9937,11 +10176,11 @@
           "message": "Prop \"type\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 46,
+              "line": 67,
               "column": 2
             },
             "end": {
-              "line": 46,
+              "line": 67,
               "column": 6
             }
           }
@@ -9953,11 +10192,11 @@
           "message": "Prop \"onClear\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 50,
+              "line": 71,
               "column": 2
             },
             "end": {
-              "line": 50,
+              "line": 71,
               "column": 9
             }
           }
@@ -9969,11 +10208,11 @@
           "message": "Prop \"onCopy\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 52,
+              "line": 73,
               "column": 2
             },
             "end": {
-              "line": 52,
+              "line": 73,
               "column": 8
             }
           }
@@ -9985,12 +10224,28 @@
           "message": "Prop \"copyTooltipLabel\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 53,
+              "line": 74,
               "column": 2
             },
             "end": {
-              "line": 53,
+              "line": 74,
               "column": 18
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/input/text-input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "trailing_ctas",
+          "message": "Prop \"trailing_ctas\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 77,
+              "column": 2
+            },
+            "end": {
+              "line": 77,
+              "column": 15
             }
           }
         },
@@ -10001,11 +10256,11 @@
           "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 56,
+              "line": 78,
               "column": 2
             },
             "end": {
-              "line": 56,
+              "line": 78,
               "column": 18
             }
           }
@@ -10734,7 +10989,7 @@
           "column": 0
         },
         "end": {
-          "line": 185,
+          "line": 203,
           "column": 0
         }
       },
@@ -10882,6 +11137,27 @@
           }
         },
         {
+          "name": "extra_completions",
+          "kind": "let",
+          "type": "((context: {\n      pos: number;\n      explicit: boolean;\n      state: import('@codemirror/state').EditorState;\n    }) => unknown)[]",
+          "typeSource": "typescript",
+          "isFunction": true,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 15,
+              "column": 4
+            },
+            "end": {
+              "line": 15,
+              "column": 21
+            }
+          }
+        },
+        {
           "name": "class",
           "localName": "className",
           "kind": "let",
@@ -10893,11 +11169,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 15,
+              "line": 16,
               "column": 4
             },
             "end": {
-              "line": 15,
+              "line": 16,
               "column": 20
             }
           }
@@ -10921,11 +11197,11 @@
           "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 15,
+              "line": 16,
               "column": 4
             },
             "end": {
-              "line": 15,
+              "line": 16,
               "column": 20
             }
           }
@@ -10943,7 +11219,7 @@
           "column": 0
         },
         "end": {
-          "line": 157,
+          "line": 185,
           "column": 0
         }
       },
@@ -10969,11 +11245,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 31,
+              "line": 32,
               "column": 4
             },
             "end": {
-              "line": 31,
+              "line": 32,
               "column": 25
             }
           }
@@ -10990,11 +11266,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 32,
+              "line": 33,
               "column": 4
             },
             "end": {
-              "line": 32,
+              "line": 33,
               "column": 10
             }
           }
@@ -11017,11 +11293,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 33,
+              "line": 34,
               "column": 4
             },
             "end": {
-              "line": 33,
+              "line": 34,
               "column": 16
             }
           }
@@ -11044,11 +11320,38 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 34,
+              "line": 35,
               "column": 4
             },
             "end": {
-              "line": 34,
+              "line": 35,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "preview_open",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "true",
+          "defaultValue": {
+            "raw": "true",
+            "kind": "literal",
+            "value": true
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 36,
+              "column": 4
+            },
+            "end": {
+              "line": 36,
               "column": 23
             }
           }
@@ -11065,11 +11368,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 35,
+              "line": 37,
               "column": 4
             },
             "end": {
-              "line": 35,
+              "line": 37,
               "column": 15
             }
           }
@@ -11092,11 +11395,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 36,
+              "line": 38,
               "column": 4
             },
             "end": {
-              "line": 36,
+              "line": 38,
               "column": 20
             }
           }
@@ -11119,11 +11422,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 37,
+              "line": 39,
               "column": 4
             },
             "end": {
-              "line": 37,
+              "line": 39,
               "column": 20
             }
           }
@@ -11140,11 +11443,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 38,
+              "line": 40,
               "column": 4
             },
             "end": {
-              "line": 38,
+              "line": 40,
               "column": 16
             }
           }
@@ -11161,12 +11464,33 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 39,
+              "line": 41,
               "column": 4
             },
             "end": {
-              "line": 39,
+              "line": 41,
               "column": 12
+            }
+          }
+        },
+        {
+          "name": "extra_completions",
+          "kind": "let",
+          "type": "((context: {\n      pos: number;\n      explicit: boolean;\n      state: import('@codemirror/state').EditorState;\n    }) => unknown)[]",
+          "typeSource": "typescript",
+          "isFunction": true,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 42,
+              "column": 4
+            },
+            "end": {
+              "line": 42,
+              "column": 21
             }
           }
         },
@@ -11182,11 +11506,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 40,
+              "line": 43,
               "column": 4
             },
             "end": {
-              "line": 40,
+              "line": 43,
               "column": 20
             }
           }
@@ -11210,11 +11534,11 @@
           "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 40,
+              "line": 43,
               "column": 4
             },
             "end": {
-              "line": 40,
+              "line": 43,
               "column": 20
             }
           }
@@ -11762,6 +12086,304 @@
     }
   },
   {
+    "file": "src/lib/components/payload-map-editor/payload-map-editor.svelte",
+    "component": "payload-map-editor",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 871,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "value",
+          "kind": "let",
+          "bindable": true,
+          "type": "string",
+          "typeSource": "typescript",
+          "value": "''",
+          "defaultValue": {
+            "raw": "''",
+            "kind": "literal",
+            "value": ""
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 94,
+              "column": 4
+            },
+            "end": {
+              "line": 94,
+              "column": 25
+            }
+          }
+        },
+        {
+          "name": "target_schema",
+          "kind": "let",
+          "type": "Record<string, unknown>",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 95,
+              "column": 4
+            },
+            "end": {
+              "line": 95,
+              "column": 17
+            }
+          }
+        },
+        {
+          "name": "source_schema",
+          "kind": "let",
+          "type": "Record<string, unknown>",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 96,
+              "column": 4
+            },
+            "end": {
+              "line": 96,
+              "column": 17
+            }
+          }
+        },
+        {
+          "name": "source_entity",
+          "kind": "let",
+          "type": "{ key: string; entity: string; table: string }",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 97,
+              "column": 4
+            },
+            "end": {
+              "line": 97,
+              "column": 17
+            }
+          }
+        },
+        {
+          "name": "options_resolver",
+          "kind": "let",
+          "type": "(src: PayloadOptionsSource) => Promise<ResolvedOption[]>",
+          "typeSource": "typescript",
+          "isFunction": true,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 98,
+              "column": 4
+            },
+            "end": {
+              "line": 98,
+              "column": 20
+            }
+          }
+        },
+        {
+          "name": "readonly",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 99,
+              "column": 4
+            },
+            "end": {
+              "line": 99,
+              "column": 20
+            }
+          }
+        },
+        {
+          "name": "disabled",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 100,
+              "column": 4
+            },
+            "end": {
+              "line": 100,
+              "column": 20
+            }
+          }
+        },
+        {
+          "name": "on_ai_assist",
+          "kind": "let",
+          "type": "() => void",
+          "typeSource": "typescript",
+          "isFunction": true,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 101,
+              "column": 4
+            },
+            "end": {
+              "line": 101,
+              "column": 16
+            }
+          }
+        },
+        {
+          "name": "ai_label",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 102,
+              "column": 4
+            },
+            "end": {
+              "line": 102,
+              "column": 12
+            }
+          }
+        },
+        {
+          "name": "extra_completions",
+          "kind": "let",
+          "type": "((context: {\n      pos: number;\n      explicit: boolean;\n      state: import('@codemirror/state').EditorState;\n    }) => unknown)[]",
+          "typeSource": "typescript",
+          "isFunction": true,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 103,
+              "column": 4
+            },
+            "end": {
+              "line": 103,
+              "column": 21
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 104,
+              "column": 4
+            },
+            "end": {
+              "line": 104,
+              "column": 20
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "Element",
+        "name": "div"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/payload-map-editor/payload-map-editor.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 104,
+              "column": 4
+            },
+            "end": {
+              "line": 104,
+              "column": 20
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
     "file": "src/lib/components/popover/popover-close-on-scroll.svelte",
     "component": "popover-close-on-scroll",
     "data": {
@@ -12278,7 +12900,7 @@
           "column": 0
         },
         "end": {
-          "line": 264,
+          "line": 263,
           "column": 0
         }
       },
@@ -15536,7 +16158,7 @@
           "column": 0
         },
         "end": {
-          "line": 104,
+          "line": 109,
           "column": 0
         }
       },
@@ -15843,6 +16465,10 @@
       "events": [],
       "typedefs": [],
       "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "Switch"
+      },
       "contexts": [],
       "diagnostics": []
     }

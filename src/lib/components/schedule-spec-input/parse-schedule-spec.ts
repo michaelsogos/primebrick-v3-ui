@@ -11,7 +11,7 @@
  * croner, `@every` via arithmetic, `@at` one-shot).
  */
 import { Cron } from 'croner';
-import { toString as describeCron } from 'cronstrue';
+import { toString as describeCron } from 'cronstrue/dist/cronstrue-i18n.js';
 
 export type ScheduleSpec =
   | { kind: 'every'; everyMs: number; spec: string }
@@ -97,23 +97,34 @@ export function nextScheduleRuns(raw: string, count = 3, from = new Date()): Dat
 }
 
 /**
- * Human description of a valid spec — English via cronstrue for cron;
- * a compact phrase for the `@every`/`@at` branches (returns `undefined`
- * when the spec is invalid or has no description).
+ * Human description of a valid spec — a STRUCTURED descriptor so the
+ * component translates `@every`/`@at` through its own i18n keys
+ * (plural-aware units), while cron text comes from cronstrue already
+ * localized (`locale` = full tag like `it-IT`, cronstrue takes the
+ * primary subtag). `undefined` when the spec is invalid.
  */
-export function describeScheduleSpec(raw: string): string | undefined {
+export type ScheduleDescription =
+  | { kind: 'every'; n: number; unit: 's' | 'm' | 'h' | 'd' }
+  | { kind: 'at'; at: Date }
+  | { kind: 'text'; text: string };
+
+export function describeScheduleSpec(raw: string, locale?: string): ScheduleDescription | undefined {
   const parsed = parseScheduleSpec(raw);
   if (!parsed.ok) return undefined;
   const s = parsed.spec;
-  if (s.kind === 'at') return `Once at ${s.at.toISOString()}`;
+  if (s.kind === 'at') return { kind: 'at', at: s.at };
   if (s.kind === 'every') {
     const m = EVERY_RE.exec(s.spec)!;
-    const unit = { s: 'seconds', m: 'minutes', h: 'hours', d: 'days' }[m[2]!]!;
-    return `Every ${m[1]} ${unit}`;
+    return { kind: 'every', n: Number(m[1]), unit: m[2] as 's' | 'm' | 'h' | 'd' };
   }
   try {
-    return describeCron(s.expr);
+    try {
+      return { kind: 'text', text: describeCron(s.expr, { locale: locale?.split('-')[0] }) };
+    } catch {
+      // Unknown locale code or expression — degrade to the raw expr text.
+      return { kind: 'text', text: s.expr };
+    }
   } catch {
-    return s.expr;
+    return { kind: 'text', text: s.expr };
   }
 }

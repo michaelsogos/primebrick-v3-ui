@@ -18,6 +18,7 @@
    * Wrappable by FormField/PrimeField — it renders ONLY the control;
    * label/tooltip/errors stay the wrapper's job.
    */
+  import { untrack } from 'svelte';
   import { cn } from '../../utils/index.js';
   import { getT } from '../../bridges.js';
   import { Pencil, Eye } from '@primebrick/ui/vendor/lucide';
@@ -32,11 +33,13 @@
     schema,
     minRows = 10,
     maxHeight = '24rem',
+    preview_open = true,
     placeholder,
     readonly = false,
     disabled = false,
     on_ai_assist,
     ai_label,
+    extra_completions,
     class: className,
     ...rest
   }: {
@@ -48,6 +51,10 @@
     minRows?: number;
     /** CSS max-height of the scrollable surface. Default '24rem'. */
     maxHeight?: string;
+    /** Whether the preview surface starts expanded. Default true —
+     *  pass `false` where the JSON doc is secondary context that
+     *  should arrive collapsed (payload_map raw DST, filter expr). */
+    preview_open?: boolean;
     placeholder?: string;
     readonly?: boolean;
     disabled?: boolean;
@@ -55,9 +62,19 @@
     on_ai_assist?: () => void;
     /** Localized aria/title for the AI CTA (host injects `app.smart.json.ai.brainCta`). */
     ai_label?: string;
+    /**
+     * Extra completion sources for edit mode, registered as language-data
+     * providers next to the schema LS — for data-aware suggestions the
+     * schema alone cannot express (e.g. values valid for a sibling `field`).
+     */
+    extra_completions?: ((context: {
+      pos: number;
+      explicit: boolean;
+      state: import('@codemirror/state').EditorState;
+    }) => unknown)[];
   } & import('svelte/elements').HTMLAttributes<HTMLDivElement> = $props();
 
-  let previewOpen = $state(true);
+  let previewOpen = $state(untrack(() => preview_open));
   let editing = $state(false);
 
   const editable = $derived(!readonly && !disabled);
@@ -102,7 +119,17 @@
         <button
           type="button"
           class="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
-          onclick={() => (editing = !editing)}
+          onclick={() => {
+            editing = !editing;
+            // Seed the editor with the schema's root-type empty document —
+            // `[]` for array roots, `{}` for object roots — so a nullable
+            // field opens on the valid base shape instead of bare `null`.
+            if (editing && !(value ?? '').trim()) {
+              const t = (schema as Record<string, unknown> | undefined)?.type;
+              if (t === 'array') value = '[]';
+              else if (t === 'object') value = '{}';
+            }
+          }}
           title={$t('app.widgets.json.editMode')}
           data-testid="json-value-edit-toggle"
         >
@@ -137,6 +164,7 @@
         {minRows}
         {maxHeight}
         {placeholder}
+        {extra_completions}
         data-testid="json-value-editor-cm"
       />
       {#if parseError}

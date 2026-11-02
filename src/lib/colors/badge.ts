@@ -81,12 +81,24 @@ function clampShade(v: number) {
   return best as (typeof allowed)[number];
 }
 
+/** Semantic theme tokens usable wherever a badge/icon color token is
+ *  accepted. They resolve through the shadcn `--color-*` aliases so the
+ *  rendered color follows the active theme (light/dark) instead of a
+ *  frozen swatch — `primary` is the canonical "accent of the app". */
+const SEMANTIC_COLOR_TOKENS = new Set(['primary', 'secondary', 'accent', 'destructive', 'muted']);
+
+function semanticColorCss(token: string): string | null {
+	return SEMANTIC_COLOR_TOKENS.has(token) ? `var(--color-${token})` : null;
+}
+
 /** Resolve a color token (`"amber-500"`, hex, `rgb()/oklch()` css) to a raw
  *  CSS color string — same vocabulary as {@link badgeClassesFromToken},
  *  minus the badge box model. For icon/text `style="color: …"` use where a
  *  Tailwind class can't be generated from option data. */
 export function colorCssFromToken(token: TailwindColorToken | string | null | undefined): string | null {
 	if (token == null || token === '') return null;
+	const semantic = semanticColorCss(token);
+	if (semantic) return semantic;
 	const m = token.match(/^([a-z]+)-(\d{2,3})$/);
 	if (m) {
 		const family = (tailwindColors as Record<string, unknown>)[m[1]];
@@ -95,13 +107,38 @@ export function colorCssFromToken(token: TailwindColorToken | string | null | un
 			? ((family as Record<number, string>)[shade] ?? (family as Record<number, string>)[300])
 			: null;
 	}
+	// Bare family name → canonical mid-shade 500 (same convention as badges).
+	const bare = token.match(/^([a-z]+)$/)?.[1];
+	if (bare && (tailwindColors as Record<string, unknown>)[bare]) {
+		return ((tailwindColors as Record<string, Record<number, string>>)[bare])[500] ?? null;
+	}
 	if (token.startsWith('#') || /^[a-z]+\s*\(/.test(token)) return token;
 	return null;
 }
 
 export function badgeClassesFromToken(token: TailwindColorToken | string | null | undefined) {
-  // token example: "zinc-300"
+  // Semantic theme tokens: theme-aware via the `--color-*` aliases — the
+  // foreground var guarantees readable text in BOTH light and dark mode
+  // (unlike a frozen shade with hardcoded white text).
+  const semantic = token ? semanticColorCss(token) : null;
+  if (semantic) {
+    const fg = `var(--color-${token}-foreground)`;
+    return {
+      bgColor: semantic,
+      borderColor: semantic,
+      textColor: fg,
+      darkBgColor: semantic,
+      darkBorderColor: semantic,
+      darkTextColor: fg
+    };
+  }
+
+  // token example: "zinc-300"; bare family names ("blue") resolve to
+  // shade 500 — the declared intent of a family color is its canonical
+  // mid-shade, not the zinc fallback (which silently grayed every badge
+  // authored with a family name).
   const m = token?.match(/^([a-z]+)-(\d{2,3})$/);
+  const bareFamily = token?.match(/^([a-z]+)$/)?.[1];
   let baseColor: string;
   if (m) {
     // Full Tailwind palette (all families × shades 50–950), imported from
@@ -113,6 +150,10 @@ export function badgeClassesFromToken(token: TailwindColorToken | string | null 
       family && typeof family === 'object'
         ? ((family as Record<number, string>)[shade] ?? (family as Record<number, string>)[300])
         : (tailwindColors as Record<string, Record<number, string>>).zinc[300];
+  } else if (bareFamily && (tailwindColors as Record<string, unknown>)[bareFamily]) {
+    baseColor =
+      ((tailwindColors as Record<string, Record<number, string>>)[bareFamily])[500]
+      ?? (tailwindColors as Record<string, Record<number, string>>).zinc[300];
   } else if (token && (token.startsWith('#') || /^[a-z]+\s*\(/.test(token))) {
     // Free-form CSS color from the color picker (hex / rgb / hsl / oklch).
     baseColor = token;

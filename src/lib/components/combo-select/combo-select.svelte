@@ -38,8 +38,10 @@
      *   'badge'    — option rendered as a colored Badge; reads `colorField`
      *   'detailed' — label + optional `descriptionField` (small italic line)
      *                + `secondaryField` value (mono, muted)
-     *   'custom'   — REQUIRED to enable itemSnippet/selectedSnippet; snippets
-     *                are ignored without it (one canonical combobox look).
+     *   'custom'   — REQUIRED only for itemSnippet (option rows stay on the
+     *                canonical template otherwise). selectedSnippet renders
+     *                with ANY display — the selected surface is legitimately
+     *                variable (badges, avatars).
      */
     display?: 'default' | 'badge' | 'detailed' | 'custom';
     /** display='badge': option field carrying a color token (e.g. 'emerald-500'). Default 'color'. */
@@ -50,6 +52,19 @@
      *  secondary — small italic muted line (e.g. a translated description). */
     descriptionField?: string;
     /**
+     * Standard option template line toggles (the ICON + bold display name /
+     * italic description / tech-name anatomy). All default ON — turning all
+     * three off degrades to a classic label-only combobox.
+     * `showIcons` also gates the icon in the selected display.
+     */
+    showIcons?: boolean;
+    showDescription?: boolean;
+    showTechName?: boolean;
+    /** The descriptionField value is an i18n key — translate via $t. */
+    isDescriptionTranslated?: boolean;
+    /** The secondaryField value is an i18n key — translate via $t. */
+    isSecondaryTranslated?: boolean;
+    /**
      * Option field carrying a Lucide icon name — rendered via `DynamicIcon`
      * before the label in option rows AND in the single-mode selected
      * display. Ignored under display='custom' (the snippet owns rendering).
@@ -59,6 +74,17 @@
      *  vocabulary, resolved to a real CSS color so no safelisted class is
      *  needed); unset → inherits `text-muted-foreground`. */
     iconColorField?: string;
+    /** Option field carrying a flag-icons COUNTRY CODE (`gb`, `it`…) —
+     *  rendered as `<span class="fi fi-{code}">` before the label in option
+     *  rows AND in the single-mode selected display. Requires the host app's
+     *  `flag-icons` stylesheet (the `fi`/`fi-{cc}` classes live there).
+     *  Ignored under display='custom'. */
+    flagField?: string;
+    /** Option field carrying a boolean — when truthy the option icon
+     *  renders with dashed strokes (`stroke-dasharray`) instead of solid.
+     *  Works on ANY lucide icon, mirroring the lucide `*-dashed` variants
+     *  for names that don't ship one (e.g. `mail` has no `mail-dashed`). */
+    iconDashedField?: string;
     itemSnippet?: Snippet<[{
       option: string | Record<string, unknown>;
       selected: boolean;
@@ -148,13 +174,20 @@
     loading = false,
     id,
     searchable = true,
-    searchPlaceholder = "Search...",
+    searchPlaceholder = undefined,
     display = 'default',
     colorField = 'color',
     secondaryField,
     descriptionField,
+    showIcons = true,
+    showDescription = true,
+    showTechName = true,
+    isDescriptionTranslated = false,
+    isSecondaryTranslated = false,
     iconField,
     iconColorField,
+    flagField,
+    iconDashedField,
     itemSnippet,
     isOptionDisabled,
     getSearchKeywords,
@@ -176,12 +209,14 @@
     ...restProps
   }: Props = $props();
 
-  // Contract: itemSnippet/selectedSnippet only render in display='custom'.
-  // Warn in dev so a forgotten display='custom' doesn't fail silently.
+  // Contract: itemSnippet renders only in display='custom' (the option-row
+  // template is canonical). selectedSnippet is allowed with ANY display —
+  // the trigger's selected surface is legitimately variable (created-value
+  // badges, avatars) while the item template stays standard.
   $effect(() => {
-    if (DEV && (itemSnippet || selectedSnippet) && display !== 'custom') {
+    if (DEV && itemSnippet && display !== 'custom') {
       console.warn(
-        "[ComboSelect] itemSnippet/selectedSnippet ignored — pass display=\"custom\" to enable snippet rendering.",
+        "[ComboSelect] itemSnippet ignored — pass display=\"custom\" to enable snippet rendering.",
       );
     }
   });
@@ -247,7 +282,7 @@
   }
 
   function resolveIcon(opt: string | Record<string, unknown>): string | null {
-    if (!iconField || typeof opt === 'string') return null;
+    if (!showIcons || !iconField || typeof opt === 'string') return null;
     const raw = getByPath(opt, iconField);
     return raw != null && raw !== '' ? String(raw) : null;
   }
@@ -258,6 +293,17 @@
       if (raw != null && raw !== '') return colorCssFromToken(String(raw));
     }
     return null;
+  }
+
+  function resolveFlag(opt: string | Record<string, unknown>): string | null {
+    if (!showIcons || !flagField || typeof opt === 'string') return null;
+    const raw = getByPath(opt, flagField);
+    return raw != null && raw !== '' ? String(raw) : null;
+  }
+
+  function resolveIconDashed(opt: string | Record<string, unknown>): boolean {
+    if (!iconDashedField || typeof opt === 'string') return false;
+    return getByPath(opt, iconDashedField) === true;
   }
 
   function getByPath(obj: Record<string, unknown>, path: string): unknown {
@@ -429,7 +475,7 @@
       >
         {#if mode === "single"}
           {#if selectedNormalized}
-            {#if display === 'custom' && selectedSnippet}
+            {#if selectedSnippet}
               {@render selectedSnippet({
                 option: selectedNormalized.raw,
                 resolvedLabel: selectedNormalized.label,
@@ -442,14 +488,21 @@
               </Badge>
             {:else}
               {@const selIcon = resolveIcon(selectedNormalized.raw)}
+              {@const selFlag = resolveFlag(selectedNormalized.raw)}
               {#if selIcon}
                 {@const selIconColor = resolveIconColor(selectedNormalized.raw)}
                 <DynamicIcon
                   name={selIcon}
                   size={16}
-                  class={cn("shrink-0", !selIconColor && "text-muted-foreground")}
+                  class={cn(
+                    "shrink-0",
+                    !selIconColor && "text-muted-foreground",
+                    resolveIconDashed(selectedNormalized.raw) && "[&_path]:[stroke-dasharray:3_1.5]",
+                  )}
                   style={selIconColor ? `color:${selIconColor}` : undefined}
                 />
+              {:else if selFlag}
+                <span class={`fi fi-${selFlag} shrink-0 rounded-sm`} aria-hidden="true"></span>
               {/if}
               <span class={cn("flex-1 text-left", truncateFrom === 'start' ? 'truncate-start' : 'truncate')}>
                 {selectedNormalized.label}
@@ -457,15 +510,17 @@
             {/if}
           {:else if (value as string).trim() !== ''}
             <!-- Created value not in options list — render with "new" badge -->
-            {#if display === 'custom' && selectedSnippet}
+            {#if selectedSnippet}
               {@render selectedSnippet({
                 option: { [valueField ?? 'value']: value } as Record<string, unknown>,
                 resolvedLabel: value as string,
                 resolvedValue: value as string,
               })}
             {:else}
-              <Badge variant="outline" class="gap-1 border-primary-gradient-soft text-foreground min-w-0 flex-1 justify-start">
-                <span class={cn("min-w-0 flex-1 text-left", truncateFrom === 'start' ? 'truncate-start' : 'truncate')}>
+              <!-- Created-value chip hugs its content up to the trigger's
+                   max, then ellipsizes — never stretches across the input. -->
+              <Badge variant="outline" class="gap-1 border-primary-gradient-soft text-foreground w-fit max-w-full justify-start">
+                <span class={cn("min-w-0 text-left", truncateFrom === 'start' ? 'truncate-start' : 'truncate')}>
                   {value as string}
                 </span>
               </Badge>
@@ -546,7 +601,7 @@
       {#if searchable}
         <Command.Input
           bind:value={search}
-          placeholder={searchPlaceholder}
+          placeholder={searchPlaceholder ?? $t('app.search.placeholder')}
           onkeydown={(e) => {
             if (e.key === 'Enter' && showCreateItem) {
               e.preventDefault();
@@ -635,6 +690,7 @@
                   })}
                 {:else}
                   {@const optIcon = resolveIcon(opt.raw)}
+                  {@const optFlag = resolveFlag(opt.raw)}
                   {#if optIcon}
                     {@const optIconColor = resolveIconColor(opt.raw)}
                     <DynamicIcon
@@ -644,9 +700,12 @@
                         "shrink-0",
                         display === 'detailed' && "self-start mt-0.5",
                         !optIconColor && "text-muted-foreground",
+                        resolveIconDashed(opt.raw) && "[&_path]:[stroke-dasharray:3_1.5]",
                       )}
                       style={optIconColor ? `color:${optIconColor}` : undefined}
                     />
+                  {:else if optFlag}
+                    <span class={cn(`fi fi-${optFlag} shrink-0 rounded-sm`, display === 'detailed' && "self-start mt-1")} aria-hidden="true"></span>
                   {/if}
                   {#if display === 'badge'}
                     {@const c = badgeClassesFromToken(getByPath(opt.raw as Record<string, unknown>, colorField) as string ?? null)}
@@ -654,19 +713,23 @@
                       {opt.label}
                     </Badge>
                   {:else if display === 'detailed'}
+                    {@const descRaw = showDescription && descriptionField ? getByPath(opt.raw as Record<string, unknown>, descriptionField) : null}
+                    {@const hasDesc = descRaw != null && descRaw !== ''}
+                    <!-- Bold label only when a secondary row renders —
+                         everything off degrades to the classic plain label. -->
                     <div class="flex min-w-0 flex-1 flex-col gap-0.5">
-                      <span class={cn("font-medium", truncateFrom === 'start' ? 'truncate-start' : 'truncate')}>{opt.label}</span>
-                      {#if descriptionField}
-                        {@const desc = getByPath(opt.raw as Record<string, unknown>, descriptionField)}
-                        {#if desc != null && desc !== ''}
-                          <span class={cn("text-xs italic text-muted-foreground", truncateFrom === 'start' ? 'truncate-start' : 'truncate')}>
-                            {String(desc)}
-                          </span>
-                        {/if}
+                      <span class={cn((hasDesc || showTechName) && "font-medium", truncateFrom === 'start' ? 'truncate-start' : 'truncate')}>{opt.label}</span>
+                      {#if hasDesc}
+                        <span class={cn("text-xs italic text-muted-foreground", truncateFrom === 'start' ? 'truncate-start' : 'truncate')}>
+                          {isDescriptionTranslated ? $t(String(descRaw)) : String(descRaw)}
+                        </span>
                       {/if}
-                      <span class={cn("font-mono text-xs text-muted-foreground", truncateFrom === 'start' ? 'truncate-start' : 'truncate')}>
-                        {secondaryField ? String(getByPath(opt.raw as Record<string, unknown>, secondaryField) ?? opt.value) : opt.value}
-                      </span>
+                      {#if showTechName}
+                        {@const techRaw = secondaryField ? (getByPath(opt.raw as Record<string, unknown>, secondaryField) ?? opt.value) : opt.value}
+                        <span class={cn("font-mono text-xs text-muted-foreground", truncateFrom === 'start' ? 'truncate-start' : 'truncate')}>
+                          {isSecondaryTranslated ? $t(String(techRaw)) : String(techRaw)}
+                        </span>
+                      {/if}
                     </div>
                   {:else}
                     <span class={cn("flex-1 text-left", truncateFrom === 'start' ? 'truncate-start' : 'truncate')}>{opt.label}</span>

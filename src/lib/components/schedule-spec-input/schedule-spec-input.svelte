@@ -21,11 +21,10 @@
   import TextInput from '../input/text-input.svelte';
   import * as Popover from '../popover/index.js';
   import Button from '../button/button.svelte';
+  import Badge from '../badge/badge.svelte';
   import { getT, getLocale } from '../../bridges.js';
   import { cn, formatUiDateTime } from '../../utils/index.js';
-  import { inputTrailingIconButtonClasses } from '../input/input-chrome.js';
   import {
-    ClipboardClock,
     CircleAlert,
     CircleCheck,
   } from '@primebrick/ui/vendor/lucide';
@@ -33,6 +32,7 @@
     describeScheduleSpec,
     nextScheduleRuns,
     parseScheduleSpec,
+    type ScheduleDescription,
   } from './parse-schedule-spec.js';
   import type { HTMLInputAttributes } from 'svelte/elements';
 
@@ -65,7 +65,21 @@
 
   // --- Interpreter strip -------------------------------------------------
   const parsed = $derived(parseScheduleSpec(value));
-  const description = $derived(describeScheduleSpec(value));
+  const description = $derived(describeScheduleSpec(value, locale()));
+
+  /** Structured descriptor → localized phrase (i18n keys, plural-aware units). */
+  function descriptionText(d: ScheduleDescription): string {
+    if (d.kind === 'text') return d.text;
+    if (d.kind === 'at') {
+      return $t('app.widgets.schedule_spec.desc.at', {
+        date: formatUiDateTime(d.at, locale()),
+      });
+    }
+    return $t('app.widgets.schedule_spec.desc.every', {
+      n: d.n,
+      unit: $t(`app.widgets.schedule_spec.unit.${d.unit}.${d.n === 1 ? 'one' : 'other'}`),
+    });
+  }
   const runs = $derived(nextScheduleRuns(value, 3));
 
   // --- Assist builder ----------------------------------------------------
@@ -123,45 +137,33 @@
     mode === 'once' ? atLocal !== '' : mode === 'cron' ? cronExpr.trim() !== '' : everyN > 0,
   );
 
-  // Multi-CTA contract (TextInput docstring): the clear button is ALWAYS
-  // rendered in editable mode and owns the right edge — the assist icon
-  // takes the documented SECOND slot (`right-10`) permanently, and the
-  // input padding keeps both CTAs clear of the text.
-  let inputPadding = $derived(!readonly && !disabled ? 'pr-16' : '');
+  // The assist CTA is declared via `trailing_ctas` — TextInput owns the
+  // slot geometry; the popover anchors to the field wrapper.
+  let inputWrap: HTMLElement | undefined = $state();
 </script>
 
 <div class={cn('space-y-1', className)} data-testid={dataTestId}>
-  <div class="relative">
-    <TextInput
-      {id}
-      {name}
-      bind:value
-      {placeholder}
-      {readonly}
-      {disabled}
-      class={inputPadding}
-      data-testid="{dataTestId}-field"
-      {...rest}
-    >
-      {#snippet trailing()}
-        {#if !readonly && !disabled}
-          <Popover.Root bind:open={assistOpen}>
-            <Popover.Trigger>
-              {#snippet child({ props: triggerProps })}
-                <button
-                  {...triggerProps}
-                  type="button"
-                  tabindex={-1}
-                  aria-label={$t('app.widgets.schedule_spec.assist')}
-                  title={$t('app.widgets.schedule_spec.assist')}
-                  class={cn(inputTrailingIconButtonClasses, 'right-10')}
-                  data-testid="{dataTestId}-assist"
-                >
-                  <ClipboardClock class="size-4" />
-                </button>
-              {/snippet}
-            </Popover.Trigger>
-            <Popover.Content class="w-72 space-y-3 p-3" align="end">
+  <div class="relative" bind:this={inputWrap}>
+    <Popover.Root bind:open={assistOpen}>
+      <TextInput
+        {id}
+        {name}
+        bind:value
+        {placeholder}
+        {readonly}
+        {disabled}
+        data-testid="{dataTestId}-field"
+        trailing_ctas={!readonly && !disabled
+          ? [{
+              icon: 'clipboard-clock',
+              label: $t('app.widgets.schedule_spec.assist'),
+              onclick: () => (assistOpen = true),
+              'data-testid': `${dataTestId}-assist`,
+            }]
+          : undefined}
+        {...rest}
+      />
+      <Popover.Content class="w-72 space-y-3 p-3" align="end" customAnchor={inputWrap}>
               <!-- Mode selector -->
               <div class="flex gap-1" data-testid="{dataTestId}-modes">
                 {#each ['interval', 'once', 'cron'] as const as m (m)}
@@ -226,10 +228,7 @@
                 {$t('app.widgets.schedule_spec.apply')}
               </Button>
             </Popover.Content>
-          </Popover.Root>
-        {/if}
-      {/snippet}
-    </TextInput>
+    </Popover.Root>
   </div>
 
   <!-- Interpreter strip -->
@@ -243,13 +242,13 @@
         <div class="min-w-0">
           <span class="font-medium">{$t('app.widgets.schedule_spec.valid')}</span>
           {#if description}
-            <span class="text-muted-foreground"> — {description}</span>
+            <span class="text-muted-foreground"> — {descriptionText(description)}</span>
           {/if}
           {#if runs.length > 0}
-            <div class="text-muted-foreground">
-              {$t('app.widgets.schedule_spec.next')}:
-              {#each runs as run, i (run.getTime())}
-                {#if i > 0} · {/if}{formatUiDateTime(run, locale())}
+            <div class="flex flex-wrap items-center gap-1">
+              <span class="text-muted-foreground">{$t('app.widgets.schedule_spec.next')}:</span>
+              {#each runs as run (run.getTime())}
+                <Badge variant="secondary" class="font-normal">{formatUiDateTime(run, locale())}</Badge>
               {/each}
             </div>
           {/if}

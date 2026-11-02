@@ -3,6 +3,7 @@
 export * from '@primebrick/core';
 
 export * from './utils/index.js';
+export * from './icons/composed-icons.js';
 
 export * from './bridges.js';
 
@@ -109,6 +110,7 @@ export type { CopyButtonProps, CopyButtonPropsWithoutHTML } from './components/c
 export { UseClipboard, copyText } from './composables/useClipboard.svelte.js';
 export { JsonCodeBlock, JsonEditor } from './components/json-code-block/index.js';
 export { default as JsonValueEditor } from './components/json-value-editor/json-value-editor.svelte';
+export { default as PayloadMapEditor } from './components/payload-map-editor/payload-map-editor.svelte';
 export { default as AiIcon } from './components/ai-icon/ai-icon.svelte';
 export {
 	ScheduleSpecInput,
@@ -143,6 +145,14 @@ export * from './remote-mount/index.js';
 export { default as ScoreGauge, gaugeColor } from './components/ai/ScoreGauge.svelte';
 export { default as ModelIcon } from './components/ai/ModelIcon.svelte';
 export { default as HuggingFaceIcon } from './components/ai/HuggingFaceIcon.svelte';
+export { default as QwenIcon } from './components/ai/QwenIcon.svelte';
+export { default as MetaIcon } from './components/ai/MetaIcon.svelte';
+export { default as MicrosoftIcon } from './components/ai/MicrosoftIcon.svelte';
+export { default as NvidiaIcon } from './components/ai/NvidiaIcon.svelte';
+export { default as IbmIcon } from './components/ai/IbmIcon.svelte';
+export { default as GemmaIcon } from './components/ai/GemmaIcon.svelte';
+export { default as DeepSeekIcon } from './components/ai/DeepSeekIcon.svelte';
+export { default as OpenAIIcon } from './components/ai/OpenAIIcon.svelte';
 export { default as RankMeter } from './components/ai/RankMeter.svelte';
 export { default as StorageBreakdownBar } from './components/ai/StorageBreakdownBar.svelte';
 export { default as AiModelOption } from './components/ai/ai-model-option.svelte';

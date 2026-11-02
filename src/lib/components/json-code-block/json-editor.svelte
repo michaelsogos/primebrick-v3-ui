@@ -12,6 +12,7 @@
     placeholder: placeholderText,
     onChange,
     schema,
+    extra_completions,
     class: className,
     ...rest
   }: {
@@ -27,6 +28,17 @@
     onChange?: (v: string) => void;
     /** Optional JSON Schema → enables schema-aware lint + completion. */
     schema?: Record<string, unknown>;
+    /**
+     * Additional completion sources registered as language-data providers
+     * alongside the schema LS (data-aware completions — e.g. values valid
+     * for a sibling `field` the schema cannot know). Each is a
+     * `(context) => CompletionResult | null` source.
+     */
+    extra_completions?: ((context: {
+      pos: number;
+      explicit: boolean;
+      state: import('@codemirror/state').EditorState;
+    }) => unknown)[];
   } & HTMLAttributes<HTMLDivElement> = $props();
 
   let host: HTMLDivElement;
@@ -97,6 +109,12 @@
           syntaxHighlighting(shikiStyle),
           linter(jsonLintRange()),
           ...(schema ? await jsonLsExtensions(schema) : []),
+          // Host-supplied data-aware sources ride the same language-data
+          // channel as the schema LS — `autocompletion()` (in basicSetup)
+          // queries every registered provider.
+          ...(extra_completions ?? []).map((src) =>
+            json().language.data.of({ autocomplete: src as never }),
+          ),
           lintGutter(),
           EditorView.updateListener.of((u) => {
             if (u.docChanged && !applyingExternal) {
