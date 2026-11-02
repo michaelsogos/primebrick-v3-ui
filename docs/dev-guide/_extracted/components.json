@@ -11139,7 +11139,7 @@
         {
           "name": "extra_completions",
           "kind": "let",
-          "type": "((context: {\n      pos: number;\n      explicit: boolean;\n      state: import('@codemirror/state').EditorState;\n    }) => unknown)[]",
+          "type": "((context: {\r\n      pos: number;\r\n      explicit: boolean;\r\n      state: import('@codemirror/state').EditorState;\r\n    }) => unknown)[]",
           "typeSource": "typescript",
           "isFunction": true,
           "isFunctionDeclaration": false,
@@ -11476,7 +11476,7 @@
         {
           "name": "extra_completions",
           "kind": "let",
-          "type": "((context: {\n      pos: number;\n      explicit: boolean;\n      state: import('@codemirror/state').EditorState;\n    }) => unknown)[]",
+          "type": "((context: {\r\n      pos: number;\r\n      explicit: boolean;\r\n      state: import('@codemirror/state').EditorState;\r\n    }) => unknown)[]",
           "typeSource": "typescript",
           "isFunction": true,
           "isFunctionDeclaration": false,
@@ -12313,7 +12313,7 @@
         {
           "name": "extra_completions",
           "kind": "let",
-          "type": "((context: {\n      pos: number;\n      explicit: boolean;\n      state: import('@codemirror/state').EditorState;\n    }) => unknown)[]",
+          "type": "((context: {\r\n      pos: number;\r\n      explicit: boolean;\r\n      state: import('@codemirror/state').EditorState;\r\n    }) => unknown)[]",
           "typeSource": "typescript",
           "isFunction": true,
           "isFunctionDeclaration": false,
