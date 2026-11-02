@@ -451,8 +451,9 @@
         {id}
         role="combobox"
         tabindex={disabled ? -1 : 0}
+        data-animated-border
         class={cn(
-          "min-h-9 w-full rounded-md px-3 py-1 text-sm ring-offset-background outline-hidden transition-all",
+          "relative min-h-9 w-full rounded-md px-3 py-1 text-sm ring-offset-background outline-hidden transition-all",
           variant === "toolbar"
             ? "border border-foreground/25 bg-transparent hover:border-foreground/40 focus-within:border-foreground/50"
             : variant === "ghost"

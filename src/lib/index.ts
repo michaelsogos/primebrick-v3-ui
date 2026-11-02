@@ -121,6 +121,8 @@ export {
 	type ParsedScheduleSpec,
 } from './components/schedule-spec-input/index.js';
 
+export { fieldSpecToZod } from './entity-form/field-spec-to-zod.js';
+
 // CSS-chrome helpers — class-string constants shared by form controls.
 export {
 	inputControlHoverClasses,

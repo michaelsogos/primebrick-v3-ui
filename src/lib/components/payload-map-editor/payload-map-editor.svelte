@@ -49,6 +49,7 @@
     PayloadInjector,
     PayloadOptionsSource,
     PayloadMapKeysHint,
+    FieldIssue,
   } from '@primebrick/core';
   import {
     PAYLOAD_MAP_META_KINDS,
@@ -56,6 +57,7 @@
     PAYLOAD_X_MAP_KEYS,
     PAYLOAD_X_NOT_EDITABLE,
     PAYLOAD_X_OPTIONS,
+    payloadMapConformance,
   } from '@primebrick/core';
   import TextInput from '../input/text-input.svelte';
   import ComboSelect from '../combo-select/combo-select.svelte';
@@ -147,6 +149,42 @@
   });
 
   const requiredSet = $derived(new Set(targetSchema?.required ?? []));
+
+  /**
+   * Design-time conformance marks — the same `payloadMapConformance`
+   * predicate the submit gate and the service-side write hook run. Issues
+   * are grouped by destination field so each row can flag an invalid
+   * `const` (or an unmapped required field) inline: marking only — the
+   * document stays editable and the form's standard validity gate owns
+   * the submit block.
+   */
+  const fieldIssues = $derived.by((): Map<string, FieldIssue[]> => {
+    const out = new Map<string, FieldIssue[]>();
+    if (!targetSchema) return out;
+    for (const i of payloadMapConformance(map, targetSchema)) {
+      const m = /^payload_map\.([^.[\]]+)/.exec(i.path);
+      const f = m?.[1];
+      if (!f) continue;
+      const list = out.get(f) ?? [];
+      list.push(i);
+      out.set(f, list);
+    }
+    return out;
+  });
+
+  /** Path scopes inside a field's issue list — `payload_map.<field>`
+   *  prefixes: `.fallback[i]` marks the clause's own input, `[i]` a list
+   *  item, `.<key>` a map entry. */
+  const pf = (f: string) => `payload_map.${f}`;
+  const issuesFor = (field: string, pred: (i: FieldIssue) => boolean): FieldIssue[] =>
+    (fieldIssues.get(field) ?? []).filter(pred);
+  const leafIssues = (field: string) =>
+    issuesFor(field, (i) => !i.path.startsWith(`${pf(field)}.fallback[`) && !i.path.startsWith(`${pf(field)}[`));
+  const itemIssues = (field: string) => issuesFor(field, (i) => i.path.startsWith(`${pf(field)}[`));
+  const keyIssues = (field: string, key: string) =>
+    issuesFor(field, (i) => i.path.startsWith(`${pf(field)}.${key}`));
+  const clauseIssues = (field: string, idx: number) =>
+    issuesFor(field, (i) => i.path === `${pf(field)}.fallback[${idx}]`);
 
   function isNotEditable(prop: JsonSchema): boolean {
     return prop[PAYLOAD_X_NOT_EDITABLE] === true;
@@ -463,6 +501,19 @@
   const editable = $derived(!readonly && !disabled);
 </script>
 
+{#snippet hintList(issues: FieldIssue[])}
+  {#each issues as i (i.path + i.code + i.message)}
+    <p class="mt-1 text-xs font-medium text-destructive" data-testid="payload-map-issue">
+      {$t(
+        i.code === 'required'
+          ? 'app.widgets.payload_map.issue.required'
+          : 'app.widgets.payload_map.issue.invalid',
+        { message: i.message },
+      )}
+    </p>
+  {/each}
+{/snippet}
+
 {#snippet leafValue(
   entry: PayloadMapLeafEntry | PayloadMapItemEntry | undefined,
   prop: JsonSchema | undefined,
@@ -470,6 +521,9 @@
     /** Field whose `x_options`/`enum` feed const pickers — unset inside
      *  map values (the field's catalog doesn't apply per-key). */
     field?: string;
+    /** Standard invalid state (`aria-invalid` → destructive gradient
+     *  ring) — conformance issue on THIS input's value. */
+    invalid?: boolean;
     onLeaf: (leaf: PayloadMapLeafEntry) => void;
     onInject?: (inject: PayloadInjector) => void;
   },
@@ -491,6 +545,7 @@
         allowCreate
         placeholder={$t('app.widgets.payload_map.const_array_placeholder')}
         disabled={!editable}
+        aria-invalid={opts.invalid || undefined}
         onChange={(v) => editable && opts.onLeaf({ kind: 'const', value: Array.isArray(v) ? v : [] })}
       />
     {:else if field && (targetSchema?.properties?.[field] as JsonSchema | undefined)?.[PAYLOAD_X_OPTIONS] && xOptions}
@@ -508,6 +563,7 @@
         flagField="_flag"
         display="detailed"
         disabled={!editable}
+        aria-invalid={opts.invalid || undefined}
         onChange={(v) => editable && opts.onLeaf({ kind: 'const', value: String(v) })}
       />
     {:else if enumOpts?.length}
@@ -519,12 +575,14 @@
         labelField="label"
         searchable={false}
         disabled={!editable}
+        aria-invalid={opts.invalid || undefined}
         onChange={(v) => editable && opts.onLeaf({ kind: 'const', value: String(v) })}
       />
     {:else}
       <TextInput
         value={constText(entry)}
         readonly={!editable}
+        aria-invalid={opts.invalid || undefined}
         oninput={(e) => editable && opts.onLeaf({ kind: 'const', value: coerceConst(e.currentTarget.value, prop) })}
       />
     {/if}
@@ -540,6 +598,7 @@
         display="detailed"
         allowCreate
         disabled={!editable}
+        aria-invalid={opts.invalid || undefined}
         onChange={(v) => editable && opts.onLeaf({ kind: 'path', path: String(v) })}
       />
     {:else}
@@ -547,6 +606,7 @@
         value={entry.path}
         readonly={!editable}
         placeholder="$.field.path"
+        aria-invalid={opts.invalid || undefined}
         oninput={(e) => editable && opts.onLeaf({ kind: 'path', path: e.currentTarget.value })}
       />
     {/if}
@@ -560,6 +620,7 @@
       iconField="_icon"
       searchable={false}
       disabled={!editable}
+      aria-invalid={opts.invalid || undefined}
       onChange={(v) => editable && opts.onLeaf({ kind: 'meta', meta: String(v) as PayloadMapMeta })}
     />
   {:else if entry?.kind === 'inject'}
@@ -571,6 +632,7 @@
       labelField="label"
       searchable={false}
       disabled={!editable || !opts.onInject}
+      aria-invalid={opts.invalid || undefined}
       onChange={(v) => editable && opts.onInject?.(String(v) as PayloadInjector)}
     />
   {:else}
@@ -608,8 +670,10 @@
             <div class="min-w-0 flex-1">
               {@render leafValue(clause, undefined, {
                 field,
+                invalid: clauseIssues(field, i).length > 0,
                 onLeaf: (leaf) => setClauseItem(field, i, leaf),
               })}
+              {@render hintList(clauseIssues(field, i))}
             </div>
             {#if editable}
               <div class="flex items-center shrink-0">
@@ -641,6 +705,7 @@
 
 {#snippet fieldRow(field: string, prop: JsonSchema)}
   {@const entry = entryOf(field)}
+  {@const issues = fieldIssues.get(field) ?? []}
   <div class="px-3 py-2" data-testid={`payload-map-row-${field}`}>
     <!-- name · source · value — name wraps, combo fits its cell -->
     <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,2fr)] items-center gap-2">
@@ -666,8 +731,12 @@
           placeholder={$t('app.widgets.payload_map.source_placeholder')}
           searchable={false}
           disabled={!editable}
+          aria-invalid={!entry && issues.length > 0 ? true : undefined}
           onChange={(v) => editable && setKind(field, String(v), prop)}
         />
+        {#if !entry}
+          {@render hintList(issues)}
+        {/if}
       </div>
       <div class="min-w-0">
         {#if entry?.kind === 'list'}
@@ -687,11 +756,13 @@
             allowCreate
             placeholder={$t('app.widgets.payload_map.const_array_placeholder')}
             disabled={!editable}
+            aria-invalid={itemIssues(field).length > 0 || undefined}
             onChange={(v) => editable && setItems(field, [
               ...itemsOf(field).filter((it) => it.kind !== 'const'),
               ...(Array.isArray(v) ? v : []).map((s) => ({ kind: 'const' as const, value: s })),
             ])}
           />
+          {@render hintList(itemIssues(field))}
         {:else if entry?.kind === 'map'}
           {@const blocked = mapBlockedFrom(prop)}
           <div class="space-y-1">
@@ -721,9 +792,11 @@
                 </div>
                 <div class="min-w-0 flex-1">
                   {@render leafValue(sub, undefined, {
+                    invalid: keyIssues(field, key).length > 0,
                     onLeaf: (leaf) => setMapKeyLeaf(field, key, leaf),
                     onInject: (inject) => setMapKey(field, key, { kind: 'inject', inject }),
                   })}
+                  {@render hintList(keyIssues(field, key))}
                 </div>
                 {#if editable}
                   <button type="button" class="rounded p-0.5 text-destructive hover:bg-destructive/10" title={$t('app.common.delete')} onclick={() => setMapKey(field, key, undefined)}>
@@ -765,12 +838,16 @@
         {:else}
           {@render leafValue(entry, prop, {
             field,
+            invalid: !!entry && leafIssues(field).length > 0,
             onLeaf: (leaf) => setPrimaryLeaf(field, leaf),
             onInject: (inject) => {
               const fb = fallbackOf(entryOf(field));
               writeEntry(field, { kind: 'inject', inject, ...(fb ? { fallback: fb } : {}) });
             },
           })}
+          {#if entry}
+            {@render hintList(leafIssues(field))}
+          {/if}
         {/if}
       </div>
     </div>
