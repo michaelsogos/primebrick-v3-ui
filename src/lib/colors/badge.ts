@@ -85,7 +85,7 @@ function clampShade(v: number) {
  *  accepted. They resolve through the shadcn `--color-*` aliases so the
  *  rendered color follows the active theme (light/dark) instead of a
  *  frozen swatch — `primary` is the canonical "accent of the app". */
-const SEMANTIC_COLOR_TOKENS = new Set(['primary', 'secondary', 'accent', 'destructive', 'muted']);
+const SEMANTIC_COLOR_TOKENS = new Set(['primary', 'secondary', 'accent', 'destructive', 'muted', 'info']);
 
 function semanticColorCss(token: string): string | null {
 	return SEMANTIC_COLOR_TOKENS.has(token) ? `var(--color-${token})` : null;
