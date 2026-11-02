@@ -15,6 +15,7 @@
 
 	let {
 		open = $bindable(),
+		onOpenChange,
 		severity = 'primary',
 		tone = '',
 		showCloseButton = true,
@@ -23,6 +24,7 @@
 		...restProps
 	}: {
 		open?: boolean;
+		onOpenChange?: (open: boolean) => void;
 		severity?: DialogSeverity;
 		tone?: DialogTone;
 		showCloseButton?: boolean;
@@ -70,7 +72,7 @@
 	const isSoft = $derived(tone === 'soft');
 </script>
 
-<Dialog.Root {open} onOpenChange={(e) => (open = e)}>
+<Dialog.Root {open} onOpenChange={(e) => { open = e; onOpenChange?.(e); }}>
 	{#if isSoft}
 		<!-- tone="soft": full-around gradient border on Dialog.Content (no top strip) -->
 		<Dialog.Content

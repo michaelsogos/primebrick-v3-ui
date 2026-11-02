@@ -27,9 +27,9 @@ import { clearCachedETagsByPrefix } from '../cache/etag-store.js';
 import { getServiceApi } from '../bridges.js';
 import type { DeletionFilterMode } from '@primebrick/core';
 
-// ETag cache keys index the REAL request URL (`/ws/ai/…`) — the service-api
-// slot prepends `/ws/ai` to the `/api/v1/…` path before the fetch happens.
-const AI_MODELS_URL = '/ws/ai/api/v1/entities/ai_model/list';
+// ETag cache keys index the REAL request URL (`/svc/ai/…`) — the service-api
+// slot prepends `/svc/ai` to the `/api/v1/…` path before the fetch happens.
+const AI_MODELS_URL = '/svc/ai/api/v1/entities/ai_model/list';
 
 // Module-level singleton — shared across all callers.
 // svelte-ignore state_referenced_locally — module-level $state, intentionally shared.

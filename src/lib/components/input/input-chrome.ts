@@ -50,7 +50,8 @@ export const inputTrailingIconColorClasses =
 	'inline-flex items-center justify-center p-0.5 [&>svg]:size-4 ' +
 	'text-muted-foreground hover:text-foreground hover:bg-transparent ' +
 	'focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring ' +
-	'transition-colors cursor-pointer';
+	'transition-colors cursor-pointer ' +
+	'disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:text-muted-foreground';
 
 /**
  * Unified trailing-icon button classes for inputs (clear X, eye toggle, copy button, etc.).

@@ -40,7 +40,7 @@
   let entityName = $derived($t(`${ns}.entities.${entity}.singular`));
 </script>
 
-<BorderedDialog bind:open={open} severity="destructive" class="sm:max-w-md" showCloseButton={false}>
+<BorderedDialog bind:open={open} {onOpenChange} severity="destructive" class="sm:max-w-md" showCloseButton={false}>
   <Dialog.Header class="pb-4">
     <Dialog.Title>
       {$t('app.common.deleteEntityTitle', { entity: entityName })}

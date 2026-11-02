@@ -1,6 +1,6 @@
 /**
  * AI domain types — consumption mirror of the ai service's API contract
- * (`/ws/ai/api/v1/entities/ai_model`, `ai_cerebellum`). Domain truth stays
+ * (`/svc/ai/api/v1/entities/ai_model`, `ai_cerebellum`). Domain truth stays
  * service-side (BE/OpenAPI); these live in the vendored plane because BOTH
  * realms consume them — shell chrome (assistant sheets/chat) and remote
  * module pages/chunks — and the vendor import map is the only path that

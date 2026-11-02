@@ -3,6 +3,7 @@
 export * from '@primebrick/core';
 
 export * from './utils/index.js';
+export * from './icons/composed-icons.js';
 
 export * from './bridges.js';
 
@@ -87,6 +88,38 @@ export { default as BorderedDialog } from './components/dialog-bordered.svelte';
 export { default as DynamicIcon } from './components/dynamic-icon/DynamicIcon.svelte';
 export { default as FormLabelWithPriorityHelp } from './components/forms/FormLabelWithPriorityHelp.svelte';
 export type { FieldHelp } from './components/forms/field-help.js';
+export { Label } from './components/label/index.js';
+export {
+	FormField,
+	FormControl,
+	FormLabel,
+	FormDescription,
+	FormFieldErrors,
+	TranslatedFormFieldErrors,
+	FormFieldset,
+	FormLegend,
+	FormElementField,
+	FormButton,
+	PrimeField,
+} from './components/forms/index.js';
+export type { PrimeFieldHelp, MetaTooltipHelp } from './components/forms/index.js';
+export { default as Input } from './components/input/input.svelte';
+export { default as TextInput } from './components/input/text-input.svelte';
+export { CopyButton } from './components/copy-button/index.js';
+export type { CopyButtonProps, CopyButtonPropsWithoutHTML } from './components/copy-button/index.js';
+export { UseClipboard, copyText } from './composables/useClipboard.svelte.js';
+export { JsonCodeBlock, JsonEditor } from './components/json-code-block/index.js';
+export { default as JsonValueEditor } from './components/json-value-editor/json-value-editor.svelte';
+export { default as PayloadMapEditor } from './components/payload-map-editor/payload-map-editor.svelte';
+export { default as AiIcon } from './components/ai-icon/ai-icon.svelte';
+export {
+	ScheduleSpecInput,
+	parseScheduleSpec,
+	nextScheduleRuns,
+	describeScheduleSpec,
+	type ScheduleSpec,
+	type ParsedScheduleSpec,
+} from './components/schedule-spec-input/index.js';
 
 // CSS-chrome helpers — class-string constants shared by form controls.
 export {
@@ -96,7 +129,7 @@ export {
 	inputTrailingIconColorClasses,
 	inputTrailingIconButtonClasses,
 } from './components/input/input-chrome.js';
-export { badgeClassesFromToken, tailwindSwatches, tailwindFamilies } from './colors/badge.js';
+export { badgeClassesFromToken, colorCssFromToken, tailwindSwatches, tailwindFamilies } from './colors/badge.js';
 export type { TailwindColorToken, TailwindSwatch } from './colors/badge.js';
 export * from './components/menu-row-chrome.js';
 
@@ -112,6 +145,14 @@ export * from './remote-mount/index.js';
 export { default as ScoreGauge, gaugeColor } from './components/ai/ScoreGauge.svelte';
 export { default as ModelIcon } from './components/ai/ModelIcon.svelte';
 export { default as HuggingFaceIcon } from './components/ai/HuggingFaceIcon.svelte';
+export { default as QwenIcon } from './components/ai/QwenIcon.svelte';
+export { default as MetaIcon } from './components/ai/MetaIcon.svelte';
+export { default as MicrosoftIcon } from './components/ai/MicrosoftIcon.svelte';
+export { default as NvidiaIcon } from './components/ai/NvidiaIcon.svelte';
+export { default as IbmIcon } from './components/ai/IbmIcon.svelte';
+export { default as GemmaIcon } from './components/ai/GemmaIcon.svelte';
+export { default as DeepSeekIcon } from './components/ai/DeepSeekIcon.svelte';
+export { default as OpenAIIcon } from './components/ai/OpenAIIcon.svelte';
 export { default as RankMeter } from './components/ai/RankMeter.svelte';
 export { default as StorageBreakdownBar } from './components/ai/StorageBreakdownBar.svelte';
 export { default as AiModelOption } from './components/ai/ai-model-option.svelte';
