@@ -22,10 +22,14 @@ export { default as SheetHeader } from './components/sheet/SheetHeader.svelte';
 // Widget primitives — namespace exports mirror the FE `import * as X`
 // shape (`<Accordion.Root>`/`<Command.Item>`/…).
 export * as Accordion from './components/accordion/index.js';
+export * as Choicebox from './components/choicebox/index.js';
 export * as Command from './components/command/index.js';
 export * as Dialog from './components/dialog/index.js';
+export * as InputGroup from './components/input-group/index.js';
 export * as Popover from './components/popover/index.js';
+export * as Tabs from './components/tabs/index.js';
 export * as Tooltip from './components/tooltip/index.js';
+export * as WheelPicker from './components/wheel-picker/index.js';
 export {
 	DialogHeader,
 	DialogTitle,
@@ -110,6 +114,13 @@ export {
 export type { PrimeFieldHelp, MetaTooltipHelp } from './components/forms/index.js';
 export { default as Input } from './components/input/input.svelte';
 export { default as TextInput } from './components/input/text-input.svelte';
+export { Textarea } from './components/textarea/index.js';
+export { NumericInput } from './components/numeric-input/index.js';
+export { DateWheelPicker } from './components/date-dropper/index.js';
+export { SearchInput, SearchSyntaxHighlighter } from './components/search-input/index.js';
+export type { SearchTrailingButton } from './components/search-input/index.js';
+export * from './components/search-input/search-syntax.js';
+export { useNumericInput } from './composables/useNumericInput.svelte.js';
 export { CopyButton } from './components/copy-button/index.js';
 export type { CopyButtonProps, CopyButtonPropsWithoutHTML } from './components/copy-button/index.js';
 export { UseClipboard, copyText } from './composables/useClipboard.svelte.js';

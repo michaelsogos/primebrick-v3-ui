@@ -3186,6 +3186,471 @@
     }
   },
   {
+    "file": "src/lib/components/choicebox/choicebox-description.svelte",
+    "component": "choicebox-description",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 14,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 7
+            },
+            "end": {
+              "line": 8,
+              "column": 23
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [
+        {
+          "name": null,
+          "default": true,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 12,
+              "column": 1
+            },
+            "end": {
+              "line": 12,
+              "column": 21
+            }
+          }
+        }
+      ],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "contexts": [],
+      "diagnostics": []
+    }
+  },
+  {
+    "file": "src/lib/components/choicebox/choicebox-indicator.svelte",
+    "component": "choicebox-indicator",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 25,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 7
+            },
+            "end": {
+              "line": 8,
+              "column": 23
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "contexts": [],
+      "diagnostics": []
+    }
+  },
+  {
+    "file": "src/lib/components/choicebox/choicebox-item.svelte",
+    "component": "choicebox-item",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 100,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "value",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 13,
+              "column": 2
+            },
+            "end": {
+              "line": 13,
+              "column": 7
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 14,
+              "column": 2
+            },
+            "end": {
+              "line": 14,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "disabled",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 16,
+              "column": 2
+            },
+            "end": {
+              "line": 16,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "data-testid",
+          "localName": "dataTestId",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 17,
+              "column": 2
+            },
+            "end": {
+              "line": 17,
+              "column": 27
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [
+        {
+          "name": null,
+          "default": true,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 97,
+              "column": 2
+            },
+            "end": {
+              "line": 97,
+              "column": 22
+            }
+          }
+        }
+      ],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "contexts": [],
+      "diagnostics": []
+    }
+  },
+  {
+    "file": "src/lib/components/choicebox/choicebox-title.svelte",
+    "component": "choicebox-title",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 14,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 7
+            },
+            "end": {
+              "line": 8,
+              "column": 23
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [
+        {
+          "name": null,
+          "default": true,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 12,
+              "column": 1
+            },
+            "end": {
+              "line": 12,
+              "column": 21
+            }
+          }
+        }
+      ],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "contexts": [],
+      "diagnostics": []
+    }
+  },
+  {
+    "file": "src/lib/components/choicebox/choicebox.svelte",
+    "component": "choicebox",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 50,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "value",
+          "kind": "let",
+          "bindable": true,
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 14,
+              "column": 2
+            },
+            "end": {
+              "line": 14,
+              "column": 21
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 15,
+              "column": 2
+            },
+            "end": {
+              "line": 15,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "name",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 17,
+              "column": 2
+            },
+            "end": {
+              "line": 17,
+              "column": 6
+            }
+          }
+        },
+        {
+          "name": "onValueChange",
+          "kind": "let",
+          "type": "(value: string) => void",
+          "typeSource": "typescript",
+          "isFunction": true,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 18,
+              "column": 2
+            },
+            "end": {
+              "line": 18,
+              "column": 15
+            }
+          }
+        },
+        {
+          "name": "data-testid",
+          "localName": "dataTestId",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 19,
+              "column": 2
+            },
+            "end": {
+              "line": 19,
+              "column": 27
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [
+        {
+          "name": null,
+          "default": true,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 44,
+              "column": 1
+            },
+            "end": {
+              "line": 44,
+              "column": 21
+            }
+          }
+        }
+      ],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "contexts": [],
+      "diagnostics": []
+    }
+  },
+  {
     "file": "src/lib/components/combo-select/combo-select.svelte",
     "component": "combo-select",
     "data": {
@@ -4849,7 +5314,7 @@
           "column": 0
         },
         "end": {
-          "line": 80,
+          "line": 81,
           "column": 0
         }
       },
@@ -4942,11 +5407,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 61,
+              "line": 62,
               "column": 4
             },
             "end": {
-              "line": 61,
+              "line": 62,
               "column": 24
             }
           }
@@ -6113,6 +6578,285 @@
             "end": {
               "line": 39,
               "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/date-dropper/date-wheel-picker.svelte",
+    "component": "date-wheel-picker",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 446,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "value",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 17,
+              "column": 7
+            },
+            "end": {
+              "line": 17,
+              "column": 26
+            }
+          }
+        },
+        {
+          "name": "placeholder",
+          "kind": "let",
+          "typeSource": "unknown",
+          "value": "$t(\"app.common.selectDate\")",
+          "defaultValue": {
+            "raw": "$t(\"app.common.selectDate\")",
+            "kind": "expression"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 17,
+              "column": 28
+            },
+            "end": {
+              "line": 17,
+              "column": 69
+            }
+          }
+        },
+        {
+          "name": "includeTime",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "default",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 17,
+              "column": 71
+            },
+            "end": {
+              "line": 17,
+              "column": 90
+            }
+          }
+        },
+        {
+          "name": "timeOnly",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "default",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 17,
+              "column": 92
+            },
+            "end": {
+              "line": 17,
+              "column": 108
+            }
+          }
+        },
+        {
+          "name": "defaultTime",
+          "kind": "let",
+          "typeSource": "unknown",
+          "value": "undefined",
+          "defaultValue": {
+            "raw": "undefined",
+            "kind": "expression"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 17,
+              "column": 110
+            },
+            "end": {
+              "line": 17,
+              "column": 133
+            }
+          }
+        },
+        {
+          "name": "timezone",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 17,
+              "column": 135
+            },
+            "end": {
+              "line": 17,
+              "column": 157
+            }
+          }
+        },
+        {
+          "name": "dataTestId",
+          "kind": "let",
+          "typeSource": "unknown",
+          "value": "undefined",
+          "defaultValue": {
+            "raw": "undefined",
+            "kind": "expression"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 17,
+              "column": 159
+            },
+            "end": {
+              "line": 17,
+              "column": 181
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/date-dropper/date-wheel-picker.svelte",
+          "kind": "prop-unknown-type",
+          "name": "value",
+          "message": "Prop \"value\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 17,
+              "column": 7
+            },
+            "end": {
+              "line": 17,
+              "column": 26
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/date-dropper/date-wheel-picker.svelte",
+          "kind": "prop-unknown-type",
+          "name": "placeholder",
+          "message": "Prop \"placeholder\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 17,
+              "column": 28
+            },
+            "end": {
+              "line": 17,
+              "column": 69
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/date-dropper/date-wheel-picker.svelte",
+          "kind": "prop-unknown-type",
+          "name": "defaultTime",
+          "message": "Prop \"defaultTime\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 17,
+              "column": 110
+            },
+            "end": {
+              "line": 17,
+              "column": 133
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/date-dropper/date-wheel-picker.svelte",
+          "kind": "prop-unknown-type",
+          "name": "timezone",
+          "message": "Prop \"timezone\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 17,
+              "column": 135
+            },
+            "end": {
+              "line": 17,
+              "column": 157
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/date-dropper/date-wheel-picker.svelte",
+          "kind": "prop-unknown-type",
+          "name": "dataTestId",
+          "message": "Prop \"dataTestId\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 17,
+              "column": 159
+            },
+            "end": {
+              "line": 17,
+              "column": 181
             }
           }
         }
@@ -7386,7 +8130,7 @@
           "column": 0
         },
         "end": {
-          "line": 194,
+          "line": 195,
           "column": 0
         }
       },
@@ -7405,11 +8149,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 87,
+              "line": 88,
               "column": 4
             },
             "end": {
-              "line": 87,
+              "line": 88,
               "column": 8
             }
           }
@@ -7432,11 +8176,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 88,
+              "line": 89,
               "column": 4
             },
             "end": {
-              "line": 88,
+              "line": 89,
               "column": 13
             }
           }
@@ -7454,11 +8198,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 89,
+              "line": 90,
               "column": 4
             },
             "end": {
-              "line": 89,
+              "line": 90,
               "column": 20
             }
           }
@@ -7475,11 +8219,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 90,
+              "line": 91,
               "column": 4
             },
             "end": {
-              "line": 90,
+              "line": 91,
               "column": 9
             }
           }
@@ -7498,11 +8242,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 77,
+              "line": 78,
               "column": 2
             },
             "end": {
-              "line": 79,
+              "line": 80,
               "column": 3
             }
           }
@@ -9487,7 +10231,7 @@
           "column": 0
         },
         "end": {
-          "line": 49,
+          "line": 50,
           "column": 0
         }
       },
@@ -9572,11 +10316,11 @@
           "slot_props": "{\n  errors: any;\n  errorProps: any;\n}",
           "source": {
             "start": {
-              "line": 41,
+              "line": 42,
               "column": 3
             },
             "end": {
-              "line": 41,
+              "line": 42,
               "column": 49
             }
           }
@@ -10333,6 +11077,1113 @@
     }
   },
   {
+    "file": "src/lib/components/input-group/highlighted-input.svelte",
+    "component": "highlighted-input",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 68,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "value",
+          "kind": "let",
+          "bindable": true,
+          "type": "string",
+          "typeSource": "default",
+          "value": "''",
+          "defaultValue": {
+            "raw": "''",
+            "kind": "literal",
+            "value": ""
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 4
+            },
+            "end": {
+              "line": 7,
+              "column": 25
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 4
+            },
+            "end": {
+              "line": 8,
+              "column": 20
+            }
+          }
+        },
+        {
+          "name": "type",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "value": "'text'",
+          "defaultValue": {
+            "raw": "'text'",
+            "kind": "literal",
+            "value": "text"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 9,
+              "column": 4
+            },
+            "end": {
+              "line": 9,
+              "column": 17
+            }
+          }
+        },
+        {
+          "name": "placeholder",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 10,
+              "column": 4
+            },
+            "end": {
+              "line": 10,
+              "column": 15
+            }
+          }
+        },
+        {
+          "name": "oninput",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 11,
+              "column": 4
+            },
+            "end": {
+              "line": 11,
+              "column": 11
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "Element",
+        "name": "input"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/input-group/highlighted-input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 4
+            },
+            "end": {
+              "line": 8,
+              "column": 20
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/input-group/highlighted-input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "placeholder",
+          "message": "Prop \"placeholder\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 10,
+              "column": 4
+            },
+            "end": {
+              "line": 10,
+              "column": 15
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/input-group/highlighted-input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "oninput",
+          "message": "Prop \"oninput\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 11,
+              "column": 4
+            },
+            "end": {
+              "line": 11,
+              "column": 11
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/input-group/input-group-addon.svelte",
+    "component": "input-group-addon",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 53,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "type": "null | HTMLDivElement",
+          "typeSource": "inferred",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 27,
+              "column": 2
+            },
+            "end": {
+              "line": 27,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 28,
+              "column": 2
+            },
+            "end": {
+              "line": 28,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "align",
+          "kind": "let",
+          "type": "InputGroupAddonAlign",
+          "typeSource": "typescript",
+          "value": "\"inline-start\"",
+          "defaultValue": {
+            "raw": "\"inline-start\"",
+            "kind": "literal",
+            "value": "inline-start"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 30,
+              "column": 2
+            },
+            "end": {
+              "line": 30,
+              "column": 24
+            }
+          }
+        }
+      ],
+      "moduleExports": [
+        {
+          "name": "inputGroupAddonVariants",
+          "kind": "const",
+          "typeSource": "unknown",
+          "value": "tv({\n\t\tbase: \"text-muted-foreground h-auto gap-2 py-1.5 text-sm font-medium group-data-[disabled=true]/input-group:opacity-50 [&>kbd]:rounded-[calc(var(--radius)-5px)] [&>svg:not([class*='size-'])]:size-4 flex cursor-text items-center justify-center select-none\",\n\t\tvariants: {\n\t\t\talign: {\n\t\t\t\t\"inline-start\": \"pl-2 has-[>button]:ml-[-0.3rem] has-[>kbd]:ml-[-0.15rem] order-first\",\n\t\t\t\t\"inline-end\": \"pr-2 has-[>button]:mr-[-0.3rem] has-[>kbd]:mr-[-0.15rem] order-last\",\n\t\t\t\t\"block-start\":\n\t\t\t\t\t\"px-2.5 pt-2 group-has-[>input]/input-group:pt-2 [.border-b]:pb-2 order-first w-full justify-start\",\n\t\t\t\t\"block-end\": \"px-2.5 pb-2 group-has-[>input]/input-group:pb-2 [.border-t]:pt-2 order-last w-full justify-start\",\n\t\t\t},\n\t\t},\n\t\tdefaultVariants: {\n\t\t\talign: \"inline-start\",\n\t\t},\n\t})",
+          "defaultValue": {
+            "raw": "tv({ \t\tbase: \"text-muted-foreground h-auto gap-2 py-1.5 text-sm font-medium group-data-[disabled=true]/input-group:opacity-50 [&>kbd]:rounded-[calc(var(--radius)-5px)] [&>svg:not([class*='size-'])]:size-4 flex cursor-text items-center justify-center select-none\", \t\tvariants: { \t\t\talign: { \t\t\t\t\"inline-start\": \"pl-2 has-[>button]:ml-[-0.3rem] has-[>kbd]:ml-[-0.15rem] order-first\", \t\t\t\t\"inline-end\": \"pr-2 has-[>button]:mr-[-0.3rem] has-[>kbd]:mr-[-0.15rem] order-last\", \t\t\t\t\"block-start\": \t\t\t\t\t\"px-2.5 pt-2 group-has-[>input]/input-group:pt-2 [.border-b]:pb-2 order-first w-full justify-start\", \t\t\t\t\"block-end\": \"px-2.5 pb-2 group-has-[>input]/input-group:pb-2 [.border-t]:pt-2 order-last w-full justify-start\", \t\t\t}, \t\t}, \t\tdefaultVariants: { \t\t\talign: \"inline-start\", \t\t}, \t})",
+            "kind": "expression"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": true,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 3,
+              "column": 1
+            },
+            "end": {
+              "line": 17,
+              "column": 4
+            }
+          }
+        }
+      ],
+      "slots": [
+        {
+          "name": null,
+          "default": true,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 51,
+              "column": 1
+            },
+            "end": {
+              "line": 51,
+              "column": 23
+            }
+          }
+        }
+      ],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "Element",
+        "name": "div"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/input-group/input-group-addon.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 28,
+              "column": 2
+            },
+            "end": {
+              "line": 28,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/input-group/input-group-button.svelte",
+    "component": "input-group-button",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 50,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 28,
+              "column": 2
+            },
+            "end": {
+              "line": 28,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 29,
+              "column": 2
+            },
+            "end": {
+              "line": 29,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "type",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "default",
+          "value": "\"button\"",
+          "defaultValue": {
+            "raw": "\"button\"",
+            "kind": "literal",
+            "value": "button"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 31,
+              "column": 2
+            },
+            "end": {
+              "line": 31,
+              "column": 17
+            }
+          }
+        },
+        {
+          "name": "variant",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "default",
+          "value": "\"ghost\"",
+          "defaultValue": {
+            "raw": "\"ghost\"",
+            "kind": "literal",
+            "value": "ghost"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 32,
+              "column": 2
+            },
+            "end": {
+              "line": 32,
+              "column": 19
+            }
+          }
+        },
+        {
+          "name": "size",
+          "kind": "let",
+          "type": "InputGroupButtonSize",
+          "typeSource": "typescript",
+          "value": "\"xs\"",
+          "defaultValue": {
+            "raw": "\"xs\"",
+            "kind": "literal",
+            "value": "xs"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 33,
+              "column": 2
+            },
+            "end": {
+              "line": 33,
+              "column": 13
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [
+        {
+          "name": null,
+          "default": true,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 48,
+              "column": 1
+            },
+            "end": {
+              "line": 48,
+              "column": 23
+            }
+          }
+        }
+      ],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "Button"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/input-group/input-group-button.svelte",
+          "kind": "prop-unknown-type",
+          "name": "ref",
+          "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 28,
+              "column": 2
+            },
+            "end": {
+              "line": 28,
+              "column": 23
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/input-group/input-group-button.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 29,
+              "column": 2
+            },
+            "end": {
+              "line": 29,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/input-group/input-group-input.svelte",
+    "component": "input-group-input",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 22,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "type": "null | HTMLInputElement",
+          "typeSource": "inferred",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "value",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 21
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "type",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "value": "\"text\"",
+          "defaultValue": {
+            "raw": "\"text\"",
+            "kind": "literal",
+            "value": "text"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 9,
+              "column": 2
+            },
+            "end": {
+              "line": 9,
+              "column": 15
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "Element",
+        "name": "input"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/input-group/input-group-input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "value",
+          "message": "Prop \"value\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 21
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/input-group/input-group-input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/input-group/input-group-text.svelte",
+    "component": "input-group-text",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 20,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "type": "null | HTMLSpanElement",
+          "typeSource": "inferred",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 18
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [
+        {
+          "name": null,
+          "default": true,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 18,
+              "column": 1
+            },
+            "end": {
+              "line": 18,
+              "column": 23
+            }
+          }
+        }
+      ],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "Element",
+        "name": "span"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/input-group/input-group-text.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/input-group/input-group-textarea.svelte",
+    "component": "input-group-textarea",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 21,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "value",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 21
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 9,
+              "column": 2
+            },
+            "end": {
+              "line": 9,
+              "column": 18
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "Textarea"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/input-group/input-group-textarea.svelte",
+          "kind": "prop-unknown-type",
+          "name": "ref",
+          "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 23
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/input-group/input-group-textarea.svelte",
+          "kind": "prop-unknown-type",
+          "name": "value",
+          "message": "Prop \"value\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 21
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/input-group/input-group-textarea.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 9,
+              "column": 2
+            },
+            "end": {
+              "line": 9,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/input-group/input-group.svelte",
+    "component": "input-group",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 25,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "type": "null | HTMLDivElement",
+          "typeSource": "inferred",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 18
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [
+        {
+          "name": null,
+          "default": true,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 23,
+              "column": 1
+            },
+            "end": {
+              "line": 23,
+              "column": 23
+            }
+          }
+        }
+      ],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "Element",
+        "name": "div"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/input-group/input-group.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
     "file": "src/lib/components/input-otp/input-otp-group.svelte",
     "component": "input-otp-group",
     "data": {
@@ -10861,7 +12712,7 @@
           "column": 0
         },
         "end": {
-          "line": 119,
+          "line": 120,
           "column": 0
         }
       },
@@ -11053,7 +12904,7 @@
           "column": 0
         },
         "end": {
-          "line": 203,
+          "line": 204,
           "column": 0
         }
       },
@@ -11283,7 +13134,7 @@
           "column": 0
         },
         "end": {
-          "line": 185,
+          "line": 187,
           "column": 0
         }
       },
@@ -12094,6 +13945,418 @@
     }
   },
   {
+    "file": "src/lib/components/numeric-input/numeric-input.svelte",
+    "component": "numeric-input",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 229,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 62,
+              "column": 4
+            },
+            "end": {
+              "line": 62,
+              "column": 25
+            }
+          }
+        },
+        {
+          "name": "type",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 63,
+              "column": 4
+            },
+            "end": {
+              "line": 63,
+              "column": 8
+            }
+          }
+        },
+        {
+          "name": "type_config",
+          "kind": "let",
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 64,
+              "column": 4
+            },
+            "end": {
+              "line": 64,
+              "column": 22
+            }
+          }
+        },
+        {
+          "name": "value",
+          "kind": "let",
+          "bindable": true,
+          "type": "string",
+          "typeSource": "default",
+          "value": "\"\"",
+          "defaultValue": {
+            "raw": "\"\"",
+            "kind": "literal",
+            "value": ""
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 65,
+              "column": 4
+            },
+            "end": {
+              "line": 65,
+              "column": 25
+            }
+          }
+        },
+        {
+          "name": "onChange",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 66,
+              "column": 4
+            },
+            "end": {
+              "line": 66,
+              "column": 12
+            }
+          }
+        },
+        {
+          "name": "errors",
+          "kind": "let",
+          "type": "[]",
+          "typeSource": "default",
+          "value": "[]",
+          "defaultValue": {
+            "raw": "[]",
+            "kind": "array",
+            "value": []
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 67,
+              "column": 4
+            },
+            "end": {
+              "line": 67,
+              "column": 15
+            }
+          }
+        },
+        {
+          "name": "currencySymbol",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 68,
+              "column": 4
+            },
+            "end": {
+              "line": 68,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "currencyCode",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 69,
+              "column": 4
+            },
+            "end": {
+              "line": 69,
+              "column": 16
+            }
+          }
+        },
+        {
+          "name": "onCurrencyClick",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 70,
+              "column": 4
+            },
+            "end": {
+              "line": 70,
+              "column": 19
+            }
+          }
+        },
+        {
+          "name": "lang",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "default",
+          "value": "'en-GB'",
+          "defaultValue": {
+            "raw": "'en-GB'",
+            "kind": "literal",
+            "value": "en-GB"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 71,
+              "column": 4
+            },
+            "end": {
+              "line": 71,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 72,
+              "column": 4
+            },
+            "end": {
+              "line": 72,
+              "column": 20
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/numeric-input/numeric-input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "ref",
+          "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 62,
+              "column": 4
+            },
+            "end": {
+              "line": 62,
+              "column": 25
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/numeric-input/numeric-input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "type",
+          "message": "Prop \"type\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 63,
+              "column": 4
+            },
+            "end": {
+              "line": 63,
+              "column": 8
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/numeric-input/numeric-input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "type_config",
+          "message": "Prop \"type_config\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 64,
+              "column": 4
+            },
+            "end": {
+              "line": 64,
+              "column": 22
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/numeric-input/numeric-input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "onChange",
+          "message": "Prop \"onChange\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 66,
+              "column": 4
+            },
+            "end": {
+              "line": 66,
+              "column": 12
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/numeric-input/numeric-input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "currencySymbol",
+          "message": "Prop \"currencySymbol\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 68,
+              "column": 4
+            },
+            "end": {
+              "line": 68,
+              "column": 18
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/numeric-input/numeric-input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "currencyCode",
+          "message": "Prop \"currencyCode\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 69,
+              "column": 4
+            },
+            "end": {
+              "line": 69,
+              "column": 16
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/numeric-input/numeric-input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "onCurrencyClick",
+          "message": "Prop \"onCurrencyClick\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 70,
+              "column": 4
+            },
+            "end": {
+              "line": 70,
+              "column": 19
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/numeric-input/numeric-input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 72,
+              "column": 4
+            },
+            "end": {
+              "line": 72,
+              "column": 20
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
     "file": "src/lib/components/otp-input/otp-input.svelte",
     "component": "otp-input",
     "data": {
@@ -12325,7 +14588,7 @@
           "column": 0
         },
         "end": {
-          "line": 1371,
+          "line": 1376,
           "column": 0
         }
       },
@@ -13460,7 +15723,7 @@
           "column": 0
         },
         "end": {
-          "line": 356,
+          "line": 357,
           "column": 0
         }
       },
@@ -14016,7 +16279,7 @@
           "column": 0
         },
         "end": {
-          "line": 263,
+          "line": 301,
           "column": 0
         }
       },
@@ -14042,11 +16305,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 45,
+              "line": 50,
               "column": 4
             },
             "end": {
-              "line": 45,
+              "line": 50,
               "column": 25
             }
           }
@@ -14063,11 +16326,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 46,
+              "line": 51,
               "column": 4
             },
             "end": {
-              "line": 46,
+              "line": 51,
               "column": 6
             }
           }
@@ -14084,11 +16347,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 47,
+              "line": 52,
               "column": 4
             },
             "end": {
-              "line": 47,
+              "line": 52,
               "column": 8
             }
           }
@@ -14105,11 +16368,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 48,
+              "line": 53,
               "column": 4
             },
             "end": {
-              "line": 48,
+              "line": 53,
               "column": 15
             }
           }
@@ -14132,11 +16395,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 49,
+              "line": 54,
               "column": 4
             },
             "end": {
-              "line": 49,
+              "line": 54,
               "column": 20
             }
           }
@@ -14159,11 +16422,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 50,
+              "line": 55,
               "column": 4
             },
             "end": {
-              "line": 50,
+              "line": 55,
               "column": 20
             }
           }
@@ -14187,11 +16450,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 51,
+              "line": 56,
               "column": 4
             },
             "end": {
-              "line": 51,
+              "line": 56,
               "column": 53
             }
           }
@@ -14209,11 +16472,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 52,
+              "line": 57,
               "column": 4
             },
             "end": {
-              "line": 52,
+              "line": 57,
               "column": 20
             }
           }
@@ -14228,6 +16491,476 @@
         "type": "InlineComponent",
         "name": "TextInput"
       },
+      "contexts": [],
+      "diagnostics": []
+    }
+  },
+  {
+    "file": "src/lib/components/search-input/search-input.svelte",
+    "component": "search-input",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 182,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "value",
+          "kind": "let",
+          "bindable": true,
+          "type": "string",
+          "typeSource": "typescript",
+          "value": "''",
+          "defaultValue": {
+            "raw": "''",
+            "kind": "literal",
+            "value": ""
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 46,
+              "column": 2
+            },
+            "end": {
+              "line": 46,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "placeholder",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 47,
+              "column": 2
+            },
+            "end": {
+              "line": 47,
+              "column": 13
+            }
+          }
+        },
+        {
+          "name": "highlight",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 48,
+              "column": 2
+            },
+            "end": {
+              "line": 48,
+              "column": 19
+            }
+          }
+        },
+        {
+          "name": "clearable",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "true",
+          "defaultValue": {
+            "raw": "true",
+            "kind": "literal",
+            "value": true
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 49,
+              "column": 2
+            },
+            "end": {
+              "line": 49,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "trailing_ctas",
+          "kind": "let",
+          "type": "TrailingCta[]",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 50,
+              "column": 2
+            },
+            "end": {
+              "line": 50,
+              "column": 15
+            }
+          }
+        },
+        {
+          "name": "trailing_button",
+          "kind": "let",
+          "type": "SearchTrailingButton",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 51,
+              "column": 2
+            },
+            "end": {
+              "line": 51,
+              "column": 17
+            }
+          }
+        },
+        {
+          "name": "on_clear",
+          "kind": "let",
+          "type": "() => void",
+          "typeSource": "typescript",
+          "isFunction": true,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 52,
+              "column": 2
+            },
+            "end": {
+              "line": 52,
+              "column": 10
+            }
+          }
+        },
+        {
+          "name": "variant",
+          "kind": "let",
+          "type": "'field' | 'borderless'",
+          "typeSource": "typescript",
+          "value": "'field'",
+          "defaultValue": {
+            "raw": "'field'",
+            "kind": "literal",
+            "value": "field"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 53,
+              "column": 2
+            },
+            "end": {
+              "line": 53,
+              "column": 19
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 54,
+              "column": 2
+            },
+            "end": {
+              "line": 54,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "input_class",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 55,
+              "column": 2
+            },
+            "end": {
+              "line": 55,
+              "column": 13
+            }
+          }
+        },
+        {
+          "name": "disabled",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 56,
+              "column": 2
+            },
+            "end": {
+              "line": 56,
+              "column": 10
+            }
+          }
+        },
+        {
+          "name": "id",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 57,
+              "column": 2
+            },
+            "end": {
+              "line": 57,
+              "column": 4
+            }
+          }
+        },
+        {
+          "name": "name",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 58,
+              "column": 2
+            },
+            "end": {
+              "line": 58,
+              "column": 6
+            }
+          }
+        },
+        {
+          "name": "oninput",
+          "kind": "let",
+          "type": "HTMLInputAttributes['oninput']",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 59,
+              "column": 2
+            },
+            "end": {
+              "line": 59,
+              "column": 9
+            }
+          }
+        },
+        {
+          "name": "onkeydown",
+          "kind": "let",
+          "type": "HTMLInputAttributes['onkeydown']",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 60,
+              "column": 2
+            },
+            "end": {
+              "line": 60,
+              "column": 11
+            }
+          }
+        },
+        {
+          "name": "data_testid",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 61,
+              "column": 2
+            },
+            "end": {
+              "line": 61,
+              "column": 13
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "contexts": [],
+      "diagnostics": []
+    }
+  },
+  {
+    "file": "src/lib/components/search-input/search-syntax-highlighter.svelte",
+    "component": "search-syntax-highlighter",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 66,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "search",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "value": "''",
+          "defaultValue": {
+            "raw": "''",
+            "kind": "literal",
+            "value": ""
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 3,
+              "column": 4
+            },
+            "end": {
+              "line": 3,
+              "column": 15
+            }
+          }
+        },
+        {
+          "name": "disablePadding",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 4,
+              "column": 4
+            },
+            "end": {
+              "line": 4,
+              "column": 26
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
       "contexts": [],
       "diagnostics": []
     }
@@ -17590,6 +20323,761 @@
     }
   },
   {
+    "file": "src/lib/components/tabs/tabs-content.svelte",
+    "component": "tabs-content",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 18,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 18
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "TabsPrimitive.Content"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/tabs/tabs-content.svelte",
+          "kind": "prop-unknown-type",
+          "name": "ref",
+          "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/tabs/tabs-content.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/tabs/tabs-list.svelte",
+    "component": "tabs-list",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 124,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 31,
+              "column": 2
+            },
+            "end": {
+              "line": 31,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "variant",
+          "kind": "let",
+          "type": "TabsListVariant",
+          "typeSource": "typescript",
+          "value": "\"default\"",
+          "defaultValue": {
+            "raw": "\"default\"",
+            "kind": "literal",
+            "value": "default"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 32,
+              "column": 2
+            },
+            "end": {
+              "line": 32,
+              "column": 21
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 33,
+              "column": 2
+            },
+            "end": {
+              "line": 33,
+              "column": 18
+            }
+          }
+        }
+      ],
+      "moduleExports": [
+        {
+          "name": "tabsListVariants",
+          "kind": "const",
+          "typeSource": "unknown",
+          "value": "tv({\n\t\tbase: \"rounded-lg p-[3px] group-data-horizontal/tabs:h-8 data-[variant=line]:rounded-none group/tabs-list text-muted-foreground inline-flex w-fit items-center justify-center group-data-[orientation=vertical]/tabs:h-fit group-data-[orientation=vertical]/tabs:flex-col\",\n\t\tvariants: {\n\t\t\tvariant: {\n\t\t\t\tdefault: \"cn-tabs-list-variant-default relative bg-muted\",\n\t\t\t\tline: \"cn-tabs-list-variant-line gap-1 bg-transparent\",\n\t\t\t},\n\t\t},\n\t\tdefaultVariants: {\n\t\t\tvariant: \"default\",\n\t\t},\n\t})",
+          "defaultValue": {
+            "raw": "tv({ \t\tbase: \"rounded-lg p-[3px] group-data-horizontal/tabs:h-8 data-[variant=line]:rounded-none group/tabs-list text-muted-foreground inline-flex w-fit items-center justify-center group-data-[orientation=vertical]/tabs:h-fit group-data-[orientation=vertical]/tabs:flex-col\", \t\tvariants: { \t\t\tvariant: { \t\t\t\tdefault: \"cn-tabs-list-variant-default relative bg-muted\", \t\t\t\tline: \"cn-tabs-list-variant-line gap-1 bg-transparent\", \t\t\t}, \t\t}, \t\tdefaultVariants: { \t\t\tvariant: \"default\", \t\t}, \t})",
+            "kind": "expression"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": true,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 4,
+              "column": 1
+            },
+            "end": {
+              "line": 15,
+              "column": 4
+            }
+          }
+        }
+      ],
+      "slots": [
+        {
+          "name": null,
+          "default": true,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 122,
+              "column": 1
+            },
+            "end": {
+              "line": 122,
+              "column": 23
+            }
+          }
+        }
+      ],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "TabsPrimitive.List"
+      },
+      "contexts": [
+        {
+          "key": "primebrick-tabs-list",
+          "typeName": "PrimebrickTabsListContext",
+          "properties": [
+            {
+              "name": "settledValue",
+              "type": "() => any",
+              "optional": false
+            }
+          ]
+        }
+      ],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/tabs/tabs-list.svelte",
+          "kind": "prop-unknown-type",
+          "name": "ref",
+          "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 31,
+              "column": 2
+            },
+            "end": {
+              "line": 31,
+              "column": 23
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/tabs/tabs-list.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 33,
+              "column": 2
+            },
+            "end": {
+              "line": 33,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/tabs/tabs-trigger.svelte",
+    "component": "tabs-trigger",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 35,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "value",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 9,
+              "column": 2
+            },
+            "end": {
+              "line": 9,
+              "column": 7
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "TabsPrimitive.Trigger"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/tabs/tabs-trigger.svelte",
+          "kind": "prop-unknown-type",
+          "name": "ref",
+          "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 23
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/tabs/tabs-trigger.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 18
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/tabs/tabs-trigger.svelte",
+          "kind": "prop-unknown-type",
+          "name": "value",
+          "message": "Prop \"value\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 9,
+              "column": 2
+            },
+            "end": {
+              "line": 9,
+              "column": 7
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/tabs/tabs.svelte",
+    "component": "tabs",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 20,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "value",
+          "kind": "let",
+          "bindable": true,
+          "type": "string",
+          "typeSource": "default",
+          "value": "\"\"",
+          "defaultValue": {
+            "raw": "\"\"",
+            "kind": "literal",
+            "value": ""
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 18
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "InlineComponent",
+        "name": "TabsPrimitive.Root"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/tabs/tabs.svelte",
+          "kind": "prop-unknown-type",
+          "name": "ref",
+          "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/tabs/tabs.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/textarea/textarea.svelte",
+    "component": "textarea",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 24,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "type": "null | HTMLTextAreaElement",
+          "typeSource": "inferred",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 23
+            }
+          }
+        },
+        {
+          "name": "value",
+          "kind": "let",
+          "bindable": true,
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 21
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "data-slot",
+          "localName": "dataSlot",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "default",
+          "value": "\"textarea\"",
+          "defaultValue": {
+            "raw": "\"textarea\"",
+            "kind": "literal",
+            "value": "textarea"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 9,
+              "column": 2
+            },
+            "end": {
+              "line": 9,
+              "column": 36
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "Element",
+        "name": "textarea"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/textarea/textarea.svelte",
+          "kind": "prop-unknown-type",
+          "name": "value",
+          "message": "Prop \"value\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 21
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/textarea/textarea.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 18
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
     "file": "src/lib/components/toolbar/toolbar-divider.svelte",
     "component": "toolbar-divider",
     "data": {
@@ -18228,6 +21716,319 @@
       "props": [],
       "moduleExports": [],
       "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "contexts": [],
+      "diagnostics": []
+    }
+  },
+  {
+    "file": "src/lib/components/wheel-picker/wheel-picker-group.svelte",
+    "component": "wheel-picker-group",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 334,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "value",
+          "kind": "let",
+          "bindable": true,
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 21
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 9,
+              "column": 2
+            },
+            "end": {
+              "line": 9,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "onValueChange",
+          "kind": "let",
+          "type": "(val: string) => void",
+          "typeSource": "typescript",
+          "isFunction": true,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 11,
+              "column": 2
+            },
+            "end": {
+              "line": 11,
+              "column": 15
+            }
+          }
+        },
+        {
+          "name": "loop",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 12,
+              "column": 2
+            },
+            "end": {
+              "line": 12,
+              "column": 14
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [
+        {
+          "name": null,
+          "default": true,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 331,
+              "column": 2
+            },
+            "end": {
+              "line": 331,
+              "column": 22
+            }
+          }
+        }
+      ],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "contexts": [],
+      "diagnostics": []
+    }
+  },
+  {
+    "file": "src/lib/components/wheel-picker/wheel-picker-item.svelte",
+    "component": "wheel-picker-item",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 110,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "value",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 2
+            },
+            "end": {
+              "line": 8,
+              "column": 7
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 9,
+              "column": 2
+            },
+            "end": {
+              "line": 9,
+              "column": 18
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [
+        {
+          "name": null,
+          "default": true,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 108,
+              "column": 1
+            },
+            "end": {
+              "line": 108,
+              "column": 21
+            }
+          }
+        }
+      ],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "contexts": [],
+      "diagnostics": []
+    }
+  },
+  {
+    "file": "src/lib/components/wheel-picker/wheel-picker.svelte",
+    "component": "wheel-picker",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 41,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 2
+            },
+            "end": {
+              "line": 6,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "collapsed",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 7,
+              "column": 2
+            },
+            "end": {
+              "line": 7,
+              "column": 19
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [
+        {
+          "name": null,
+          "default": true,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 32,
+              "column": 2
+            },
+            "end": {
+              "line": 32,
+              "column": 22
+            }
+          }
+        }
+      ],
       "events": [],
       "typedefs": [],
       "generics": null,

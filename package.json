@@ -103,6 +103,7 @@
     "@codemirror/state": "6.7.6",
     "@codemirror/view": "6.43.15",
     "@huggingface/transformers": "4.3.1",
+    "@internationalized/date": "3.12.4",
     "@lezer/highlight": "1.2.5",
     "@lucide/svelte": "1.59.0",
     "@primebrick/core": "workspace:*",

@@ -267,6 +267,7 @@
 		     flat filtered view (type-ahead preserved). -->
 		<div class="flex items-center gap-2 border-b border-border px-3 py-1.5">
 			<Search class="size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+			<!-- // standards-exempt: native-control — borderless inline search row inside the popover chrome -->
 			<input
 				bind:value={search}
 				placeholder={searchPlaceholder ?? $t('app.search.placeholder')}

@@ -26,6 +26,7 @@
   } & HTMLAttributes<HTMLDivElement> = $props();
 
   const jsonString = $derived(
+    // standards-exempt: ext-json — display pretty-print; extJson markers are wire, not presentation
     typeof code === 'string' ? code : JSON.stringify(code, null, 2)
   );
 

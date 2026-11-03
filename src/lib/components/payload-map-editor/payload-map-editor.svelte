@@ -148,6 +148,7 @@
   /** Current DST document — unparseable text degrades to empty rows. */
   const map = $derived.by((): PayloadMap => {
     try {
+      // standards-exempt: ext-json — the document edited here IS plain JSON text, not an ext-json wire payload
       const parsed = JSON.parse(value || 'null');
       return parsed && typeof parsed === 'object' && !Array.isArray(parsed)
         ? (parsed as PayloadMap)
@@ -325,6 +326,7 @@
     const next: Record<string, unknown> = { ...(map as Record<string, unknown>) };
     if (entry === undefined) delete next[field];
     else next[field] = entry;
+    // standards-exempt: ext-json — the widget serializes plain JSON documents, not ext-json wire payloads
     value = Object.keys(next).length === 0 ? '' : JSON.stringify(next, null, 2);
   }
 
@@ -687,6 +689,7 @@
       case 'boolean': return raw === 'true';
       case 'array':
       case 'object': {
+        // standards-exempt: ext-json — const raw text is plain JSON entered by the user
         try { return JSON.parse(raw || (prop?.type === 'array' ? '[]' : '{}')); }
         catch { return raw; }
       }
@@ -704,6 +707,7 @@
     if (e?.kind !== 'const') return '';
     const v = e.value;
     if (v === undefined || v === null) return '';
+    // standards-exempt: ext-json — display serialization for the const preview, not a wire payload
     return typeof v === 'object' ? JSON.stringify(v) : String(v);
   }
 
@@ -811,6 +815,7 @@
   {#each issues as i (i.path + i.code + i.message)}
     {@const msg = i.message.includes('|')
       ? (() => { const [k, p] = i.message.split('|', 2);
+          // standards-exempt: ext-json — key|{json} is the issue-message param contract, not ext-json wire
           try { return $t(k, JSON.parse(p) as Record<string, unknown>); } catch { return $t(k); } })()
       : $t(i.message)}
     <p class="mt-1 text-xs font-medium text-destructive" data-testid="payload-map-issue">

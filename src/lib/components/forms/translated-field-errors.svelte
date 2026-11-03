@@ -22,6 +22,7 @@
 
 		const [key, jsonParams] = error.split('|', 2);
 		try {
+			// standards-exempt: ext-json — key|{json} is the error-param contract, not ext-json wire
 			const params = JSON.parse(jsonParams);
 			return $t(key, params);
 		} catch {

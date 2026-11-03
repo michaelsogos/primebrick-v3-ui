@@ -50,6 +50,7 @@
 			{...restProps}
 		>
 			{#snippet child({ props })}
+				<!-- // standards-exempt: native-control — this component IS the canonical Command input primitive -->
 				<input {...props} bind:value bind:this={ref} />
 			{/snippet}
 		</CommandPrimitive.Input>

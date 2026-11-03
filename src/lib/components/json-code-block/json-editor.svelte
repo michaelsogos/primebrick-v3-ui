@@ -78,6 +78,7 @@
       // This variant extends the range to end-of-line → wavy underline.
       const jsonLintRange = () => (v: EditorView) => {
         try {
+          // standards-exempt: ext-json — JSON-document lint of editor text, not wire payloads
           JSON.parse(v.state.doc.toString());
           return [];
         } catch (e) {

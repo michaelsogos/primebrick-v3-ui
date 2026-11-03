@@ -30,6 +30,14 @@
  * the library IS the driver wrapper; query/sql/pool rules are its
  * implementation, not violations.
  *
+ * UI-library rule (profile `lib`, scanned on `.svelte` sources too):
+ *   native-control  raw `<input>`/`<select>`/`<textarea>` elements — the
+ *                   canonical styled wrappers in components/input/ (and the
+ *                   lib's field components) are the only sanctioned controls.
+ *                   Primitive wrappers themselves live under
+ *                   components/input/ (allowPaths) or carry an inline
+ *                   `// standards-exempt: native-control — <reason>`.
+ *
  * Config-gated rules (activate only via `.devin/check-standards.json` in the
  * repo root — see below):
  *   dal-access      `getDal(`/`initDal(` — data access ONLY inside the
@@ -78,6 +86,7 @@ type RuleId =
   | "new-repository"
   | "pool-ping"
   | "column-flag-defaults"
+  | "native-control"
   | "entity-nullable-explicit"
   | "dal-access"
   | "layer-repo-import";
@@ -103,6 +112,12 @@ const LINE_RULES: Rule[] = [
   { id: "new-repository", pattern: /\bnew\s+Repository\s*\(/, hint: "use dal.entityService()/dal.tableAuditPort()" },
   { id: "pool-ping", pattern: /\b(?:client|pool|conn)\.ping\s*\(/, hint: "raw driver ping — use dal.serverVersion()" },
   { id: "column-flag-defaults", pattern: /\.(?:default_visible|sortable|filterable|searchable)\s*(?:!==|===)\s*false\b/, hint: "column flags are opt-out — read them via isColumnVisible/isColumnSortable/isColumnFilterable/isColumnSearchable (@primebrick/core)" },
+  {
+    id: "native-control",
+    pattern: /<(input|select|textarea)\b/,
+    hint: "raw HTML control — use the canonical wrappers (components/input/, ComboSelect, Textarea…)",
+    allowPaths: /^lib\/components\/(input|input-group|textarea)\//,
+  },
 ];
 
 // Config-gated rules — populated from `.devin/check-standards.json` (repo
@@ -241,7 +256,7 @@ const CONSUMER_RULES = new Set<RuleId>([
   "getPool", "withClient", "upsert", "new-repository", "pool-ping",
   "entity-nullable-explicit", "column-flag-defaults",
 ]);
-const LIB_RULES = new Set<RuleId>(["ext-json", "entity-nullable-explicit", "column-flag-defaults"]);
+const LIB_RULES = new Set<RuleId>(["ext-json", "entity-nullable-explicit", "column-flag-defaults", "native-control"]);
 
 interface Violation {
   file: string;
@@ -275,7 +290,7 @@ function* walk(dir: string): Generator<string> {
     const p = join(dir, entry);
     const st = statSync(p);
     if (st.isDirectory()) yield* walk(p);
-    else if (entry.endsWith(".ts")) yield p;
+    else if (entry.endsWith(".ts") || entry.endsWith(".svelte")) yield p;
   }
 }
 

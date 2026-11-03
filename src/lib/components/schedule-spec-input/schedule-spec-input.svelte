@@ -20,8 +20,13 @@
    */
   import TextInput from '../input/text-input.svelte';
   import * as Popover from '../popover/index.js';
+  import * as Choicebox from '../choicebox/index.js';
   import Button from '../button/button.svelte';
   import Badge from '../badge/badge.svelte';
+  import { NumericInput } from '../numeric-input/index.js';
+  import { ComboSelect } from '../combo-select/index.js';
+  import { DateWheelPicker } from '../date-dropper/index.js';
+  import { CalendarDateTime, getLocalTimeZone } from '@internationalized/date';
   import { getT, getLocale } from '../../bridges.js';
   import { cn, formatUiDateTime } from '../../utils/index.js';
   import {
@@ -86,11 +91,18 @@
   let assistOpen = $state(false);
   let mode = $state<AssistMode>('interval');
 
-  // Interval state
-  let everyN = $state(5);
-  let everyUnit = $state<'s' | 'm' | 'h' | 'd'>('m');
-  // Once state — datetime-local format
-  let atLocal = $state('');
+  // Interval state — product default: 1 hour.
+  let everyN = $state('1');
+  let everyUnit = $state('h');
+  const unitOptions = [
+    { value: 's', label_key: 'app.widgets.schedule_spec.unit.s' },
+    { value: 'm', label_key: 'app.widgets.schedule_spec.unit.m' },
+    { value: 'h', label_key: 'app.widgets.schedule_spec.unit.h' },
+    { value: 'd', label_key: 'app.widgets.schedule_spec.unit.d' },
+  ];
+  // Once state — CalendarDateTime wall-clock + the picker's selected IANA zone.
+  let atValue = $state<CalendarDateTime | null>(null);
+  let atTz = $state('');
   // Cron state
   let cronExpr = $state('');
 
@@ -104,16 +116,24 @@
     if (p.ok && p.spec.kind === 'every') {
       mode = 'interval';
       const unitMs = { s: 1_000, m: 60_000, h: 3_600_000, d: 86_400_000 };
-      const u = (Object.keys(unitMs) as Array<keyof typeof unitMs>).find(
+      // Largest-divisible-unit first — `@every 3600s` must seed "1 hour",
+      // not "3600 seconds".
+      const u = (['d', 'h', 'm', 's'] as const).find(
         (k) => p.spec.kind === 'every' && p.spec.everyMs % unitMs[k] === 0,
       ) ?? 'm';
       everyUnit = u;
-      everyN = p.spec.kind === 'every' ? p.spec.everyMs / unitMs[u] : 5;
+      everyN = p.spec.kind === 'every' ? String(p.spec.everyMs / unitMs[u]) : '1';
     } else if (p.ok && p.spec.kind === 'at') {
       mode = 'once';
       const d = p.spec.at;
-      const pad = (n: number) => String(n).padStart(2, '0');
-      atLocal = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+      atValue = new CalendarDateTime(
+        d.getFullYear(),
+        d.getMonth() + 1,
+        d.getDate(),
+        d.getHours(),
+        d.getMinutes(),
+        0,
+      );
     } else if (p.ok && p.spec.kind === 'cron') {
       mode = 'cron';
       cronExpr = p.spec.expr;
@@ -122,11 +142,10 @@
 
   function applyAssist() {
     if (mode === 'interval') {
-      const n = Math.max(1, Math.floor(everyN || 1));
+      const n = Math.max(1, Math.floor(Number(everyN) || 1));
       value = `@every ${n}${everyUnit}`;
     } else if (mode === 'once') {
-      const d = new Date(atLocal);
-      if (!Number.isNaN(d.getTime())) value = `@at ${d.toISOString()}`;
+      if (atValue) value = `@at ${atValue.toDate(atTz || getLocalTimeZone()).toISOString()}`;
     } else {
       value = cronExpr.trim();
     }
@@ -134,7 +153,7 @@
   }
 
   const canApply = $derived(
-    mode === 'once' ? atLocal !== '' : mode === 'cron' ? cronExpr.trim() !== '' : everyN > 0,
+    mode === 'once' ? atValue !== null : mode === 'cron' ? cronExpr.trim() !== '' : Number(everyN) > 0,
   );
 
   // The assist CTA is declared via `trailing_ctas` — TextInput owns the
@@ -163,70 +182,89 @@
           : undefined}
         {...rest}
       />
-      <Popover.Content class="w-72 space-y-3 p-3" align="end" customAnchor={inputWrap}>
-              <!-- Mode selector -->
-              <div class="flex gap-1" data-testid="{dataTestId}-modes">
-                {#each ['interval', 'once', 'cron'] as const as m (m)}
-                  <Button
-                    type="button"
-                    variant={mode === m ? 'default' : 'outline'}
-                    size="sm"
-                    class="flex-1"
-                    data-testid="{dataTestId}-mode-{m}"
-                    onclick={() => (mode = m)}
-                  >
-                    {$t(`app.widgets.schedule_spec.mode.${m}`)}
-                  </Button>
-                {/each}
-              </div>
-
-              {#if mode === 'interval'}
-                <div class="flex items-center gap-2">
-                  <span class="text-sm text-muted-foreground">{$t('app.widgets.schedule_spec.every')}</span>
-                  <input
-                    type="number"
-                    min="1"
-                    bind:value={everyN}
-                    class="h-8 w-20 rounded-md border-primary-gradient px-2 text-sm"
-                    data-testid="{dataTestId}-every-n"
-                  />
-                  <select
-                    bind:value={everyUnit}
-                    class="h-8 rounded-md border-primary-gradient px-1 text-sm"
-                    data-testid="{dataTestId}-every-unit"
-                  >
-                    {#each ['s', 'm', 'h', 'd'] as const as u (u)}
-                      <option value={u}>{$t(`app.widgets.schedule_spec.unit.${u}`)}</option>
-                    {/each}
-                  </select>
-                </div>
-              {:else if mode === 'once'}
-                <input
-                  type="datetime-local"
-                  bind:value={atLocal}
-                  class="h-8 w-full rounded-md border-primary-gradient px-2 text-sm"
-                  data-testid="{dataTestId}-at-local"
-                />
-              {:else}
-                <input
-                  type="text"
-                  bind:value={cronExpr}
-                  placeholder="*/5 * * * *"
-                  class="h-8 w-full rounded-md border-primary-gradient px-2 font-mono text-sm"
-                  data-testid="{dataTestId}-cron-expr"
-                />
-              {/if}
-
-              <Button
-                type="button"
-                size="sm"
-                class="w-full"
-                disabled={!canApply}
-                data-testid="{dataTestId}-apply"
-                onclick={applyAssist}
+      <Popover.Content class="w-96 space-y-3 p-3" align="end" customAnchor={inputWrap}>
+              <!-- Mode selector — choice cards; the selected card hosts its
+                   own builder form (radio-group semantics, one value). -->
+              <Choicebox.Root
+                value={mode}
+                onValueChange={(v) => (mode = v as AssistMode)}
+                name="schedule-mode"
+                data-testid="{dataTestId}-modes"
               >
-                {$t('app.widgets.schedule_spec.apply')}
-              </Button>
+                <Choicebox.Item value="interval" data-testid="{dataTestId}-mode-interval">
+                  <Choicebox.Title>{$t('app.widgets.schedule_spec.mode.interval')}</Choicebox.Title>
+                  <Choicebox.Description>{$t('app.widgets.schedule_spec.mode.interval.desc')}</Choicebox.Description>
+                  <Choicebox.Indicator />
+                  {#if mode === 'interval'}
+                    <div class="flex items-center gap-2 pt-3">
+                      <span class="shrink-0 text-sm text-muted-foreground">{$t('app.widgets.schedule_spec.every')}</span>
+                      <div class="min-w-0 flex-1">
+                        <NumericInput
+                          type="bigint"
+                          type_config={'{"validation":{"unsigned":true}}'}
+                          bind:value={everyN}
+                          data-testid="{dataTestId}-every-n"
+                        />
+                      </div>
+                      <ComboSelect
+                        mode="single"
+                        bind:value={everyUnit}
+                        options={unitOptions}
+                        valueField="value"
+                        labelField="label_key"
+                        isLabelTranslated={true}
+                        searchable={false}
+                        class="w-28 shrink-0"
+                        data-testid="{dataTestId}-every-unit"
+                      />
+                    </div>
+                  {/if}
+                </Choicebox.Item>
+
+                <Choicebox.Item value="once" data-testid="{dataTestId}-mode-once">
+                  <Choicebox.Title>{$t('app.widgets.schedule_spec.mode.once')}</Choicebox.Title>
+                  <Choicebox.Description>{$t('app.widgets.schedule_spec.mode.once.desc')}</Choicebox.Description>
+                  <Choicebox.Indicator />
+                  {#if mode === 'once'}
+                    <div class="pt-3">
+                    <DateWheelPicker
+                      bind:value={atValue}
+                      bind:timezone={atTz}
+                      includeTime={true}
+                      dataTestId="{dataTestId}-at-local"
+                    />
+                    </div>
+                  {/if}
+                </Choicebox.Item>
+
+                <Choicebox.Item value="cron" data-testid="{dataTestId}-mode-cron">
+                  <Choicebox.Title>{$t('app.widgets.schedule_spec.mode.cron')}</Choicebox.Title>
+                  <Choicebox.Description>{$t('app.widgets.schedule_spec.mode.cron.desc')}</Choicebox.Description>
+                  <Choicebox.Indicator />
+                  {#if mode === 'cron'}
+                    <div class="pt-3">
+                    <TextInput
+                      bind:value={cronExpr}
+                      placeholder="*/5 * * * *"
+                      class="font-mono"
+                      data-testid="{dataTestId}-cron-expr"
+                    />
+                    </div>
+                  {/if}
+                </Choicebox.Item>
+              </Choicebox.Root>
+
+              <div class="-mx-3 -mb-3 flex justify-end border-t bg-muted/50 px-3 py-2">
+                <Button
+                  type="button"
+                  size="xs"
+                  disabled={!canApply}
+                  data-testid="{dataTestId}-apply"
+                  onclick={applyAssist}
+                >
+                  {$t('app.widgets.schedule_spec.apply')}
+                </Button>
+              </div>
             </Popover.Content>
     </Popover.Root>
   </div>
