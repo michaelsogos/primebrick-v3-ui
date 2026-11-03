@@ -40,7 +40,7 @@
 		{#if childrenProp}
 			{@render childrenProp({ errors, errorProps })}
 		{:else}
-			{#each errors as error (error)}
+			{#each [...new Set(errors)] as error (error)}
 				<div {...errorProps} class={cn(errorClasses)}>{translateError(error)}</div>
 			{/each}
 		{/if}

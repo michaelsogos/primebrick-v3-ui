@@ -3195,7 +3195,7 @@
           "column": 0
         },
         "end": {
-          "line": 752,
+          "line": 816,
           "column": 0
         }
       },
@@ -3214,11 +3214,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 165,
+              "line": 183,
               "column": 4
             },
             "end": {
-              "line": 165,
+              "line": 183,
               "column": 8
             }
           }
@@ -3236,11 +3236,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 166,
+              "line": 184,
               "column": 4
             },
             "end": {
-              "line": 166,
+              "line": 184,
               "column": 23
             }
           }
@@ -3257,11 +3257,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 167,
+              "line": 185,
               "column": 4
             },
             "end": {
-              "line": 167,
+              "line": 185,
               "column": 12
             }
           }
@@ -3278,11 +3278,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 168,
+              "line": 186,
               "column": 4
             },
             "end": {
-              "line": 168,
+              "line": 186,
               "column": 11
             }
           }
@@ -3299,11 +3299,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 169,
+              "line": 187,
               "column": 4
             },
             "end": {
-              "line": 169,
+              "line": 187,
               "column": 14
             }
           }
@@ -3320,11 +3320,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 170,
+              "line": 188,
               "column": 4
             },
             "end": {
-              "line": 170,
+              "line": 188,
               "column": 14
             }
           }
@@ -3347,11 +3347,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 171,
+              "line": 189,
               "column": 4
             },
             "end": {
-              "line": 171,
+              "line": 189,
               "column": 29
             }
           }
@@ -3374,11 +3374,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 172,
+              "line": 190,
               "column": 4
             },
             "end": {
-              "line": 172,
+              "line": 190,
               "column": 29
             }
           }
@@ -3401,11 +3401,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 173,
+              "line": 191,
               "column": 4
             },
             "end": {
-              "line": 173,
+              "line": 191,
               "column": 20
             }
           }
@@ -3428,11 +3428,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 174,
+              "line": 192,
               "column": 4
             },
             "end": {
-              "line": 174,
+              "line": 192,
               "column": 19
             }
           }
@@ -3449,11 +3449,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 175,
+              "line": 193,
               "column": 4
             },
             "end": {
-              "line": 175,
+              "line": 193,
               "column": 6
             }
           }
@@ -3476,11 +3476,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 176,
+              "line": 194,
               "column": 4
             },
             "end": {
-              "line": 176,
+              "line": 194,
               "column": 21
             }
           }
@@ -3502,11 +3502,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 177,
+              "line": 195,
               "column": 4
             },
             "end": {
-              "line": 177,
+              "line": 195,
               "column": 33
             }
           }
@@ -3529,11 +3529,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 178,
+              "line": 196,
               "column": 4
             },
             "end": {
-              "line": 178,
+              "line": 196,
               "column": 23
             }
           }
@@ -3556,11 +3556,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 179,
+              "line": 197,
               "column": 4
             },
             "end": {
-              "line": 179,
+              "line": 197,
               "column": 24
             }
           }
@@ -3577,11 +3577,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 180,
+              "line": 198,
               "column": 4
             },
             "end": {
-              "line": 180,
+              "line": 198,
               "column": 18
             }
           }
@@ -3598,11 +3598,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 181,
+              "line": 199,
               "column": 4
             },
             "end": {
-              "line": 181,
+              "line": 199,
               "column": 20
             }
           }
@@ -3625,11 +3625,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 182,
+              "line": 200,
               "column": 4
             },
             "end": {
-              "line": 182,
+              "line": 200,
               "column": 20
             }
           }
@@ -3652,11 +3652,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 183,
+              "line": 201,
               "column": 4
             },
             "end": {
-              "line": 183,
+              "line": 201,
               "column": 26
             }
           }
@@ -3679,11 +3679,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 184,
+              "line": 202,
               "column": 4
             },
             "end": {
-              "line": 184,
+              "line": 202,
               "column": 23
             }
           }
@@ -3706,11 +3706,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 185,
+              "line": 203,
               "column": 4
             },
             "end": {
-              "line": 185,
+              "line": 203,
               "column": 35
             }
           }
@@ -3733,11 +3733,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 186,
+              "line": 204,
               "column": 4
             },
             "end": {
-              "line": 186,
+              "line": 204,
               "column": 33
             }
           }
@@ -3754,11 +3754,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 187,
+              "line": 205,
               "column": 4
             },
             "end": {
-              "line": 187,
+              "line": 205,
               "column": 13
             }
           }
@@ -3775,11 +3775,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 188,
+              "line": 206,
               "column": 4
             },
             "end": {
-              "line": 188,
+              "line": 206,
               "column": 18
             }
           }
@@ -3796,11 +3796,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 189,
+              "line": 207,
               "column": 4
             },
             "end": {
-              "line": 189,
+              "line": 207,
               "column": 13
             }
           }
@@ -3817,11 +3817,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 190,
+              "line": 208,
               "column": 4
             },
             "end": {
-              "line": 190,
+              "line": 208,
               "column": 19
             }
           }
@@ -3838,12 +3838,33 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 192,
+              "line": 210,
               "column": 4
             },
             "end": {
-              "line": 192,
+              "line": 210,
               "column": 20
+            }
+          }
+        },
+        {
+          "name": "isValueInvalid",
+          "kind": "let",
+          "type": "(value: string) => boolean",
+          "typeSource": "typescript",
+          "isFunction": true,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 211,
+              "column": 4
+            },
+            "end": {
+              "line": 211,
+              "column": 18
             }
           }
         },
@@ -3859,12 +3880,39 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 193,
+              "line": 212,
               "column": 4
             },
             "end": {
-              "line": 193,
+              "line": 212,
               "column": 21
+            }
+          }
+        },
+        {
+          "name": "disabledToggle",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 213,
+              "column": 4
+            },
+            "end": {
+              "line": 213,
+              "column": 26
             }
           }
         },
@@ -3886,11 +3934,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 195,
+              "line": 215,
               "column": 4
             },
             "end": {
-              "line": 195,
+              "line": 215,
               "column": 23
             }
           }
@@ -3907,11 +3955,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 196,
+              "line": 216,
               "column": 4
             },
             "end": {
-              "line": 196,
+              "line": 216,
               "column": 12
             }
           }
@@ -3928,11 +3976,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 197,
+              "line": 217,
               "column": 4
             },
             "end": {
-              "line": 197,
+              "line": 217,
               "column": 17
             }
           }
@@ -3949,11 +3997,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 198,
+              "line": 218,
               "column": 4
             },
             "end": {
-              "line": 198,
+              "line": 218,
               "column": 14
             }
           }
@@ -3976,11 +4024,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 199,
+              "line": 219,
               "column": 4
             },
             "end": {
-              "line": 199,
+              "line": 219,
               "column": 23
             }
           }
@@ -4003,11 +4051,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 200,
+              "line": 220,
               "column": 4
             },
             "end": {
-              "line": 200,
+              "line": 220,
               "column": 22
             }
           }
@@ -4030,11 +4078,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 201,
+              "line": 221,
               "column": 4
             },
             "end": {
-              "line": 201,
+              "line": 221,
               "column": 24
             }
           }
@@ -4052,11 +4100,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 202,
+              "line": 222,
               "column": 4
             },
             "end": {
-              "line": 202,
+              "line": 222,
               "column": 31
             }
           }
@@ -4074,11 +4122,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 203,
+              "line": 223,
               "column": 4
             },
             "end": {
-              "line": 203,
+              "line": 223,
               "column": 39
             }
           }
@@ -4096,11 +4144,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 204,
+              "line": 224,
               "column": 4
             },
             "end": {
-              "line": 204,
+              "line": 224,
               "column": 33
             }
           }
@@ -4118,11 +4166,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 205,
+              "line": 225,
               "column": 4
             },
             "end": {
-              "line": 205,
+              "line": 225,
               "column": 32
             }
           }
@@ -4145,11 +4193,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 206,
+              "line": 226,
               "column": 4
             },
             "end": {
-              "line": 206,
+              "line": 226,
               "column": 23
             }
           }
@@ -4167,11 +4215,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 207,
+              "line": 227,
               "column": 4
             },
             "end": {
-              "line": 207,
+              "line": 227,
               "column": 20
             }
           }
@@ -4188,11 +4236,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 208,
+              "line": 228,
               "column": 4
             },
             "end": {
-              "line": 208,
+              "line": 228,
               "column": 29
             }
           }
@@ -4206,11 +4254,11 @@
           "slot_props": "{\n  option: any;\n  selected: any;\n  resolvedLabel: any;\n  resolvedValue: any;\n}",
           "source": {
             "start": {
-              "line": 686,
+              "line": 750,
               "column": 18
             },
             "end": {
-              "line": 691,
+              "line": 755,
               "column": 21
             }
           }
@@ -4221,11 +4269,11 @@
           "slot_props": "{\n  option: any;\n  resolvedLabel: any;\n  resolvedValue: any;\n}",
           "source": {
             "start": {
-              "line": 515,
+              "line": 552,
               "column": 14
             },
             "end": {
-              "line": 519,
+              "line": 556,
               "column": 17
             }
           }
@@ -4243,11 +4291,11 @@
           "message": "Prop \"data-testid\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 208,
+              "line": 228,
               "column": 4
             },
             "end": {
-              "line": 208,
+              "line": 228,
               "column": 29
             }
           }
@@ -4801,7 +4849,7 @@
           "column": 0
         },
         "end": {
-          "line": 65,
+          "line": 80,
           "column": 0
         }
       },
@@ -4827,11 +4875,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 9,
+              "line": 10,
               "column": 2
             },
             "end": {
-              "line": 9,
+              "line": 10,
               "column": 23
             }
           }
@@ -4848,11 +4896,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 10,
+              "line": 11,
               "column": 2
             },
             "end": {
-              "line": 10,
+              "line": 11,
               "column": 18
             }
           }
@@ -4876,18 +4924,34 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 11,
+              "line": 12,
               "column": 2
             },
             "end": {
-              "line": 11,
+              "line": 12,
               "column": 23
             }
           }
         }
       ],
       "moduleExports": [],
-      "slots": [],
+      "slots": [
+        {
+          "name": "trailing",
+          "default": false,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 61,
+              "column": 4
+            },
+            "end": {
+              "line": 61,
+              "column": 24
+            }
+          }
+        }
+      ],
       "events": [],
       "typedefs": [],
       "generics": null,
@@ -4904,11 +4968,11 @@
           "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 10,
+              "line": 11,
               "column": 2
             },
             "end": {
-              "line": 10,
+              "line": 11,
               "column": 18
             }
           }
@@ -12095,7 +12159,7 @@
           "column": 0
         },
         "end": {
-          "line": 948,
+          "line": 1244,
           "column": 0
         }
       },
@@ -12121,11 +12185,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 96,
+              "line": 103,
               "column": 4
             },
             "end": {
-              "line": 96,
+              "line": 103,
               "column": 25
             }
           }
@@ -12142,11 +12206,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 97,
+              "line": 104,
               "column": 4
             },
             "end": {
-              "line": 97,
+              "line": 104,
               "column": 17
             }
           }
@@ -12163,11 +12227,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 98,
+              "line": 105,
               "column": 4
             },
             "end": {
-              "line": 98,
+              "line": 105,
               "column": 17
             }
           }
@@ -12184,11 +12248,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 99,
+              "line": 106,
               "column": 4
             },
             "end": {
-              "line": 99,
+              "line": 106,
               "column": 17
             }
           }
@@ -12205,11 +12269,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 100,
+              "line": 107,
               "column": 4
             },
             "end": {
-              "line": 100,
+              "line": 107,
               "column": 20
             }
           }
@@ -12232,11 +12296,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 101,
+              "line": 108,
               "column": 4
             },
             "end": {
-              "line": 101,
+              "line": 108,
               "column": 20
             }
           }
@@ -12259,11 +12323,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 102,
+              "line": 109,
               "column": 4
             },
             "end": {
-              "line": 102,
+              "line": 109,
               "column": 20
             }
           }
@@ -12280,11 +12344,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 103,
+              "line": 110,
               "column": 4
             },
             "end": {
-              "line": 103,
+              "line": 110,
               "column": 16
             }
           }
@@ -12301,11 +12365,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 104,
+              "line": 111,
               "column": 4
             },
             "end": {
-              "line": 104,
+              "line": 111,
               "column": 12
             }
           }
@@ -12322,11 +12386,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 105,
+              "line": 112,
               "column": 4
             },
             "end": {
-              "line": 105,
+              "line": 112,
               "column": 21
             }
           }
@@ -12343,11 +12407,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 106,
+              "line": 113,
               "column": 4
             },
             "end": {
-              "line": 106,
+              "line": 113,
               "column": 20
             }
           }
@@ -12371,11 +12435,11 @@
           "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 106,
+              "line": 113,
               "column": 4
             },
             "end": {
-              "line": 106,
+              "line": 113,
               "column": 20
             }
           }

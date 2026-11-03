@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import { Command as CommandPrimitive } from '../../vendor/bits-ui.js';
 	import { cn } from "../../utils/index.js";
 	import { Search as SearchIcon } from '../../vendor/lucide.js';
@@ -9,8 +10,14 @@
 		ref = $bindable(null),
 		class: className,
 		value = $bindable(""),
+		trailing,
 		...restProps
-	}: Omit<CommandPrimitive.InputProps, 'ref'> & { ref?: HTMLInputElement | null } = $props();
+	}: Omit<CommandPrimitive.InputProps, 'ref'> & {
+		ref?: HTMLInputElement | null;
+		/** Optional second trailing control, rendered left of the eraser
+		 *  (the `right-10` slot — e.g. a visibility/partition toggle). */
+		trailing?: Snippet;
+	} = $props();
 </script>
 
 <!-- Wrapper: p-1 + pb-2 for gap between search input and first dropdown item -->
@@ -37,8 +44,8 @@
 				"placeholder:text-muted-foreground",
 				"selection:bg-primary selection:text-primary-foreground",
 				"focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0",
-				"pr-8",
-				className
+				className,
+				trailing ? "pr-14" : "pr-8"
 			)}
 			{...restProps}
 		>
@@ -46,6 +53,14 @@
 				<input {...props} bind:value bind:this={ref} />
 			{/snippet}
 		</CommandPrimitive.Input>
+		<!-- Optional second trailing control — the `right-10` slot, left of the
+		     eraser (input chrome convention: rightmost CTA at right-1.5, second
+		     slot at right-10). -->
+		{#if trailing}
+			<div class="absolute top-1/2 right-10 -translate-y-1/2 z-10 flex items-center">
+				{@render trailing()}
+			</div>
+		{/if}
 		<!-- X clear button: absolute-positioned on the right, same pattern as
 		     TextInput's clear button (inputTrailingIconButtonClasses). DRY.
 		     Always rendered — disabled while the query is empty so the CTA
