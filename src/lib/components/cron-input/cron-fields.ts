@@ -1,10 +1,11 @@
 /**
  * 5-field cron grammar (minute hour day-of-month month weekday) shared by
- * `CronInput`: field metadata, caret→field mapping, per-field validation and
- * the input mask. Accepts the croner vocabulary — numbers, names, `*`,
- * lists `,`, ranges `-`, steps `/`, plus quartz extras `?`/`L`/`W`/`#` in
- * day-of-month and weekday (allowed by the grammar, not advertised in the
- * field legend — outside our case of use).
+ * `CronInput`: field metadata, per-field validation and the input mask.
+ * Vocabulary: **digits + `*` `,` `-` `/` only** — the strict subset that
+ * every downstream runtime (NATS `Nats-Schedule`) understands. No month or
+ * weekday names, no quartz extras (`?`/`L`/`W`/`#`): digits are universal
+ * and self-describing, and the editor grammar stays a SUBSET of the
+ * runtime's — never a superset.
  */
 
 export type CronFieldKey = 'minute' | 'hour' | 'day_of_month' | 'month' | 'weekday';
@@ -17,14 +18,10 @@ export interface CronFieldMeta {
 	uom_key: string;
 	/** Real token per operator, contextual to this field — rendered inside the legend rows and clickable (fills the cell). */
 	examples: { comma: string; dash: string; slash: string };
-	/** Literal range hint shown in the legend, e.g. `0-59` or `1-12 JAN-DEC`. */
+	/** Literal range hint shown in the legend, e.g. `0-59` or `1-12`. */
 	range_hint: string;
 	min: number;
 	max: number;
-	/** Accepted name atoms (MON-SUN / JAN-DEC). */
-	names?: readonly string[];
-	/** Field accepts quartz extras `?`/`L`/`W`/`#`. */
-	quartz?: boolean;
 }
 
 export const CRON_FIELDS: readonly CronFieldMeta[] = [
@@ -54,71 +51,33 @@ export const CRON_FIELDS: readonly CronFieldMeta[] = [
 		range_hint: '1-31',
 		min: 1,
 		max: 31,
-		quartz: true,
 	},
 	{
 		key: 'month',
 		label_key: 'app.widgets.cron_input.field.month',
 		uom_key: 'app.widgets.cron_input.field.month.short',
-		examples: { comma: 'MAR,SEP', dash: 'JAN-JUN', slash: '*/3' },
-		range_hint: '1-12 JAN-DEC',
+		examples: { comma: '3,9', dash: '1-6', slash: '*/3' },
+		range_hint: '1-12',
 		min: 1,
 		max: 12,
-		names: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
 	},
 	{
 		key: 'weekday',
 		label_key: 'app.widgets.cron_input.field.weekday',
 		uom_key: 'app.widgets.cron_input.field.weekday.short',
-		examples: { comma: 'SAT,SUN', dash: 'MON-FRI', slash: '*/2' },
-		range_hint: '0-7 SUN-SAT',
+		examples: { comma: '0,6', dash: '1-5', slash: '*/2' },
+		range_hint: '0-7',
 		min: 0,
 		max: 7,
-		names: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
-		quartz: true,
 	},
 ];
-
-/** Characters the mask lets through — digits, cron operators, spaces, name letters. */
-export function maskCronInput(v: string): string {
-	return v
-		.replace(/[^0-9*\-/,?LW#\sa-z]/gi, '')
-		.replace(/[a-z]/g, (c) => c.toUpperCase())
-		.replace(/\s{2,}/g, ' ')
-		.replace(/^\s+/, '');
-}
-
-/** Field under the caret: tokens left of the caret position (0-based, clamped). */
-export function fieldIndexAt(expr: string, caret: number): number {
-	const idx = expr.slice(0, caret).split(/\s+/).length - 1;
-	return Math.max(0, Math.min(idx, CRON_FIELDS.length - 1));
-}
-
-/** Char offset where field `fieldIdx` starts — used by the field pills to jump the caret. */
-export function fieldStartOffset(expr: string, fieldIdx: number): number {
-	let i = 0;
-	let seen = 0;
-	while (seen < fieldIdx) {
-		while (i < expr.length && !/\s/.test(expr[i])) i++;
-		while (i < expr.length && /\s/.test(expr[i])) i++;
-		seen++;
-	}
-	return i;
-}
 
 const STEP_RE = /^\d+$/;
 
 function atomOk(f: CronFieldMeta, a: string): boolean {
-	if (/^\d+$/.test(a)) {
-		const n = Number(a);
-		return n >= f.min && n <= f.max;
-	}
-	if (f.names?.includes(a)) return true;
-	if (f.quartz) {
-		if (f.key === 'day_of_month') return a === '?' || a === 'L' || a === 'LW' || /^\d+W$/.test(a);
-		return a === '?' || a === 'L' || /^\d+L$/.test(a) || /^\d+#\d+$/.test(a);
-	}
-	return false;
+	if (!/^\d+$/.test(a)) return false;
+	const n = Number(a);
+	return n >= f.min && n <= f.max;
 }
 
 function segmentOk(f: CronFieldMeta, seg: string): boolean {
@@ -195,23 +154,12 @@ export const CONTINUATION_CHARS = new Set(['-', ',']);
 /**
  * Field-aware keystroke filter — the REAL mask of the segmented editor.
  * `ch` is a single char about to be appended to `draft` (already typed so
- * far, uppercased). Returns false → the char is dropped at keystroke.
+ * far). Digits + `*` `,` `-` `/` only — letters, quartz extras, spaces and
+ * punctuation are dropped at keystroke.
  */
 export function acceptChar(f: CronFieldMeta, draft: string, ch: string): boolean {
 	if (/[0-9]/.test(ch)) return digitRunOk(f, draft, ch);
-	if (/[*,\/-]/.test(ch)) return true;
-	if (ch === '?' || ch === '#') return !!f.quartz;
-	if (!/[A-Z]/.test(ch)) return false; // spaces, punctuation — never
-	// Quartz extras L/W live in dom/dow regardless of name prefixes.
-	if (f.quartz) {
-		if (f.key === 'day_of_month' && (ch === 'L' || ch === 'W')) return true;
-		if (f.key === 'weekday' && ch === 'L') return true;
-	}
-	if (!f.names) return false;
-	// Names are typed as alpha runs — the run so far (letters since the last
-	// non-letter char) + this char must stay a prefix of some name.
-	const run = draft.match(/[A-Z]*$/)?.[0] ?? '';
-	return f.names.some((n) => n.startsWith(run + ch));
+	return ch === '*' || ch === ',' || ch === '-' || ch === '/';
 }
 
 /**
@@ -219,9 +167,11 @@ export function acceptChar(f: CronFieldMeta, draft: string, ch: string): boolean
  * fields; shorter pastes fill forward starting at `fromIdx`.
  */
 export function distributePaste(drafts: string[], pasted: string, fromIdx: number): string[] {
+	// Keep letters/quartz chars through the cleaner so invalid pasted tokens
+	// land and get flagged — stripping them would silently drop fields.
 	const cleaned = pasted
 		.toUpperCase()
-		.replace(/[^0-9*\-/,?LW#A-Z\s]/g, ' ')
+		.replace(/[^0-9*\-/,?#A-Z\s]/g, ' ')
 		.trim();
 	const tokens = cleaned.split(/\s+/).filter((t) => t !== '').map(normalizeToken);
 	if (tokens.length === 0) return drafts;

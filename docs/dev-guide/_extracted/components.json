@@ -6594,7 +6594,7 @@
           "column": 0
         },
         "end": {
-          "line": 369,
+          "line": 370,
           "column": 0
         }
       },
@@ -6620,11 +6620,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 47,
+              "line": 48,
               "column": 2
             },
             "end": {
-              "line": 47,
+              "line": 48,
               "column": 23
             }
           }
@@ -6648,11 +6648,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 48,
+              "line": 49,
               "column": 2
             },
             "end": {
-              "line": 48,
+              "line": 49,
               "column": 26
             }
           }
@@ -6675,11 +6675,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 49,
+              "line": 50,
               "column": 2
             },
             "end": {
-              "line": 49,
+              "line": 50,
               "column": 18
             }
           }
@@ -6696,11 +6696,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 50,
+              "line": 51,
               "column": 2
             },
             "end": {
-              "line": 50,
+              "line": 51,
               "column": 10
             }
           }
@@ -6718,11 +6718,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 51,
+              "line": 52,
               "column": 2
             },
             "end": {
-              "line": 51,
+              "line": 52,
               "column": 18
             }
           }
@@ -6740,11 +6740,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 52,
+              "line": 53,
               "column": 2
             },
             "end": {
-              "line": 52,
+              "line": 53,
               "column": 27
             }
           }
@@ -11546,7 +11546,7 @@
           "name": "inputGroupAddonVariants",
           "kind": "const",
           "typeSource": "unknown",
-          "value": "tv({\n\t\tbase: \"text-muted-foreground h-auto gap-2 py-1.5 text-sm font-medium group-data-[disabled=true]/input-group:opacity-50 [&>kbd]:rounded-[calc(var(--radius)-5px)] [&>svg:not([class*='size-'])]:size-4 flex cursor-text items-center justify-center select-none\",\n\t\tvariants: {\n\t\t\talign: {\n\t\t\t\t\"inline-start\": \"pl-2 has-[>button]:ml-[-0.3rem] has-[>kbd]:ml-[-0.15rem] order-first\",\n\t\t\t\t\"inline-end\": \"pr-2 has-[>button]:mr-[-0.3rem] has-[>kbd]:mr-[-0.15rem] order-last\",\n\t\t\t\t\"block-start\":\n\t\t\t\t\t\"px-2.5 pt-2 group-has-[>input]/input-group:pt-2 [.border-b]:pb-2 order-first w-full justify-start\",\n\t\t\t\t\"block-end\": \"px-2.5 pb-2 group-has-[>input]/input-group:pb-2 [.border-t]:pt-2 order-last w-full justify-start\",\n\t\t\t},\n\t\t},\n\t\tdefaultVariants: {\n\t\t\talign: \"inline-start\",\n\t\t},\n\t})",
+          "value": "tv({\r\n\t\tbase: \"text-muted-foreground h-auto gap-2 py-1.5 text-sm font-medium group-data-[disabled=true]/input-group:opacity-50 [&>kbd]:rounded-[calc(var(--radius)-5px)] [&>svg:not([class*='size-'])]:size-4 flex cursor-text items-center justify-center select-none\",\r\n\t\tvariants: {\r\n\t\t\talign: {\r\n\t\t\t\t\"inline-start\": \"pl-2 has-[>button]:ml-[-0.3rem] has-[>kbd]:ml-[-0.15rem] order-first\",\r\n\t\t\t\t\"inline-end\": \"pr-2 has-[>button]:mr-[-0.3rem] has-[>kbd]:mr-[-0.15rem] order-last\",\r\n\t\t\t\t\"block-start\":\r\n\t\t\t\t\t\"px-2.5 pt-2 group-has-[>input]/input-group:pt-2 [.border-b]:pb-2 order-first w-full justify-start\",\r\n\t\t\t\t\"block-end\": \"px-2.5 pb-2 group-has-[>input]/input-group:pb-2 [.border-t]:pt-2 order-last w-full justify-start\",\r\n\t\t\t},\r\n\t\t},\r\n\t\tdefaultVariants: {\r\n\t\t\talign: \"inline-start\",\r\n\t\t},\r\n\t})",
           "defaultValue": {
             "raw": "tv({ \t\tbase: \"text-muted-foreground h-auto gap-2 py-1.5 text-sm font-medium group-data-[disabled=true]/input-group:opacity-50 [&>kbd]:rounded-[calc(var(--radius)-5px)] [&>svg:not([class*='size-'])]:size-4 flex cursor-text items-center justify-center select-none\", \t\tvariants: { \t\t\talign: { \t\t\t\t\"inline-start\": \"pl-2 has-[>button]:ml-[-0.3rem] has-[>kbd]:ml-[-0.15rem] order-first\", \t\t\t\t\"inline-end\": \"pr-2 has-[>button]:mr-[-0.3rem] has-[>kbd]:mr-[-0.15rem] order-last\", \t\t\t\t\"block-start\": \t\t\t\t\t\"px-2.5 pt-2 group-has-[>input]/input-group:pt-2 [.border-b]:pb-2 order-first w-full justify-start\", \t\t\t\t\"block-end\": \"px-2.5 pb-2 group-has-[>input]/input-group:pb-2 [.border-t]:pt-2 order-last w-full justify-start\", \t\t\t}, \t\t}, \t\tdefaultVariants: { \t\t\talign: \"inline-start\", \t\t}, \t})",
             "kind": "expression"
@@ -13735,7 +13735,7 @@
           "name": "kbdVariants",
           "kind": "const",
           "typeSource": "unknown",
-          "value": "tv({\n\t\tbase: \"inline-flex shrink-0 items-center justify-center rounded border border-border/80 bg-muted/50 font-mono font-semibold leading-none text-muted-foreground shadow-sm\",\n\t\tvariants: {\n\t\t\tsize: {\n\t\t\t\tkey: \"h-5 min-w-5 px-1 text-[11px]\",\n\t\t\t\tmodifier: \"h-5 px-1.5 text-[10px]\",\n\t\t\t\ticon: \"size-5 [&>svg]:size-3.5\",\n\t\t\t},\n\t\t},\n\t\tdefaultVariants: {\n\t\t\tsize: \"key\",\n\t\t},\n\t})",
+          "value": "tv({\r\n\t\tbase: \"inline-flex shrink-0 items-center justify-center rounded border border-border/80 bg-muted/50 font-mono font-semibold leading-none text-muted-foreground shadow-sm\",\r\n\t\tvariants: {\r\n\t\t\tsize: {\r\n\t\t\t\tkey: \"h-5 min-w-5 px-1 text-[11px]\",\r\n\t\t\t\tmodifier: \"h-5 px-1.5 text-[10px]\",\r\n\t\t\t\ticon: \"size-5 [&>svg]:size-3.5\",\r\n\t\t\t},\r\n\t\t},\r\n\t\tdefaultVariants: {\r\n\t\t\tsize: \"key\",\r\n\t\t},\r\n\t})",
           "defaultValue": {
             "raw": "tv({ \t\tbase: \"inline-flex shrink-0 items-center justify-center rounded border border-border/80 bg-muted/50 font-mono font-semibold leading-none text-muted-foreground shadow-sm\", \t\tvariants: { \t\t\tsize: { \t\t\t\tkey: \"h-5 min-w-5 px-1 text-[11px]\", \t\t\t\tmodifier: \"h-5 px-1.5 text-[10px]\", \t\t\t\ticon: \"size-5 [&>svg]:size-3.5\", \t\t\t}, \t\t}, \t\tdefaultVariants: { \t\t\tsize: \"key\", \t\t}, \t})",
             "kind": "expression"
@@ -20707,7 +20707,7 @@
           "name": "tabsListVariants",
           "kind": "const",
           "typeSource": "unknown",
-          "value": "tv({\n\t\tbase: \"rounded-lg p-[3px] group-data-horizontal/tabs:h-8 data-[variant=line]:rounded-none group/tabs-list text-muted-foreground inline-flex w-fit items-center justify-center group-data-[orientation=vertical]/tabs:h-fit group-data-[orientation=vertical]/tabs:flex-col\",\n\t\tvariants: {\n\t\t\tvariant: {\n\t\t\t\tdefault: \"cn-tabs-list-variant-default relative bg-muted\",\n\t\t\t\tline: \"cn-tabs-list-variant-line gap-1 bg-transparent\",\n\t\t\t},\n\t\t},\n\t\tdefaultVariants: {\n\t\t\tvariant: \"default\",\n\t\t},\n\t})",
+          "value": "tv({\r\n\t\tbase: \"rounded-lg p-[3px] group-data-horizontal/tabs:h-8 data-[variant=line]:rounded-none group/tabs-list text-muted-foreground inline-flex w-fit items-center justify-center group-data-[orientation=vertical]/tabs:h-fit group-data-[orientation=vertical]/tabs:flex-col\",\r\n\t\tvariants: {\r\n\t\t\tvariant: {\r\n\t\t\t\tdefault: \"cn-tabs-list-variant-default relative bg-muted\",\r\n\t\t\t\tline: \"cn-tabs-list-variant-line gap-1 bg-transparent\",\r\n\t\t\t},\r\n\t\t},\r\n\t\tdefaultVariants: {\r\n\t\t\tvariant: \"default\",\r\n\t\t},\r\n\t})",
           "defaultValue": {
             "raw": "tv({ \t\tbase: \"rounded-lg p-[3px] group-data-horizontal/tabs:h-8 data-[variant=line]:rounded-none group/tabs-list text-muted-foreground inline-flex w-fit items-center justify-center group-data-[orientation=vertical]/tabs:h-fit group-data-[orientation=vertical]/tabs:flex-col\", \t\tvariants: { \t\t\tvariant: { \t\t\t\tdefault: \"cn-tabs-list-variant-default relative bg-muted\", \t\t\t\tline: \"cn-tabs-list-variant-line gap-1 bg-transparent\", \t\t\t}, \t\t}, \t\tdefaultVariants: { \t\t\tvariant: \"default\", \t\t}, \t})",
             "kind": "expression"
