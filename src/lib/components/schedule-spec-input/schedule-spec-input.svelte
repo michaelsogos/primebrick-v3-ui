@@ -26,6 +26,8 @@
   import { NumericInput } from '../numeric-input/index.js';
   import { ComboSelect } from '../combo-select/index.js';
   import { DateWheelPicker } from '../date-dropper/index.js';
+  import { CronInput } from '../cron-input/index.js';
+  import { Kbd } from '../kbd/index.js';
   import { CalendarDateTime, getLocalTimeZone } from '@internationalized/date';
   import { getT, getLocale } from '../../bridges.js';
   import { cn, formatUiDateTime } from '../../utils/index.js';
@@ -38,7 +40,7 @@
     nextScheduleRuns,
     parseScheduleSpec,
     type ScheduleDescription,
-  } from './parse-schedule-spec.js';
+  } from '../../utils/parse-schedule-spec.js';
   import type { HTMLInputAttributes } from 'svelte/elements';
 
   const t = getT();
@@ -105,6 +107,7 @@
   let atTz = $state('');
   // Cron state
   let cronExpr = $state('');
+  let cronValid = $state(false);
 
   /** Seed the builder fields from the current spec each time the popover opens. */
   $effect(() => {
@@ -153,7 +156,7 @@
   }
 
   const canApply = $derived(
-    mode === 'once' ? atValue !== null : mode === 'cron' ? cronExpr.trim() !== '' : Number(everyN) > 0,
+    mode === 'once' ? atValue !== null : mode === 'cron' ? cronValid : Number(everyN) > 0,
   );
 
   // The assist CTA is declared via `trailing_ctas` — TextInput owns the
@@ -243,10 +246,10 @@
                   <Choicebox.Indicator />
                   {#if mode === 'cron'}
                     <div class="pt-3">
-                    <TextInput
+                    <CronInput
                       bind:value={cronExpr}
-                      placeholder="*/5 * * * *"
-                      class="font-mono"
+                      bind:valid={cronValid}
+                      onsubmit={() => canApply && applyAssist()}
                       data-testid="{dataTestId}-cron-expr"
                     />
                     </div>
@@ -254,7 +257,16 @@
                 </Choicebox.Item>
               </Choicebox.Root>
 
-              <div class="-mx-3 -mb-3 flex justify-end border-t bg-muted/50 px-3 py-2">
+              <div class="-mx-3 -mb-3 flex items-center justify-between gap-2 border-t bg-muted/50 px-3 py-2">
+                {#if mode === 'cron'}
+                  <div class="flex items-center gap-2 text-[10px] text-muted-foreground">
+                    <span class="flex items-center gap-0.5"><Kbd>←</Kbd><Kbd>→</Kbd> {$t('app.widgets.schedule_spec.kbd.fields')}</span>
+                    <span class="flex items-center gap-0.5"><Kbd>␣</Kbd><Kbd>⏎</Kbd> {$t('app.widgets.schedule_spec.kbd.next')}</span>
+                    <span class="flex items-center gap-0.5"><Kbd>esc</Kbd> {$t('app.common.close')}</span>
+                  </div>
+                {:else}
+                  <span></span>
+                {/if}
                 <Button
                   type="button"
                   size="xs"

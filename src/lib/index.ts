@@ -118,6 +118,26 @@ export { Textarea } from './components/textarea/index.js';
 export { NumericInput } from './components/numeric-input/index.js';
 export { DateWheelPicker } from './components/date-dropper/index.js';
 export { SearchInput, SearchSyntaxHighlighter } from './components/search-input/index.js';
+export {
+	CronInput,
+	CRON_FIELDS,
+	acceptChar,
+	distributePaste,
+	emitExpression,
+	maskCronInput,
+	fieldIndexAt,
+	fieldStartOffset,
+	validateFieldToken,
+} from './components/cron-input/index.js';
+export type { CronFieldMeta, CronFieldKey } from './components/cron-input/index.js';
+export {
+	parseScheduleSpec,
+	nextScheduleRuns,
+	describeScheduleSpec,
+	type ScheduleSpec,
+	type ParsedScheduleSpec,
+	type ScheduleDescription,
+} from './utils/parse-schedule-spec.js';
 export type { SearchTrailingButton } from './components/search-input/index.js';
 export * from './components/search-input/search-syntax.js';
 export { useNumericInput } from './composables/useNumericInput.svelte.js';
@@ -128,14 +148,7 @@ export { JsonCodeBlock, JsonEditor } from './components/json-code-block/index.js
 export { default as JsonValueEditor } from './components/json-value-editor/json-value-editor.svelte';
 export { default as PayloadMapEditor } from './components/payload-map-editor/payload-map-editor.svelte';
 export { default as AiIcon } from './components/ai-icon/ai-icon.svelte';
-export {
-	ScheduleSpecInput,
-	parseScheduleSpec,
-	nextScheduleRuns,
-	describeScheduleSpec,
-	type ScheduleSpec,
-	type ParsedScheduleSpec,
-} from './components/schedule-spec-input/index.js';
+export { ScheduleSpecInput } from './components/schedule-spec-input/index.js';
 
 export { fieldSpecToZod } from './entity-form/field-spec-to-zod.js';
 

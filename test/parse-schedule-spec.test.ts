@@ -3,7 +3,7 @@ import {
   describeScheduleSpec,
   nextScheduleRuns,
   parseScheduleSpec,
-} from '../src/lib/components/schedule-spec-input/parse-schedule-spec.js';
+} from '../src/lib/utils/parse-schedule-spec.js';
 
 describe('parseScheduleSpec', () => {
   it('parses @every durations', () => {
@@ -91,12 +91,36 @@ describe('nextScheduleRuns', () => {
 
 describe('describeScheduleSpec', () => {
   it('describes each branch', () => {
-    expect(describeScheduleSpec('@every 5m')).toBe('Every 5 minutes');
-    expect(describeScheduleSpec('@at 2026-10-28T00:00:00Z')).toContain('2026-10-28');
-    expect(describeScheduleSpec('*/5 * * * *')).toBe('Every 5 minutes');
+    expect(describeScheduleSpec('@every 5m')).toMatchObject({ kind: 'every', n: 5, unit: 'm' });
+    const at = describeScheduleSpec('@at 2026-10-28T00:00:00Z');
+    expect(at?.kind).toBe('at');
+    expect(describeScheduleSpec('*/5 * * * *')).toMatchObject({
+      kind: 'text',
+      text: 'Every 5 minutes',
+    });
   });
 
   it('returns undefined on invalid specs', () => {
     expect(describeScheduleSpec('nope')).toBeUndefined();
+  });
+
+  it('a `*` month reads "every month" — not ambiguous "the month"', () => {
+    expect(describeScheduleSpec('0 0 1 * *', 'it-IT')).toMatchObject({
+      kind: 'text',
+      text: expect.stringContaining('di ogni mese'),
+    });
+    expect(describeScheduleSpec('0 0 1 * *', 'en-US')).toMatchObject({
+      kind: 'text',
+      text: expect.stringContaining('of every month'),
+    });
+    // A restricted month keeps its own qualifier untouched.
+    const restricted = describeScheduleSpec('0 0 1 */3 *', 'it-IT');
+    expect(restricted?.kind === 'text' && restricted.text).toContain('ogni 3 mesi');
+    expect(restricted?.kind === 'text' && restricted.text).not.toContain('di ogni mese');
+  });
+
+  it('pt-PT maps to the pt_PT cronstrue locale — no silent English', () => {
+    const d = describeScheduleSpec('0 0 1 * *', 'pt-PT');
+    expect(d?.kind === 'text' && d.text).toContain('cada mês');
   });
 });
