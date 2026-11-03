@@ -124,9 +124,6 @@ export {
 	acceptChar,
 	distributePaste,
 	emitExpression,
-	maskCronInput,
-	fieldIndexAt,
-	fieldStartOffset,
 	validateFieldToken,
 } from './components/cron-input/index.js';
 export type { CronFieldMeta, CronFieldKey } from './components/cron-input/index.js';

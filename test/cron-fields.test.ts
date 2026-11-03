@@ -4,70 +4,14 @@ import {
 	acceptChar,
 	distributePaste,
 	emitExpression,
-	fieldIndexAt,
-	fieldStartOffset,
 	collapseWildcardStep,
 	expandStepPrefix,
-	maskCronInput,
 	normalizeDigits,
 	normalizeToken,
 	validateFieldToken,
 } from '../src/lib/components/cron-input/cron-fields.js';
 
 const [minute, hour, dom, month, dow] = CRON_FIELDS;
-
-describe('maskCronInput', () => {
-	it('strips characters outside the cron alphabet', () => {
-		expect(maskCronInput('*/5 @ % & ! * * * *')).toBe('*/5 * * * *');
-	});
-	it('uppercases name letters', () => {
-		expect(maskCronInput('0 9 * jan mon-fri')).toBe('0 9 * JAN MON-FRI');
-	});
-	it('collapses multiple spaces and trims the lead', () => {
-		expect(maskCronInput('  *   *  *')).toBe('* * *');
-	});
-	it('keeps quartz extras letters/digits', () => {
-		expect(maskCronInput('0 0 ? * 2#1')).toBe('0 0 ? * 2#1');
-	});
-});
-
-describe('fieldIndexAt', () => {
-	it('maps caret positions to the 5 fields', () => {
-		const expr = '*/15 9-17 1,15 JAN MON';
-		//          0123456789...
-		expect(fieldIndexAt(expr, 0)).toBe(0);
-		expect(fieldIndexAt(expr, 2)).toBe(0); // mid-token minute
-		expect(fieldIndexAt(expr, 4)).toBe(0); // on the space → still editing field 0's boundary? — see below
-		expect(fieldIndexAt(expr, 5)).toBe(1); // `9-17`
-		expect(fieldIndexAt(expr, 10)).toBe(2); // `1,15`
-		expect(fieldIndexAt(expr, 15)).toBe(3); // `JAN`
-		expect(fieldIndexAt(expr, 19)).toBe(4); // `MON`
-		expect(fieldIndexAt(expr, 25)).toBe(4);
-	});
-	it('clamps beyond the last field', () => {
-		expect(fieldIndexAt('1 2 3 4 5 6 7', 13)).toBe(4);
-	});
-	it('empty expression → first field', () => {
-		expect(fieldIndexAt('', 0)).toBe(0);
-	});
-	it('right after a space → next field', () => {
-		expect(fieldIndexAt('* *', 2)).toBe(1);
-	});
-});
-
-describe('fieldStartOffset', () => {
-	it('returns the char offset where each field begins', () => {
-		const expr = '*/15 9-17 1,15 JAN MON';
-		expect(fieldStartOffset(expr, 0)).toBe(0);
-		expect(fieldStartOffset(expr, 1)).toBe(5);
-		expect(fieldStartOffset(expr, 2)).toBe(10);
-		expect(fieldStartOffset(expr, 3)).toBe(15);
-		expect(fieldStartOffset(expr, 4)).toBe(19);
-	});
-	it('tolerates multiple spaces between fields', () => {
-		expect(fieldStartOffset('*   5', 1)).toBe(4);
-	});
-});
 
 describe('validateFieldToken', () => {
 	it('accepts wildcards, lists, ranges and steps', () => {
@@ -89,24 +33,19 @@ describe('validateFieldToken', () => {
 		expect(validateFieldToken(minute, '0-70')).toBe(false);
 		expect(validateFieldToken(hour, '1,99')).toBe(false);
 	});
-	it('accepts month and weekday names in their own fields only', () => {
-		expect(validateFieldToken(month, 'JAN-MAR')).toBe(true);
-		expect(validateFieldToken(dow, 'MON-FRI')).toBe(true);
-		expect(validateFieldToken(dow, 'SUN')).toBe(true);
+	it('digits only — names are invalid in EVERY field (universal subset)', () => {
+		expect(validateFieldToken(month, 'JAN-MAR')).toBe(false);
+		expect(validateFieldToken(dow, 'MON-FRI')).toBe(false);
+		expect(validateFieldToken(dow, 'SUN')).toBe(false);
 		expect(validateFieldToken(minute, 'JAN')).toBe(false);
-		expect(validateFieldToken(month, 'MON')).toBe(false);
-		expect(validateFieldToken(dom, 'SUN')).toBe(false);
 	});
-	it('accepts quartz extras only in day-of-month / weekday', () => {
-		expect(validateFieldToken(dom, '?')).toBe(true);
-		expect(validateFieldToken(dom, 'L')).toBe(true);
-		expect(validateFieldToken(dom, '15W')).toBe(true);
-		expect(validateFieldToken(dow, '?')).toBe(true);
-		expect(validateFieldToken(dow, '5L')).toBe(true);
-		expect(validateFieldToken(dow, '3#2')).toBe(true);
-		expect(validateFieldToken(minute, '?')).toBe(false);
-		expect(validateFieldToken(hour, 'L')).toBe(false);
-		expect(validateFieldToken(month, '3#2')).toBe(false);
+	it('digits only — quartz extras are invalid in EVERY field (NATS subset)', () => {
+		expect(validateFieldToken(dom, '?')).toBe(false);
+		expect(validateFieldToken(dom, 'L')).toBe(false);
+		expect(validateFieldToken(dom, '15W')).toBe(false);
+		expect(validateFieldToken(dow, '?')).toBe(false);
+		expect(validateFieldToken(dow, '5L')).toBe(false);
+		expect(validateFieldToken(dow, '3#2')).toBe(false);
 	});
 	it('rejects malformed segments', () => {
 		expect(validateFieldToken(minute, 'hello')).toBe(false);
@@ -129,10 +68,19 @@ describe('validateFieldToken', () => {
 });
 
 describe('acceptChar — the field-aware keystroke mask', () => {
-	it('numeric fields reject letters entirely', () => {
+	it('rejects ALL letters in EVERY field — digits only', () => {
 		for (const ch of 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') {
-			expect(acceptChar(minute, '', ch), `minute rejects ${ch}`).toBe(false);
-			expect(acceptChar(hour, '', ch), `hour rejects ${ch}`).toBe(false);
+			for (const f of CRON_FIELDS) {
+				expect(acceptChar(f, '', ch), `${f.key} rejects ${ch}`).toBe(false);
+			}
+		}
+	});
+	it('rejects quartz extras in EVERY field — ? L W # untypeable', () => {
+		for (const ch of ['?', '#', 'L', 'W']) {
+			for (const f of CRON_FIELDS) {
+				expect(acceptChar(f, '', ch), `${f.key} rejects ${ch}`).toBe(false);
+				expect(acceptChar(f, '5', ch), `${f.key} rejects 5+${ch}`).toBe(false);
+			}
 		}
 	});
 	it('accepts operators and in-range digits', () => {
@@ -144,36 +92,6 @@ describe('acceptChar — the field-aware keystroke mask', () => {
 		// '0' types everywhere — the relaxed mask lets `00`/`05` through and
 		// normalizeDigits collapses them (`09`→`9`, `00`→`0`, `0`→flagged in 1-based).
 		for (const f of CRON_FIELDS) expect(acceptChar(f, '', '0')).toBe(true);
-	});
-	it('month accepts only letters that stay a name prefix', () => {
-		// J → JA → JAN is a valid prefix path.
-		expect(acceptChar(month, '', 'J')).toBe(true);
-		expect(acceptChar(month, 'J', 'A')).toBe(true);
-		expect(acceptChar(month, 'JA', 'N')).toBe(true);
-		// B/X start no month name → dropped; D is kept (DEC prefix).
-		expect(acceptChar(month, '', 'D')).toBe(true);
-		expect(acceptChar(month, '', 'B')).toBe(false);
-		expect(acceptChar(month, '', 'X')).toBe(false);
-		// 'JF' is no prefix (JAN/JUN/JUL only) → dropped.
-		expect(acceptChar(month, 'J', 'F')).toBe(false);
-		// Second run after '-' resets: 'JAN-F' is valid (FEB prefix).
-		expect(acceptChar(month, 'JAN-', 'F')).toBe(true);
-	});
-	it('weekday accepts SUN-SAT prefixes and quartz L', () => {
-		expect(acceptChar(dow, '', 'M')).toBe(true);
-		expect(acceptChar(dow, 'M', 'O')).toBe(true);
-		expect(acceptChar(dow, 'MO', 'N')).toBe(true);
-		expect(acceptChar(dow, '', 'Z')).toBe(false);
-		expect(acceptChar(dow, '5', 'L')).toBe(true); // 5L = last Friday
-	});
-	it('quartz extras only in dom/dow', () => {
-		expect(acceptChar(dom, '', '?')).toBe(true);
-		expect(acceptChar(dom, '', 'L')).toBe(true);
-		expect(acceptChar(dom, '1', 'W')).toBe(true);
-		expect(acceptChar(dow, '', '#')).toBe(true);
-		expect(acceptChar(minute, '', '?')).toBe(false);
-		expect(acceptChar(hour, '', 'L')).toBe(false);
-		expect(acceptChar(month, '', '#')).toBe(false);
 	});
 	it('spaces and punctuation never enter a draft', () => {
 		expect(acceptChar(minute, '5', ' ')).toBe(false);
@@ -214,7 +132,6 @@ describe('normalizeDigits — OTP zero-collapse', () => {
 	it('leaves canonical values untouched', () => {
 		expect(normalizeDigits('59')).toBe('59');
 		expect(normalizeDigits('0')).toBe('0');
-		expect(normalizeDigits('MON-FRI')).toBe('MON-FRI');
 	});
 });
 
@@ -249,12 +166,12 @@ describe('collapseWildcardStep — `*/1` IS `*`', () => {
 
 describe('distributePaste', () => {
 	it('a 5-token paste fills all fields', () => {
-		expect(distributePaste(['', '', '', '', ''], '*/15 9-17 1,15 JAN MON-FRI', 2)).toEqual([
+		expect(distributePaste(['', '', '', '', ''], '*/15 9-17 1,15 1 1-5', 2)).toEqual([
 			'*/15',
 			'9-17',
 			'1,15',
-			'JAN',
-			'MON-FRI',
+			'1',
+			'1-5',
 		]);
 	});
 	it('a short paste fills forward from the focused field', () => {
@@ -266,7 +183,9 @@ describe('distributePaste', () => {
 			'',
 		]);
 	});
-	it('strips illegal characters and uppercases names', () => {
+	it('letters pass the cleaner so invalid pasted names flag red', () => {
+		// Names are NOT silently dropped — they land and validateFieldToken
+		// marks them invalid, so the user sees what to fix.
 		expect(distributePaste(['', '', '', '', ''], '0 9 * jan mon', 0)).toEqual([
 			'0',
 			'9',
@@ -276,12 +195,12 @@ describe('distributePaste', () => {
 		]);
 	});
 	it('expands `/n` step shorthands in pasted tokens', () => {
-		expect(distributePaste(['', '', '', '', ''], '/15 9 * * MON-FRI', 0)).toEqual([
+		expect(distributePaste(['', '', '', '', ''], '/15 9 * * 1-5', 0)).toEqual([
 			'*/15',
 			'9',
 			'*',
 			'*',
-			'MON-FRI',
+			'1-5',
 		]);
 	});
 	it('empty paste is a no-op', () => {
@@ -293,7 +212,7 @@ describe('distributePaste', () => {
 describe('emitExpression — empty field IS the `*` wildcard', () => {
 	it('fills every empty slot with * — always a canonical 5-field expr', () => {
 		expect(emitExpression(['0', '9', '*', '', ''])).toBe('0 9 * * *');
-		expect(emitExpression(['', '', '', '', 'MON'])).toBe('* * * * MON');
+		expect(emitExpression(['', '', '', '', '1'])).toBe('* * * * 1');
 		expect(emitExpression(['5', '', '1'])).toBe('5 * 1');
 	});
 	it('all-empty is `* * * * *` — every minute, the empty=* consequence', () => {
