@@ -119,7 +119,20 @@ export function describeScheduleSpec(raw: string, locale?: string): ScheduleDesc
   }
   try {
     try {
-      return { kind: 'text', text: describeCron(s.expr, { locale: locale?.split('-')[0] }) };
+      // `pt` has no generic cronstrue locale — only pt_PT/pt_BR exist;
+      // without the map the lib silently falls back to English.
+      const sub = locale?.split('-')[0] ?? '';
+      const cronstrueLocale = sub === 'pt' ? 'pt_PT' : sub;
+      let text = describeCron(s.expr, { locale: cronstrueLocale });
+      // A `*` month field means EVERY month — cronstrue phrases it
+      // "of the month" which reads as the current month. Make it
+      // explicit (only when month is `*`; restricted months already
+      // carry their own "only in X" qualifier).
+      if (s.expr.trim().split(/\s+/)[3] === '*') {
+        const fix = CRON_EVERY_MONTH[cronstrueLocale];
+        if (fix) text = text.replaceAll(fix[0], fix[1]);
+      }
+      return { kind: 'text', text };
     } catch {
       // Unknown locale code or expression — degrade to the raw expr text.
       return { kind: 'text', text: s.expr };
@@ -128,3 +141,13 @@ export function describeScheduleSpec(raw: string, locale?: string): ScheduleDesc
     return { kind: 'text', text: s.expr };
   }
 }
+
+/** "of the month" → "of every month" phrasing per cronstrue locale. */
+const CRON_EVERY_MONTH: Record<string, [string, string]> = {
+  en: ['of the month', 'of every month'],
+  it: ['del mese', 'di ogni mese'],
+  de: ['des Monats', 'jedes Monats'],
+  fr: ['du mois', 'de chaque mois'],
+  es: ['del mes', 'de cada mes'],
+  pt_PT: ['do mês', 'de cada mês'],
+};
