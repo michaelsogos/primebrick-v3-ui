@@ -1,6 +1,6 @@
 {
   "name": "@primebrick/ui",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "description": "Shared Svelte 5 component library for Primebrick v3 — reusable components, composables, primitives and utilities consumed by the core frontend app and remote module pages.",
   "type": "module",
   "license": "MIT",
