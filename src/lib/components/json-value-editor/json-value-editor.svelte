@@ -82,6 +82,7 @@
   // Preview content: pretty-printed when parseable, the raw string when not.
   const previewJson = $derived.by(() => {
     try {
+      // standards-exempt: ext-json — editor text is plain JSON; reviving markers would break round-trip
       return JSON.parse(value || 'null');
     } catch {
       return value;
@@ -95,6 +96,7 @@
     const v = value?.trim();
     if (!v || !editing) return '';
     try {
+      // standards-exempt: ext-json — parse diagnostic on editor JSON text, not wire payloads
       JSON.parse(v);
       return '';
     } catch (e) {

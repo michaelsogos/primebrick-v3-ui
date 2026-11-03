@@ -10,3 +10,4 @@ export type {
 	WithElementRef,
 } from './types.js';
 export { formatUiDate, formatUiDateTime, formatUiDateTimeInTimeZone, formatListCellValue, uiLocaleTag } from './format-date.js';
+export { getResolvedIanaTimeZone } from './iana-timezone.js';

@@ -22,10 +22,14 @@ export { default as SheetHeader } from './components/sheet/SheetHeader.svelte';
 // Widget primitives — namespace exports mirror the FE `import * as X`
 // shape (`<Accordion.Root>`/`<Command.Item>`/…).
 export * as Accordion from './components/accordion/index.js';
+export * as Choicebox from './components/choicebox/index.js';
 export * as Command from './components/command/index.js';
 export * as Dialog from './components/dialog/index.js';
+export * as InputGroup from './components/input-group/index.js';
 export * as Popover from './components/popover/index.js';
+export * as Tabs from './components/tabs/index.js';
 export * as Tooltip from './components/tooltip/index.js';
+export * as WheelPicker from './components/wheel-picker/index.js';
 export {
 	DialogHeader,
 	DialogTitle,
@@ -52,6 +56,11 @@ export type { BadgeVariant } from './components/badge/index.js';
 export { Checkbox, checkboxBaseClass, checkboxVisualOnlyClass, checkboxInteractiveClass } from './components/checkbox/index.js';
 export type { CheckboxTone } from './components/checkbox/index.js';
 export { ComboSelect } from './components/combo-select/index.js';
+export { PropNavigator } from './components/prop-navigator/index.js';
+export type { PropNavNode } from './components/prop-navigator/index.js';
+export { usePropNavigation } from './composables/use-prop-navigation.svelte.js';
+export { Kbd, kbdVariants } from './components/kbd/index.js';
+export type { KbdSize } from './components/kbd/index.js';
 export { Switch } from './components/switch/index.js';
 export { Slider, type SliderTone } from './components/slider/index.js';
 export { SliderField } from './components/slider-field/index.js';
@@ -105,6 +114,33 @@ export {
 export type { PrimeFieldHelp, MetaTooltipHelp } from './components/forms/index.js';
 export { default as Input } from './components/input/input.svelte';
 export { default as TextInput } from './components/input/text-input.svelte';
+export { Textarea } from './components/textarea/index.js';
+export { NumericInput } from './components/numeric-input/index.js';
+export { DateWheelPicker } from './components/date-dropper/index.js';
+export { SearchInput, SearchSyntaxHighlighter } from './components/search-input/index.js';
+export {
+	CronInput,
+	CRON_FIELDS,
+	acceptChar,
+	distributePaste,
+	emitExpression,
+	maskCronInput,
+	fieldIndexAt,
+	fieldStartOffset,
+	validateFieldToken,
+} from './components/cron-input/index.js';
+export type { CronFieldMeta, CronFieldKey } from './components/cron-input/index.js';
+export {
+	parseScheduleSpec,
+	nextScheduleRuns,
+	describeScheduleSpec,
+	type ScheduleSpec,
+	type ParsedScheduleSpec,
+	type ScheduleDescription,
+} from './utils/parse-schedule-spec.js';
+export type { SearchTrailingButton } from './components/search-input/index.js';
+export * from './components/search-input/search-syntax.js';
+export { useNumericInput } from './composables/useNumericInput.svelte.js';
 export { CopyButton } from './components/copy-button/index.js';
 export type { CopyButtonProps, CopyButtonPropsWithoutHTML } from './components/copy-button/index.js';
 export { UseClipboard, copyText } from './composables/useClipboard.svelte.js';
@@ -112,14 +148,7 @@ export { JsonCodeBlock, JsonEditor } from './components/json-code-block/index.js
 export { default as JsonValueEditor } from './components/json-value-editor/json-value-editor.svelte';
 export { default as PayloadMapEditor } from './components/payload-map-editor/payload-map-editor.svelte';
 export { default as AiIcon } from './components/ai-icon/ai-icon.svelte';
-export {
-	ScheduleSpecInput,
-	parseScheduleSpec,
-	nextScheduleRuns,
-	describeScheduleSpec,
-	type ScheduleSpec,
-	type ParsedScheduleSpec,
-} from './components/schedule-spec-input/index.js';
+export { ScheduleSpecInput } from './components/schedule-spec-input/index.js';
 
 export { fieldSpecToZod } from './entity-form/field-spec-to-zod.js';
 

@@ -7,5 +7,5 @@ export {
 	describeScheduleSpec,
 	type ScheduleSpec,
 	type ParsedScheduleSpec,
-} from './parse-schedule-spec.js';
+} from '../../utils/parse-schedule-spec.js';
 export default ScheduleSpecInput;

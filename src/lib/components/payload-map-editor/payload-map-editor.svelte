@@ -68,6 +68,8 @@
   } from '@primebrick/core';
   import TextInput from '../input/text-input.svelte';
   import ComboSelect from '../combo-select/combo-select.svelte';
+  import PropNavigator from '../prop-navigator/prop-navigator.svelte';
+  import type { PropNavNode } from '../prop-navigator/prop-nav.types.js';
   import JsonValueEditor from '../json-value-editor/json-value-editor.svelte';
   import DynamicIcon from '../dynamic-icon/DynamicIcon.svelte';
   import FormLabelWithPriorityHelp from '../forms/FormLabelWithPriorityHelp.svelte';
@@ -146,6 +148,7 @@
   /** Current DST document — unparseable text degrades to empty rows. */
   const map = $derived.by((): PayloadMap => {
     try {
+      // standards-exempt: ext-json — the document edited here IS plain JSON text, not an ext-json wire payload
       const parsed = JSON.parse(value || 'null');
       return parsed && typeof parsed === 'object' && !Array.isArray(parsed)
         ? (parsed as PayloadMap)
@@ -165,10 +168,27 @@
    * document stays editable and the form's standard validity gate owns
    * the submit block.
    */
+  /** Resolved `x_map_keys` key schemas per field — `{field: {key:
+   *  schema}}` — passed to `payloadMapConformance` so a `const` typed
+   *  against a declared key (`"hhhhh"` on `amount:"number"`) fails
+   *  `invalid_type` instead of passing on the record's empty
+   *  `additionalProperties`. Empty until the catalog row resolves. */
+  const keySchemaTable = $derived.by(() => {
+    const out: Record<string, Record<string, Record<string, unknown>>> = {};
+    for (const [field, prop] of Object.entries(targetSchema?.properties ?? {})) {
+      if (!prop[PAYLOAD_X_MAP_KEYS]) continue;
+      const schemas = Object.fromEntries(
+        Object.entries(mapKeyDecls(prop)).map(([k, d]) => [k, d.schema]),
+      );
+      if (Object.keys(schemas).length > 0) out[field] = schemas;
+    }
+    return out;
+  });
+
   const fieldIssues = $derived.by((): Map<string, FieldIssue[]> => {
     const out = new Map<string, FieldIssue[]>();
     if (!targetSchema) return out;
-    for (const i of payloadMapConformance(map, targetSchema, sourceSchema)) {
+    for (const i of payloadMapConformance(map, targetSchema, sourceSchema, keySchemaTable)) {
       const m = /^payload_map\.([^.[\]]+)/.exec(i.path);
       const f = m?.[1];
       if (!f) continue;
@@ -186,20 +206,38 @@
   const issuesFor = (field: string, pred: (i: FieldIssue) => boolean): FieldIssue[] =>
     (fieldIssues.get(field) ?? []).filter(pred);
   const leafIssues = (field: string) =>
-    issuesFor(field, (i) => !i.path.startsWith(`${pf(field)}.fallback[`) && !i.path.startsWith(`${pf(field)}[`));
+    issuesFor(field, (i) => {
+      const base = pf(field);
+      if (i.path === base) return true;
+      if (i.path.startsWith(`${base}.fallback[`) || i.path.startsWith(`${base}[`)) return false;
+      // `.<key>` paths belong to the field's map entries — each renders
+      // under its own key row (keyIssues), printing them again under
+      // the field duplicates the hint. The same grammar also carries
+      // const-object nested prop issues (`jsonSchemaCheck` recurses),
+      // so the exclusion is gated on the key being a real map entry.
+      if (i.path.startsWith(`${base}.`)) {
+        const e = entryOf(field);
+        if (e?.kind === 'map' && Object.hasOwn(e.entries, i.path.slice(base.length + 1).split(/[.[\]]/)[0] ?? ''))
+          return false;
+      }
+      return true;
+    });
   const itemIssues = (field: string) => issuesFor(field, (i) => i.path.startsWith(`${pf(field)}[`));
+  // `.key` boundary-aware: `amount` must not swallow `amount_x` paths.
+  // Deeper paths (`key.sub`, `key[i]`) stay key-scoped — the key row
+  // owns its whole subtree.
   const keyIssues = (field: string, key: string) =>
-    issuesFor(field, (i) => i.path.startsWith(`${pf(field)}.${key}`));
+    issuesFor(field, (i) => {
+      const p = `${pf(field)}.${key}`;
+      return i.path === p || i.path.startsWith(`${p}.`) || i.path.startsWith(`${p}[`);
+    });
   const clauseIssues = (field: string, idx: number) =>
     issuesFor(field, (i) => i.path === `${pf(field)}.fallback[${idx}]`);
 
-  /** Issues worth a TEXT line under a control. `required` and
-   *  `schema_mismatch` are structural states the red control already
-   *  communicates (empty picker, blocked option) — printing them again
-   *  is noise. Everything else explains a VALUE the control can't
-   *  self-describe (bad email inside a chip, range violations…). */
-  const visibleIssues = (list: FieldIssue[]): FieldIssue[] =>
-    list.filter((i) => i.code !== 'required' && i.code !== 'schema_mismatch');
+  /** EVERY issue earns a text line under its control — a red control
+   *  that can't explain itself is a dead end (`required` included: it
+   *  is the most basic validator and MUST say what is missing). Path
+   *  scoping (leaf/item/key/clause) owns dedup; nothing is hidden. */
 
   function isNotEditable(prop: JsonSchema): boolean {
     return prop[PAYLOAD_X_NOT_EDITABLE] === true;
@@ -243,21 +281,27 @@
   );
 
   /** `$.a.b.c` paths through the source event schema, depth ≤ 5 — the
-   *  navigable suggestion list (type-ahead narrows it). `_schema` carries
-   *  the leaf schema so `pathCompatible` can screen it against the row's
-   *  destination field; `_sub` shows `array<items>` / `type · format`. */
-  const pathOptions = $derived.by(() => {
-    const out: { value: string; label: string; _sub?: string; _schema?: JsonSchema }[] = [];
-    const walk = (schema: JsonSchema | undefined, prefix: string, depth: number) => {
-      if (!schema?.properties || depth > 5) return;
-      for (const [key, sub] of Object.entries(schema.properties)) {
+   *  navigable TREE the PropNavigator descends. `children` mirror
+   *  `properties`; `_schema` carries each node's schema so
+   *  `pathCompatible` can screen it against the row's destination field;
+   *  `_sub` shows `array<items>` / `type · format`. */
+  const pathTree = $derived.by(() => {
+    const walk = (schema: JsonSchema | undefined, prefix: string, depth: number): PropNavNode[] => {
+      if (!schema?.properties || depth > 5) return [];
+      return Object.entries(schema.properties).map(([key, sub]) => {
         const path = `${prefix}.${key}`;
-        out.push({ value: path, label: path, _sub: subLabel(sub), _schema: sub, ...typeIcon(sub) });
-        walk(sub, path, depth + 1);
-      }
+        const children = walk(sub, path, depth + 1);
+        return {
+          value: path,
+          label: key,
+          _sub: subLabel(sub),
+          _schema: sub,
+          ...typeIcon(sub),
+          ...(children.length > 0 ? { children } : {}),
+        } satisfies PropNavNode;
+      });
     };
-    walk(sourceSchema, '$', 1);
-    return out;
+    return walk(sourceSchema, '$', 1);
   });
 
   /** Readable type line for a source leaf — honest about the shape, never
@@ -282,6 +326,7 @@
     const next: Record<string, unknown> = { ...(map as Record<string, unknown>) };
     if (entry === undefined) delete next[field];
     else next[field] = entry;
+    // standards-exempt: ext-json — the widget serializes plain JSON documents, not ext-json wire payloads
     value = Object.keys(next).length === 0 ? '' : JSON.stringify(next, null, 2);
   }
 
@@ -354,6 +399,26 @@
     return typeof ap === 'object' ? (ap as JsonSchema) : undefined;
   }
 
+  /** Whole-value compat for a path picker's commit — `pathCompatible`
+   *  plus the `x_map_keys` coverage rule: when the field resolves to
+   *  required declared keys, an OBJECT source is a value only if its own
+   *  properties actually provide each required key with a compatible
+   *  schema (`$.customer` onto a template's `variables` would silently
+   *  ship `code`/`email` where `otp_code` belongs). The node stays
+   *  navigable either way — descent is how the honest per-key map is
+   *  built; only the commit affordance is gated. No declarations (or no
+   *  required ones) → the plain type-level answer stands. */
+  function fieldPathCompatible(tp: Record<string, unknown>, n: PropNavNode): boolean {
+    if (!pathCompatible(tp, n._schema ?? {})) return false;
+    const reqs = Object.entries(mapKeyDecls(tp as JsonSchema)).filter(([, d]) => d.required);
+    if (reqs.length === 0) return true;
+    const props = (n._schema?.properties ?? {}) as Record<string, Record<string, unknown>>;
+    return reqs.every(([k, d]) => {
+      const src = props[k];
+      return src !== undefined && pathCompatible(d.schema, src);
+    });
+  }
+
   /** Key picker options — typed like the event-path list: `_sub` shows
    *  the declared type (`string`/`email`/`array<…>`), `_icon` its
    *  glyph, `_schema` the synthesized schema. */
@@ -367,32 +432,69 @@
     }));
   }
 
+  /** A row still carrying the shape the seeder wrote it in — an empty
+   *  `{kind:"path", path:""}` with no fallback clause (a clause is user
+   *  work). Filled or hand-authored rows never match. */
+  const isEmptyPlaceholder = (sub: PayloadMapItemEntry | undefined): boolean =>
+    !!sub && sub.kind === 'path' && !sub.path && !(sub.fallback?.length);
+
   /** Required-by-default contract — picking a catalogued template IS the
    *  commitment to fill its placeholders: every required declared key
    *  materializes as a map row with an EMPTY path (a `required`
    *  conformance issue until mapped — the standard Save gate applies).
+   *  The declaration OWNS the key set: under a resolved (closed)
+   *  vocabulary every undeclared entry is an orphan — a previous
+   *  template's leftovers or a free-map key authored before the
+   *  vocabulary closed — and is pruned, filled or not (a key the
+   *  template doesn't declare is meaningless on the wire). While NO
+   *  declaration resolves (template cleared or path-sourced) the map is
+   *  user-owned: only auto-seeded rows still sitting in their untouched
+   *  placeholder shape die; filled rows survive as honest free-map keys.
    *  An explicit leaf/list kind on the field wins: a whole-object source
    *  can legitimately satisfy the same contract. Optional declared keys
    *  never seed — they wait in their accordion until mapped. */
+  const autoSeeded = new Map<string, Set<string>>();
   $effect(() => {
     if (!editable) return;
     for (const [field, prop] of Object.entries(targetSchema?.properties ?? {})) {
       if (!prop[PAYLOAD_X_MAP_KEYS]) continue;
-      const reqKeys = Object.entries(mapKeyDecls(prop))
-        .filter(([, d]) => d.required)
-        .map(([k]) => k);
-      if (!reqKeys.length) continue;
+      const decls = mapKeyDecls(prop);
       const e = entryOf(field);
       if (e && e.kind !== 'map') continue;
-      const missing = reqKeys.filter((k) => !(e?.kind === 'map' && k in e.entries));
-      if (!missing.length) continue;
-      const entries = { ...(e?.kind === 'map' ? e.entries : {}) };
+      const cur = e?.kind === 'map' ? e.entries : {};
+      const auto = autoSeeded.get(field) ?? new Set<string>();
+
+      const reqKeys = Object.entries(decls)
+        .filter(([, d]) => d.required)
+        .map(([k]) => k);
+      const missing = reqKeys.filter((k) => !(k in cur));
+
+      // Closed vocabulary — the declaration owns the key set: every
+      // undeclared entry is contract-invalid and goes. Open vocabulary —
+      // no contract to enforce: only the seeder's own untouched
+      // placeholders are pruned; user rows (never in `auto`) stay.
+      const removed = Object.keys(decls).length > 0
+        ? Object.keys(cur).filter((k) => !(k in decls))
+        : [...auto].filter((k) => !(k in decls) && isEmptyPlaceholder(cur[k]));
+
+      // `auto` tracks rows still in the seeded shape — a filled row
+      // becomes the user's own and leaves the set.
+      const nextAuto = new Set([...auto].filter((k) => isEmptyPlaceholder(cur[k])));
+      for (const k of missing) nextAuto.add(k);
+
+      if (missing.length === 0 && removed.length === 0) {
+        autoSeeded.set(field, nextAuto);
+        continue;
+      }
+      const entries = { ...cur };
+      for (const k of removed) delete entries[k];
       for (const k of missing) entries[k] = { kind: 'path' as const, path: '' };
       writeEntry(field, {
         kind: 'map',
         entries,
         ...(e && 'fallback' in e && e.fallback ? { fallback: e.fallback } : {}),
       });
+      autoSeeded.set(field, nextAuto);
     }
   });
 
@@ -566,15 +668,28 @@
     }
   }
 
-  /** Coerce typed text into the property's declared JSON type. */
+  /** Coerce typed text into the property's declared JSON type. Numeric
+   *  kinds parse STRICT (`Number()` — `parseFloat("12x")→12` would be a
+   *  silent lie) and keep the raw text when unparseable — the wire stays
+   *  honest and `jsonSchemaCheck` flags `invalid_type` on it, instead of
+   *  NaN collapsing to `null`→`required`. */
   function coerceConst(raw: string, prop: JsonSchema | undefined): unknown {
     if (prop?.enum?.length) return raw;
     switch (prop?.type) {
-      case 'integer': return raw === '' ? 0 : Number.parseInt(raw, 10);
-      case 'number': return raw === '' ? 0 : Number.parseFloat(raw);
+      case 'integer': {
+        if (raw === '') return '';
+        const n = Number(raw);
+        return Number.isInteger(n) ? n : raw;
+      }
+      case 'number': {
+        if (raw === '') return '';
+        const n = Number(raw);
+        return Number.isFinite(n) ? n : raw;
+      }
       case 'boolean': return raw === 'true';
       case 'array':
       case 'object': {
+        // standards-exempt: ext-json — const raw text is plain JSON entered by the user
         try { return JSON.parse(raw || (prop?.type === 'array' ? '[]' : '{}')); }
         catch { return raw; }
       }
@@ -592,6 +707,7 @@
     if (e?.kind !== 'const') return '';
     const v = e.value;
     if (v === undefined || v === null) return '';
+    // standards-exempt: ext-json — display serialization for the const preview, not a wire payload
     return typeof v === 'object' ? JSON.stringify(v) : String(v);
   }
 
@@ -699,15 +815,14 @@
   {#each issues as i (i.path + i.code + i.message)}
     {@const msg = i.message.includes('|')
       ? (() => { const [k, p] = i.message.split('|', 2);
+          // standards-exempt: ext-json — key|{json} is the issue-message param contract, not ext-json wire
           try { return $t(k, JSON.parse(p) as Record<string, unknown>); } catch { return $t(k); } })()
       : $t(i.message)}
     <p class="mt-1 text-xs font-medium text-destructive" data-testid="payload-map-issue">
-      {$t(
-        i.code === 'required'
-          ? 'app.widgets.payload_map.issue.required'
-          : 'app.widgets.payload_map.issue.invalid',
-        { message: msg },
-      )}
+      <!-- `required` speaks bare — the message already says what is
+           missing ("Pick a source property…"); a "Required —" prefix is
+           noise. Value errors keep the "Invalid value —" disambiguator. -->
+      {i.code === 'required' ? msg : $t('app.widgets.payload_map.issue.invalid', { message: msg })}
     </p>
   {/each}
 {/snippet}
@@ -725,11 +840,15 @@
     /** The DESTINATION schema this leaf must satisfy — drives the path
      *  picker's compatibility partition (`pathCompatible` in core). */
     targetProp?: JsonSchema;
+    /** Scoped data-testid for the path picker — the footer's reveal
+     *  toggle derives `<testid>-toggle-disabled` from it. */
+    testid?: string;
     onLeaf: (leaf: PayloadMapLeafEntry) => void;
     onInject?: (inject: PayloadInjector) => void;
   },
 )}
   {@const field = opts.field}
+  {@const constTestId = field ? `payload-map-const-${field}` : opts.testid ? `${opts.testid}-const` : undefined}
   {#if entry?.kind === 'const'}
     {@const xOptions = field ? (optionsCache[field] as ResolvedOption[] | undefined) : undefined}
     {@const enumOpts = prop?.enum?.map((v) => ({ value: String(v), label: String(v) }))}
@@ -747,6 +866,7 @@
         placeholder={$t('app.widgets.payload_map.const_array_placeholder')}
         disabled={!editable}
         aria-invalid={opts.invalid || undefined}
+        data-testid={constTestId}
         onChange={(v) => editable && opts.onLeaf({ kind: 'const', value: Array.isArray(v) ? v : [] })}
       />
     {:else if field && (targetSchema?.properties?.[field] as JsonSchema | undefined)?.[PAYLOAD_X_OPTIONS] && xOptions}
@@ -765,6 +885,7 @@
         display="detailed"
         disabled={!editable}
         aria-invalid={opts.invalid || undefined}
+        data-testid={constTestId}
         onChange={(v) => editable && opts.onLeaf({ kind: 'const', value: String(v) })}
       />
     {:else if enumOpts?.length}
@@ -777,6 +898,7 @@
         searchable={false}
         disabled={!editable}
         aria-invalid={opts.invalid || undefined}
+        data-testid={constTestId}
         onChange={(v) => editable && opts.onLeaf({ kind: 'const', value: String(v) })}
       />
     {:else}
@@ -784,27 +906,24 @@
         value={constText(entry)}
         readonly={!editable}
         aria-invalid={opts.invalid || undefined}
+        data-testid={constTestId}
         oninput={(e) => editable && opts.onLeaf({ kind: 'const', value: coerceConst(e.currentTarget.value, prop) })}
       />
     {/if}
   {:else if entry?.kind === 'path'}
-    {#if pathOptions.length > 0}
+    {#if pathTree.length > 0}
       {@const tp = opts.targetProp}
-      <ComboSelect
-        mode="single"
+      <PropNavigator
+        nodes={pathTree}
         value={entry.path}
-        options={pathOptions}
-        valueField="value"
-        labelField="label"
-        secondaryField="_sub"
-        iconField="_icon"
-        iconDashedField="_icon_dashed"
-        display="detailed"
-        isOptionDisabled={tp ? (o) => !pathCompatible(tp, ((o as Record<string, unknown>)._schema ?? {}) as JsonSchema) : undefined}
+        isSelectable={tp ? (n) => fieldPathCompatible(tp, n) : undefined}
+        isOptionDisabled={tp ? (n) => !fieldPathCompatible(tp, n) : undefined}
         disabledToggle={!!tp}
+        placeholder="$.field.path"
         disabled={!editable}
         aria-invalid={opts.invalid || undefined}
-        onChange={(v) => editable && opts.onLeaf({ kind: 'path', path: String(v) })}
+        data-testid={opts.testid}
+        onSelect={(path) => editable && opts.onLeaf({ kind: 'path', path })}
       />
     {:else}
       <TextInput
@@ -812,6 +931,7 @@
         readonly={!editable}
         placeholder="$.field.path"
         aria-invalid={opts.invalid || undefined}
+        data-testid={opts.testid}
         oninput={(e) => editable && opts.onLeaf({ kind: 'path', path: e.currentTarget.value })}
       />
     {/if}
@@ -830,6 +950,7 @@
         return !!opts.targetProp && !pathCompatible(opts.targetProp as Record<string, unknown>, rec._schema);
       }}
       disabledToggle
+      data-testid={opts.testid ? `${opts.testid}-meta` : undefined}
       onChange={(v) => editable && opts.onLeaf({ kind: 'meta', meta: String(v) as PayloadMapMeta })}
     />
   {:else if entry?.kind === 'inject'}
@@ -842,6 +963,7 @@
       searchable={false}
       disabled={!editable || !opts.onInject}
       aria-invalid={opts.invalid || undefined}
+      data-testid={opts.testid ? `${opts.testid}-inject` : undefined}
       onChange={(v) => editable && opts.onInject?.(String(v) as PayloadInjector)}
     />
   {:else}
@@ -872,6 +994,7 @@
               iconColorField="_icon_color"
               searchable={false}
               disabled={!editable}
+              data-testid={`payload-map-kind-${field}-fallback-${i}`}
               onChange={(v) => editable && setClauseKind(field, i, String(v))}
             />
           </div>
@@ -881,9 +1004,10 @@
                 field,
                 invalid: clauseIssues(field, i).length > 0,
                 targetProp: targetSchema?.properties?.[field],
+                testid: `payload-map-path-${field}-fallback-${i}`,
                 onLeaf: (leaf) => setClauseItem(field, i, leaf),
               })}
-              {@render hintList(visibleIssues(clauseIssues(field, i)))}
+              {@render hintList(clauseIssues(field, i))}
             </div>
             {#if editable}
               <div class="flex items-center shrink-0">
@@ -948,10 +1072,11 @@
           searchable={false}
           disabled={!editable}
           aria-invalid={!entry && issues.length > 0 ? true : undefined}
+          data-testid={`payload-map-kind-${field}`}
           onChange={(v) => editable && setKind(field, String(v), prop)}
         />
         {#if !entry}
-          {@render hintList(visibleIssues(issues))}
+          {@render hintList(issues)}
         {/if}
       </div>
       <div class="min-w-0">
@@ -973,6 +1098,7 @@
             placeholder={$t('app.widgets.payload_map.const_array_placeholder')}
             disabled={!editable}
             aria-invalid={itemIssues(field).length > 0 || leafIssues(field).length > 0 || undefined}
+            data-testid={`payload-map-list-${field}`}
             isValueInvalid={(v) =>
               jsonSchemaCheck(v, (prop.items ?? {}) as Record<string, unknown>).length > 0}
             onChange={(v) => editable && setItems(field, [
@@ -980,7 +1106,7 @@
               ...(Array.isArray(v) ? v : []).map((s) => ({ kind: 'const' as const, value: s })),
             ])}
           />
-          {@render hintList(visibleIssues([...leafIssues(field), ...itemIssues(field)]))}
+          {@render hintList([...leafIssues(field), ...itemIssues(field)])}
         {:else if entry?.kind === 'map'}
           <!-- The map editor lives on its own full-width row (below the
                grid — same placement contract as fallback clauses) so each
@@ -997,6 +1123,7 @@
             field,
             invalid: !!entry && leafIssues(field).length > 0,
             targetProp: prop,
+            testid: `payload-map-path-${field}`,
             onLeaf: (leaf) => setPrimaryLeaf(field, leaf),
             onInject: (inject) => {
               const fb = fallbackOf(entryOf(field));
@@ -1004,7 +1131,7 @@
             },
           })}
           {#if entry}
-            {@render hintList(visibleIssues(leafIssues(field)))}
+            {@render hintList(leafIssues(field))}
           {/if}
         {/if}
       </div>
@@ -1014,12 +1141,16 @@
       {@const decls = mapKeyDecls(prop)}
       {@const optionalKeys = Object.entries(decls).filter(([k, d]) => !d.required && !(k in entry.entries))}
       <div class="mt-2 space-y-1 border-t border-dashed border-border pt-2" data-testid={`payload-map-mapblock-${field}`}>
-        <!-- Same 3-column anatomy as the parent field row, plus a trash
-             tail: key identity (icon·label·help) | source kind | value. -->
+        <!-- Same 3-column anatomy as the parent field row: key identity
+             (icon·label·help) | source kind | value. -->
         {#each Object.entries(entry.entries) as [key, sub] (key)}
           {@const kd = decls[key]}
           {@const kti = typeIcon(kd?.schema as JsonSchema | undefined)}
-          <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,2fr)_auto] items-start gap-2" data-testid={`payload-map-maprow-${field}-${key}`}>
+          <!-- Same 3-column anatomy as the parent field row and the
+               fallback clauses: key identity | source kind | value — the
+               trash CTA lives INSIDE the value cell (same placement as
+               the clause cluster), never a 4th column. -->
+          <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,2fr)] items-start gap-2" data-testid={`payload-map-maprow-${field}-${key}`}>
             <div class="min-w-0">
               <span class="inline-flex items-center gap-1 pt-1.5 font-mono text-xs break-all leading-tight" title={key}>
                 <DynamicIcon name={kti._icon} size={13} class={cn("shrink-0 text-muted-foreground", kti._icon_dashed && "[&_path]:[stroke-dasharray:3_1.5]")} />
@@ -1041,23 +1172,25 @@
                 placeholder={$t('app.widgets.payload_map.source_placeholder')}
                 searchable={false}
                 disabled={!editable || blocked !== null}
+                data-testid={`payload-map-kind-${field}-${key}`}
                 onChange={(v) => editable && setMapKeyKind(field, key, String(v))}
               />
             </div>
-            <div class="min-w-0">
-              {@render leafValue(sub, mapKeySchema(prop, key), {
-                invalid: keyIssues(field, key).length > 0,
-                targetProp: mapKeySchema(prop, key),
-                onLeaf: (leaf) => setMapKeyLeaf(field, key, leaf),
-                onInject: (inject) => setMapKey(field, key, { kind: 'inject', inject }),
-              })}
-              {@render hintList(visibleIssues(keyIssues(field, key)))}
-            </div>
-            <!-- Required declared keys can't be removed — the template
-                 needs them; the cell keeps its width either way. -->
-            <div class="w-[26px] shrink-0">
+            <div class="flex min-w-0 items-start gap-1">
+              <div class="min-w-0 flex-1">
+                {@render leafValue(sub, mapKeySchema(prop, key), {
+                  invalid: keyIssues(field, key).length > 0,
+                  targetProp: mapKeySchema(prop, key),
+                  testid: `payload-map-path-${field}-${key}`,
+                  onLeaf: (leaf) => setMapKeyLeaf(field, key, leaf),
+                  onInject: (inject) => setMapKey(field, key, { kind: 'inject', inject }),
+                })}
+                {@render hintList(keyIssues(field, key))}
+              </div>
+              <!-- Required declared keys can't be removed — the template
+                   needs them. -->
               {#if editable && !kd?.required}
-                <button type="button" class="rounded p-0.5 text-destructive hover:bg-destructive/10" title={$t('app.common.delete')} onclick={() => setMapKey(field, key, undefined)}>
+                <button type="button" class="rounded p-1.5 text-destructive hover:bg-destructive/10 shrink-0" title={$t('app.common.delete')} onclick={() => setMapKey(field, key, undefined)}>
                   <DynamicIcon name="trash" size={18} />
                 </button>
               {/if}
@@ -1067,7 +1200,7 @@
         <!-- Structural issues (`required`/`schema_mismatch`) drive
              aria-invalid + the Save gate but render no text — the red
              controls already communicate the state. -->
-        {@render hintList(visibleIssues(leafIssues(field)))}
+        {@render hintList(leafIssues(field))}
         <!-- Optional declared keys — the field-level accordion principle
              mirrored inside the map: collapsed, each row commits into the
              main list on its first kind pick. -->
@@ -1080,7 +1213,7 @@
               <Accordion.Content class="pb-1">
                 {#each optionalKeys as [key, d] (key)}
                   {@const oti = typeIcon(d.schema as JsonSchema)}
-                  <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,2fr)_auto] items-start gap-2 px-1 py-0.5">
+                  <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,2fr)] items-start gap-2 px-1 py-0.5">
                     <div class="min-w-0">
                       <span class="inline-flex items-center gap-1 pt-1.5 font-mono text-xs break-all leading-tight" title={key}>
                         <DynamicIcon name={oti._icon} size={13} class={cn("shrink-0 text-muted-foreground", oti._icon_dashed && "[&_path]:[stroke-dasharray:3_1.5]")} />
@@ -1100,11 +1233,11 @@
                         placeholder={$t('app.widgets.payload_map.source_placeholder')}
                         searchable={false}
                         disabled={!editable || blocked !== null}
+                        data-testid={`payload-map-kind-${field}-${key}`}
                         onChange={(v) => editable && setMapKeyKind(field, key, String(v))}
                       />
                     </div>
                     <div></div>
-                    <span class="w-[26px] shrink-0"></span>
                   </div>
                 {/each}
               </Accordion.Content>
@@ -1121,7 +1254,7 @@
                until a key is chosen. `allowCreate` keeps arbitrary keys
                possible for free maps. -->
           {@const keyOpts = mapKeyOptions(prop).filter((o) => !(o.value in entry.entries))}
-          <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,2fr)_auto] items-start gap-2" data-testid={`payload-map-mapkey-add-${field}`}>
+          <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,2fr)] items-start gap-2" data-testid={`payload-map-mapkey-add-${field}`}>
             <div class="min-w-0">
               <ComboSelect
                 mode="single"
@@ -1142,7 +1275,6 @@
             </div>
             <div></div>
             <div></div>
-            <span class="w-[26px] shrink-0"></span>
           </div>
         {/if}
       </div>
