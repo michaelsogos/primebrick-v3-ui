@@ -49,13 +49,22 @@
     PayloadInjector,
     PayloadOptionsSource,
     PayloadMapKeysHint,
+    MapKeyDecl,
+    FieldIssue,
   } from '@primebrick/core';
   import {
     PAYLOAD_MAP_META_KINDS,
+    PAYLOAD_MAP_META_SCHEMAS,
     PAYLOAD_INJECTORS,
+    PAYLOAD_X_HELP_KEY,
     PAYLOAD_X_MAP_KEYS,
     PAYLOAD_X_NOT_EDITABLE,
     PAYLOAD_X_OPTIONS,
+    PAYLOAD_X_SEMANTIC,
+    pathCompatible,
+    parseMapKeysDeclaration,
+    payloadMapConformance,
+    jsonSchemaCheck,
   } from '@primebrick/core';
   import TextInput from '../input/text-input.svelte';
   import ComboSelect from '../combo-select/combo-select.svelte';
@@ -148,21 +157,80 @@
 
   const requiredSet = $derived(new Set(targetSchema?.required ?? []));
 
+  /**
+   * Design-time conformance marks — the same `payloadMapConformance`
+   * predicate the submit gate and the service-side write hook run. Issues
+   * are grouped by destination field so each row can flag an invalid
+   * `const` (or an unmapped required field) inline: marking only — the
+   * document stays editable and the form's standard validity gate owns
+   * the submit block.
+   */
+  const fieldIssues = $derived.by((): Map<string, FieldIssue[]> => {
+    const out = new Map<string, FieldIssue[]>();
+    if (!targetSchema) return out;
+    for (const i of payloadMapConformance(map, targetSchema, sourceSchema)) {
+      const m = /^payload_map\.([^.[\]]+)/.exec(i.path);
+      const f = m?.[1];
+      if (!f) continue;
+      const list = out.get(f) ?? [];
+      list.push(i);
+      out.set(f, list);
+    }
+    return out;
+  });
+
+  /** Path scopes inside a field's issue list — `payload_map.<field>`
+   *  prefixes: `.fallback[i]` marks the clause's own input, `[i]` a list
+   *  item, `.<key>` a map entry. */
+  const pf = (f: string) => `payload_map.${f}`;
+  const issuesFor = (field: string, pred: (i: FieldIssue) => boolean): FieldIssue[] =>
+    (fieldIssues.get(field) ?? []).filter(pred);
+  const leafIssues = (field: string) =>
+    issuesFor(field, (i) => !i.path.startsWith(`${pf(field)}.fallback[`) && !i.path.startsWith(`${pf(field)}[`));
+  const itemIssues = (field: string) => issuesFor(field, (i) => i.path.startsWith(`${pf(field)}[`));
+  const keyIssues = (field: string, key: string) =>
+    issuesFor(field, (i) => i.path.startsWith(`${pf(field)}.${key}`));
+  const clauseIssues = (field: string, idx: number) =>
+    issuesFor(field, (i) => i.path === `${pf(field)}.fallback[${idx}]`);
+
+  /** Issues worth a TEXT line under a control. `required` and
+   *  `schema_mismatch` are structural states the red control already
+   *  communicates (empty picker, blocked option) — printing them again
+   *  is noise. Everything else explains a VALUE the control can't
+   *  self-describe (bad email inside a chip, range violations…). */
+  const visibleIssues = (list: FieldIssue[]): FieldIssue[] =>
+    list.filter((i) => i.code !== 'required' && i.code !== 'schema_mismatch');
+
   function isNotEditable(prop: JsonSchema): boolean {
     return prop[PAYLOAD_X_NOT_EDITABLE] === true;
   }
+
+  /** EFFECTIVE required set — schema `required` ∪ fields whose resolved
+   *  `x_map_keys` declaration has ≥1 required key (a catalogued template
+   *  with required variables promotes `variables` out of the optional
+   *  accordion: it sits with the mandatory rows and its own required
+   *  sub-keys are already seated). Re-derives when the catalog row
+   *  resolves or the selection changes. */
+  const effectiveRequired = $derived.by(() => {
+    const out = new Set(requiredSet);
+    for (const [field, prop] of Object.entries(targetSchema?.properties ?? {})) {
+      if (!prop[PAYLOAD_X_MAP_KEYS]) continue;
+      if (Object.values(mapKeyDecls(prop)).some((d) => d.required)) out.add(field);
+    }
+    return out;
+  });
 
   /** Required fields first (alphabetical), optional tail alphabetical —
    *  folded inside a default-closed accordion. `x_not_editable` fields
    *  never render a row (platform-owned setter). */
   const requiredFields = $derived(
     Object.entries(targetSchema?.properties ?? {})
-      .filter(([f, p]) => requiredSet.has(f) && !isNotEditable(p))
+      .filter(([f, p]) => effectiveRequired.has(f) && !isNotEditable(p))
       .sort(([a], [b]) => a.localeCompare(b)),
   );
   const optionalFields = $derived(
     Object.entries(targetSchema?.properties ?? {})
-      .filter(([f, p]) => !requiredSet.has(f) && !isNotEditable(p))
+      .filter(([f, p]) => !effectiveRequired.has(f) && !isNotEditable(p))
       .sort(([a], [b]) => a.localeCompare(b)),
   );
 
@@ -175,20 +243,35 @@
   );
 
   /** `$.a.b.c` paths through the source event schema, depth ≤ 5 — the
-   *  navigable suggestion list (type-ahead narrows it). */
+   *  navigable suggestion list (type-ahead narrows it). `_schema` carries
+   *  the leaf schema so `pathCompatible` can screen it against the row's
+   *  destination field; `_sub` shows `array<items>` / `type · format`. */
   const pathOptions = $derived.by(() => {
-    const out: { value: string; label: string; _sub?: string }[] = [];
+    const out: { value: string; label: string; _sub?: string; _schema?: JsonSchema }[] = [];
     const walk = (schema: JsonSchema | undefined, prefix: string, depth: number) => {
       if (!schema?.properties || depth > 5) return;
       for (const [key, sub] of Object.entries(schema.properties)) {
         const path = `${prefix}.${key}`;
-        out.push({ value: path, label: path, _sub: sub.type });
+        out.push({ value: path, label: path, _sub: subLabel(sub), _schema: sub, ...typeIcon(sub) });
         walk(sub, path, depth + 1);
       }
     };
     walk(sourceSchema, '$', 1);
     return out;
   });
+
+  /** Readable type line for a source leaf — honest about the shape, never
+   *  a bare `string` when the schema declares more: a `format` IS the type
+   *  (`lang`, `email`, `date-time`), arrays unwrap to `array<email>` —
+   *  never `array` alone. */
+  function subLabel(sub: JsonSchema): string {
+    const raw = sub.type;
+    const types = Array.isArray(raw) ? raw.map(String) : raw !== undefined ? [String(raw)] : [];
+    const base = types.find((t) => t !== 'null');
+    if (base === 'array') return `array<${sub.items ? subLabel(sub.items) : 'unknown'}>`;
+    if (typeof sub.format === 'string') return sub.format;
+    return base ?? 'unknown';
+  }
 
   /**
    * Write one field's entry back into the DST text. Keys the map never
@@ -248,16 +331,70 @@
     return dep?.kind === 'const' && dep.value !== '' && dep.value !== undefined ? null : hint.from;
   }
 
-  /** Suggested keys for a `kind:"map"` field — `x_map_keys:{from,prop}`
-   *  reads the selected option's row prop (e.g. the chosen template's
-   *  `variables` declaration). */
-  function mapKeyOptions(prop: JsonSchema): { value: string; label: string }[] {
+  /** Typed key declarations for an `x_map_keys` field — the selected
+   *  option's row prop parsed through core's `parseMapKeysDeclaration`
+   *  (shorthand `{"k":"type"}` → required; longhand carries the schema +
+   *  `optional`/`required:false`/`nullable`). Empty until the `from`
+   *  field holds a resolved const (e.g. a chosen template). */
+  function mapKeyDecls(prop: JsonSchema): Record<string, MapKeyDecl> {
     const hint = prop[PAYLOAD_X_MAP_KEYS] as PayloadMapKeysHint | undefined;
-    if (!hint) return [];
-    const raw = selectedOptionRaw(hint.from)?.[hint.prop];
-    if (raw === null || typeof raw !== 'object' || Array.isArray(raw)) return [];
-    return Object.keys(raw as Record<string, unknown>).map((k) => ({ value: k, label: k }));
+    if (!hint) return {};
+    return parseMapKeysDeclaration(selectedOptionRaw(hint.from)?.[hint.prop]);
   }
+
+  /** The declared schema of ONE map key — drives the row's type icon,
+   *  the source pickers' compat partition and the meta default. Falls
+   *  back to `additionalProperties` for keys the declaration doesn't
+   *  know (custom keys the user adds by hand). */
+  function mapKeySchema(prop: JsonSchema | undefined, key: string): JsonSchema | undefined {
+    if (!prop) return undefined;
+    const decl = mapKeyDecls(prop)[key];
+    if (decl) return decl.schema as JsonSchema;
+    const ap = prop.additionalProperties;
+    return typeof ap === 'object' ? (ap as JsonSchema) : undefined;
+  }
+
+  /** Key picker options — typed like the event-path list: `_sub` shows
+   *  the declared type (`string`/`email`/`array<…>`), `_icon` its
+   *  glyph, `_schema` the synthesized schema. */
+  function mapKeyOptions(prop: JsonSchema): KindOption[] {
+    return Object.entries(mapKeyDecls(prop)).map(([k, d]) => ({
+      value: k,
+      label: k,
+      _sub: subLabel(d.schema as JsonSchema),
+      _schema: d.schema,
+      ...typeIcon(d.schema as JsonSchema),
+    }));
+  }
+
+  /** Required-by-default contract — picking a catalogued template IS the
+   *  commitment to fill its placeholders: every required declared key
+   *  materializes as a map row with an EMPTY path (a `required`
+   *  conformance issue until mapped — the standard Save gate applies).
+   *  An explicit leaf/list kind on the field wins: a whole-object source
+   *  can legitimately satisfy the same contract. Optional declared keys
+   *  never seed — they wait in their accordion until mapped. */
+  $effect(() => {
+    if (!editable) return;
+    for (const [field, prop] of Object.entries(targetSchema?.properties ?? {})) {
+      if (!prop[PAYLOAD_X_MAP_KEYS]) continue;
+      const reqKeys = Object.entries(mapKeyDecls(prop))
+        .filter(([, d]) => d.required)
+        .map(([k]) => k);
+      if (!reqKeys.length) continue;
+      const e = entryOf(field);
+      if (e && e.kind !== 'map') continue;
+      const missing = reqKeys.filter((k) => !(e?.kind === 'map' && k in e.entries));
+      if (!missing.length) continue;
+      const entries = { ...(e?.kind === 'map' ? e.entries : {}) };
+      for (const k of missing) entries[k] = { kind: 'path' as const, path: '' };
+      writeEntry(field, {
+        kind: 'map',
+        entries,
+        ...(e && 'fallback' in e && e.fallback ? { fallback: e.fallback } : {}),
+      });
+    }
+  });
 
   // ─── Kind dispatch — the field's declared shape picks the editor ─────
 
@@ -289,7 +426,11 @@
       push('map', prop[PAYLOAD_X_MAP_KEYS] ? $t('app.widgets.payload_map.kind.map_vars') : $t('app.widgets.payload_map.kind.map'));
     }
     push('path', $t('app.widgets.payload_map.kind.path'));
-    if (prop.type !== 'array') push('const', $t('app.widgets.payload_map.kind.const'));
+    // `const` is offered only where it is honest: scalar/array targets.
+    // On object fields the map editor rows already cover every manual
+    // value — a field-level const would mean hand-typing raw JSON,
+    // strictly worse AND redundant.
+    if (prop.type !== 'array' && prop.type !== 'object') push('const', $t('app.widgets.payload_map.kind.const'));
     push('meta', $t('app.widgets.payload_map.kind.meta'));
     if (entry?.kind === 'inject') push('inject', $t('app.widgets.payload_map.kind.inject'));
     return opts;
@@ -306,19 +447,73 @@
     })),
   );
 
+  /** Schema-type icons — the format wins over the bare type (an `email`
+   *  string shows `mail`, not `type`). Rendered by ComboSelect via the
+   *  `_icon`/`_icon_dashed` convention; nullable unions carry the base
+   *  type's icon with the dashed modifier. */
+  const FORMAT_TYPE_ICONS: Record<string, string> = {
+    email: 'mail',
+    url: 'link',
+    uri: 'link',
+    uuid: 'fingerprint-pattern',
+    'date-time': 'calendar-clock',
+    datetime: 'calendar-clock',
+    date: 'calendar',
+    time: 'clock',
+    phone: 'phone',
+    color_hex: 'palette',
+    lang: 'languages',
+  };
+  const TYPE_ICONS: Record<string, string> = {
+    string: 'type',
+    number: 'hash',
+    integer: 'hash',
+    bigint: 'hash',
+    boolean: 'toggle-left',
+    array: 'brackets',
+    object: 'braces',
+    null: 'circle-slash',
+  };
+
+  /** `{ icon, dashed }` for a schema property — `null` in a type union
+   *  flags the base icon as dashed rather than picking a "null" glyph. */
+  function typeIcon(schema: JsonSchema | undefined): { _icon: string; _icon_dashed?: boolean } {
+    const raw = schema?.type;
+    const types = Array.isArray(raw) ? raw.map(String) : raw !== undefined ? [String(raw)] : [];
+    const nullable = types.includes('null');
+    const base = types.find((t) => t !== 'null');
+    let icon: string | undefined;
+    // semantic slot wins over plain format — `x_semantic:"actor.uuid"`
+    // renders the actor glyph (META_ICONS family), not a bare fingerprint.
+    if (schema?.[PAYLOAD_X_SEMANTIC] === 'actor.uuid') icon = 'user-cog';
+    if (!icon && typeof schema?.format === 'string') icon = FORMAT_TYPE_ICONS[schema.format];
+    if (!icon && Array.isArray(schema?.enum) && schema.enum.length > 0) icon = 'tags';
+    if (!icon && schema && 'const' in schema) icon = 'pin';
+    if (!icon && base) icon = TYPE_ICONS[base];
+    if (!icon) icon = 'circle-question-mark';
+    return nullable ? { _icon: icon, _icon_dashed: true } : { _icon: icon };
+  }
+
   /** Declarative icon per `meta` source — same `_icon` convention. */
   const META_ICONS: Record<string, string> = {
     actor_uuid: 'user-cog',
-    rule_id: 'file-key',
+    actor_email: 'mail',
+    creator_email: 'mail',
+    trigger_id: 'file-key',
     fired_at: 'clock-check',
     actor_locale: 'languages',
   };
 
+  /** Meta sources carry their declared domain (`PAYLOAD_MAP_META_SCHEMAS`)
+   *  — the SAME vocabulary the compat filter and the wire gate share, so
+   *  `creator_email` (email) is the only context selectable for
+   *  `to: array<email>` while `fired_at` (epoch int) stays out. */
   const META_OPTIONS = $derived(
     PAYLOAD_MAP_META_KINDS.map((k) => ({
       value: k,
       label: $t(`app.widgets.payload_map.meta.${k}`),
       _icon: META_ICONS[k],
+      _schema: PAYLOAD_MAP_META_SCHEMAS[k],
     })),
   );
   const INJECT_OPTIONS = $derived(
@@ -337,11 +532,25 @@
     const fb = fallbackOf(prev);
     const withFb = fb ? { fallback: fb } : {};
     if (kind === 'const') writeEntry(field, { kind: 'const', value: defaultConst(prop), ...withFb });
-    else if (kind === 'path') writeEntry(field, { kind: 'path', path: '$', ...withFb });
-    else if (kind === 'meta') writeEntry(field, { kind: 'meta', meta: 'actor_uuid', ...withFb });
+    else if (kind === 'path') writeEntry(field, { kind: 'path', path: '', ...withFb });
+    else if (kind === 'meta') {
+      const dm = defaultMeta(prop);
+      writeEntry(field, { kind: 'meta', ...(dm !== undefined ? { meta: dm } : {}), ...withFb });
+    }
     else if (kind === 'list') writeEntry(field, { kind: 'list', items: [], ...withFb });
     else if (kind === 'map') writeEntry(field, { kind: 'map', entries: {}, ...withFb });
     else if (kind === 'inject' && prev?.kind === 'inject') writeEntry(field, prev);
+  }
+
+  /** First COMPATIBLE meta kind for the target — never a hardcoded one:
+   *  `actor_uuid` as a blind default flashes a conformance error on every
+   *  email/lang/number target. When NOTHING is compatible (e.g. an object
+   *  target — no context meta is object-shaped) returns undefined: the
+   *  picker stays empty and honest instead of auto-selecting a "useless"
+   *  first option that can only error. */
+  function defaultMeta(prop: JsonSchema | undefined): PayloadMapMeta | undefined {
+    return PAYLOAD_MAP_META_KINDS.find((k) =>
+      !prop || pathCompatible(prop as Record<string, unknown>, PAYLOAD_MAP_META_SCHEMAS[k]));
   }
 
   /** Type-aware literal default for a freshly-const'd field. */
@@ -397,7 +606,7 @@
     writeEntry(field, { ...e, fallback: clauses.length > 0 ? clauses : undefined });
   }
   function addClause(field: string): void {
-    setClauses(field, [...clausesOf(field), { kind: 'path', path: '$' }]);
+    setClauses(field, [...clausesOf(field), { kind: 'path', path: '' }]);
   }
   function setClauseItem(field: string, idx: number, clause: PayloadMapFallbackClause): void {
     const clauses = [...clausesOf(field)];
@@ -406,8 +615,11 @@
   }
   function setClauseKind(field: string, idx: number, kind: string): void {
     if (kind === 'const') setClauseItem(field, idx, { kind: 'const', value: '' });
-    else if (kind === 'meta') setClauseItem(field, idx, { kind: 'meta', meta: 'actor_uuid' });
-    else setClauseItem(field, idx, { kind: 'path', path: '$' });
+    else if (kind === 'meta') {
+      const dm = defaultMeta(targetSchema?.properties?.[field] as JsonSchema | undefined);
+      setClauseItem(field, idx, { kind: 'meta', ...(dm !== undefined ? { meta: dm } : {}) });
+    }
+    else setClauseItem(field, idx, { kind: 'path', path: '' });
   }
   function moveClause(field: string, idx: number, dir: -1 | 1): void {
     const clauses = [...clausesOf(field)];
@@ -451,17 +663,54 @@
     setMapKey(field, key, fb ? { ...leaf, fallback: fb } : leaf);
   }
   function setMapKeyKind(field: string, key: string, kind: string): void {
+    const prop = targetSchema?.properties?.[field] as JsonSchema | undefined;
+    const target = mapKeySchema(prop, key);
     if (kind === 'const') setMapKeyLeaf(field, key, { kind: 'const', value: '' });
-    else if (kind === 'meta') setMapKeyLeaf(field, key, { kind: 'meta', meta: 'actor_uuid' });
-    else setMapKeyLeaf(field, key, { kind: 'path', path: '$' });
+    else if (kind === 'meta') {
+      const dm = defaultMeta(target);
+      setMapKeyLeaf(field, key, { kind: 'meta', ...(dm !== undefined ? { meta: dm } : {}) });
+    }
+    else setMapKeyLeaf(field, key, { kind: 'path', path: '' });
   }
   function addMapKey(field: string, key: string): void {
     if (!key || mapEntriesOf(field)[key] !== undefined) return;
-    setMapEntries(field, { ...mapEntriesOf(field), [key]: { kind: 'path', path: '$' } });
+    setMapEntries(field, { ...mapEntriesOf(field), [key]: { kind: 'path', path: '' } });
   }
 
   const editable = $derived(!readonly && !disabled);
+
+  /** Optional-fields accordion — opens the moment ANY optional field
+   *  carries a value at any level (restored draft, seeded template rows,
+   *  fresh edits), never auto-collapses: folding a populated section is
+   *  the user's call and it stays folded until the values come back. */
+  let optionalOpen = $state('');
+  let prevHasOptional = false;
+  $effect(() => {
+    const has = optionalFields.some(([f]) => entryOf(f) !== undefined);
+    if (has && !prevHasOptional) optionalOpen = 'optional';
+    prevHasOptional = has;
+  });
 </script>
+
+{#snippet hintList(issues: FieldIssue[])}
+  <!-- `FieldIssue.message` is the `key|{jsonParams}` i18n carrier — the
+       identical decode TranslatedFormFieldErrors runs on field errors:
+       a non-key string passes $t through unchanged (legacy/raw). -->
+  {#each issues as i (i.path + i.code + i.message)}
+    {@const msg = i.message.includes('|')
+      ? (() => { const [k, p] = i.message.split('|', 2);
+          try { return $t(k, JSON.parse(p) as Record<string, unknown>); } catch { return $t(k); } })()
+      : $t(i.message)}
+    <p class="mt-1 text-xs font-medium text-destructive" data-testid="payload-map-issue">
+      {$t(
+        i.code === 'required'
+          ? 'app.widgets.payload_map.issue.required'
+          : 'app.widgets.payload_map.issue.invalid',
+        { message: msg },
+      )}
+    </p>
+  {/each}
+{/snippet}
 
 {#snippet leafValue(
   entry: PayloadMapLeafEntry | PayloadMapItemEntry | undefined,
@@ -470,6 +719,12 @@
     /** Field whose `x_options`/`enum` feed const pickers — unset inside
      *  map values (the field's catalog doesn't apply per-key). */
     field?: string;
+    /** Standard invalid state (`aria-invalid` → destructive gradient
+     *  ring) — conformance issue on THIS input's value. */
+    invalid?: boolean;
+    /** The DESTINATION schema this leaf must satisfy — drives the path
+     *  picker's compatibility partition (`pathCompatible` in core). */
+    targetProp?: JsonSchema;
     onLeaf: (leaf: PayloadMapLeafEntry) => void;
     onInject?: (inject: PayloadInjector) => void;
   },
@@ -491,6 +746,7 @@
         allowCreate
         placeholder={$t('app.widgets.payload_map.const_array_placeholder')}
         disabled={!editable}
+        aria-invalid={opts.invalid || undefined}
         onChange={(v) => editable && opts.onLeaf({ kind: 'const', value: Array.isArray(v) ? v : [] })}
       />
     {:else if field && (targetSchema?.properties?.[field] as JsonSchema | undefined)?.[PAYLOAD_X_OPTIONS] && xOptions}
@@ -508,6 +764,7 @@
         flagField="_flag"
         display="detailed"
         disabled={!editable}
+        aria-invalid={opts.invalid || undefined}
         onChange={(v) => editable && opts.onLeaf({ kind: 'const', value: String(v) })}
       />
     {:else if enumOpts?.length}
@@ -519,17 +776,20 @@
         labelField="label"
         searchable={false}
         disabled={!editable}
+        aria-invalid={opts.invalid || undefined}
         onChange={(v) => editable && opts.onLeaf({ kind: 'const', value: String(v) })}
       />
     {:else}
       <TextInput
         value={constText(entry)}
         readonly={!editable}
+        aria-invalid={opts.invalid || undefined}
         oninput={(e) => editable && opts.onLeaf({ kind: 'const', value: coerceConst(e.currentTarget.value, prop) })}
       />
     {/if}
   {:else if entry?.kind === 'path'}
     {#if pathOptions.length > 0}
+      {@const tp = opts.targetProp}
       <ComboSelect
         mode="single"
         value={entry.path}
@@ -537,9 +797,13 @@
         valueField="value"
         labelField="label"
         secondaryField="_sub"
+        iconField="_icon"
+        iconDashedField="_icon_dashed"
         display="detailed"
-        allowCreate
+        isOptionDisabled={tp ? (o) => !pathCompatible(tp, ((o as Record<string, unknown>)._schema ?? {}) as JsonSchema) : undefined}
+        disabledToggle={!!tp}
         disabled={!editable}
+        aria-invalid={opts.invalid || undefined}
         onChange={(v) => editable && opts.onLeaf({ kind: 'path', path: String(v) })}
       />
     {:else}
@@ -547,19 +811,25 @@
         value={entry.path}
         readonly={!editable}
         placeholder="$.field.path"
+        aria-invalid={opts.invalid || undefined}
         oninput={(e) => editable && opts.onLeaf({ kind: 'path', path: e.currentTarget.value })}
       />
     {/if}
   {:else if entry?.kind === 'meta'}
     <ComboSelect
       mode="single"
-      value={entry.meta}
+      value={entry.meta ?? ''}
       options={META_OPTIONS}
       valueField="value"
       labelField="label"
       iconField="_icon"
-      searchable={false}
       disabled={!editable}
+      aria-invalid={opts.invalid || undefined}
+      isOptionDisabled={(o) => {
+        const rec = o as { _schema?: Record<string, unknown> };
+        return !!opts.targetProp && !pathCompatible(opts.targetProp as Record<string, unknown>, rec._schema);
+      }}
+      disabledToggle
       onChange={(v) => editable && opts.onLeaf({ kind: 'meta', meta: String(v) as PayloadMapMeta })}
     />
   {:else if entry?.kind === 'inject'}
@@ -571,6 +841,7 @@
       labelField="label"
       searchable={false}
       disabled={!editable || !opts.onInject}
+      aria-invalid={opts.invalid || undefined}
       onChange={(v) => editable && opts.onInject?.(String(v) as PayloadInjector)}
     />
   {:else}
@@ -586,7 +857,7 @@
     <div class="mt-2 space-y-1">
       {#each clauses as clause, i (i)}
         <!-- Same 3-column grid as the parent field row: lead | kind | value+CTAs. -->
-        <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,2fr)] items-center gap-2">
+        <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,2fr)] items-start gap-2">
           <span class="min-w-0 text-xs italic text-muted-foreground">
             {$t('app.widgets.payload_map.fallback.lead')}
           </span>
@@ -604,12 +875,15 @@
               onChange={(v) => editable && setClauseKind(field, i, String(v))}
             />
           </div>
-          <div class="flex min-w-0 items-center gap-1">
+          <div class="flex min-w-0 items-start gap-1">
             <div class="min-w-0 flex-1">
               {@render leafValue(clause, undefined, {
                 field,
+                invalid: clauseIssues(field, i).length > 0,
+                targetProp: targetSchema?.properties?.[field],
                 onLeaf: (leaf) => setClauseItem(field, i, leaf),
               })}
+              {@render hintList(visibleIssues(clauseIssues(field, i)))}
             </div>
             {#if editable}
               <div class="flex items-center shrink-0">
@@ -641,16 +915,23 @@
 
 {#snippet fieldRow(field: string, prop: JsonSchema)}
   {@const entry = entryOf(field)}
+  {@const issues = fieldIssues.get(field) ?? []}
+  {@const ti = typeIcon(prop)}
   <div class="px-3 py-2" data-testid={`payload-map-row-${field}`}>
     <!-- name · source · value — name wraps, combo fits its cell -->
-    <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,2fr)] items-center gap-2">
+    <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,2fr)] items-start gap-2">
       <div class="min-w-0">
         <span class="inline-flex items-center gap-1 font-mono text-xs break-all leading-tight" title={field}>
-          {#if requiredSet.has(field)}
+          <DynamicIcon name={ti._icon} size={13} class={cn("shrink-0 text-muted-foreground", ti._icon_dashed && "[&_path]:[stroke-dasharray:3_1.5]")} />
+          {#if effectiveRequired.has(field)}
             <span class="text-destructive" title={$t('app.widgets.payload_map.required')}>*</span>
           {/if}{field}
-          {#if prop.description}
-            <FormLabelWithPriorityHelp text={prop.description} priority="INFORMATION" />
+          <!-- Help text: `x_help_key` is the i18n lane (service-shipped
+               dictionary); the raw `description` is the English fallback. -->
+          {#if prop[PAYLOAD_X_HELP_KEY] || prop.description}
+            <FormLabelWithPriorityHelp
+              text={typeof prop[PAYLOAD_X_HELP_KEY] === 'string' ? $t(prop[PAYLOAD_X_HELP_KEY] as string) : prop.description}
+              priority="INFORMATION" />
           {/if}
         </span>
       </div>
@@ -666,8 +947,12 @@
           placeholder={$t('app.widgets.payload_map.source_placeholder')}
           searchable={false}
           disabled={!editable}
+          aria-invalid={!entry && issues.length > 0 ? true : undefined}
           onChange={(v) => editable && setKind(field, String(v), prop)}
         />
+        {#if !entry}
+          {@render hintList(visibleIssues(issues))}
+        {/if}
       </div>
       <div class="min-w-0">
         {#if entry?.kind === 'list'}
@@ -687,93 +972,181 @@
             allowCreate
             placeholder={$t('app.widgets.payload_map.const_array_placeholder')}
             disabled={!editable}
+            aria-invalid={itemIssues(field).length > 0 || leafIssues(field).length > 0 || undefined}
+            isValueInvalid={(v) =>
+              jsonSchemaCheck(v, (prop.items ?? {}) as Record<string, unknown>).length > 0}
             onChange={(v) => editable && setItems(field, [
               ...itemsOf(field).filter((it) => it.kind !== 'const'),
               ...(Array.isArray(v) ? v : []).map((s) => ({ kind: 'const' as const, value: s })),
             ])}
           />
+          {@render hintList(visibleIssues([...leafIssues(field), ...itemIssues(field)]))}
         {:else if entry?.kind === 'map'}
+          <!-- The map editor lives on its own full-width row (below the
+               grid — same placement contract as fallback clauses) so each
+               key row gets real room. Cell 3 only carries the blocked
+               dependency hint. -->
           {@const blocked = mapBlockedFrom(prop)}
-          <div class="space-y-1">
-            {#if blocked}
-              <p class="text-xs text-muted-foreground" data-testid={`payload-map-blocked-${field}`}>
-                {$t('app.widgets.payload_map.map_blocked', { field: blocked })}
-              </p>
-            {/if}
-            {#each Object.entries(entry.entries) as [key, sub] (key)}
-              <div class="flex items-center gap-1">
-                <span class="w-28 shrink-0 truncate font-mono text-xs" title={key}>{key}</span>
-                <div class="w-36 shrink-0">
-                  <ComboSelect
-                    mode="single"
-                    value={sub.kind}
-                    options={sub.kind === 'inject'
-                      ? [...LEAF_KIND_OPTIONS, { value: 'inject', label: $t('app.widgets.payload_map.kind.inject'), _icon: KIND_ICONS.inject?.icon }]
-                      : LEAF_KIND_OPTIONS}
-                    valueField="value"
-                    labelField="label"
-                    iconField="_icon"
-                    iconColorField="_icon_color"
-                    searchable={false}
-                    disabled={!editable || blocked !== null}
-                    onChange={(v) => editable && setMapKeyKind(field, key, String(v))}
-                  />
-                </div>
-                <div class="min-w-0 flex-1">
-                  {@render leafValue(sub, undefined, {
-                    onLeaf: (leaf) => setMapKeyLeaf(field, key, leaf),
-                    onInject: (inject) => setMapKey(field, key, { kind: 'inject', inject }),
-                  })}
-                </div>
-                {#if editable}
-                  <button type="button" class="rounded p-0.5 text-destructive hover:bg-destructive/10" title={$t('app.common.delete')} onclick={() => setMapKey(field, key, undefined)}>
-                    <DynamicIcon name="trash" size={18} />
-                  </button>
-                {/if}
-              </div>
-            {/each}
-            {#if editable}
-              {@const keyOpts = mapKeyOptions(prop).filter((o) => !(o.value in entry.entries))}
-              {#if keyOpts.length > 0}
-                <ComboSelect
-                  mode="single"
-                  value=""
-                  options={keyOpts}
-                  valueField="value"
-                  labelField="label"
-                  placeholder={$t('app.widgets.payload_map.map.add_key')}
-                  allowCreate
-                  disabled={blocked !== null}
-                  onChange={(v) => editable && addMapKey(field, String(v))}
-                />
-              {:else}
-                <input
-                  type="text"
-                  class="w-full rounded-md border border-input bg-transparent px-2 py-1 text-xs"
-                  placeholder={$t('app.widgets.payload_map.map.add_key')}
-                  disabled={blocked !== null}
-                  onkeydown={(e) => {
-                    if (e.key === 'Enter') {
-                      addMapKey(field, e.currentTarget.value);
-                      e.currentTarget.value = '';
-                    }
-                  }}
-                />
-              {/if}
-            {/if}
-          </div>
+          {#if blocked}
+            <p class="text-xs text-muted-foreground" data-testid={`payload-map-blocked-${field}`}>
+              {$t('app.widgets.payload_map.map_blocked', { field: blocked })}
+            </p>
+          {/if}
         {:else}
           {@render leafValue(entry, prop, {
             field,
+            invalid: !!entry && leafIssues(field).length > 0,
+            targetProp: prop,
             onLeaf: (leaf) => setPrimaryLeaf(field, leaf),
             onInject: (inject) => {
               const fb = fallbackOf(entryOf(field));
               writeEntry(field, { kind: 'inject', inject, ...(fb ? { fallback: fb } : {}) });
             },
           })}
+          {#if entry}
+            {@render hintList(visibleIssues(leafIssues(field)))}
+          {/if}
         {/if}
       </div>
     </div>
+    {#if entry?.kind === 'map'}
+      {@const blocked = mapBlockedFrom(prop)}
+      {@const decls = mapKeyDecls(prop)}
+      {@const optionalKeys = Object.entries(decls).filter(([k, d]) => !d.required && !(k in entry.entries))}
+      <div class="mt-2 space-y-1 border-t border-dashed border-border pt-2" data-testid={`payload-map-mapblock-${field}`}>
+        <!-- Same 3-column anatomy as the parent field row, plus a trash
+             tail: key identity (icon·label·help) | source kind | value. -->
+        {#each Object.entries(entry.entries) as [key, sub] (key)}
+          {@const kd = decls[key]}
+          {@const kti = typeIcon(kd?.schema as JsonSchema | undefined)}
+          <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,2fr)_auto] items-start gap-2" data-testid={`payload-map-maprow-${field}-${key}`}>
+            <div class="min-w-0">
+              <span class="inline-flex items-center gap-1 pt-1.5 font-mono text-xs break-all leading-tight" title={key}>
+                <DynamicIcon name={kti._icon} size={13} class={cn("shrink-0 text-muted-foreground", kti._icon_dashed && "[&_path]:[stroke-dasharray:3_1.5]")} />
+                {#if kd?.required}<span class="text-destructive" title={$t('app.widgets.payload_map.required')}>*</span>{/if}{key}
+                {#if kd?.description}<FormLabelWithPriorityHelp text={kd.description} priority="INFORMATION" />{/if}
+              </span>
+            </div>
+            <div class="min-w-0">
+              <ComboSelect
+                mode="single"
+                value={sub.kind}
+                options={sub.kind === 'inject'
+                  ? [...LEAF_KIND_OPTIONS, { value: 'inject', label: $t('app.widgets.payload_map.kind.inject'), _icon: KIND_ICONS.inject?.icon }]
+                  : LEAF_KIND_OPTIONS}
+                valueField="value"
+                labelField="label"
+                iconField="_icon"
+                iconColorField="_icon_color"
+                placeholder={$t('app.widgets.payload_map.source_placeholder')}
+                searchable={false}
+                disabled={!editable || blocked !== null}
+                onChange={(v) => editable && setMapKeyKind(field, key, String(v))}
+              />
+            </div>
+            <div class="min-w-0">
+              {@render leafValue(sub, mapKeySchema(prop, key), {
+                invalid: keyIssues(field, key).length > 0,
+                targetProp: mapKeySchema(prop, key),
+                onLeaf: (leaf) => setMapKeyLeaf(field, key, leaf),
+                onInject: (inject) => setMapKey(field, key, { kind: 'inject', inject }),
+              })}
+              {@render hintList(visibleIssues(keyIssues(field, key)))}
+            </div>
+            <!-- Required declared keys can't be removed — the template
+                 needs them; the cell keeps its width either way. -->
+            <div class="w-[26px] shrink-0">
+              {#if editable && !kd?.required}
+                <button type="button" class="rounded p-0.5 text-destructive hover:bg-destructive/10" title={$t('app.common.delete')} onclick={() => setMapKey(field, key, undefined)}>
+                  <DynamicIcon name="trash" size={18} />
+                </button>
+              {/if}
+            </div>
+          </div>
+        {/each}
+        <!-- Structural issues (`required`/`schema_mismatch`) drive
+             aria-invalid + the Save gate but render no text — the red
+             controls already communicate the state. -->
+        {@render hintList(visibleIssues(leafIssues(field)))}
+        <!-- Optional declared keys — the field-level accordion principle
+             mirrored inside the map: collapsed, each row commits into the
+             main list on its first kind pick. -->
+        {#if optionalKeys.length > 0}
+          <Accordion.Root type="single" class="rounded-md border border-dashed" data-testid={`payload-map-mapopt-${field}`}>
+            <Accordion.Item value="keys" class="border-0">
+              <Accordion.Trigger class="px-2 py-1 text-xs text-muted-foreground">
+                {$t('app.widgets.payload_map.map.optional_keys', { count: optionalKeys.length })}
+              </Accordion.Trigger>
+              <Accordion.Content class="pb-1">
+                {#each optionalKeys as [key, d] (key)}
+                  {@const oti = typeIcon(d.schema as JsonSchema)}
+                  <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,2fr)_auto] items-start gap-2 px-1 py-0.5">
+                    <div class="min-w-0">
+                      <span class="inline-flex items-center gap-1 pt-1.5 font-mono text-xs break-all leading-tight" title={key}>
+                        <DynamicIcon name={oti._icon} size={13} class={cn("shrink-0 text-muted-foreground", oti._icon_dashed && "[&_path]:[stroke-dasharray:3_1.5]")} />
+                        {key}
+                        {#if d.description}<FormLabelWithPriorityHelp text={d.description} priority="INFORMATION" />{/if}
+                      </span>
+                    </div>
+                    <div class="min-w-0">
+                      <ComboSelect
+                        mode="single"
+                        value=""
+                        options={LEAF_KIND_OPTIONS}
+                        valueField="value"
+                        labelField="label"
+                        iconField="_icon"
+                        iconColorField="_icon_color"
+                        placeholder={$t('app.widgets.payload_map.source_placeholder')}
+                        searchable={false}
+                        disabled={!editable || blocked !== null}
+                        onChange={(v) => editable && setMapKeyKind(field, key, String(v))}
+                      />
+                    </div>
+                    <div></div>
+                    <span class="w-[26px] shrink-0"></span>
+                  </div>
+                {/each}
+              </Accordion.Content>
+            </Accordion.Item>
+          </Accordion.Root>
+        {/if}
+        {#if editable && Object.keys(decls).length === 0}
+          <!-- Free maps only: with a resolved `x_map_keys` declaration
+               the key vocabulary is CLOSED — required keys are seated
+               rows, optional ones live in their accordion, and a
+               template never uses undeclared keys. Here the key picker
+               sits in the IDENTITY cell (the slot the committed row's
+               icon·label·help occupies); kind and value stay empty
+               until a key is chosen. `allowCreate` keeps arbitrary keys
+               possible for free maps. -->
+          {@const keyOpts = mapKeyOptions(prop).filter((o) => !(o.value in entry.entries))}
+          <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,2fr)_auto] items-start gap-2" data-testid={`payload-map-mapkey-add-${field}`}>
+            <div class="min-w-0">
+              <ComboSelect
+                mode="single"
+                value=""
+                options={keyOpts}
+                valueField="value"
+                labelField="label"
+                secondaryField="_sub"
+                iconField="_icon"
+                iconDashedField="_icon_dashed"
+                display="detailed"
+                placeholder={$t('app.widgets.payload_map.map.add_key')}
+                allowCreate
+                disabled={blocked !== null}
+                aria-invalid={leafIssues(field).length > 0 || undefined}
+                onChange={(v) => editable && addMapKey(field, String(v))}
+              />
+            </div>
+            <div></div>
+            <div></div>
+            <span class="w-[26px] shrink-0"></span>
+          </div>
+        {/if}
+      </div>
+    {/if}
     {#if entry}
       {@render fallbackClauses(field)}
     {/if}
@@ -793,7 +1166,7 @@
       </div>
     {/if}
     {#if optionalFields.length > 0}
-      <Accordion.Root type="single" class="rounded-md border" data-testid="payload-map-optional">
+      <Accordion.Root type="single" bind:value={optionalOpen} class="rounded-md border" data-testid="payload-map-optional">
         <Accordion.Item value="optional" class="border-0">
           <Accordion.Trigger class="px-3 text-xs text-muted-foreground">
             {$t('app.widgets.payload_map.optional', { count: optionalFields.length })}

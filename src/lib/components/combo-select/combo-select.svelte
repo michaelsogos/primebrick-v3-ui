@@ -11,6 +11,7 @@
   import { Eraser } from '../../vendor/lucide.js';
   import { ChevronDown } from '../../vendor/lucide.js';
   import { Check } from '../../vendor/lucide.js';
+  import { EyeDashed } from '../../vendor/lucide.js';
   import { tick, type Snippet } from "svelte";
   import { inputTrailingIconColorClasses, inputGhostChromeClasses } from "../input/input-chrome.js";
   import { menuListSelectedSurfaceDropdownClasses } from "../menu-row-chrome.js";
@@ -93,11 +94,28 @@
     }]>;
     isOptionDisabled?: (option: string | Record<string, unknown>) => boolean;
     /**
+     * Per-value invalidity — multi mode only. When provided, each selected
+     * badge asks the predicate and renders `variant="destructive"` on a
+     * truthy answer, so the user sees WHICH entries are invalid (e.g. one
+     * bad email among three) instead of a generically red combobox.
+     * Declarative, no custom rendering required.
+     */
+    isValueInvalid?: (value: string) => boolean;
+    /**
      * Extra search terms for an option, used both by ComboSelect's own filter
      * and passed to bits-ui's `Command.Item` `keywords` prop to boost scoring.
      * Lets users search by fields not present in `value`/`label` (e.g. permissions, badges).
      */
     getSearchKeywords?: (option: string | Record<string, unknown>) => string[];
+    /**
+     * Disabled-option visibility toggle — requires `isOptionDisabled`.
+     * When ON, disabled options are partitioned OUT of the list by default
+     * (only usable options render) and an eye CTA appears after the clear
+     * button: activating it reveals the disabled partition as greyed,
+     * non-selectable rows that still match the search — so users can
+     * discover WHY an expected option is unavailable.
+     */
+    disabledToggle?: boolean;
     selectedSnippet?: Snippet<[{
       option: string | Record<string, unknown>;
       resolvedLabel: string;
@@ -190,7 +208,9 @@
     iconDashedField,
     itemSnippet,
     isOptionDisabled,
+    isValueInvalid,
     getSearchKeywords,
+    disabledToggle = false,
     selectedSnippet,
     allowCreate = false,
     onCreate,
@@ -224,6 +244,7 @@
   let open = $state(false);
   let search = $state("");
   let listEl = $state<HTMLElement | null>(null);
+  let showDisabledOptions = $state(false);
 
   // Scroll the first selected option into view when the popover opens —
   // long lists should land on the current selection, not the top.
@@ -242,10 +263,14 @@
     });
   });
 
-  // Reset search to defaultSearch whenever the popover opens
+  // Reset search to defaultSearch whenever the popover opens; the
+  // disabled-partition resets on close so each fresh open starts hidden
+  // (resetting on open would clobber the reveal-then-open toggle click).
   $effect(() => {
     if (open) {
       search = defaultSearch;
+    } else {
+      showDisabledOptions = false;
     }
   });
 
@@ -400,6 +425,15 @@
     });
   });
 
+  // `disabledToggle` partition — disabled options are hidden by default and
+  // revealed (greyed, still non-selectable, still matching the search) by
+  // the eye CTA. Without the toggle every option renders, disabled included
+  // (the pre-existing semantics).
+  let visibleOptions = $derived.by<NormalizedOption[]>(() => {
+    if (!disabledToggle || !isOptionDisabled || showDisabledOptions) return filteredOptions;
+    return filteredOptions.filter((opt) => !isOptionDisabled(opt.raw));
+  });
+
   // --- Create mode ---
 
   // Show "Create" item when allowCreate is on, search is non-empty, and no
@@ -432,6 +466,9 @@
       if (!selectedValues.includes(newKey)) {
         syncChange([...selectedValues, newKey]);
       }
+      // Same contract as single mode: the created value is committed, the
+      // query is consumed — the input must be empty for the next entry.
+      search = '';
     }
     onCreate?.(newKey);
   }
@@ -451,8 +488,9 @@
         {id}
         role="combobox"
         tabindex={disabled ? -1 : 0}
+        data-animated-border
         class={cn(
-          "min-h-9 w-full rounded-md px-3 py-1 text-sm ring-offset-background outline-hidden transition-all",
+          "relative min-h-9 w-full rounded-md px-3 py-1 text-sm ring-offset-background outline-hidden transition-all",
           variant === "toolbar"
             ? "border border-foreground/25 bg-transparent hover:border-foreground/40 focus-within:border-foreground/50"
             : variant === "ghost"
@@ -539,11 +577,13 @@
             <div class="flex flex-1 flex-wrap gap-2 items-center text-left">
               {#each selectedValues as val (val)}
                 {@const opt = normalizedOptions.find((o) => o.value === val)}
-                <Badge variant="secondary" class="gap-1">
+                {@const invalid = isValueInvalid?.(val) ?? false}
+                <Badge variant={invalid ? 'destructive' : 'secondary'} class="gap-1" data-invalid={invalid || undefined}>
                   {opt?.label ?? val}
                   {#if !disabled}
                     <button
                       type="button"
+                      onpointerdown={(e) => e.stopPropagation()}
                       onclick={(e) => {
                         e.stopPropagation();
                         handleRemoveMulti(val);
@@ -562,6 +602,7 @@
           {#if mode === "single" && !disabled}
             <button
               type="button"
+              onpointerdown={(e) => e.stopPropagation()}
               onclick={(e) => { e.stopPropagation(); handleClearSingle(); }}
               class={inputTrailingIconColorClasses}
               aria-label={$t("app.common.clearSelection")}
@@ -574,6 +615,7 @@
           {#if mode === "multi" && !disabled}
             <button
               type="button"
+              onpointerdown={(e) => e.stopPropagation()}
               onclick={(e) => { e.stopPropagation(); handleClearMulti(); }}
               class={inputTrailingIconColorClasses}
               aria-label={$t("app.common.clearSelection")}
@@ -608,7 +650,30 @@
               handleCreate();
             }
           }}
-        />
+        >
+          {#snippet trailing()}
+            {#if disabledToggle && isOptionDisabled && !disabled}
+              <!-- Partition toggle — `eye-dashed`: reveals the disabled
+                   partition (hidden data, NOT secrets — `eye`/`eye-off`
+                   are the secret pair). One glyph, state by color +
+                   aria-pressed: muted = hidden, foreground = shown. -->
+              <button
+                type="button"
+                onclick={(e) => {
+                  e.stopPropagation();
+                  showDisabledOptions = !showDisabledOptions;
+                }}
+                class={cn(inputTrailingIconColorClasses, showDisabledOptions && "text-foreground")}
+                aria-label={$t(showDisabledOptions ? "app.common.hideDisabledOptions" : "app.common.showDisabledOptions")}
+                title={$t(showDisabledOptions ? "app.common.hideDisabledOptions" : "app.common.showDisabledOptions")}
+                aria-pressed={showDisabledOptions}
+                data-testid={dataTestId ? `${dataTestId}-toggle-disabled` : undefined}
+              >
+                <EyeDashed />
+              </button>
+            {/if}
+          {/snippet}
+        </Command.Input>
       {/if}
       <Command.List bind:ref={listEl} onscroll={handleListScroll}>
         {#if showCreateItem}
@@ -639,10 +704,10 @@
             </div>
           </Command.Item>
         {/if}
-        {#if filteredOptions.length === 0 && !showCreateItem}
+        {#if visibleOptions.length === 0 && !showCreateItem}
           <Command.Empty>{$t('app.common.noResults')}</Command.Empty>
-        {:else if filteredOptions.length > 0}
-          {#each filteredOptions as opt (opt.value)}
+        {:else if visibleOptions.length > 0}
+          {#each visibleOptions as opt (opt.value)}
             {@const isDisabled = isOptionDisabled ? isOptionDisabled(opt.raw) : false}
             {@const isSelected = mode === "single" ? (value as string) === opt.value : selectedValues.includes(opt.value)}
             <Command.Item
