@@ -1,4 +1,5 @@
 import tailwindColors from 'tailwindcss/colors';
+import { contrastTextCss, oklchCssToHex } from './contrast.js';
 
 export type TailwindColorToken = `${string}-${number}`;
 
@@ -12,32 +13,6 @@ export type TailwindSwatch = {
 	family: string;
 	shade: number;
 };
-
-/** oklch("L% C H") → "#RRGGBB" (sRGB). Used for swatch readouts — the
- *  badge classes keep the original oklch css for paint fidelity. */
-function oklchCssToHex(css: string): string {
-	const m = css.match(/oklch\(([\d.]+)%?\s+([\d.]+)\s+([\d.]+)/);
-	if (!m) return css;
-	const L = parseFloat(m[1]) / 100;
-	const C = parseFloat(m[2]);
-	const hRad = (parseFloat(m[3]) * Math.PI) / 180;
-	const a = C * Math.cos(hRad);
-	const b = C * Math.sin(hRad);
-	const l_ = L + 0.3963377774 * a + 0.2158037573 * b;
-	const m_ = L - 0.1055613458 * a - 0.0638541728 * b;
-	const s_ = L - 0.0894841775 * a - 1.291485548 * b;
-	const l = l_ * l_ * l_;
-	const mm = m_ * m_ * m_;
-	const ss = s_ * s_ * s_;
-	const toSrgb = (x: number) =>
-		x >= 0.0031308 ? 1.055 * Math.pow(x, 1 / 2.4) - 0.055 : 12.92 * x;
-	const ch = (x: number) =>
-		Math.min(Math.max(0, Math.round(toSrgb(x) * 255)), 255)
-			.toString(16)
-			.padStart(2, '0')
-			.toUpperCase();
-	return `#${ch(+4.0767416621 * l - 3.3077115913 * mm + 0.2309699292 * ss)}${ch(-1.2684380046 * l + 2.6097574011 * mm - 0.3413193965 * ss)}${ch(-0.0041960863 * l - 0.7034186147 * mm + 1.707614701 * ss)}`;
-}
 
 const TAILWIND_SHADES = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950] as const;
 
@@ -161,13 +136,15 @@ export function badgeClassesFromToken(token: TailwindColorToken | string | null 
     baseColor = (tailwindColors as Record<string, Record<number, string>>).zinc[300];
   }
 
-  // Generate solid background, text, and border colors (no opacity for better visibility on colored backgrounds)
+  // Generate solid background, text, and border colors (no opacity for better
+  // visibility on colored backgrounds). Text is luminance-driven: dark ink on
+  // light shades (emerald-300, zinc-300, …), white on dark — never hardcoded.
   const bgColor = baseColor;
   const borderColor = baseColor;
-  const textColor = '#ffffff'; // white text for solid colored badges
+  const textColor = contrastTextCss(baseColor);
   const darkBgColor = baseColor;
   const darkBorderColor = baseColor;
-  const darkTextColor = '#ffffff'; // white text for dark mode as well
+  const darkTextColor = textColor;
 
   return {
     bgColor,

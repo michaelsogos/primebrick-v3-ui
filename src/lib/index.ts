@@ -159,6 +159,7 @@ export {
 } from './components/input/input-chrome.js';
 export { badgeClassesFromToken, colorCssFromToken, tailwindSwatches, tailwindFamilies } from './colors/badge.js';
 export type { TailwindColorToken, TailwindSwatch } from './colors/badge.js';
+export { cssToLuminance, contrastTextCss, hexLuminance, hexToRgb, rgbCssToHex, hslToHex, hslCssToHex, oklchCssToHex } from './colors/contrast.js';
 export * from './components/menu-row-chrome.js';
 
 // AI domain leaf libs — dual-realm consumption mirror (shell chrome AND
