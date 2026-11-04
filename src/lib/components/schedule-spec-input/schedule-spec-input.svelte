@@ -27,7 +27,7 @@
   import { ComboSelect } from '../combo-select/index.js';
   import { DateWheelPicker } from '../date-dropper/index.js';
   import { CronInput } from '../cron-input/index.js';
-  import { Kbd } from '../kbd/index.js';
+  import { KeyboardHints } from '../keyboard-hints/index.js';
   import { CalendarDateTime, getLocalTimeZone } from '@internationalized/date';
   import { getT, getLocale } from '../../bridges.js';
   import { cn, formatUiDateTime } from '../../utils/index.js';
@@ -259,11 +259,14 @@
 
               <div class="-mx-3 -mb-3 flex items-center justify-between gap-2 border-t bg-muted/50 px-3 py-2">
                 {#if mode === 'cron'}
-                  <div class="flex items-center gap-2 text-[10px] text-muted-foreground">
-                    <span class="flex items-center gap-0.5"><Kbd>←</Kbd><Kbd>→</Kbd> {$t('app.widgets.schedule_spec.kbd.fields')}</span>
-                    <span class="flex items-center gap-0.5"><Kbd>␣</Kbd><Kbd>⏎</Kbd> {$t('app.widgets.schedule_spec.kbd.next')}</span>
-                    <span class="flex items-center gap-0.5"><Kbd>esc</Kbd> {$t('app.common.close')}</span>
-                  </div>
+                  <KeyboardHints
+                    class="gap-2 text-[10px]"
+                    hints={[
+                      { keys: ['←', '→'], label: $t('app.widgets.schedule_spec.kbd.fields') },
+                      { keys: ['␣', '⏎'], label: $t('app.widgets.schedule_spec.kbd.next') },
+                      { keys: ['esc'], size: 'modifier', label: $t('app.common.close') },
+                    ]}
+                  />
                 {:else}
                   <span></span>
                 {/if}
