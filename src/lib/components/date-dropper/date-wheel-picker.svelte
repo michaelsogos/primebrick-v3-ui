@@ -7,7 +7,7 @@
 	import { WheelPicker, WheelPickerItem, WheelPickerGroup } from '../wheel-picker/index.js';
 	import { getT, getLocale } from "../../bridges.js";
 	import { Tabs, TabsList, TabsTrigger, TabsContent } from '../tabs/index.js';
-	import { Kbd } from '../kbd/index.js';
+	import { KeyboardHints } from '../keyboard-hints/index.js';
 	import { onMount } from "svelte";
 	import { ComboSelect } from '../combo-select/index.js';
 
@@ -420,26 +420,21 @@
 			</WheelPicker>
 		{/if}
 
-		<!-- Footer — canonical popover footer: keybind legend (same anatomy as
-		     NavigatorFooter) on the left, xs CTAs right-aligned. -->
-		<div class="flex items-center justify-between gap-2 border-t bg-muted/50 px-3 py-1.5">
-			<div class="flex items-center gap-3 text-[11px] text-muted-foreground">
-				<span class="inline-flex items-center gap-1">
-					<Kbd size="key">↑</Kbd><Kbd size="key">↓</Kbd><Kbd size="key">←</Kbd><Kbd size="key">→</Kbd>
-				</span>
-				<span class="inline-flex items-center gap-1">
-					<Kbd size="key">⏎</Kbd>
-					<span>{$t("app.common.done")}</span>
-				</span>
-				<span class="inline-flex items-center gap-1">
-					<Kbd size="modifier">esc</Kbd>
-					<span>{$t("app.common.close")}</span>
-				</span>
-			</div>
-			<div class="flex gap-2">
-				<Button variant="secondary" size="xs" onclick={() => (isOpen = false)}>{$t("app.common.close")}</Button>
-				<Button size="xs" onclick={confirm}>{$t("app.common.done")}</Button>
-			</div>
-		</div>
+		<!-- Footer — canonical KeyboardHints legend + right-aligned xs CTAs. -->
+		<KeyboardHints
+			class="border-t bg-muted/50 px-3 py-1.5"
+			hints={[
+				{ keys: ['↑', '↓', '←', '→'] },
+				{ keys: ['⏎'], label: $t('app.common.done') },
+				{ keys: ['esc'], size: 'modifier', label: $t('app.common.close') },
+			]}
+		>
+			{#snippet end()}
+				<div class="flex gap-2">
+					<Button variant="secondary" size="xs" onclick={() => (isOpen = false)}>{$t('app.common.close')}</Button>
+					<Button size="xs" onclick={confirm}>{$t('app.common.done')}</Button>
+				</div>
+			{/snippet}
+		</KeyboardHints>
 	</Popover.Content>
 </Popover.Root>

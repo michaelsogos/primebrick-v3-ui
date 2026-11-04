@@ -61,6 +61,7 @@ export type { PropNavNode } from './components/prop-navigator/index.js';
 export { usePropNavigation } from './composables/use-prop-navigation.svelte.js';
 export { Kbd, kbdVariants } from './components/kbd/index.js';
 export type { KbdSize } from './components/kbd/index.js';
+export { KeyboardHints, type KeyboardHint } from './components/keyboard-hints/index.js';
 export { Switch } from './components/switch/index.js';
 export { Slider, type SliderTone } from './components/slider/index.js';
 export { SliderField } from './components/slider-field/index.js';
