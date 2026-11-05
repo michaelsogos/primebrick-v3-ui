@@ -1,9 +1,10 @@
 <script lang="ts">
 	import * as Popover from '../popover/index.js';
 	import Button from '../button/button.svelte';
-	import { Calendar, Clock } from '@primebrick/ui/vendor/lucide'
+	import { Calendar, Clock, CircleAlert } from '@primebrick/ui/vendor/lucide'
 	import { DateFormatter, getLocalTimeZone, today, now, CalendarDate, CalendarDateTime } from "@internationalized/date";
 	import { cn, getResolvedIanaTimeZone } from "../../utils/index.js";
+	import { isWheelSelectionBelowMin } from "../../utils/date-wheel-bounds.js";
 	import { WheelPicker, WheelPickerItem, WheelPickerGroup } from '../wheel-picker/index.js';
 	import { getT, getLocale } from "../../bridges.js";
 	import { Tabs, TabsList, TabsTrigger, TabsContent } from '../tabs/index.js';
@@ -14,7 +15,16 @@
 	const t = getT();
 	const uiLang = getLocale();
 
-	let { value = $bindable(), placeholder = $t("app.common.selectDate"), includeTime = false, timeOnly = false, defaultTime = undefined, timezone = $bindable(), dataTestId = undefined } = $props();
+	/**
+	 * `minValue` — lower bound as an absolute instant (`Date`). When set the
+	 * picker REFUSES to commit a selection before it: the wheels can spin
+	 * below the bound (visual feedback via the error strip), the bound
+	 * `value` keeps the last acceptable value, and Done cannot close the
+	 * popover. `includeTime` compares the instant the wheels + picked
+	 * timezone resolve to; date-only compares calendar days; `timeOnly`
+	 * carries no calendar so the bound is not applicable.
+	 */
+	let { value = $bindable(), placeholder = $t("app.common.selectDate"), includeTime = false, timeOnly = false, defaultTime = undefined, minValue = undefined, timezone = $bindable(), dataTestId = undefined } = $props();
 	let isOpen = $state(false);
 	let activeTab = $derived(includeTime ? "date" : "date");
 
@@ -27,7 +37,14 @@
 		monthFormatter.format(new CalendarDate(today(getLocalTimeZone()).year, i + 1, 1).toDate(getLocalTimeZone()))
 	);
 	const currentYear = today(getLocalTimeZone()).year;
-	const years = Array.from({ length: 100 }, (_, i) => (currentYear - 50 + i).toString());
+	// With a lower bound, years before it can never produce an acceptable
+	// value — the wheel starts at the bound's year instead of offering
+	// dead options.
+	const years = $derived.by(() => {
+		const firstYear = minValue ? minValue.getFullYear() : currentYear - 50;
+		const count = minValue ? Math.max(50, currentYear + 50 - firstYear + 1) : 100;
+		return Array.from({ length: count }, (_, i) => (firstYear + i).toString());
+	});
 	const hours = Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, "0"));
 	const minutes = Array.from({ length: 60 }, (_, i) => i.toString().padStart(2, "0"));
 	const seconds = Array.from({ length: 60 }, (_, i) => i.toString().padStart(2, "0"));
@@ -61,6 +78,22 @@
 	let selectedMinute = $state(initialTime.minute);
 	let selectedSecond = $state(initialTime.second);
 	let hasUserInteracted = $state(false);
+	let belowMin = $state(false);
+
+	// Reopening re-syncs the wheels to `value` — a stale refusal must not
+	// survive into the fresh selection.
+	$effect(() => {
+		if (isOpen) belowMin = false;
+	});
+
+	/**
+	 * Refusal check on the candidate a wheel selection would commit —
+	 * delegated to `isWheelSelectionBelowMin` (instant compare for
+	 * includeTime, calendar-day compare for date-only).
+	 */
+	function isBelowMin(candidate: CalendarDate | CalendarDateTime): boolean {
+		return isWheelSelectionBelowMin(candidate, minValue, selectedTimezone || undefined);
+	}
 
 	// Timezone state
 	let selectedTimezone = $state<string>(timezone ?? "UTC");
@@ -182,23 +215,22 @@
 		if (selectedDay && selectedMonth && selectedYear) {
 			const monthIndex = months.indexOf(selectedMonth);
 			if (monthIndex !== -1) {
+				let candidate: CalendarDate | CalendarDateTime;
 				try {
-					if (includeTime) {
-						value = new CalendarDateTime(
+					candidate = includeTime
+						? new CalendarDateTime(
 							parseInt(selectedYear),
 							monthIndex + 1,
 							parseInt(selectedDay),
 							parseInt(selectedHour),
 							parseInt(selectedMinute),
 							parseInt(selectedSecond)
-						);
-					} else {
-						value = new CalendarDate(
+						)
+						: new CalendarDate(
 							parseInt(selectedYear),
 							monthIndex + 1,
 							parseInt(selectedDay)
 						);
-					}
 				} catch {
 					// Handle invalid dates (e.g., Feb 30)
 					const tempDate = new CalendarDate(
@@ -208,29 +240,37 @@
 					);
 					const lastDay = tempDate.calendar.getDaysInMonth(tempDate);
 					const validDay = Math.min(parseInt(selectedDay), lastDay);
-					if (includeTime) {
-						value = new CalendarDateTime(
+					candidate = includeTime
+						? new CalendarDateTime(
 							parseInt(selectedYear),
 							monthIndex + 1,
 							validDay,
 							parseInt(selectedHour),
 							parseInt(selectedMinute),
 							parseInt(selectedSecond)
-						);
-					} else {
-						value = new CalendarDate(
+						)
+						: new CalendarDate(
 							parseInt(selectedYear),
 							monthIndex + 1,
 							validDay
 						);
-					}
 				}
+				if (isBelowMin(candidate)) {
+					// Refuse to commit — the bound `value` keeps the last
+					// acceptable value and the strip explains why Done
+					// cannot close the popover.
+					belowMin = true;
+					return;
+				}
+				belowMin = false;
+				value = candidate;
 			}
 		}
 	}
 
 	function confirm() {
 		updateValue();
+		if (belowMin) return;
 		isOpen = false;
 	}
 
@@ -418,6 +458,16 @@
 					{/each}
 				</WheelPickerGroup>
 			</WheelPicker>
+		{/if}
+
+		{#if belowMin}
+			<div
+				class="flex items-center gap-1.5 border-t bg-destructive/10 px-3 py-1.5 text-xs text-destructive"
+				data-testid={dataTestId ? `${dataTestId}-below-min` : undefined}
+			>
+				<CircleAlert class="size-3.5 shrink-0" />
+				<span>{$t('app.common.validation.datetime_before_min', { min: df.format(minValue) })}</span>
+			</div>
 		{/if}
 
 		<!-- Footer — canonical KeyboardHints legend + right-aligned xs CTAs. -->

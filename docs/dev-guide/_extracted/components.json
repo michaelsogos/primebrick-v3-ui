@@ -6769,7 +6769,7 @@
           "column": 0
         },
         "end": {
-          "line": 441,
+          "line": 491,
           "column": 0
         }
       },
@@ -6788,11 +6788,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 17,
+              "line": 27,
               "column": 7
             },
             "end": {
-              "line": 17,
+              "line": 27,
               "column": 26
             }
           }
@@ -6813,11 +6813,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 17,
+              "line": 27,
               "column": 28
             },
             "end": {
-              "line": 17,
+              "line": 27,
               "column": 69
             }
           }
@@ -6840,11 +6840,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 17,
+              "line": 27,
               "column": 71
             },
             "end": {
-              "line": 17,
+              "line": 27,
               "column": 90
             }
           }
@@ -6867,11 +6867,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 17,
+              "line": 27,
               "column": 92
             },
             "end": {
-              "line": 17,
+              "line": 27,
               "column": 108
             }
           }
@@ -6892,12 +6892,37 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 17,
+              "line": 27,
               "column": 110
             },
             "end": {
-              "line": 17,
+              "line": 27,
               "column": 133
+            }
+          }
+        },
+        {
+          "name": "minValue",
+          "kind": "let",
+          "typeSource": "unknown",
+          "value": "undefined",
+          "defaultValue": {
+            "raw": "undefined",
+            "kind": "expression"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 27,
+              "column": 135
+            },
+            "end": {
+              "line": 27,
+              "column": 155
             }
           }
         },
@@ -6913,12 +6938,12 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 17,
-              "column": 135
+              "line": 27,
+              "column": 157
             },
             "end": {
-              "line": 17,
-              "column": 157
+              "line": 27,
+              "column": 179
             }
           }
         },
@@ -6938,12 +6963,12 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 17,
-              "column": 159
+              "line": 27,
+              "column": 181
             },
             "end": {
-              "line": 17,
-              "column": 181
+              "line": 27,
+              "column": 203
             }
           }
         }
@@ -6962,11 +6987,11 @@
           "message": "Prop \"value\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 17,
+              "line": 27,
               "column": 7
             },
             "end": {
-              "line": 17,
+              "line": 27,
               "column": 26
             }
           }
@@ -6978,11 +7003,11 @@
           "message": "Prop \"placeholder\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 17,
+              "line": 27,
               "column": 28
             },
             "end": {
-              "line": 17,
+              "line": 27,
               "column": 69
             }
           }
@@ -6994,12 +7019,28 @@
           "message": "Prop \"defaultTime\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 17,
+              "line": 27,
               "column": 110
             },
             "end": {
-              "line": 17,
+              "line": 27,
               "column": 133
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/date-dropper/date-wheel-picker.svelte",
+          "kind": "prop-unknown-type",
+          "name": "minValue",
+          "message": "Prop \"minValue\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 27,
+              "column": 135
+            },
+            "end": {
+              "line": 27,
+              "column": 155
             }
           }
         },
@@ -7010,12 +7051,12 @@
           "message": "Prop \"timezone\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 17,
-              "column": 135
+              "line": 27,
+              "column": 157
             },
             "end": {
-              "line": 17,
-              "column": 157
+              "line": 27,
+              "column": 179
             }
           }
         },
@@ -7026,12 +7067,12 @@
           "message": "Prop \"dataTestId\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 17,
-              "column": 159
+              "line": 27,
+              "column": 181
             },
             "end": {
-              "line": 17,
-              "column": 181
+              "line": 27,
+              "column": 203
             }
           }
         }
@@ -16588,7 +16629,7 @@
           "column": 0
         },
         "end": {
-          "line": 316,
+          "line": 333,
           "column": 0
         }
       },
