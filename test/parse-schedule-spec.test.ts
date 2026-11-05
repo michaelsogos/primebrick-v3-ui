@@ -1,9 +1,15 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 import {
   describeScheduleSpec,
   nextScheduleRuns,
   parseScheduleSpec,
 } from '../src/lib/utils/parse-schedule-spec.js';
+
+const ORIG_TZ = process.env.TZ;
+afterEach(() => {
+  if (ORIG_TZ === undefined) delete process.env.TZ;
+  else process.env.TZ = ORIG_TZ;
+});
 
 describe('parseScheduleSpec', () => {
   it('parses @every durations', () => {
@@ -82,6 +88,18 @@ describe('nextScheduleRuns', () => {
       '2026-10-27T12:30:00.000Z',
       '2026-10-27T13:00:00.000Z',
     ]);
+  });
+
+  it('cron evaluates in UTC — the NATS runtime zone, not the browser one', () => {
+    // New York is UTC-4 on this date: local-eval would answer 13:00Z,
+    // UTC-eval (what the server fires) answers 09:00Z.
+    process.env.TZ = 'America/New_York';
+    const runs = nextScheduleRuns('0 9 * * *', 1, new Date('2026-10-27T09:30:00Z'));
+    expect(runs.map((d) => d.toISOString())).toEqual(['2026-10-28T09:00:00.000Z']);
+
+    process.env.TZ = 'Europe/Rome'; // UTC+1: local-eval would say 08:00Z
+    const rome = nextScheduleRuns('0 9 * * *', 1, new Date('2026-10-27T09:30:00Z'));
+    expect(rome.map((d) => d.toISOString())).toEqual(['2026-10-28T09:00:00.000Z']);
   });
 
   it('returns [] on invalid specs', () => {

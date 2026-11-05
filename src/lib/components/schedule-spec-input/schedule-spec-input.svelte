@@ -30,7 +30,7 @@
   import { KeyboardHints } from '../keyboard-hints/index.js';
   import { CalendarDateTime, getLocalTimeZone } from '@internationalized/date';
   import { getT, getLocale } from '../../bridges.js';
-  import { cn, formatUiDateTime } from '../../utils/index.js';
+  import { cn, formatUiDateTime, formatUiDateTimeInTimeZone, getResolvedIanaTimeZone } from '../../utils/index.js';
   import {
     CircleAlert,
     CircleCheck,
@@ -74,12 +74,19 @@
   const parsed = $derived(parseScheduleSpec(value));
   const description = $derived(describeScheduleSpec(value, locale()));
 
+  // Fire instants are absolute — the preview renders them in the app's
+  // resolved zone (the same source the top bar reads), not the browser
+  // default the bare formatter would silently apply.
+  const appTz = getResolvedIanaTimeZone();
+  const runLabel = (d: Date) =>
+    appTz ? formatUiDateTimeInTimeZone(d, locale(), appTz) : formatUiDateTime(d, locale());
+
   /** Structured descriptor → localized phrase (i18n keys, plural-aware units). */
   function descriptionText(d: ScheduleDescription): string {
     if (d.kind === 'text') return d.text;
     if (d.kind === 'at') {
       return $t('app.widgets.schedule_spec.desc.at', {
-        date: formatUiDateTime(d.at, locale()),
+        date: runLabel(d.at),
       });
     }
     return $t('app.widgets.schedule_spec.desc.every', {
@@ -105,13 +112,19 @@
   // Once state — CalendarDateTime wall-clock + the picker's selected IANA zone.
   let atValue = $state<CalendarDateTime | null>(null);
   let atTz = $state('');
+  // L1 bound — the once-picker cannot commit an instant in the past.
+  // Seeded at popover open; the L2 shape rule re-checks at submit.
+  let atMin = $state<Date | undefined>(undefined);
   // Cron state
   let cronExpr = $state('');
   let cronValid = $state(false);
 
   /** Seed the builder fields from the current spec each time the popover opens. */
   $effect(() => {
-    if (assistOpen) seedFromValue();
+    if (assistOpen) {
+      seedFromValue();
+      atMin = new Date();
+    }
   });
 
   function seedFromValue() {
@@ -234,6 +247,7 @@
                       bind:value={atValue}
                       bind:timezone={atTz}
                       includeTime={true}
+                      minValue={atMin}
                       dataTestId="{dataTestId}-at-local"
                     />
                     </div>
@@ -301,8 +315,11 @@
             <div class="flex flex-wrap items-center gap-1">
               <span class="text-muted-foreground">{$t('app.widgets.schedule_spec.next')}:</span>
               {#each runs as run (run.getTime())}
-                <Badge variant="secondary" class="font-normal">{formatUiDateTime(run, locale())}</Badge>
+                <Badge variant="secondary" class="font-normal">{runLabel(run)}</Badge>
               {/each}
+              {#if appTz}
+                <span class="text-muted-foreground">· {appTz}</span>
+              {/if}
             </div>
           {/if}
         </div>
