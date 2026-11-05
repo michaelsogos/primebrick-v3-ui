@@ -30,7 +30,7 @@
   import { KeyboardHints } from '../keyboard-hints/index.js';
   import { CalendarDateTime, getLocalTimeZone } from '@internationalized/date';
   import { getT, getLocale } from '../../bridges.js';
-  import { cn, formatUiDateTime, formatUiDateTimeInTimeZone, getResolvedIanaTimeZone } from '../../utils/index.js';
+  import { cn, getResolvedIanaTimeZone } from '../../utils/index.js';
   import {
     CircleAlert,
     CircleCheck,
@@ -41,6 +41,10 @@
     parseScheduleSpec,
     type ScheduleDescription,
   } from '../../utils/parse-schedule-spec.js';
+  import {
+    scheduleDescriptionText,
+    scheduleRunLabel,
+  } from '../../utils/schedule-spec-i18n.js';
   import type { HTMLInputAttributes } from 'svelte/elements';
 
   const t = getT();
@@ -78,22 +82,9 @@
   // resolved zone (the same source the top bar reads), not the browser
   // default the bare formatter would silently apply.
   const appTz = getResolvedIanaTimeZone();
-  const runLabel = (d: Date) =>
-    appTz ? formatUiDateTimeInTimeZone(d, locale(), appTz) : formatUiDateTime(d, locale());
-
-  /** Structured descriptor → localized phrase (i18n keys, plural-aware units). */
-  function descriptionText(d: ScheduleDescription): string {
-    if (d.kind === 'text') return d.text;
-    if (d.kind === 'at') {
-      return $t('app.widgets.schedule_spec.desc.at', {
-        date: runLabel(d.at),
-      });
-    }
-    return $t('app.widgets.schedule_spec.desc.every', {
-      n: d.n,
-      unit: $t(`app.widgets.schedule_spec.unit.${d.unit}.${d.n === 1 ? 'one' : 'other'}`),
-    });
-  }
+  const runLabel = (d: Date) => scheduleRunLabel(d, locale());
+  const descriptionText = (d: ScheduleDescription) =>
+    scheduleDescriptionText(d, $t, locale());
   const runs = $derived(nextScheduleRuns(value, 3));
 
   // --- Assist builder ----------------------------------------------------

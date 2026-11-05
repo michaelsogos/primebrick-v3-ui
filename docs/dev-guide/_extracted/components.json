@@ -16620,6 +16620,76 @@
     }
   },
   {
+    "file": "src/lib/components/schedule-spec-cell/schedule-spec-cell.svelte",
+    "component": "schedule-spec-cell",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 43,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "value",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 19,
+              "column": 2
+            },
+            "end": {
+              "line": 19,
+              "column": 7
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 20,
+              "column": 2
+            },
+            "end": {
+              "line": 20,
+              "column": 18
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "contexts": [],
+      "diagnostics": []
+    }
+  },
+  {
     "file": "src/lib/components/schedule-spec-input/schedule-spec-input.svelte",
     "component": "schedule-spec-input",
     "data": {
@@ -16629,7 +16699,7 @@
           "column": 0
         },
         "end": {
-          "line": 333,
+          "line": 324,
           "column": 0
         }
       },
@@ -16655,11 +16725,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 52,
+              "line": 56,
               "column": 4
             },
             "end": {
-              "line": 52,
+              "line": 56,
               "column": 25
             }
           }
@@ -16676,11 +16746,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 53,
+              "line": 57,
               "column": 4
             },
             "end": {
-              "line": 53,
+              "line": 57,
               "column": 6
             }
           }
@@ -16697,11 +16767,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 54,
+              "line": 58,
               "column": 4
             },
             "end": {
-              "line": 54,
+              "line": 58,
               "column": 8
             }
           }
@@ -16718,11 +16788,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 55,
+              "line": 59,
               "column": 4
             },
             "end": {
-              "line": 55,
+              "line": 59,
               "column": 15
             }
           }
@@ -16745,11 +16815,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 56,
+              "line": 60,
               "column": 4
             },
             "end": {
-              "line": 56,
+              "line": 60,
               "column": 20
             }
           }
@@ -16772,11 +16842,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 57,
+              "line": 61,
               "column": 4
             },
             "end": {
-              "line": 57,
+              "line": 61,
               "column": 20
             }
           }
@@ -16800,11 +16870,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 58,
+              "line": 62,
               "column": 4
             },
             "end": {
-              "line": 58,
+              "line": 62,
               "column": 53
             }
           }
@@ -16822,11 +16892,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 59,
+              "line": 63,
               "column": 4
             },
             "end": {
-              "line": 59,
+              "line": 63,
               "column": 20
             }
           }

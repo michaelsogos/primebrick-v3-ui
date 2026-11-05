@@ -98,7 +98,21 @@ export function formatUiDateTimeInTimeZone(
   }
 }
 
-/** Default table cell: `date` → locale date only; `datetime` → {@link formatUiDateTime}; else `String(raw)`. */
+/**
+ * Scalar-safe display coercion for decoded wire values.
+ *
+ * `extJsonParse` (json-bigint strict) emits **null-prototype** objects —
+ * `String(obj)` throws `Cannot convert object to primitive value` on them.
+ * ANY non-scalar reaching the UI MUST go through this helper:
+ * objects/arrays render as JSON, scalars as `String`.
+ */
+export function toDisplayString(raw: unknown): string {
+  if (raw === null || raw === undefined) return '';
+  if (typeof raw === 'object') return extJsonStringify(raw);
+  return String(raw);
+}
+
+/** Default table cell: `date` → locale date only; `datetime` → {@link formatUiDateTime}; else {@link toDisplayString}. */
 export function formatListCellValue(
   column: Pick<MetaColumn, 'type'>,
   raw: unknown,
@@ -116,5 +130,5 @@ export function formatListCellValue(
       return formatUiDateTime(raw, lang);
     }
   }
-  return String(raw);
+  return toDisplayString(raw);
 }

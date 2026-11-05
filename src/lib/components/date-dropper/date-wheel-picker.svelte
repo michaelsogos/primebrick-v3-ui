@@ -475,8 +475,8 @@
 			class="border-t bg-muted/50 px-3 py-1.5"
 			hints={[
 				{ keys: ['↑', '↓', '←', '→'] },
-				{ keys: ['⏎'], label: $t('app.common.done') },
-				{ keys: ['esc'], size: 'modifier', label: $t('app.common.close') },
+				{ keys: ['⏎'] },
+				{ keys: ['esc'], size: 'modifier' },
 			]}
 		>
 			{#snippet end()}

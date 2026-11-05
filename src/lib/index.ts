@@ -147,6 +147,8 @@ export { default as JsonValueEditor } from './components/json-value-editor/json-
 export { default as PayloadMapEditor } from './components/payload-map-editor/payload-map-editor.svelte';
 export { default as AiIcon } from './components/ai-icon/ai-icon.svelte';
 export { ScheduleSpecInput } from './components/schedule-spec-input/index.js';
+export { ScheduleSpecCell } from './components/schedule-spec-cell/index.js';
+export { scheduleDescriptionText, scheduleRunLabel } from './utils/schedule-spec-i18n.js';
 
 export { fieldSpecToZod } from './entity-form/field-spec-to-zod.js';
 
