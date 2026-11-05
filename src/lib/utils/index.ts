@@ -9,6 +9,6 @@ export type {
 	WithoutChildrenOrChild,
 	WithElementRef,
 } from './types.js';
-export { formatUiDate, formatUiDateTime, formatUiDateTimeInTimeZone, formatListCellValue, uiLocaleTag } from './format-date.js';
+export { formatUiDate, formatUiDateTime, formatUiDateTimeInTimeZone, formatListCellValue, toDisplayString, uiLocaleTag } from './format-date.js';
 export { getResolvedIanaTimeZone } from './iana-timezone.js';
 export { isWheelSelectionBelowMin } from './date-wheel-bounds.js';
