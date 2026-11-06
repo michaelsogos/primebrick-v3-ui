@@ -113,7 +113,8 @@ export {
 	FormButton,
 	PrimeField,
 } from './components/forms/index.js';
-export type { PrimeFieldHelp, MetaTooltipHelp } from './components/forms/index.js';
+export type { PrimeFieldHelp, MetaTooltipHelp, HelpContext, ResolvedHelp } from './components/forms/index.js';
+export { resolveFieldHelp } from './components/forms/index.js';
 export { default as Input } from './components/input/input.svelte';
 export { default as TextInput } from './components/input/text-input.svelte';
 export { Textarea } from './components/textarea/index.js';
