@@ -65,7 +65,9 @@
 		placeholder?: string;
 		/** Opt-in escape-syntax highlighting underlay (`\*`, `\?`). */
 		highlight?: boolean;
-		/** Show the eraser CTA while the query is non-empty. Default true. */
+		/** Eraser CTA rendered while the query is editable — always mounted
+		 *  (same trailing CTA anatomy as TextInput's clear), `disabled` when
+		 *  the field is empty. Default true. */
 		clearable?: boolean;
 		/** Icon CTAs rendered to the LEFT of the eraser — same shape as TextInput's. */
 		trailing_ctas?: TrailingCta[];
@@ -152,12 +154,13 @@
 		</InputGroupButton>
 	{/each}
 
-	{#if clearable && hasText}
+	{#if clearable}
 		<InputGroupButton
 			variant="ghost"
 			size="icon-xs"
 			class="mr-1 hover:bg-sky-100/50 dark:hover:bg-white/10"
 			onclick={clear}
+			disabled={!hasText || disabled}
 			aria-label={$t('app.common.reset')}
 			title={$t('app.common.reset')}
 			data-testid={data_testid ? `${data_testid}-clear` : undefined}
