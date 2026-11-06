@@ -26,6 +26,7 @@
   import { getT } from '../../bridges.js';
   import { cn } from '../../utils/index.js';
   import FormLabelWithPriorityHelp from './FormLabelWithPriorityHelp.svelte';
+  import DynamicIcon from '../dynamic-icon/DynamicIcon.svelte';
   import {
     resolveFieldHelp,
     type HelpContext,
@@ -38,6 +39,7 @@
   let {
     id: idProp,
     label,
+    icon,
     required = false,
     hint,
     error,
@@ -52,6 +54,9 @@
     id?: string;
     /** Translated label text. Omit for label-less rows (switch-only, etc.). */
     label?: string;
+    /** Lucide icon name rendered before the label (the field's semantic
+     *  marker — `MetaColumn.icon` on list-surface labels). */
+    icon?: string;
     /** Append the required `*` marker. */
     required?: boolean;
     /**
@@ -109,6 +114,7 @@
 
 {#snippet labelEl()}
   {#if label}
+    {#if icon}<DynamicIcon name={icon} size={14} class="inline-block opacity-70" />{/if}
     {label}{#if required}<span class="text-destructive">*</span>{/if}{@render helpIcon()}
   {/if}
 {/snippet}

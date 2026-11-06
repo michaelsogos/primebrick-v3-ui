@@ -6769,7 +6769,7 @@
           "column": 0
         },
         "end": {
-          "line": 491,
+          "line": 493,
           "column": 0
         }
       },
@@ -6971,6 +6971,58 @@
               "column": 203
             }
           }
+        },
+        {
+          "name": "id",
+          "kind": "let",
+          "typeSource": "unknown",
+          "value": "undefined",
+          "defaultValue": {
+            "raw": "undefined",
+            "kind": "expression"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 27,
+              "column": 205
+            },
+            "end": {
+              "line": 27,
+              "column": 219
+            }
+          }
+        },
+        {
+          "name": "disabled",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "default",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 27,
+              "column": 221
+            },
+            "end": {
+              "line": 27,
+              "column": 237
+            }
+          }
         }
       ],
       "moduleExports": [],
@@ -7073,6 +7125,22 @@
             "end": {
               "line": 27,
               "column": 203
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/date-dropper/date-wheel-picker.svelte",
+          "kind": "prop-unknown-type",
+          "name": "id",
+          "message": "Prop \"id\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 27,
+              "column": 205
+            },
+            "end": {
+              "line": 27,
+              "column": 219
             }
           }
         }
@@ -10242,7 +10310,7 @@
           "column": 0
         },
         "end": {
-          "line": 145,
+          "line": 151,
           "column": 0
         }
       },
@@ -10262,11 +10330,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 39,
+              "line": 40,
               "column": 4
             },
             "end": {
-              "line": 39,
+              "line": 40,
               "column": 14
             }
           }
@@ -10283,12 +10351,33 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 40,
+              "line": 41,
               "column": 4
             },
             "end": {
-              "line": 40,
+              "line": 41,
               "column": 9
+            }
+          }
+        },
+        {
+          "name": "icon",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 42,
+              "column": 4
+            },
+            "end": {
+              "line": 42,
+              "column": 8
             }
           }
         },
@@ -10310,11 +10399,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 41,
+              "line": 43,
               "column": 4
             },
             "end": {
-              "line": 41,
+              "line": 43,
               "column": 20
             }
           }
@@ -10331,11 +10420,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 42,
+              "line": 44,
               "column": 4
             },
             "end": {
-              "line": 42,
+              "line": 44,
               "column": 8
             }
           }
@@ -10352,11 +10441,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 43,
+              "line": 45,
               "column": 4
             },
             "end": {
-              "line": 43,
+              "line": 45,
               "column": 9
             }
           }
@@ -10373,11 +10462,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 44,
+              "line": 46,
               "column": 4
             },
             "end": {
-              "line": 44,
+              "line": 46,
               "column": 8
             }
           }
@@ -10400,11 +10489,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 45,
+              "line": 47,
               "column": 4
             },
             "end": {
-              "line": 45,
+              "line": 47,
               "column": 25
             }
           }
@@ -10427,11 +10516,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 46,
+              "line": 48,
               "column": 4
             },
             "end": {
-              "line": 46,
+              "line": 48,
               "column": 22
             }
           }
@@ -10449,11 +10538,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 48,
+              "line": 50,
               "column": 4
             },
             "end": {
-              "line": 48,
+              "line": 50,
               "column": 20
             }
           }
@@ -10471,11 +10560,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 49,
+              "line": 51,
               "column": 4
             },
             "end": {
-              "line": 49,
+              "line": 51,
               "column": 29
             }
           }
@@ -10489,11 +10578,11 @@
           "slot_props": "{ id: string }",
           "source": {
             "start": {
-              "line": 135,
+              "line": 141,
               "column": 4
             },
             "end": {
-              "line": 135,
+              "line": 141,
               "column": 29
             }
           }
@@ -19213,34 +19302,13 @@
           "column": 0
         },
         "end": {
-          "line": 120,
+          "line": 125,
           "column": 0
         }
       },
       "syntaxMode": "runes",
       "scriptLanguage": "ts",
       "props": [
-        {
-          "name": "actions",
-          "kind": "let",
-          "type": "Snippet",
-          "typeSource": "typescript",
-          "isFunction": false,
-          "isFunctionDeclaration": false,
-          "isRequired": false,
-          "constant": false,
-          "reactive": false,
-          "source": {
-            "start": {
-              "line": 36,
-              "column": 4
-            },
-            "end": {
-              "line": 36,
-              "column": 11
-            }
-          }
-        },
         {
           "name": "onClose",
           "kind": "let",
@@ -19292,12 +19360,27 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 111,
+              "line": 116,
               "column": 4
             },
             "end": {
-              "line": 111,
+              "line": 116,
               "column": 24
+            }
+          }
+        },
+        {
+          "name": "actions",
+          "default": false,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 102,
+              "column": 2
+            },
+            "end": {
+              "line": 102,
+              "column": 23
             }
           }
         },
@@ -19307,11 +19390,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 116,
+              "line": 121,
               "column": 6
             },
             "end": {
-              "line": 116,
+              "line": 121,
               "column": 24
             }
           }
@@ -19352,11 +19435,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 106,
+              "line": 111,
               "column": 6
             },
             "end": {
-              "line": 106,
+              "line": 111,
               "column": 25
             }
           }
