@@ -32,10 +32,10 @@
 
 {#if description}
 	<div class={cn('flex min-w-0 flex-col gap-0.5', className)}>
-		<Badge variant="outline" class="w-fit max-w-full truncate font-mono text-[11px] shadow-none">
+		<span class="min-w-0 truncate text-xs">{descriptionText}</span>
+		<Badge variant="outline" class="w-fit max-w-full truncate font-mono text-[11px] text-muted-foreground shadow-none">
 			{value}
 		</Badge>
-		<span class="min-w-0 truncate text-xs text-muted-foreground">{descriptionText}</span>
 	</div>
 {:else}
 	<span class={cn('min-w-0 truncate', className)}>{value}</span>

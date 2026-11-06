@@ -15,9 +15,14 @@
     /** Entity-label i18n namespace from `meta.entities_ns` — defaults to the table context / `system`. */
     entities_ns?: string;
     recordName?: string;
+    /** Message template override from `meta.actions[op].confirm_key` —
+     *  when set it REPLACES the whole convention-built question (incl.
+     *  the "cannot be undone" tail) — e.g. soft-delete-as-disable asks
+     *  "disattivare" and notes the action is reversible. */
+    confirm_key?: string;
   }
 
-  let { action, entity, entities_ns, recordName }: EntityConfirmQuestionProps = $props();
+  let { action, entity, entities_ns, recordName, confirm_key }: EntityConfirmQuestionProps = $props();
   const t = getT();
   const ns = $derived(entities_ns ?? getEntitiesNsContext());
 
@@ -35,7 +40,7 @@
   });
 
   let segments = $derived.by(() => {
-    const raw = $t(`app.common.${action}EntityConfirm`, {
+    const raw = $t(confirm_key ?? `app.common.${action}EntityConfirm`, {
       entity: ENTITY_MARK,
       name: NAME_MARK
     });
@@ -45,4 +50,4 @@
   });
 </script>
 
-{segments.pre}<span class="font-semibold">{entityDefinite}</span>{segments.mid}{#if recordName}&nbsp;<em class="font-semibold">"{recordName}"</em>{/if}{segments.post}{#if action === 'delete'}<span class="mt-1 block">{$t('app.common.deleteConfirm')}</span>{/if}
+{segments.pre}<span class="font-semibold">{entityDefinite}</span>{segments.mid}{#if recordName}&nbsp;<em class="font-semibold">"{recordName}"</em>{/if}{segments.post}{#if action === 'delete' && !confirm_key}<span class="mt-1 block">{$t('app.common.deleteConfirm')}</span>{/if}

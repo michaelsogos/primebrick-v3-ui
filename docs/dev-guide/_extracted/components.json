@@ -8346,7 +8346,7 @@
           "column": 0
         },
         "end": {
-          "line": 195,
+          "line": 208,
           "column": 0
         }
       },
@@ -8365,11 +8365,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 88,
+              "line": 89,
               "column": 4
             },
             "end": {
-              "line": 88,
+              "line": 89,
               "column": 8
             }
           }
@@ -8392,11 +8392,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 89,
+              "line": 90,
               "column": 4
             },
             "end": {
-              "line": 89,
+              "line": 90,
               "column": 13
             }
           }
@@ -8414,11 +8414,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 90,
+              "line": 91,
               "column": 4
             },
             "end": {
-              "line": 90,
+              "line": 91,
               "column": 20
             }
           }
@@ -8435,11 +8435,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 91,
+              "line": 92,
               "column": 4
             },
             "end": {
-              "line": 91,
+              "line": 92,
               "column": 9
             }
           }
@@ -8486,7 +8486,7 @@
           "column": 0
         },
         "end": {
-          "line": 75,
+          "line": 89,
           "column": 0
         }
       },
@@ -8505,11 +8505,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 28,
+              "line": 39,
               "column": 4
             },
             "end": {
-              "line": 28,
+              "line": 39,
               "column": 10
             }
           }
@@ -8526,11 +8526,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 29,
+              "line": 40,
               "column": 4
             },
             "end": {
-              "line": 29,
+              "line": 40,
               "column": 15
             }
           }
@@ -8547,12 +8547,33 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 30,
+              "line": 41,
               "column": 4
             },
             "end": {
-              "line": 30,
+              "line": 41,
               "column": 14
+            }
+          }
+        },
+        {
+          "name": "chrome",
+          "kind": "let",
+          "type": "{\r\n      label_key?: string;\r\n      confirm_key?: string;\r\n      busy_key?: string;\r\n      color?: ActionColor;\r\n    }",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 42,
+              "column": 4
+            },
+            "end": {
+              "line": 42,
+              "column": 10
             }
           }
         },
@@ -8569,11 +8590,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 31,
+              "line": 43,
               "column": 4
             },
             "end": {
-              "line": 31,
+              "line": 43,
               "column": 22
             }
           }
@@ -8590,11 +8611,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 32,
+              "line": 44,
               "column": 4
             },
             "end": {
-              "line": 32,
+              "line": 44,
               "column": 16
             }
           }
@@ -8611,11 +8632,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 33,
+              "line": 45,
               "column": 4
             },
             "end": {
-              "line": 33,
+              "line": 45,
               "column": 14
             }
           }
@@ -8632,11 +8653,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 34,
+              "line": 46,
               "column": 4
             },
             "end": {
-              "line": 34,
+              "line": 46,
               "column": 13
             }
           }
@@ -8653,11 +8674,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 35,
+              "line": 47,
               "column": 4
             },
             "end": {
-              "line": 35,
+              "line": 47,
               "column": 12
             }
           }
@@ -8751,7 +8772,7 @@
           "column": 0
         },
         "end": {
-          "line": 49,
+          "line": 54,
           "column": 0
         }
       },
@@ -8770,11 +8791,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 20,
+              "line": 25,
               "column": 8
             },
             "end": {
-              "line": 20,
+              "line": 25,
               "column": 14
             }
           }
@@ -8791,11 +8812,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 20,
+              "line": 25,
               "column": 16
             },
             "end": {
-              "line": 20,
+              "line": 25,
               "column": 22
             }
           }
@@ -8812,11 +8833,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 20,
+              "line": 25,
               "column": 24
             },
             "end": {
-              "line": 20,
+              "line": 25,
               "column": 35
             }
           }
@@ -8833,12 +8854,33 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 20,
+              "line": 25,
               "column": 37
             },
             "end": {
-              "line": 20,
+              "line": 25,
               "column": 47
+            }
+          }
+        },
+        {
+          "name": "confirm_key",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 25,
+              "column": 49
+            },
+            "end": {
+              "line": 25,
+              "column": 60
             }
           }
         }
@@ -13687,7 +13729,7 @@
           "column": 0
         },
         "end": {
-          "line": 36,
+          "line": 47,
           "column": 0
         }
       },
@@ -13713,11 +13755,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 30,
+              "line": 41,
               "column": 7
             },
             "end": {
-              "line": 30,
+              "line": 41,
               "column": 28
             }
           }
@@ -13734,11 +13776,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 30,
+              "line": 41,
               "column": 30
             },
             "end": {
-              "line": 30,
+              "line": 41,
               "column": 46
             }
           }
@@ -13761,12 +13803,39 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 30,
+              "line": 41,
               "column": 48
             },
             "end": {
-              "line": 30,
+              "line": 41,
               "column": 60
+            }
+          }
+        },
+        {
+          "name": "tone",
+          "kind": "let",
+          "type": "KbdTone",
+          "typeSource": "typescript",
+          "value": "\"default\"",
+          "defaultValue": {
+            "raw": "\"default\"",
+            "kind": "literal",
+            "value": "default"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 41,
+              "column": 62
+            },
+            "end": {
+              "line": 41,
+              "column": 78
             }
           }
         }
@@ -13776,9 +13845,9 @@
           "name": "kbdVariants",
           "kind": "const",
           "typeSource": "unknown",
-          "value": "tv({\r\n\t\tbase: \"inline-flex shrink-0 items-center justify-center rounded border border-border/80 bg-muted/50 font-mono font-semibold leading-none text-muted-foreground shadow-sm\",\r\n\t\tvariants: {\r\n\t\t\tsize: {\r\n\t\t\t\tkey: \"h-5 min-w-5 px-1 text-[11px]\",\r\n\t\t\t\tmodifier: \"h-5 px-1.5 text-[10px]\",\r\n\t\t\t\ticon: \"size-5 [&>svg]:size-3.5\",\r\n\t\t\t},\r\n\t\t},\r\n\t\tdefaultVariants: {\r\n\t\t\tsize: \"key\",\r\n\t\t},\r\n\t})",
+          "value": "tv({\r\n\t\tbase: \"inline-flex shrink-0 items-center justify-center rounded border border-border/80 bg-muted/50 font-mono font-semibold leading-none text-muted-foreground shadow-sm\",\r\n\t\tvariants: {\r\n\t\t\tsize: {\r\n\t\t\t\tkey: \"h-5 min-w-5 px-1 text-[11px]\",\r\n\t\t\t\tmodifier: \"h-5 px-1.5 text-[10px]\",\r\n\t\t\t\ticon: \"size-5 [&>svg]:size-3.5\",\r\n\t\t\t\t\"key-lg\": \"h-6 min-w-6 px-1.5 text-xs\",\r\n\t\t\t\t\"modifier-lg\": \"h-6 px-2 text-[11px]\",\r\n\t\t\t\t\"icon-lg\": \"size-6 [&>svg]:size-4\",\r\n\t\t\t},\r\n\t\t},\r\n\t\ttone: {\r\n\t\t\tdefault: \"\",\r\n\t\t\t/** Inverted chip for dark surfaces (the standard bg-foreground tooltip). */\r\n\t\t\tinverted: \"border-background/30 bg-background/15 text-background\",\r\n\t\t},\r\n\t\tdefaultVariants: {\r\n\t\t\tsize: \"key\",\r\n\t\t\ttone: \"default\",\r\n\t\t},\r\n\t})",
           "defaultValue": {
-            "raw": "tv({ \t\tbase: \"inline-flex shrink-0 items-center justify-center rounded border border-border/80 bg-muted/50 font-mono font-semibold leading-none text-muted-foreground shadow-sm\", \t\tvariants: { \t\t\tsize: { \t\t\t\tkey: \"h-5 min-w-5 px-1 text-[11px]\", \t\t\t\tmodifier: \"h-5 px-1.5 text-[10px]\", \t\t\t\ticon: \"size-5 [&>svg]:size-3.5\", \t\t\t}, \t\t}, \t\tdefaultVariants: { \t\t\tsize: \"key\", \t\t}, \t})",
+            "raw": "tv({ \t\tbase: \"inline-flex shrink-0 items-center justify-center rounded border border-border/80 bg-muted/50 font-mono font-semibold leading-none text-muted-foreground shadow-sm\", \t\tvariants: { \t\t\tsize: { \t\t\t\tkey: \"h-5 min-w-5 px-1 text-[11px]\", \t\t\t\tmodifier: \"h-5 px-1.5 text-[10px]\", \t\t\t\ticon: \"size-5 [&>svg]:size-3.5\", \t\t\t\t\"key-lg\": \"h-6 min-w-6 px-1.5 text-xs\", \t\t\t\t\"modifier-lg\": \"h-6 px-2 text-[11px]\", \t\t\t\t\"icon-lg\": \"size-6 [&>svg]:size-4\", \t\t\t}, \t\t}, \t\ttone: { \t\t\tdefault: \"\", \t\t\t/** Inverted chip for dark surfaces (the standard bg-foreground tooltip). */ \t\t\tinverted: \"border-background/30 bg-background/15 text-background\", \t\t}, \t\tdefaultVariants: { \t\t\tsize: \"key\", \t\t\ttone: \"default\", \t\t}, \t})",
             "kind": "expression"
           },
           "isFunction": false,
@@ -13792,7 +13861,7 @@
               "column": 1
             },
             "end": {
-              "line": 16,
+              "line": 25,
               "column": 4
             }
           }
@@ -13805,11 +13874,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 34,
+              "line": 45,
               "column": 1
             },
             "end": {
-              "line": 34,
+              "line": 45,
               "column": 23
             }
           }
@@ -13831,11 +13900,11 @@
           "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 30,
+              "line": 41,
               "column": 30
             },
             "end": {
-              "line": 30,
+              "line": 41,
               "column": 46
             }
           }
@@ -13853,7 +13922,7 @@
           "column": 0
         },
         "end": {
-          "line": 71,
+          "line": 85,
           "column": 0
         }
       },
@@ -13879,11 +13948,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 38,
+              "line": 44,
               "column": 2
             },
             "end": {
-              "line": 38,
+              "line": 44,
               "column": 23
             }
           }
@@ -13900,11 +13969,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 39,
+              "line": 45,
               "column": 2
             },
             "end": {
-              "line": 39,
+              "line": 45,
               "column": 18
             }
           }
@@ -13921,12 +13990,39 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 40,
+              "line": 46,
               "column": 2
             },
             "end": {
-              "line": 40,
+              "line": 46,
               "column": 7
+            }
+          }
+        },
+        {
+          "name": "tone",
+          "kind": "let",
+          "type": "KbdTone",
+          "typeSource": "typescript",
+          "value": "'default'",
+          "defaultValue": {
+            "raw": "'default'",
+            "kind": "literal",
+            "value": "default"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 48,
+              "column": 2
+            },
+            "end": {
+              "line": 48,
+              "column": 18
             }
           }
         }
@@ -13939,11 +14035,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 67,
+              "line": 81,
               "column": 3
             },
             "end": {
-              "line": 67,
+              "line": 81,
               "column": 18
             }
           }
@@ -13965,11 +14061,11 @@
           "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 39,
+              "line": 45,
               "column": 2
             },
             "end": {
-              "line": 39,
+              "line": 45,
               "column": 18
             }
           }
@@ -19871,7 +19967,7 @@
           "column": 0
         },
         "end": {
-          "line": 98,
+          "line": 99,
           "column": 0
         }
       },
@@ -21533,7 +21629,7 @@
           "column": 0
         },
         "end": {
-          "line": 112,
+          "line": 146,
           "column": 0
         }
       },
@@ -21672,11 +21768,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 84,
+              "line": 118,
               "column": 4
             },
             "end": {
-              "line": 84,
+              "line": 118,
               "column": 26
             }
           }
@@ -21687,11 +21783,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 78,
+              "line": 112,
               "column": 8
             },
             "end": {
-              "line": 78,
+              "line": 112,
               "column": 26
             }
           }
@@ -21702,11 +21798,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 71,
+              "line": 105,
               "column": 6
             },
             "end": {
-              "line": 71,
+              "line": 105,
               "column": 22
             }
           }
@@ -21717,11 +21813,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 108,
+              "line": 142,
               "column": 6
             },
             "end": {
-              "line": 108,
+              "line": 142,
               "column": 25
             }
           }
@@ -22464,6 +22560,200 @@
           }
         }
       ],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "contexts": [],
+      "diagnostics": []
+    }
+  },
+  {
+    "file": "src/lib/icons/ExecStart.svelte",
+    "component": "ExecStart",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 47,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "size",
+          "kind": "let",
+          "type": "number",
+          "typeSource": "typescript",
+          "value": "16",
+          "defaultValue": {
+            "raw": "16",
+            "kind": "literal",
+            "value": 16
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 14,
+              "column": 4
+            },
+            "end": {
+              "line": 14,
+              "column": 13
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 15,
+              "column": 4
+            },
+            "end": {
+              "line": 15,
+              "column": 20
+            }
+          }
+        },
+        {
+          "name": "style",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 16,
+              "column": 4
+            },
+            "end": {
+              "line": 16,
+              "column": 9
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "contexts": [],
+      "diagnostics": []
+    }
+  },
+  {
+    "file": "src/lib/icons/ExecStop.svelte",
+    "component": "ExecStop",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 48,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "size",
+          "kind": "let",
+          "type": "number",
+          "typeSource": "typescript",
+          "value": "16",
+          "defaultValue": {
+            "raw": "16",
+            "kind": "literal",
+            "value": 16
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 18,
+              "column": 4
+            },
+            "end": {
+              "line": 18,
+              "column": 13
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 19,
+              "column": 4
+            },
+            "end": {
+              "line": 19,
+              "column": 20
+            }
+          }
+        },
+        {
+          "name": "style",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 20,
+              "column": 4
+            },
+            "end": {
+              "line": 20,
+              "column": 9
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
       "events": [],
       "typedefs": [],
       "generics": null,

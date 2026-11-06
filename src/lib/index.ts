@@ -4,6 +4,7 @@ export * from '@primebrick/core';
 
 export * from './utils/index.js';
 export * from './icons/composed-icons.js';
+export * from './icons/semantic-icons.js';
 
 export * from './bridges.js';
 
