@@ -207,8 +207,8 @@
                       <span class="shrink-0 text-sm text-muted-foreground">{$t('app.widgets.schedule_spec.every')}</span>
                       <div class="min-w-0 flex-1">
                         <NumericInput
-                          type="bigint"
-                          type_config={'{"validation":{"unsigned":true}}'}
+                          kind="bigint"
+                          unsigned={true}
                           bind:value={everyN}
                           data-testid="{dataTestId}-every-n"
                         />

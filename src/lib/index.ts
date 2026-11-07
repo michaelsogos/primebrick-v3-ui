@@ -18,6 +18,7 @@ export type { SparklineBucket, SparklineSeries } from './components/SparklineBar
 // `<Sheet.Root>`/`<Sheet.Content>`/…).
 export * as Sheet from './components/sheet/index.js';
 export { default as SheetPanelLayout } from './components/sheet/SheetPanelLayout.svelte';
+export { default as SheetPanelFooter } from './components/sheet/SheetPanelFooter.svelte';
 export { default as SheetHeader } from './components/sheet/SheetHeader.svelte';
 
 // Widget primitives — namespace exports mirror the FE `import * as X`
@@ -141,6 +142,7 @@ export {
 export type { SearchTrailingButton } from './components/search-input/index.js';
 export * from './components/search-input/search-syntax.js';
 export { useNumericInput } from './composables/useNumericInput.svelte.js';
+export type { NumericKind, NumericUomSpec, NumericUomCtx } from './composables/useNumericInput.svelte.js';
 export { CopyButton } from './components/copy-button/index.js';
 export type { CopyButtonProps, CopyButtonPropsWithoutHTML } from './components/copy-button/index.js';
 export { UseClipboard, copyText } from './composables/useClipboard.svelte.js';

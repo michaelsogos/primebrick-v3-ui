@@ -22,7 +22,7 @@
  * wire contract.
  */
 import { z } from 'zod';
-import { checkFieldValue, extJsonParse, type MetaColumn } from '@primebrick/core';
+import { checkFieldValue, extJsonParse, numericKindOf, dec, type MetaColumn } from '@primebrick/core';
 
 function emitIssues(col: MetaColumn, value: unknown, ctx: z.RefinementCtx): void {
 	for (const i of checkFieldValue(col, value)) {
@@ -41,14 +41,27 @@ export function fieldSpecToZod(
 	if (type === 'boolean' || pg === 'boolean') {
 		return z.boolean().superRefine((v, ctx) => emitIssues(col, v, ctx));
 	}
-	if (
-		format === 'number' ||
-		format === 'money' ||
-		pg === 'integer' ||
-		pg === 'bigint' ||
-		pg === 'numeric'
-	) {
-		return z.number().superRefine((v, ctx) => emitIssues(col, v, ctx));
+	const kind = numericKindOf(col);
+	if (kind) {
+		// The NumericInput binds a CANONICAL STRING — coerce per kind before
+		// the shared predicate runs (BigInt for int8, Decimal for exact
+		// numerics, Number for doubles). Unparseable strings stay strings and
+		// are flagged `invalid_type` by `checkFieldValue`.
+		return z.preprocess(
+			(v) => {
+				if (typeof v !== 'string') return v;
+				const t = v.trim();
+				if (t === '') return v; // required wrap / optional '' → undefined handle empties
+				try {
+					if (kind === 'bigint') return BigInt(t);
+					if (kind === 'decimal') return dec(t);
+					return Number(t);
+				} catch {
+					return v;
+				}
+			},
+			z.unknown().superRefine((v, ctx) => emitIssues(col, v, ctx)),
+		);
 	}
 	if (format === 'json' || pg === 'jsonb' || pg === 'json') {
 		// The control binds a JSON string; the parsed value is checked by

@@ -496,7 +496,7 @@
             : variant === "ghost"
               ? inputGhostChromeClasses
               : "border-primary-gradient bg-background hover:brightness-105",
-          "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+          "focus-visible:ring-ring/50 focus-visible:ring-[3px]",
           disabled
             ? "pointer-events-none cursor-not-allowed opacity-50"
             : "cursor-pointer",

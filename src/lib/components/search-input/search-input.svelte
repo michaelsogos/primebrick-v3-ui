@@ -102,8 +102,8 @@
 <InputGroup
 	class={cn(
 		variant === 'field' &&
-			'group/input w-full border-foreground/25 hover:border-foreground/40 focus-within:border-foreground/50 focus-within:ring-2 focus-within:ring-foreground/20 rounded-md transition-all duration-200',
-		variant === 'borderless' && 'border-none',
+			'group/input w-full border-foreground/25 hover:border-foreground/40 focus-within:border-foreground/50 focus-within:ring-2 focus-within:ring-foreground/20 rounded-md transition-all duration-200 bg-background dark:bg-background',
+		variant === 'borderless' && 'border-none bg-transparent dark:bg-transparent',
 		className
 	)}
 	data-testid={data_testid}

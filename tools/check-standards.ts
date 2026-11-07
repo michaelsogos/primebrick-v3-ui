@@ -89,7 +89,8 @@ type RuleId =
   | "native-control"
   | "entity-nullable-explicit"
   | "dal-access"
-  | "layer-repo-import";
+  | "layer-repo-import"
+  | "field-stock-chrome";
 
 interface Rule {
   id: RuleId;
@@ -123,10 +124,16 @@ const LINE_RULES: Rule[] = [
 // Config-gated rules — populated from `.devin/check-standards.json` (repo
 // root); absent from the config = rule off entirely. Patterns are fixed;
 // allowPaths/appliesTo come from the per-repo config.
-const GATED_RULE_IDS = new Set<RuleId>(["dal-access", "layer-repo-import"]);
+const GATED_RULE_IDS = new Set<RuleId>(["dal-access", "layer-repo-import", "field-stock-chrome"]);
 const GATED_LINE_RULES: Rule[] = [
   { id: "dal-access", pattern: /\b(?:initDal|getDal)\s*\(/, hint: "data access via this.dal/this.svc (DomainService) — getDal()/initDal() only inside the declared allowlist" },
   { id: "layer-repo-import", pattern: /(?:from\s+|import\s*\(\s*|require\s*\(\s*)["'][^"']*[-_](?:dal|repo|repository)(?:\.js|\.ts)?["']/, hint: "transport/dispatch layers must call services — never import *-dal/*-repo modules" },
+  // Stock vendored-kit color tokens have no sanctioned use in field chrome:
+  // fills are bg-background / bg-transparent / bg-muted and the focus border
+  // comes from the variant chrome (foreground/50 ghost, primary-gradient
+  // field). `bg-input` produced the sky-tinted search-input background;
+  // `border-ring` produced the blue focus border beside neutral ghost rings.
+  { id: "field-stock-chrome", pattern: /\bbg-input\b|\bborder-ring\b/, hint: "stock vendored-kit tokens — field chrome is bg-background/bg-transparent + foreground/* or border-primary-gradient + ring-ring/50 (input-anatomy); never the kit's tinted fill / blue focus border" },
 ];
 
 interface StandardsConfig {
