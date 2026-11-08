@@ -14,6 +14,7 @@
   import { EyeDashed } from '../../vendor/lucide.js';
   import { tick, type Snippet } from "svelte";
   import { inputTrailingIconColorClasses, inputGhostChromeClasses } from "../input/input-chrome.js";
+  import type { TrailingCta } from "../input/text-input.svelte";
   import { menuListSelectedSurfaceDropdownClasses } from "../menu-row-chrome.js";
   import DynamicIcon from "../dynamic-icon/DynamicIcon.svelte";
 
@@ -154,6 +155,14 @@
      */
     defaultSearch?: string;
     /**
+     * Trigger trailing zone extras — same contract as TextInput:
+     *   `trailing`      — non-CTA content (badges, indicators), left of ctas.
+     *   `trailing_ctas` — icon CTAs (`inputTrailingIconColorClasses` chrome),
+     *                     left of the clear button; array order = L→R.
+     */
+    trailing?: Snippet;
+    trailing_ctas?: TrailingCta[];
+    /**
      * Where the ellipsis goes when the selected value / option text
      * overflows: `'end'` (default, classic `truncate`) or `'start'`
      * (leading `…`, tail stays visible — for long keys whose meaningful
@@ -218,6 +227,8 @@
     onLoadMore,
     loadingMore = false,
     defaultSearch = '',
+    trailing,
+    trailing_ctas,
     truncateFrom = 'end',
     "aria-invalid": ariaInvalid,
     "aria-describedby": ariaDescribedby,
@@ -599,6 +610,23 @@
           {/if}
         {/if}
         <div class="ml-auto flex items-center gap-1 shrink-0">
+          {#if trailing}
+            {@render trailing()}
+          {/if}
+          {#each trailing_ctas ?? [] as cta (cta.label)}
+            <button
+              type="button"
+              onpointerdown={(e) => e.stopPropagation()}
+              onclick={(e) => { e.stopPropagation(); cta.onclick(); }}
+              class={inputTrailingIconColorClasses}
+              aria-label={cta.label}
+              title={cta.label}
+              disabled={cta.disabled}
+              data-testid={cta["data-testid"]}
+            >
+              <DynamicIcon name={cta.icon} size={16} />
+            </button>
+          {/each}
           {#if mode === "single" && !disabled}
             <button
               type="button"

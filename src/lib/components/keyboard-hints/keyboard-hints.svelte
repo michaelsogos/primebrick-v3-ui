@@ -29,14 +29,18 @@
 	/**
 	 * KeyboardHints — the canonical keybind legend row.
 	 *
-	 *   [↑][↓] label · [space] label · [esc] label              [end]
+	 *   row:    [↑][↓] label · [space] label · [esc] label        [end]
+	 *   median:        label | [↑][↓]   (labels right-aligned to
+	 *              Move      [Space]    a center axis, chips grow
+	 *              Select    [Esc]      left-aligned off it)
 	 *
 	 * One component for every surface that lists keyboard shortcuts —
 	 * the app-launcher footer and the EntityListTable footer both render
 	 * this. The caller owns the outer chrome (border-t, bg, padding) via
 	 * `class`; this renders the hints row itself. `end` is an optional
 	 * trailing snippet (ms-auto) for toggles like the launcher's
-	 * "show all" switch.
+	 * "show all" switch. `layout='median'` is for vertical lists
+	 * (tooltips, popovers) — horizontal strips keep the default 'row'.
 	 */
 	import type { HTMLAttributes } from 'svelte/elements';
 	import type { Snippet } from 'svelte';
@@ -49,6 +53,7 @@
 		hints,
 		end,
 		tone = 'default',
+		layout = 'row',
 		...restProps
 	}: WithElementRef<HTMLAttributes<HTMLElement>, HTMLElement> & {
 		/** Ordered hint groups — keys first, translated label after. */
@@ -57,6 +62,8 @@
 		end?: Snippet;
 		/** Chip tone — 'inverted' when rendered on the dark tooltip surface. */
 		tone?: KbdTone;
+		/** 'row' = inline chip·label flow; 'median' = two 50% columns, labels right-aligned to the center axis. */
+		layout?: 'row' | 'median';
 	} = $props();
 </script>
 
@@ -66,20 +73,31 @@
 	class={cn('flex items-center gap-3 text-[11px] text-muted-foreground', className)}
 	{...restProps}
 >
+	{#snippet chips(hint: KeyboardHint)}
+		{#each hint.keys as key, j (j)}
+			{#if typeof key === 'string'}
+				<Kbd size={hint.size ?? 'key'} {tone}>{key}</Kbd>
+			{:else if typeof key === 'function'}
+				{@const Icon = key}
+				<Kbd size={hint.size?.endsWith('-lg') ? 'icon-lg' : 'icon'} {tone}><Icon /></Kbd>
+			{:else}
+				<Kbd size={hint.size ?? 'key'} {tone}>{key.label}<span class="ms-1 text-base leading-none">{key.glyph}</span></Kbd>
+			{/if}
+		{/each}
+	{/snippet}
+
 	{#each hints as hint, i (i)}
-		<span class="inline-flex items-center gap-1">
-			{#each hint.keys as key, j (j)}
-				{#if typeof key === 'string'}
-					<Kbd size={hint.size ?? 'key'} {tone}>{key}</Kbd>
-				{:else if typeof key === 'function'}
-					{@const Icon = key}
-					<Kbd size={hint.size?.endsWith('-lg') ? 'icon-lg' : 'icon'} {tone}><Icon /></Kbd>
-				{:else}
-					<Kbd size={hint.size ?? 'key'} {tone}>{key.label}<span class="ms-1 text-base leading-none">{key.glyph}</span></Kbd>
-				{/if}
-			{/each}
-			{#if hint.label}<span>{hint.label}</span>{/if}
-		</span>
+		{#if layout === 'median'}
+			<span class="grid w-full grid-cols-2 items-center gap-x-1.5">
+				<span class="justify-self-end text-right">{#if hint.label}{hint.label}{/if}</span>
+				<span class="inline-flex items-center gap-1 justify-self-start">{@render chips(hint)}</span>
+			</span>
+		{:else}
+			<span class="inline-flex items-center gap-1">
+				{@render chips(hint)}
+				{#if hint.label}<span>{hint.label}</span>{/if}
+			</span>
+		{/if}
 	{/each}
 	{#if end}
 		<div class="ms-auto">

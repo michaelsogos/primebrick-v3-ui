@@ -3660,7 +3660,7 @@
           "column": 0
         },
         "end": {
-          "line": 816,
+          "line": 844,
           "column": 0
         }
       },
@@ -3679,11 +3679,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 183,
+              "line": 192,
               "column": 4
             },
             "end": {
-              "line": 183,
+              "line": 192,
               "column": 8
             }
           }
@@ -3701,11 +3701,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 184,
+              "line": 193,
               "column": 4
             },
             "end": {
-              "line": 184,
+              "line": 193,
               "column": 23
             }
           }
@@ -3722,11 +3722,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 185,
+              "line": 194,
               "column": 4
             },
             "end": {
-              "line": 185,
+              "line": 194,
               "column": 12
             }
           }
@@ -3743,11 +3743,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 186,
+              "line": 195,
               "column": 4
             },
             "end": {
-              "line": 186,
+              "line": 195,
               "column": 11
             }
           }
@@ -3764,11 +3764,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 187,
+              "line": 196,
               "column": 4
             },
             "end": {
-              "line": 187,
+              "line": 196,
               "column": 14
             }
           }
@@ -3785,11 +3785,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 188,
+              "line": 197,
               "column": 4
             },
             "end": {
-              "line": 188,
+              "line": 197,
               "column": 14
             }
           }
@@ -3812,11 +3812,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 189,
+              "line": 198,
               "column": 4
             },
             "end": {
-              "line": 189,
+              "line": 198,
               "column": 29
             }
           }
@@ -3839,11 +3839,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 190,
+              "line": 199,
               "column": 4
             },
             "end": {
-              "line": 190,
+              "line": 199,
               "column": 29
             }
           }
@@ -3866,11 +3866,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 191,
+              "line": 200,
               "column": 4
             },
             "end": {
-              "line": 191,
+              "line": 200,
               "column": 20
             }
           }
@@ -3893,11 +3893,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 192,
+              "line": 201,
               "column": 4
             },
             "end": {
-              "line": 192,
+              "line": 201,
               "column": 19
             }
           }
@@ -3914,11 +3914,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 193,
+              "line": 202,
               "column": 4
             },
             "end": {
-              "line": 193,
+              "line": 202,
               "column": 6
             }
           }
@@ -3941,11 +3941,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 194,
+              "line": 203,
               "column": 4
             },
             "end": {
-              "line": 194,
+              "line": 203,
               "column": 21
             }
           }
@@ -3967,11 +3967,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 195,
+              "line": 204,
               "column": 4
             },
             "end": {
-              "line": 195,
+              "line": 204,
               "column": 33
             }
           }
@@ -3994,11 +3994,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 196,
+              "line": 205,
               "column": 4
             },
             "end": {
-              "line": 196,
+              "line": 205,
               "column": 23
             }
           }
@@ -4021,11 +4021,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 197,
+              "line": 206,
               "column": 4
             },
             "end": {
-              "line": 197,
+              "line": 206,
               "column": 24
             }
           }
@@ -4042,11 +4042,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 198,
+              "line": 207,
               "column": 4
             },
             "end": {
-              "line": 198,
+              "line": 207,
               "column": 18
             }
           }
@@ -4063,11 +4063,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 199,
+              "line": 208,
               "column": 4
             },
             "end": {
-              "line": 199,
+              "line": 208,
               "column": 20
             }
           }
@@ -4090,11 +4090,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 200,
+              "line": 209,
               "column": 4
             },
             "end": {
-              "line": 200,
+              "line": 209,
               "column": 20
             }
           }
@@ -4117,11 +4117,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 201,
+              "line": 210,
               "column": 4
             },
             "end": {
-              "line": 201,
+              "line": 210,
               "column": 26
             }
           }
@@ -4144,11 +4144,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 202,
+              "line": 211,
               "column": 4
             },
             "end": {
-              "line": 202,
+              "line": 211,
               "column": 23
             }
           }
@@ -4171,11 +4171,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 203,
+              "line": 212,
               "column": 4
             },
             "end": {
-              "line": 203,
+              "line": 212,
               "column": 35
             }
           }
@@ -4198,11 +4198,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 204,
+              "line": 213,
               "column": 4
             },
             "end": {
-              "line": 204,
+              "line": 213,
               "column": 33
             }
           }
@@ -4219,11 +4219,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 205,
+              "line": 214,
               "column": 4
             },
             "end": {
-              "line": 205,
+              "line": 214,
               "column": 13
             }
           }
@@ -4240,11 +4240,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 206,
+              "line": 215,
               "column": 4
             },
             "end": {
-              "line": 206,
+              "line": 215,
               "column": 18
             }
           }
@@ -4261,11 +4261,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 207,
+              "line": 216,
               "column": 4
             },
             "end": {
-              "line": 207,
+              "line": 216,
               "column": 13
             }
           }
@@ -4282,11 +4282,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 208,
+              "line": 217,
               "column": 4
             },
             "end": {
-              "line": 208,
+              "line": 217,
               "column": 19
             }
           }
@@ -4303,11 +4303,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 210,
+              "line": 219,
               "column": 4
             },
             "end": {
-              "line": 210,
+              "line": 219,
               "column": 20
             }
           }
@@ -4324,11 +4324,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 211,
+              "line": 220,
               "column": 4
             },
             "end": {
-              "line": 211,
+              "line": 220,
               "column": 18
             }
           }
@@ -4345,11 +4345,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 212,
+              "line": 221,
               "column": 4
             },
             "end": {
-              "line": 212,
+              "line": 221,
               "column": 21
             }
           }
@@ -4372,11 +4372,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 213,
+              "line": 222,
               "column": 4
             },
             "end": {
-              "line": 213,
+              "line": 222,
               "column": 26
             }
           }
@@ -4399,11 +4399,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 215,
+              "line": 224,
               "column": 4
             },
             "end": {
-              "line": 215,
+              "line": 224,
               "column": 23
             }
           }
@@ -4420,11 +4420,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 216,
+              "line": 225,
               "column": 4
             },
             "end": {
-              "line": 216,
+              "line": 225,
               "column": 12
             }
           }
@@ -4441,11 +4441,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 217,
+              "line": 226,
               "column": 4
             },
             "end": {
-              "line": 217,
+              "line": 226,
               "column": 17
             }
           }
@@ -4462,11 +4462,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 218,
+              "line": 227,
               "column": 4
             },
             "end": {
-              "line": 218,
+              "line": 227,
               "column": 14
             }
           }
@@ -4489,11 +4489,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 219,
+              "line": 228,
               "column": 4
             },
             "end": {
-              "line": 219,
+              "line": 228,
               "column": 23
             }
           }
@@ -4516,12 +4516,33 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 220,
+              "line": 229,
               "column": 4
             },
             "end": {
-              "line": 220,
+              "line": 229,
               "column": 22
+            }
+          }
+        },
+        {
+          "name": "trailing_ctas",
+          "kind": "let",
+          "type": "TrailingCta[]",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 231,
+              "column": 4
+            },
+            "end": {
+              "line": 231,
+              "column": 17
             }
           }
         },
@@ -4543,11 +4564,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 221,
+              "line": 232,
               "column": 4
             },
             "end": {
-              "line": 221,
+              "line": 232,
               "column": 24
             }
           }
@@ -4565,11 +4586,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 222,
+              "line": 233,
               "column": 4
             },
             "end": {
-              "line": 222,
+              "line": 233,
               "column": 31
             }
           }
@@ -4587,11 +4608,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 223,
+              "line": 234,
               "column": 4
             },
             "end": {
-              "line": 223,
+              "line": 234,
               "column": 39
             }
           }
@@ -4609,11 +4630,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 224,
+              "line": 235,
               "column": 4
             },
             "end": {
-              "line": 224,
+              "line": 235,
               "column": 33
             }
           }
@@ -4631,11 +4652,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 225,
+              "line": 236,
               "column": 4
             },
             "end": {
-              "line": 225,
+              "line": 236,
               "column": 32
             }
           }
@@ -4658,11 +4679,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 226,
+              "line": 237,
               "column": 4
             },
             "end": {
-              "line": 226,
+              "line": 237,
               "column": 23
             }
           }
@@ -4680,11 +4701,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 227,
+              "line": 238,
               "column": 4
             },
             "end": {
-              "line": 227,
+              "line": 238,
               "column": 20
             }
           }
@@ -4701,11 +4722,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 228,
+              "line": 239,
               "column": 4
             },
             "end": {
-              "line": 228,
+              "line": 239,
               "column": 29
             }
           }
@@ -4719,11 +4740,11 @@
           "slot_props": "{\n  option: any;\n  selected: any;\n  resolvedLabel: any;\n  resolvedValue: any;\n}",
           "source": {
             "start": {
-              "line": 750,
+              "line": 778,
               "column": 18
             },
             "end": {
-              "line": 755,
+              "line": 783,
               "column": 21
             }
           }
@@ -4734,12 +4755,27 @@
           "slot_props": "{\n  option: any;\n  resolvedLabel: any;\n  resolvedValue: any;\n}",
           "source": {
             "start": {
-              "line": 552,
+              "line": 563,
               "column": 14
             },
             "end": {
-              "line": 556,
+              "line": 567,
               "column": 17
+            }
+          }
+        },
+        {
+          "name": "trailing",
+          "default": false,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 614,
+              "column": 12
+            },
+            "end": {
+              "line": 614,
+              "column": 32
             }
           }
         }
@@ -4756,11 +4792,11 @@
           "message": "Prop \"data-testid\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 228,
+              "line": 239,
               "column": 4
             },
             "end": {
-              "line": 228,
+              "line": 239,
               "column": 29
             }
           }
@@ -14012,7 +14048,7 @@
           "column": 0
         },
         "end": {
-          "line": 90,
+          "line": 108,
           "column": 0
         }
       },
@@ -14038,11 +14074,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 47,
+              "line": 51,
               "column": 2
             },
             "end": {
-              "line": 47,
+              "line": 51,
               "column": 23
             }
           }
@@ -14059,11 +14095,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 48,
+              "line": 52,
               "column": 2
             },
             "end": {
-              "line": 48,
+              "line": 52,
               "column": 18
             }
           }
@@ -14080,11 +14116,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 49,
+              "line": 53,
               "column": 2
             },
             "end": {
-              "line": 49,
+              "line": 53,
               "column": 7
             }
           }
@@ -14107,12 +14143,39 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 51,
+              "line": 55,
               "column": 2
             },
             "end": {
-              "line": 51,
+              "line": 55,
               "column": 18
+            }
+          }
+        },
+        {
+          "name": "layout",
+          "kind": "let",
+          "type": "'row' | 'median'",
+          "typeSource": "typescript",
+          "value": "'row'",
+          "defaultValue": {
+            "raw": "'row'",
+            "kind": "literal",
+            "value": "row"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 56,
+              "column": 2
+            },
+            "end": {
+              "line": 56,
+              "column": 16
             }
           }
         }
@@ -14125,11 +14188,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 86,
+              "line": 104,
               "column": 3
             },
             "end": {
-              "line": 86,
+              "line": 104,
               "column": 18
             }
           }
@@ -14151,11 +14214,11 @@
           "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 48,
+              "line": 52,
               "column": 2
             },
             "end": {
-              "line": 48,
+              "line": 52,
               "column": 18
             }
           }
