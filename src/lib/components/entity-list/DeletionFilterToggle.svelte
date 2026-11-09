@@ -16,13 +16,13 @@
   const t = getT();
 
   const modes = [
-    { key: 'non_deleted', icon: ListCheck, titleKey: 'system.entities.list.deletionFilter.nonDeleted' },
-    { key: 'deleted', icon: ListX, titleKey: 'system.entities.list.deletionFilter.deleted' },
-    { key: 'all', icon: TextAlignJustify, titleKey: 'system.entities.list.deletionFilter.all' },
+    { key: 'non_deleted', icon: ListCheck, titleKey: 'system.entities.list.deletion_filter.non_deleted' },
+    { key: 'deleted', icon: ListX, titleKey: 'system.entities.list.deletion_filter.deleted' },
+    { key: 'all', icon: TextAlignJustify, titleKey: 'system.entities.list.deletion_filter.all' },
   ] as const;
 </script>
 
-<ButtonGroup segmented aria-label={$t('system.entities.list.deletionFilter.groupAria')}>
+<ButtonGroup segmented aria-label={$t('system.entities.list.deletion_filter.group_aria')}>
   {#each modes as mode (mode.key)}
     {@const active = deletionFilterMode === mode.key}
     <Button

@@ -42,9 +42,9 @@
   />
   <span class="text-sm text-muted-foreground select-none mr-1">
     {#if all_selected}
-      {$t('app.common.deselectAll')}
+      {$t('app.common.deselect_all')}
     {:else}
-      {$t('app.common.selectAll')}
+      {$t('app.common.select_all')}
     {/if}
   </span>
   {#if selected_count > 0}

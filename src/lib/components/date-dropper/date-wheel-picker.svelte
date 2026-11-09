@@ -24,7 +24,7 @@
 	 * timezone resolve to; date-only compares calendar days; `timeOnly`
 	 * carries no calendar so the bound is not applicable.
 	 */
-	let { value = $bindable(), placeholder = $t("app.common.selectDate"), includeTime = false, timeOnly = false, defaultTime = undefined, minValue = undefined, timezone = $bindable(), dataTestId = undefined, id = undefined, disabled = false } = $props();
+	let { value = $bindable(), placeholder = $t("app.common.select_date"), includeTime = false, timeOnly = false, defaultTime = undefined, minValue = undefined, timezone = $bindable(), dataTestId = undefined, id = undefined, disabled = false } = $props();
 	let isOpen = $state(false);
 	let activeTab = $state<"date" | "time">("date");
 

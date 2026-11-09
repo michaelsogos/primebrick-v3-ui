@@ -50,4 +50,4 @@
   });
 </script>
 
-{segments.pre}<span class="font-semibold">{entityDefinite}</span>{segments.mid}{#if recordName}&nbsp;<em class="font-semibold">"{recordName}"</em>{/if}{segments.post}{#if action === 'delete' && !confirm_key}<span class="mt-1 block">{$t('app.common.deleteConfirm')}</span>{/if}
+{segments.pre}<span class="font-semibold">{entityDefinite}</span>{segments.mid}{#if recordName}&nbsp;<em class="font-semibold">"{recordName}"</em>{/if}{segments.post}{#if action === 'delete' && !confirm_key}<span class="mt-1 block">{$t('app.common.delete_confirm')}</span>{/if}

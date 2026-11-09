@@ -633,8 +633,8 @@
               onpointerdown={(e) => e.stopPropagation()}
               onclick={(e) => { e.stopPropagation(); handleClearSingle(); }}
               class={inputTrailingIconColorClasses}
-              aria-label={$t("app.common.clearSelection")}
-              title={$t("app.common.clearSelection")}
+              aria-label={$t("app.common.clear_selection")}
+              title={$t("app.common.clear_selection")}
               disabled={!value}
             >
               <Eraser />
@@ -646,8 +646,8 @@
               onpointerdown={(e) => e.stopPropagation()}
               onclick={(e) => { e.stopPropagation(); handleClearMulti(); }}
               class={inputTrailingIconColorClasses}
-              aria-label={$t("app.common.clearSelection")}
-              title={$t("app.common.clearSelection")}
+              aria-label={$t("app.common.clear_selection")}
+              title={$t("app.common.clear_selection")}
               disabled={selectedValues.length === 0}
             >
               <Eraser />
@@ -692,8 +692,8 @@
                   showDisabledOptions = !showDisabledOptions;
                 }}
                 class={cn(inputTrailingIconColorClasses, showDisabledOptions && "text-foreground")}
-                aria-label={$t(showDisabledOptions ? "app.common.hideDisabledOptions" : "app.common.showDisabledOptions")}
-                title={$t(showDisabledOptions ? "app.common.hideDisabledOptions" : "app.common.showDisabledOptions")}
+                aria-label={$t(showDisabledOptions ? "app.common.hide_disabled_options" : "app.common.show_disabled_options")}
+                title={$t(showDisabledOptions ? "app.common.hide_disabled_options" : "app.common.show_disabled_options")}
                 aria-pressed={showDisabledOptions}
                 data-testid={dataTestId ? `${dataTestId}-toggle-disabled` : undefined}
               >
@@ -733,7 +733,7 @@
           </Command.Item>
         {/if}
         {#if visibleOptions.length === 0 && !showCreateItem}
-          <Command.Empty>{$t('app.common.noResults')}</Command.Empty>
+          <Command.Empty>{$t('app.common.no_results')}</Command.Empty>
         {:else if visibleOptions.length > 0}
           {#each visibleOptions as opt (opt.value)}
             {@const isDisabled = isOptionDisabled ? isOptionDisabled(opt.raw) : false}
