@@ -2024,6 +2024,59 @@
     }
   },
   {
+    "file": "src/lib/components/ai-typing-dots/ai-typing-dots.svelte",
+    "component": "ai-typing-dots",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 48,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 18,
+              "column": 8
+            },
+            "end": {
+              "line": 18,
+              "column": 24
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "Element",
+        "name": "span"
+      },
+      "contexts": [],
+      "diagnostics": []
+    }
+  },
+  {
     "file": "src/lib/components/badge/badge.svelte",
     "component": "badge",
     "data": {
@@ -6837,9 +6890,9 @@
           "name": "placeholder",
           "kind": "let",
           "typeSource": "unknown",
-          "value": "$t(\"app.common.selectDate\")",
+          "value": "$t(\"app.common.select_date\")",
           "defaultValue": {
-            "raw": "$t(\"app.common.selectDate\")",
+            "raw": "$t(\"app.common.select_date\")",
             "kind": "expression"
           },
           "isFunction": false,
@@ -6854,7 +6907,7 @@
             },
             "end": {
               "line": 27,
-              "column": 69
+              "column": 70
             }
           }
         },
@@ -6877,11 +6930,11 @@
           "source": {
             "start": {
               "line": 27,
-              "column": 71
+              "column": 72
             },
             "end": {
               "line": 27,
-              "column": 90
+              "column": 91
             }
           }
         },
@@ -6904,11 +6957,11 @@
           "source": {
             "start": {
               "line": 27,
-              "column": 92
+              "column": 93
             },
             "end": {
               "line": 27,
-              "column": 108
+              "column": 109
             }
           }
         },
@@ -6929,11 +6982,11 @@
           "source": {
             "start": {
               "line": 27,
-              "column": 110
+              "column": 111
             },
             "end": {
               "line": 27,
-              "column": 133
+              "column": 134
             }
           }
         },
@@ -6954,11 +7007,11 @@
           "source": {
             "start": {
               "line": 27,
-              "column": 135
+              "column": 136
             },
             "end": {
               "line": 27,
-              "column": 155
+              "column": 156
             }
           }
         },
@@ -6975,11 +7028,11 @@
           "source": {
             "start": {
               "line": 27,
-              "column": 157
+              "column": 158
             },
             "end": {
               "line": 27,
-              "column": 179
+              "column": 180
             }
           }
         },
@@ -7000,11 +7053,11 @@
           "source": {
             "start": {
               "line": 27,
-              "column": 181
+              "column": 182
             },
             "end": {
               "line": 27,
-              "column": 203
+              "column": 204
             }
           }
         },
@@ -7025,11 +7078,11 @@
           "source": {
             "start": {
               "line": 27,
-              "column": 205
+              "column": 206
             },
             "end": {
               "line": 27,
-              "column": 219
+              "column": 220
             }
           }
         },
@@ -7052,11 +7105,11 @@
           "source": {
             "start": {
               "line": 27,
-              "column": 221
+              "column": 222
             },
             "end": {
               "line": 27,
-              "column": 237
+              "column": 238
             }
           }
         }
@@ -7096,7 +7149,7 @@
             },
             "end": {
               "line": 27,
-              "column": 69
+              "column": 70
             }
           }
         },
@@ -7108,11 +7161,11 @@
           "source": {
             "start": {
               "line": 27,
-              "column": 110
+              "column": 111
             },
             "end": {
               "line": 27,
-              "column": 133
+              "column": 134
             }
           }
         },
@@ -7124,11 +7177,11 @@
           "source": {
             "start": {
               "line": 27,
-              "column": 135
+              "column": 136
             },
             "end": {
               "line": 27,
-              "column": 155
+              "column": 156
             }
           }
         },
@@ -7140,11 +7193,11 @@
           "source": {
             "start": {
               "line": 27,
-              "column": 157
+              "column": 158
             },
             "end": {
               "line": 27,
-              "column": 179
+              "column": 180
             }
           }
         },
@@ -7156,11 +7209,11 @@
           "source": {
             "start": {
               "line": 27,
-              "column": 181
+              "column": 182
             },
             "end": {
               "line": 27,
-              "column": 203
+              "column": 204
             }
           }
         },
@@ -7172,11 +7225,11 @@
           "source": {
             "start": {
               "line": 27,
-              "column": 205
+              "column": 206
             },
             "end": {
               "line": 27,
-              "column": 219
+              "column": 220
             }
           }
         }
