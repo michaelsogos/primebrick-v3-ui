@@ -19,8 +19,43 @@
   import DynamicIcon from "../dynamic-icon/DynamicIcon.svelte";
 
   type ComboSelectMode = "single" | "multi";
+  type MultiBadgeMode = 'icon-label' | 'label' | 'icon';
 
-  type Props = {
+  /**
+   * Multi-mode selected-badge anatomy — opt-in via `multiBadge`:
+   *   'icon-label' (default) — resolved icon/flag + label + remove-X;
+   *   'label'                — label + remove-X (pre-feature render);
+   *   'icon'                 — icon/flag + remove-X only — REQUIRES
+   *                            `iconField` or `flagField` at the type level
+   *                            (icon-only without an icon source is a
+   *                            construction error, not a runtime fallback).
+   * An option whose icon/flag resolves null under 'icon' renders its label
+   * instead (label is always resolvable) — DEV warns once per value.
+   */
+  type MultiBadgeProps =
+    | {
+        /**
+         * Option field carrying a Lucide icon name — rendered via `DynamicIcon`
+         * before the label in option rows, in the single-mode selected
+         * display, and in multi badges per `multiBadge`. Ignored under
+         * display='custom' (the snippet owns rendering).
+         */
+        iconField?: string;
+        /** Option field carrying a flag-icons COUNTRY CODE (`gb`, `it`…) —
+         *  rendered as `<span class="fi fi-{code}">` in option rows, in the
+         *  single-mode selected display, and in multi badges per
+         *  `multiBadge`. Requires the host app's `flag-icons` stylesheet
+         *  (the `fi`/`fi-{cc}` classes live there). Ignored under
+         *  display='custom'. */
+        flagField?: string;
+        multiBadge?: 'icon-label' | 'label';
+      }
+    | ({ multiBadge: 'icon' } & (
+        | { iconField: string; flagField?: string }
+        | { flagField: string; iconField?: string }
+      ));
+
+  type CommonProps = {
     mode: ComboSelectMode;
     value: string | string[];
     onChange?: (value: string | string[]) => void;
@@ -67,21 +102,21 @@
     /** The secondaryField value is an i18n key — translate via $t. */
     isSecondaryTranslated?: boolean;
     /**
-     * Option field carrying a Lucide icon name — rendered via `DynamicIcon`
-     * before the label in option rows AND in the single-mode selected
-     * display. Ignored under display='custom' (the snippet owns rendering).
+     * Multi-mode collapse threshold — `selectedValues.length > N` swaps
+     * the whole badge list for ONE summary chip ("N selected",
+     * `app.common.selected_count.one|other` — the plural pair is picked
+     * in code, the canonical `.one`/`.other` contract). **Defaults to 1**: two or more
+     * selections collapse — stacking badges never inflates the trigger
+     * height. Per-value removal stays available in the dropdown; the
+     * trailing eraser still clears all. The chip is
+     * `variant="destructive"` when any selected value fails
+     * `isValueInvalid`. Pass a higher N to keep more badges visible.
      */
-    iconField?: string;
+    multiSummaryAt?: number;
     /** Option field carrying a color TOKEN (`amber-500` — the badge
      *  vocabulary, resolved to a real CSS color so no safelisted class is
      *  needed); unset → inherits `text-muted-foreground`. */
     iconColorField?: string;
-    /** Option field carrying a flag-icons COUNTRY CODE (`gb`, `it`…) —
-     *  rendered as `<span class="fi fi-{code}">` before the label in option
-     *  rows AND in the single-mode selected display. Requires the host app's
-     *  `flag-icons` stylesheet (the `fi`/`fi-{cc}` classes live there).
-     *  Ignored under display='custom'. */
-    flagField?: string;
     /** Option field carrying a boolean — when truthy the option icon
      *  renders with dashed strokes (`stroke-dasharray`) instead of solid.
      *  Works on ANY lucide icon, mirroring the lucide `*-dashed` variants
@@ -188,6 +223,8 @@
     [key: string]: unknown;
   };
 
+  type Props = CommonProps & MultiBadgeProps;
+
   let {
     mode,
     value = $bindable(),
@@ -215,6 +252,8 @@
     iconColorField,
     flagField,
     iconDashedField,
+    multiBadge = 'icon-label',
+    multiSummaryAt = 1,
     itemSnippet,
     isOptionDisabled,
     isValueInvalid,
@@ -423,6 +462,30 @@
     syncChange([]);
   }
 
+  // Summary collapse — `multiSummaryAt` (default 1) swaps the per-value
+  // badge list for ONE "N selected" chip (see the prop docs).
+  let summaryActive = $derived(
+    multiSummaryAt != null && selectedValues.length > multiSummaryAt,
+  );
+
+  // 'icon' badges without a resolvable icon/flag fall back to the label —
+  // visible degradation (label is always resolvable), never an empty pill.
+  // DEV warns once per offending value so sparse icon data is actionable.
+  let warnedBadgeNoIcon = new Set<string>();
+  $effect(() => {
+    if (!DEV || mode !== 'multi' || multiBadge !== 'icon') return;
+    for (const v of selectedValues) {
+      if (warnedBadgeNoIcon.has(v)) continue;
+      const opt = normalizedOptions.find((o) => o.value === v);
+      if (opt && !resolveIcon(opt.raw) && !resolveFlag(opt.raw)) {
+        warnedBadgeNoIcon.add(v);
+        console.warn(
+          `[ComboSelect] multiBadge="icon": option "${v}" resolves no icon/flag — badge renders its label.`,
+        );
+      }
+    }
+  });
+
   // --- Filtering ---
 
   let filteredOptions = $derived.by<NormalizedOption[]>(() => {
@@ -586,26 +649,57 @@
             </span>
           {:else}
             <div class="flex flex-1 flex-wrap gap-2 items-center text-left">
-              {#each selectedValues as val (val)}
-                {@const opt = normalizedOptions.find((o) => o.value === val)}
-                {@const invalid = isValueInvalid?.(val) ?? false}
-                <Badge variant={invalid ? 'destructive' : 'secondary'} class="gap-1" data-invalid={invalid || undefined}>
-                  {opt?.label ?? val}
-                  {#if !disabled}
-                    <button
-                      type="button"
-                      onpointerdown={(e) => e.stopPropagation()}
-                      onclick={(e) => {
-                        e.stopPropagation();
-                        handleRemoveMulti(val);
-                      }}
-                      class="rounded-full hover:bg-muted hover:text-foreground p-0.5"
-                    >
-                      <X class="h-3 w-3" />
-                    </button>
-                  {/if}
+              {#if summaryActive}
+                {@const anyInvalid = selectedValues.some((v) => isValueInvalid?.(v) ?? false)}
+                <Badge variant={anyInvalid ? 'destructive' : 'secondary'} class="gap-1" data-invalid={anyInvalid || undefined}>
+                  {$t(
+                    selectedValues.length === 1
+                      ? 'app.common.selected_count.one'
+                      : 'app.common.selected_count.other',
+                    { count: selectedValues.length },
+                  )}
                 </Badge>
-              {/each}
+              {:else}
+                {#each selectedValues as val (val)}
+                  {@const opt = normalizedOptions.find((o) => o.value === val)}
+                  {@const invalid = isValueInvalid?.(val) ?? false}
+                  {@const optIcon = opt ? resolveIcon(opt.raw) : null}
+                  {@const optFlag = opt ? resolveFlag(opt.raw) : null}
+                  {@const showGlyph = multiBadge !== 'label' && (optIcon != null || optFlag != null)}
+                  {@const showLabel = multiBadge !== 'icon' || !showGlyph}
+                  <Badge variant={invalid ? 'destructive' : 'secondary'} class="gap-1" data-invalid={invalid || undefined}>
+                    {#if showGlyph}
+                      {#if optIcon}
+                        {@const optIconColor = opt ? resolveIconColor(opt.raw) : null}
+                        <DynamicIcon
+                          name={optIcon}
+                          size={12}
+                          class="shrink-0"
+                          style={optIconColor ? `color:${optIconColor}` : undefined}
+                        />
+                      {:else if optFlag}
+                        <span class={`fi fi-${optFlag} shrink-0 rounded-sm`} aria-hidden="true"></span>
+                      {/if}
+                    {/if}
+                    {#if showLabel}
+                      {opt?.label ?? val}
+                    {/if}
+                    {#if !disabled}
+                      <button
+                        type="button"
+                        onpointerdown={(e) => e.stopPropagation()}
+                        onclick={(e) => {
+                          e.stopPropagation();
+                          handleRemoveMulti(val);
+                        }}
+                        class="rounded-full hover:bg-muted hover:text-foreground p-0.5"
+                      >
+                        <X class="h-3 w-3" />
+                      </button>
+                    {/if}
+                  </Badge>
+                {/each}
+              {/if}
             </div>
           {/if}
         {/if}

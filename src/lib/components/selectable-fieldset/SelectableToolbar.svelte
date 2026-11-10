@@ -47,8 +47,8 @@
       {$t('app.common.select_all')}
     {/if}
   </span>
-  {#if selected_count > 0}
+  {#if selected_count > 0 && children}
     <div class="h-5 w-px bg-border mx-1" aria-hidden="true"></div>
-    {@render children?.()}
+    {@render children()}
   {/if}
 </div>
