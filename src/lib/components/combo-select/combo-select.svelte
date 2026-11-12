@@ -631,7 +631,7 @@
             {:else}
               <!-- Created-value chip hugs its content up to the trigger's
                    max, then ellipsizes — never stretches across the input. -->
-              <Badge variant="outline" class="gap-1 border-primary-gradient-soft text-foreground w-fit max-w-full justify-start">
+              <Badge variant="outline" class={cn("gap-1 border-primary-gradient-soft text-foreground w-fit max-w-full justify-start", disabled && "bg-background")}>
                 <span class={cn("min-w-0 text-left", truncateFrom === 'start' ? 'truncate-start' : 'truncate')}>
                   {value as string}
                 </span>
@@ -651,7 +651,7 @@
             <div class="flex flex-1 flex-wrap gap-2 items-center text-left">
               {#if summaryActive}
                 {@const anyInvalid = selectedValues.some((v) => isValueInvalid?.(v) ?? false)}
-                <Badge variant={anyInvalid ? 'destructive' : 'secondary'} class="gap-1" data-invalid={anyInvalid || undefined}>
+                <Badge variant={anyInvalid ? 'destructive' : 'secondary'} class={cn("gap-1", disabled && "bg-background")} data-invalid={anyInvalid || undefined}>
                   {$t(
                     selectedValues.length === 1
                       ? 'app.common.selected_count.one'
@@ -667,7 +667,7 @@
                   {@const optFlag = opt ? resolveFlag(opt.raw) : null}
                   {@const showGlyph = multiBadge !== 'label' && (optIcon != null || optFlag != null)}
                   {@const showLabel = multiBadge !== 'icon' || !showGlyph}
-                  <Badge variant={invalid ? 'destructive' : 'secondary'} class="gap-1" data-invalid={invalid || undefined}>
+                  <Badge variant={invalid ? 'destructive' : 'secondary'} class={cn("gap-1", disabled && "bg-background")} data-invalid={invalid || undefined}>
                     {#if showGlyph}
                       {#if optIcon}
                         {@const optIconColor = opt ? resolveIconColor(opt.raw) : null}
