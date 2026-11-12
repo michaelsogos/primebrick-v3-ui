@@ -1,3 +1,9 @@
 {
-  "pages": ["overview", "numeric-input", "utilities", "special-icons"]
+  "pages": [
+    "overview",
+    "numeric-input",
+    "state-hero",
+    "utilities",
+    "special-icons"
+  ]
 }
