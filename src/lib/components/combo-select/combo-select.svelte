@@ -812,7 +812,9 @@
           >
             <div class="flex items-center gap-2 w-full">
               {#if mode === "multi"}
-                <div class="combo-select-checkbox h-4 w-4 rounded border border-input shrink-0"></div>
+                <!-- Unchecked chrome mirrors the canonical Checkbox:
+                     border-input + bg-background, rounded-[4px]. -->
+                <div class="combo-select-checkbox h-4 w-4 rounded-[4px] border border-input bg-background shadow-xs shrink-0"></div>
               {/if}
               {#if truncateFrom === 'start'}
                 <span class="flex min-w-0 flex-1 items-baseline whitespace-nowrap text-left">
@@ -859,12 +861,17 @@
             >
               <div class="flex items-center gap-2 w-full">
                 {#if mode === "multi"}
+                  <!-- Checkbox chrome mirrors the canonical Checkbox tone
+                       "primary": unchecked border-input + bg-background;
+                       checked sky→indigo gradient, white check, borderless. -->
                   <div class={cn(
-                    "combo-select-checkbox h-4 w-4 rounded border shrink-0 flex items-center justify-center",
-                    selectedValues.includes(opt.value) ? "bg-primary border-primary" : "border-input",
+                    "combo-select-checkbox h-4 w-4 rounded-[4px] border shadow-xs shrink-0 flex items-center justify-center",
+                    selectedValues.includes(opt.value)
+                      ? "bg-linear-to-br from-sky-400 to-indigo-400 text-white border-transparent"
+                      : "border-input bg-background",
                   )}>
                     {#if selectedValues.includes(opt.value)}
-                      <Check class="h-3 w-3 text-primary-foreground" />
+                      <Check class="size-3.5" />
                     {/if}
                   </div>
                 {/if}
