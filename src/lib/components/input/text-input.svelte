@@ -38,7 +38,7 @@
 			clearable?: boolean;
 			onClear?: () => void;
 			clearLabel?: string;
-			// --- Copy button (readonly mode) ---
+			// --- Copy button (readonly/disabled mode) ---
 			onCopy?: (status: "success" | "failure" | undefined) => void;
 			copyTooltipLabel?: string;
 			copyAnimationDuration?: number;
@@ -86,7 +86,7 @@ export type TrailingCta = {
 	// `disabled` while there is nothing to clear.
 	let showClear = $derived(mode === "editable" && clearable);
 	let clearDisabled = $derived((value ?? "").length === 0);
-	let showCopy = $derived(mode === "readonly" && (value ?? "").length > 0);
+	let showCopy = $derived(mode !== "editable" && (value ?? "").length > 0);
 	let showTrailing = $derived(showClear || showCopy);
 
 	// Multi-CTA geometry — the DS's ONE existing standard is ComboSelect's
