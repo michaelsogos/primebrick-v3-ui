@@ -60,7 +60,7 @@
     disabled?: boolean;
     /** Host-injected AI-assist opener — the CTA renders only when set. */
     on_ai_assist?: () => void;
-    /** Localized aria/title for the AI CTA (host injects `app.smart.json.ai.brainCta`). */
+    /** Localized aria/title for the AI CTA (host injects `app.smart.json.ai.brain_cta`). */
     ai_label?: string;
     /**
      * Extra completion sources for edit mode, registered as language-data
@@ -132,7 +132,7 @@
               else if (t === 'object') value = '{}';
             }
           }}
-          title={$t('app.widgets.json.editMode')}
+          title={$t('app.widgets.json.edit_mode')}
           data-testid="json-value-edit-toggle"
         >
           {#if editing}
@@ -148,8 +148,8 @@
           type="button"
           class="inline-flex items-center justify-center rounded-md p-1 text-muted-foreground hover:bg-accent transition-colors"
           onclick={on_ai_assist}
-          title={ai_label ?? $t('app.smart.json.ai.brainCta')}
-          aria-label={ai_label ?? $t('app.smart.json.ai.brainCta')}
+          title={ai_label ?? $t('app.smart.json.ai.brain_cta')}
+          aria-label={ai_label ?? $t('app.smart.json.ai.brain_cta')}
           data-testid="json-value-ai-cta"
         >
           <AiIcon size={16} />

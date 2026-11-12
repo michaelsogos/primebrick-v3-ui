@@ -81,7 +81,7 @@
 				<button
 					type="button"
 					class="flex size-6 items-center justify-center rounded-md text-muted-foreground outline-hidden hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
-					aria-label={$t('app.common.selectValue')}
+					aria-label={$t('app.common.select_value')}
 					title={node.value}
 					onpointerdown={(e) => e.stopPropagation()}
 					onclick={(e) => {

@@ -1,22 +1,32 @@
 <script lang="ts">
 	import * as Popover from '../popover/index.js';
 	import Button from '../button/button.svelte';
-	import { Calendar, Clock } from '@primebrick/ui/vendor/lucide'
+	import { Calendar, Clock, CircleAlert } from '@primebrick/ui/vendor/lucide'
 	import { DateFormatter, getLocalTimeZone, today, now, CalendarDate, CalendarDateTime } from "@internationalized/date";
 	import { cn, getResolvedIanaTimeZone } from "../../utils/index.js";
+	import { isWheelSelectionBelowMin } from "../../utils/date-wheel-bounds.js";
 	import { WheelPicker, WheelPickerItem, WheelPickerGroup } from '../wheel-picker/index.js';
 	import { getT, getLocale } from "../../bridges.js";
-	import { Tabs, TabsList, TabsTrigger, TabsContent } from '../tabs/index.js';
-	import { Kbd } from '../kbd/index.js';
+	import { ButtonGroup } from '../button-group/index.js';
+	import { KeyboardHints } from '../keyboard-hints/index.js';
 	import { onMount } from "svelte";
 	import { ComboSelect } from '../combo-select/index.js';
 
 	const t = getT();
 	const uiLang = getLocale();
 
-	let { value = $bindable(), placeholder = $t("app.common.selectDate"), includeTime = false, timeOnly = false, defaultTime = undefined, timezone = $bindable(), dataTestId = undefined } = $props();
+	/**
+	 * `minValue` — lower bound as an absolute instant (`Date`). When set the
+	 * picker REFUSES to commit a selection before it: the wheels can spin
+	 * below the bound (visual feedback via the error strip), the bound
+	 * `value` keeps the last acceptable value, and Done cannot close the
+	 * popover. `includeTime` compares the instant the wheels + picked
+	 * timezone resolve to; date-only compares calendar days; `timeOnly`
+	 * carries no calendar so the bound is not applicable.
+	 */
+	let { value = $bindable(), placeholder = $t("app.common.select_date"), includeTime = false, timeOnly = false, defaultTime = undefined, minValue = undefined, timezone = $bindable(), dataTestId = undefined, id = undefined, disabled = false } = $props();
 	let isOpen = $state(false);
-	let activeTab = $derived(includeTime ? "date" : "date");
+	let activeTab = $state<"date" | "time">("date");
 
 	let df = $derived(new DateFormatter(uiLang(), timeOnly ? { timeStyle: "medium" } : includeTime ? { dateStyle: "long", timeStyle: "medium" } : { dateStyle: "long" }));
 	let monthFormatter = $derived(new DateFormatter(uiLang(), { month: "short" }));
@@ -27,7 +37,14 @@
 		monthFormatter.format(new CalendarDate(today(getLocalTimeZone()).year, i + 1, 1).toDate(getLocalTimeZone()))
 	);
 	const currentYear = today(getLocalTimeZone()).year;
-	const years = Array.from({ length: 100 }, (_, i) => (currentYear - 50 + i).toString());
+	// With a lower bound, years before it can never produce an acceptable
+	// value — the wheel starts at the bound's year instead of offering
+	// dead options.
+	const years = $derived.by(() => {
+		const firstYear = minValue ? minValue.getFullYear() : currentYear - 50;
+		const count = minValue ? Math.max(50, currentYear + 50 - firstYear + 1) : 100;
+		return Array.from({ length: count }, (_, i) => (firstYear + i).toString());
+	});
 	const hours = Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, "0"));
 	const minutes = Array.from({ length: 60 }, (_, i) => i.toString().padStart(2, "0"));
 	const seconds = Array.from({ length: 60 }, (_, i) => i.toString().padStart(2, "0"));
@@ -61,6 +78,22 @@
 	let selectedMinute = $state(initialTime.minute);
 	let selectedSecond = $state(initialTime.second);
 	let hasUserInteracted = $state(false);
+	let belowMin = $state(false);
+
+	// Reopening re-syncs the wheels to `value` — a stale refusal must not
+	// survive into the fresh selection.
+	$effect(() => {
+		if (isOpen) belowMin = false;
+	});
+
+	/**
+	 * Refusal check on the candidate a wheel selection would commit —
+	 * delegated to `isWheelSelectionBelowMin` (instant compare for
+	 * includeTime, calendar-day compare for date-only).
+	 */
+	function isBelowMin(candidate: CalendarDate | CalendarDateTime): boolean {
+		return isWheelSelectionBelowMin(candidate, minValue, selectedTimezone || undefined);
+	}
 
 	// Timezone state
 	let selectedTimezone = $state<string>(timezone ?? "UTC");
@@ -182,23 +215,22 @@
 		if (selectedDay && selectedMonth && selectedYear) {
 			const monthIndex = months.indexOf(selectedMonth);
 			if (monthIndex !== -1) {
+				let candidate: CalendarDate | CalendarDateTime;
 				try {
-					if (includeTime) {
-						value = new CalendarDateTime(
+					candidate = includeTime
+						? new CalendarDateTime(
 							parseInt(selectedYear),
 							monthIndex + 1,
 							parseInt(selectedDay),
 							parseInt(selectedHour),
 							parseInt(selectedMinute),
 							parseInt(selectedSecond)
-						);
-					} else {
-						value = new CalendarDate(
+						)
+						: new CalendarDate(
 							parseInt(selectedYear),
 							monthIndex + 1,
 							parseInt(selectedDay)
 						);
-					}
 				} catch {
 					// Handle invalid dates (e.g., Feb 30)
 					const tempDate = new CalendarDate(
@@ -208,29 +240,37 @@
 					);
 					const lastDay = tempDate.calendar.getDaysInMonth(tempDate);
 					const validDay = Math.min(parseInt(selectedDay), lastDay);
-					if (includeTime) {
-						value = new CalendarDateTime(
+					candidate = includeTime
+						? new CalendarDateTime(
 							parseInt(selectedYear),
 							monthIndex + 1,
 							validDay,
 							parseInt(selectedHour),
 							parseInt(selectedMinute),
 							parseInt(selectedSecond)
-						);
-					} else {
-						value = new CalendarDate(
+						)
+						: new CalendarDate(
 							parseInt(selectedYear),
 							monthIndex + 1,
 							validDay
 						);
-					}
 				}
+				if (isBelowMin(candidate)) {
+					// Refuse to commit — the bound `value` keeps the last
+					// acceptable value and the strip explains why Done
+					// cannot close the popover.
+					belowMin = true;
+					return;
+				}
+				belowMin = false;
+				value = candidate;
 			}
 		}
 	}
 
 	function confirm() {
 		updateValue();
+		if (belowMin) return;
 		isOpen = false;
 	}
 
@@ -273,6 +313,8 @@
 		{#snippet child({ props })}
 			<Button
 				{...props}
+				id={id ?? props.id}
+				{disabled}
 				variant="outline"
 				class="w-full justify-between font-normal"
 				data-testid={dataTestId}
@@ -320,13 +362,42 @@
 				</WheelPickerGroup>
 			</WheelPicker>
 		{:else if includeTime}
-			<Tabs bind:value={activeTab} class="flex flex-col h-full">
-				<TabsList class="w-full h-10 rounded-none border-b bg-muted/50">
-					<TabsTrigger value="date" class="flex-1">{$t("app.common.date")}</TabsTrigger>
-					<TabsTrigger value="time" class="flex-1">{$t("app.common.time")}</TabsTrigger>
-				</TabsList>
+			<div class="flex flex-col h-full">
+				<!-- DATA/ORA mode toggle — the SAME segmented ButtonGroup anatomy
+				     every mode surface uses (filters std/adv, ELT view mode):
+				     ghost buttons + aria-pressed, semantic icon carries the side. -->
+				<ButtonGroup segmented class="w-full h-10 rounded-none border-b bg-muted/50 px-1 py-1">
+					<Button
+						variant="ghost"
+						size="sm"
+						type="button"
+						class="flex-1 {activeTab === 'date'
+							? 'bg-foreground/10 text-foreground shadow-xs'
+							: 'text-muted-foreground'}"
+						aria-pressed={activeTab === 'date'}
+						data-testid={dataTestId ? `${dataTestId}-date-tab` : undefined}
+						onclick={() => (activeTab = 'date')}
+					>
+						<Calendar class="size-4" />
+						{$t("app.common.date")}
+					</Button>
+					<Button
+						variant="ghost"
+						size="sm"
+						type="button"
+						class="flex-1 {activeTab === 'time'
+							? 'bg-foreground/10 text-foreground shadow-xs'
+							: 'text-muted-foreground'}"
+						aria-pressed={activeTab === 'time'}
+						data-testid={dataTestId ? `${dataTestId}-time-tab` : undefined}
+						onclick={() => (activeTab = 'time')}
+					>
+						<Clock class="size-4" />
+						{$t("app.common.time")}
+					</Button>
+				</ButtonGroup>
 
-				{#if activeTab === "time" && includeTime}
+				{#if activeTab === "time"}
 					<div class="px-4 py-2 border-b border-border">
 						<ComboSelect
 							mode="single"
@@ -338,7 +409,7 @@
 					</div>
 				{/if}
 
-				<TabsContent value="date" class="flex-1 overflow-hidden mt-0">
+				<div class="flex-1 overflow-hidden mt-0">
 					{#if activeTab === "date"}
 						<WheelPicker>
 							<WheelPickerGroup bind:value={selectedDay} onValueChange={updateValue}>
@@ -363,11 +434,7 @@
 								{/each}
 							</WheelPickerGroup>
 						</WheelPicker>
-					{/if}
-				</TabsContent>
-
-				<TabsContent value="time" class="flex-1 overflow-hidden mt-0">
-					{#if activeTab === "time"}
+					{:else}
 						<WheelPicker>
 							<WheelPickerGroup bind:value={selectedHour} onValueChange={updateValue}>
 								{#each hours as hour (hour)}
@@ -392,8 +459,8 @@
 							</WheelPickerGroup>
 						</WheelPicker>
 					{/if}
-				</TabsContent>
-			</Tabs>
+				</div>
+			</div>
 		{:else}
 			<WheelPicker>
 				<WheelPickerGroup bind:value={selectedDay} onValueChange={updateValue}>
@@ -420,26 +487,31 @@
 			</WheelPicker>
 		{/if}
 
-		<!-- Footer — canonical popover footer: keybind legend (same anatomy as
-		     NavigatorFooter) on the left, xs CTAs right-aligned. -->
-		<div class="flex items-center justify-between gap-2 border-t bg-muted/50 px-3 py-1.5">
-			<div class="flex items-center gap-3 text-[11px] text-muted-foreground">
-				<span class="inline-flex items-center gap-1">
-					<Kbd size="key">↑</Kbd><Kbd size="key">↓</Kbd><Kbd size="key">←</Kbd><Kbd size="key">→</Kbd>
-				</span>
-				<span class="inline-flex items-center gap-1">
-					<Kbd size="key">⏎</Kbd>
-					<span>{$t("app.common.done")}</span>
-				</span>
-				<span class="inline-flex items-center gap-1">
-					<Kbd size="modifier">esc</Kbd>
-					<span>{$t("app.common.close")}</span>
-				</span>
+		{#if belowMin}
+			<div
+				class="flex items-center gap-1.5 border-t bg-destructive/10 px-3 py-1.5 text-xs text-destructive"
+				data-testid={dataTestId ? `${dataTestId}-below-min` : undefined}
+			>
+				<CircleAlert class="size-3.5 shrink-0" />
+				<span>{$t('app.common.validation.datetime_before_min', { min: df.format(minValue) })}</span>
 			</div>
-			<div class="flex gap-2">
-				<Button variant="secondary" size="xs" onclick={() => (isOpen = false)}>{$t("app.common.close")}</Button>
-				<Button size="xs" onclick={confirm}>{$t("app.common.done")}</Button>
-			</div>
-		</div>
+		{/if}
+
+		<!-- Footer — canonical KeyboardHints legend + right-aligned xs CTAs. -->
+		<KeyboardHints
+			class="border-t bg-muted/50 px-3 py-1.5"
+			hints={[
+				{ keys: ['↑', '↓', '←', '→'] },
+				{ keys: ['⏎'] },
+				{ keys: ['esc'], size: 'modifier' },
+			]}
+		>
+			{#snippet end()}
+				<div class="flex gap-2">
+					<Button variant="secondary" size="xs" onclick={() => (isOpen = false)}>{$t('app.common.close')}</Button>
+					<Button size="xs" onclick={confirm}>{$t('app.common.done')}</Button>
+				</div>
+			{/snippet}
+		</KeyboardHints>
 	</Popover.Content>
 </Popover.Root>

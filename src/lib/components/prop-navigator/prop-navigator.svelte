@@ -249,8 +249,8 @@
 								onSelect('');
 							}}
 							class={inputTrailingIconColorClasses}
-							aria-label={$t('app.common.clearSelection')}
-							title={$t('app.common.clearSelection')}
+							aria-label={$t('app.common.clear_selection')}
+							title={$t('app.common.clear_selection')}
 						>
 							<Eraser />
 						</button>
@@ -299,7 +299,7 @@
 							{nav}
 							chain={nav.selectionPath.slice(0, col)}
 							selectedValue={value}
-							aria-label={$t('app.common.selectValue')}
+							aria-label={$t('app.common.select_value')}
 						/>
 					{/each}
 				</div>
@@ -309,7 +309,7 @@
 				bind:this={searchListEl}
 				class="flex max-h-72 w-auto min-w-[26rem] max-w-[80vw] flex-col gap-0.5 overflow-y-auto p-1 [scrollbar-width:thin] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-border"
 				role="listbox"
-				aria-label={$t('app.common.selectValue')}
+				aria-label={$t('app.common.select_value')}
 			>
 				{#each flatResults as { node, chain } (node.value)}
 					{@const isDisabled = nav.disabled(node)}
@@ -346,7 +346,7 @@
 						{/if}
 					</div>
 				{:else}
-					<div class="px-3 py-4 text-center text-sm text-muted-foreground">{$t('app.common.noResults')}</div>
+					<div class="px-3 py-4 text-center text-sm text-muted-foreground">{$t('app.common.no_results')}</div>
 				{/each}
 			</div>
 		{/if}

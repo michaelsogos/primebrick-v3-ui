@@ -1,0 +1,15 @@
+{
+  "rules": {
+    "field-stock-chrome": {
+      "appliesTo": [
+        "lib/components/input/",
+        "lib/components/input-group/",
+        "lib/components/search-input/",
+        "lib/components/numeric-input/",
+        "lib/components/combo-select/",
+        "lib/components/cron-input/"
+      ],
+      "allowPaths": ["lib/components/input/input-chrome.ts"]
+    }
+  }
+}

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { cn } from '../../utils/index.js';
 	import { inputTrailingIconColorClasses } from '../input/input-chrome.js';
-	import { Kbd } from '../kbd/index.js';
+	import { KeyboardHints } from '../keyboard-hints/index.js';
 	import { EyeDashed } from '../../vendor/lucide.js';
 	import { getT } from '../../bridges.js';
 
@@ -19,39 +19,33 @@
 	} = $props();
 </script>
 
-<div
-	class="flex items-center gap-3 border-t border-border bg-muted/50 px-3 py-1.5 text-[11px] text-muted-foreground"
+<KeyboardHints
+	class="border-t border-border bg-muted/50 px-3 py-1.5"
 	data-propnv-footer
+	hints={[
+		{ keys: ['↑', '↓', '←', '→'] },
+		{ keys: ['⏎'], label: $t('app.common.select_value') },
+		{ keys: ['esc'], size: 'modifier', label: $t('app.common.close') },
+	]}
 >
-	<!-- Same hint anatomy as SidebarAppLauncher's footer — one cap per key,
-	     verb label next to the action keys. -->
-	<span class="inline-flex items-center gap-1">
-		<Kbd size="key">↑</Kbd><Kbd size="key">↓</Kbd><Kbd size="key">←</Kbd><Kbd size="key">→</Kbd>
-	</span>
-	<span class="inline-flex items-center gap-1">
-		<Kbd size="key">⏎</Kbd>
-		<span>{$t('app.common.selectValue')}</span>
-	</span>
-	<span class="inline-flex items-center gap-1">
-		<Kbd size="modifier">esc</Kbd>
-		<span>{$t('app.common.close')}</span>
-	</span>
-	{#if showReveal}
-		<!-- Partition toggle — `eye-dashed`: reveals the disabled partition
-		     (hidden data, NOT secrets). Same affordance as ComboSelect. -->
-		<button
-			type="button"
-			onclick={(e) => {
-				e.stopPropagation();
-				showDisabled = !showDisabled;
-			}}
-			class={cn('ms-auto', inputTrailingIconColorClasses, showDisabled && 'text-foreground')}
-			aria-label={$t(showDisabled ? 'app.common.hideDisabledOptions' : 'app.common.showDisabledOptions')}
-			title={$t(showDisabled ? 'app.common.hideDisabledOptions' : 'app.common.showDisabledOptions')}
-			aria-pressed={showDisabled}
-			data-testid={dataTestId ? `${dataTestId}-toggle-disabled` : undefined}
-		>
-			<EyeDashed />
-		</button>
-	{/if}
-</div>
+	{#snippet end()}
+		{#if showReveal}
+			<!-- Partition toggle — `eye-dashed`: reveals the disabled partition
+			     (hidden data, NOT secrets). Same affordance as ComboSelect. -->
+			<button
+				type="button"
+				onclick={(e) => {
+					e.stopPropagation();
+					showDisabled = !showDisabled;
+				}}
+				class={cn(inputTrailingIconColorClasses, showDisabled && 'text-foreground')}
+				aria-label={$t(showDisabled ? 'app.common.hide_disabled_options' : 'app.common.show_disabled_options')}
+				title={$t(showDisabled ? 'app.common.hide_disabled_options' : 'app.common.show_disabled_options')}
+				aria-pressed={showDisabled}
+				data-testid={dataTestId ? `${dataTestId}-toggle-disabled` : undefined}
+			>
+				<EyeDashed />
+			</button>
+		{/if}
+	{/snippet}
+</KeyboardHints>

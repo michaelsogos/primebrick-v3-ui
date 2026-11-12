@@ -1,6 +1,6 @@
 {
   "name": "@primebrick/ui",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "description": "Shared Svelte 5 component library for Primebrick v3 — reusable components, composables, primitives and utilities consumed by the core frontend app and remote module pages.",
   "type": "module",
   "license": "MIT",
@@ -91,7 +91,7 @@
     "test:watch": "vitest",
     "check": "svelte-check --tsconfig tsconfig.json",
     "extract-docs": "node scripts/extract-component-docs.mjs",
-    "check:standards": "node tools/check-standards.ts src --profile=lib"
+    "check:standards": "bun ../primebrick-v3-sdk/tools/check-standards.ts src --profile=lib"
   },
   "peerDependencies": {
     "svelte": "^5.56.4"

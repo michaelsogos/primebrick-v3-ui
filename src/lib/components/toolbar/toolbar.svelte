@@ -3,11 +3,15 @@
    * Toolbar — standard action strip (shadcn bits-ui chrome).
    *
    * Contract (MANDATORY ordering — see docs/ai/patterns.md "Toolbars"):
-   *   [left]                                    [children] | [group] | refresh | [primary]
+   *   [left]                [center]                [children] | [group] | refresh | [primary]
    *
    * - `left`: optional free-form zone pinned to the far left (search,
    *   counters, breadcrumb…). The whole CTA zone is pushed to the far
    *   right via `ml-auto` — always right-aligned, never spread.
+   * - `center`: optional absolutely-centered overlay (legends, hints,
+   *   status readouts). The ONLY sanctioned way to center toolbar
+   *   content — pointer-events pass through the wrapper, the content
+   *   itself re-enables them. Never a third flex column.
    * - `groups`: islands (ButtonGroup, selects, toggles) — auto-separated by
    *   a divider when preceded by other content (never a leading divider).
    * - `refresh`: standardized refresh button (ghost sm, icon + label on
@@ -29,6 +33,7 @@
     class: className,
     card = true,
     left,
+    center,
     groups = [],
     refresh,
     primary,
@@ -39,6 +44,9 @@
     card?: boolean;
     /** Optional left zone (search, counters) — CTAs stay far right. */
     left?: Snippet;
+    /** Optional centered overlay content (legends, hints) — the only
+     *  sanctioned way to center toolbar content. */
+    center?: Snippet;
     /** Isolated control islands — a divider is auto-rendered before each. */
     groups?: Snippet[];
     /** Standard refresh button — placed right before the primary CTAs. */
@@ -46,25 +54,67 @@
     /** Primary CTA(s) — always rendered last (rightmost). */
     primary?: Snippet;
   } = $props();
+
+  // Center-overlay collision guard — the absolute-centered overlay must
+  // NEVER paint over or intercept the left/right zones. When the content is
+  // wider than the free space between them, the whole overlay is hidden
+  // (visibility:hidden keeps hit-test transparent AND avoids reflow).
+  let leftEl = $state<HTMLDivElement | null>(null);
+  let centerEl = $state<HTMLDivElement | null>(null);
+  let rightEl = $state<HTMLDivElement | null>(null);
+
+  $effect(() => {
+    const c = centerEl;
+    if (!c) return;
+    const check = () => {
+      const cr = c.getBoundingClientRect();
+      // The left zone is flex-1 — its container already spans every free
+      // pixel, so the real boundary is the right edge of its CONTENT.
+      const leftEnd = leftEl
+        ? Math.max(
+            leftEl.getBoundingClientRect().left,
+            ...[...leftEl.children].map((el) => el.getBoundingClientRect().right),
+          )
+        : -Infinity;
+      const rightStart = rightEl!.getBoundingClientRect().left;
+      const collide = cr.left < leftEnd - 1 || cr.right > rightStart + 1;
+      c.style.visibility = collide ? 'hidden' : '';
+    };
+    const ro = new ResizeObserver(check);
+    if (ref) ro.observe(ref); // toolbar width — moves the centered overlay
+    if (leftEl) ro.observe(leftEl); // left content grows (counters, search)
+    ro.observe(rightEl!);
+    ro.observe(c);
+    check();
+    return () => ro.disconnect();
+  });
 </script>
 
 <ToolbarPrimitive.Root
   bind:ref
   data-slot="toolbar"
   class={cn(
-    'flex min-w-0 flex-nowrap items-center gap-2 rounded-md',
+    'relative flex min-w-0 flex-nowrap items-center gap-2 rounded-md',
     card ? 'border border-border/60 bg-muted/30 px-2.5 py-1' : 'bg-muted/30 px-3 py-1.5',
     className
   )}
   {...restProps}
 >
   {#if left}
-    <div class="flex min-w-0 flex-1 items-center gap-2">
+    <div class="flex min-w-0 flex-1 items-center gap-2" bind:this={leftEl}>
       {@render left()}
     </div>
   {/if}
 
-  <div class="ml-auto flex items-center gap-2">
+  {#if center}
+    <div class="pointer-events-none absolute inset-x-0 flex justify-center">
+      <div class="pointer-events-auto flex min-w-0 items-center" bind:this={centerEl}>
+        {@render center()}
+      </div>
+    </div>
+  {/if}
+
+  <div class="ml-auto flex items-center gap-2" bind:this={rightEl}>
     {@render children?.()}
 
     {#each groups as group, i (i)}

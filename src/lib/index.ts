@@ -4,6 +4,7 @@ export * from '@primebrick/core';
 
 export * from './utils/index.js';
 export * from './icons/composed-icons.js';
+export * from './icons/semantic-icons.js';
 
 export * from './bridges.js';
 
@@ -17,6 +18,7 @@ export type { SparklineBucket, SparklineSeries } from './components/SparklineBar
 // `<Sheet.Root>`/`<Sheet.Content>`/…).
 export * as Sheet from './components/sheet/index.js';
 export { default as SheetPanelLayout } from './components/sheet/SheetPanelLayout.svelte';
+export { default as SheetPanelFooter } from './components/sheet/SheetPanelFooter.svelte';
 export { default as SheetHeader } from './components/sheet/SheetHeader.svelte';
 
 // Widget primitives — namespace exports mirror the FE `import * as X`
@@ -61,6 +63,7 @@ export type { PropNavNode } from './components/prop-navigator/index.js';
 export { usePropNavigation } from './composables/use-prop-navigation.svelte.js';
 export { Kbd, kbdVariants } from './components/kbd/index.js';
 export type { KbdSize } from './components/kbd/index.js';
+export { KeyboardHints, type KeyboardHint } from './components/keyboard-hints/index.js';
 export { Switch } from './components/switch/index.js';
 export { Slider, type SliderTone } from './components/slider/index.js';
 export { SliderField } from './components/slider-field/index.js';
@@ -111,7 +114,8 @@ export {
 	FormButton,
 	PrimeField,
 } from './components/forms/index.js';
-export type { PrimeFieldHelp, MetaTooltipHelp } from './components/forms/index.js';
+export type { PrimeFieldHelp, MetaTooltipHelp, HelpContext, ResolvedHelp } from './components/forms/index.js';
+export { resolveFieldHelp } from './components/forms/index.js';
 export { default as Input } from './components/input/input.svelte';
 export { default as TextInput } from './components/input/text-input.svelte';
 export { Textarea } from './components/textarea/index.js';
@@ -124,9 +128,6 @@ export {
 	acceptChar,
 	distributePaste,
 	emitExpression,
-	maskCronInput,
-	fieldIndexAt,
-	fieldStartOffset,
 	validateFieldToken,
 } from './components/cron-input/index.js';
 export type { CronFieldMeta, CronFieldKey } from './components/cron-input/index.js';
@@ -141,6 +142,7 @@ export {
 export type { SearchTrailingButton } from './components/search-input/index.js';
 export * from './components/search-input/search-syntax.js';
 export { useNumericInput } from './composables/useNumericInput.svelte.js';
+export type { NumericKind, NumericUomSpec, NumericUomCtx } from './composables/useNumericInput.svelte.js';
 export { CopyButton } from './components/copy-button/index.js';
 export type { CopyButtonProps, CopyButtonPropsWithoutHTML } from './components/copy-button/index.js';
 export { UseClipboard, copyText } from './composables/useClipboard.svelte.js';
@@ -148,7 +150,10 @@ export { JsonCodeBlock, JsonEditor } from './components/json-code-block/index.js
 export { default as JsonValueEditor } from './components/json-value-editor/json-value-editor.svelte';
 export { default as PayloadMapEditor } from './components/payload-map-editor/payload-map-editor.svelte';
 export { default as AiIcon } from './components/ai-icon/ai-icon.svelte';
+export { default as AiTypingDots } from './components/ai-typing-dots/ai-typing-dots.svelte';
 export { ScheduleSpecInput } from './components/schedule-spec-input/index.js';
+export { ScheduleSpecCell } from './components/schedule-spec-cell/index.js';
+export { scheduleDescriptionText, scheduleRunLabel } from './utils/schedule-spec-i18n.js';
 
 export { fieldSpecToZod } from './entity-form/field-spec-to-zod.js';
 
@@ -162,6 +167,7 @@ export {
 } from './components/input/input-chrome.js';
 export { badgeClassesFromToken, colorCssFromToken, tailwindSwatches, tailwindFamilies } from './colors/badge.js';
 export type { TailwindColorToken, TailwindSwatch } from './colors/badge.js';
+export { cssToLuminance, contrastTextCss, hexLuminance, hexToRgb, rgbCssToHex, hslToHex, hslCssToHex, oklchCssToHex } from './colors/contrast.js';
 export * from './components/menu-row-chrome.js';
 
 // AI domain leaf libs — dual-realm consumption mirror (shell chrome AND

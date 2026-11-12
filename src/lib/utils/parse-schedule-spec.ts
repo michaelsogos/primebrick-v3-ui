@@ -90,7 +90,11 @@ export function nextScheduleRuns(raw: string, count = 3, from = new Date()): Dat
     return out;
   }
   try {
-    return new Cron(s.expr).nextRuns(count, from);
+    // NATS evaluates `Nats-Schedule` cron in UTC — computing next runs in
+    // the browser zone would preview fire instants shifted by the local
+    // offset (verified: `0 9 * * *` in Europe/Rome showed 08:00Z while
+    // the server fires at 09:00Z).
+    return new Cron(s.expr, { timezone: 'UTC' }).nextRuns(count, from);
   } catch {
     return [];
   }

@@ -38,5 +38,6 @@ export {
 	PrimeField,
 };
 
-export type { PrimeFieldHelp, MetaTooltipHelp } from "./prime-field.svelte";
+export type { PrimeFieldHelp, MetaTooltipHelp, HelpContext, ResolvedHelp } from "./resolve-field-help.js";
+export { resolveFieldHelp } from "./resolve-field-help.js";
 export type { FieldHelp } from "./field-help.js";

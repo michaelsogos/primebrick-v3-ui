@@ -49,14 +49,25 @@
     /** HEAD — translated panel title (required). */
     title: Snippet;
     /**
-     * HEAD — right side of SheetHeader. When omitted the standard close ✕
-     * button (Sheet.Close → closeSheet()) is rendered. Provide your own
-     * snippet only to ADD buttons; always keep a way to close the sheet.
+     * HEAD — EXTRA actions rendered before the standard close ✕ button
+     * (which the layout always appends — `Sheet.Close` context close, or
+     * `onClose` when provided). Panels NEVER re-declare the close chrome.
      */
     actions?: Snippet;
-    /** Below-HEAD strip (search, tabs bar, chips). Border-bottom, px-3 py-2. */
+    /**
+     * TOOLBAR — below-HEAD strip (`border-b px-3 py-2`) for tools only:
+     * search inputs, tab bars, mode/connector segmented groups. Tools in
+     * CONTENT land under this band's border and read as a second header —
+     * keep them here (`panel-toolbar-tools` enforces).
+     */
     toolbar?: Snippet;
-    /** FOOT — bottom fixed strip (action buttons, input box). Border-top. */
+    /**
+     * FOOT — bottom fixed strip (action buttons, input box). The layout owns
+     * the canonical chrome: `border-t bg-muted/50` — the form footer look
+     * shared with DialogFooter/FormPageLayout. Content goes through
+     * `SheetPanelFooter` (right-aligned natural-width CTAs) or supplies its
+     * own padded container for input-box feet (chat).
+     */
     footer?: Snippet;
     /**
      * Explicit close handler — REQUIRED in remote panels: `Sheet.Close`
@@ -98,8 +109,13 @@
   </div>
 {/snippet}
 
+{#snippet composedActions()}
+  {@render actions?.()}
+  {@render defaultActions()}
+{/snippet}
+
 <div class="flex h-full flex-col">
-  <SheetHeader title={headTitle} actions={actions ?? defaultActions} />
+  <SheetHeader title={headTitle} actions={composedActions} />
 
   {#if toolbar}
     <div class="shrink-0 border-b border-border px-3 py-2">
@@ -112,7 +128,7 @@
   </div>
 
   {#if footer}
-    <div class="shrink-0 border-t border-border">
+    <div class="shrink-0 border-t border-border bg-muted/50">
       {@render footer()}
     </div>
   {/if}

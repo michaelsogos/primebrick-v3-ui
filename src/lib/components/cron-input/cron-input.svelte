@@ -11,10 +11,11 @@
 	 * - Space / → / Tab / Enter advance to the next cell (Enter on the last
 	 *   cell fires `onsubmit`); ← at the start goes back; ↑/↓ step a numeric
 	 *   draft inside its range.
-	 * - Field-aware keystroke mask: digits capped at maxDigits and ≤ max
-	 *   (out-of-range untypeable); leading zeros allowed then normalized
-	 *   live (`00`→`0`, `09`→`9`); `?`/`L`/`W`/`#` only in quartz fields;
-	 *   name letters only as valid name prefixes — rejected chars flash.
+	 * - Field-aware keystroke mask: **digits + `*` `,` `-` `/` only** — the
+	 *   strict subset every runtime (NATS `Nats-Schedule`) understands;
+	 *   no names, no quartz extras. Digit runs capped at maxDigits and
+	 *   ≤ max (out-of-range untypeable); leading zeros normalize live
+	 *   (`00`→`0`, `09`→`9`); rejected chars flash.
 	 * - Paste fan-out: a full expression pasted in any cell fills them all.
 	 * - The human description is the hero — centered, italic, quoted, full
 	 *   foreground (never muted), BELOW the active field's clickable
@@ -154,7 +155,7 @@
 
 		let acc = '';
 		let rejected = false;
-		for (const raw of el.value.toUpperCase()) {
+		for (const raw of el.value) {
 			// `/` at a segment start implies the `*` wildcard (`/5` → `*/5`).
 			if (raw === '/' && (acc === '' || acc.endsWith(','))) acc += '*';
 			if (acceptChar(meta, acc, raw)) acc += raw;

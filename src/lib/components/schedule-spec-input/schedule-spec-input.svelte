@@ -27,10 +27,10 @@
   import { ComboSelect } from '../combo-select/index.js';
   import { DateWheelPicker } from '../date-dropper/index.js';
   import { CronInput } from '../cron-input/index.js';
-  import { Kbd } from '../kbd/index.js';
+  import { KeyboardHints } from '../keyboard-hints/index.js';
   import { CalendarDateTime, getLocalTimeZone } from '@internationalized/date';
   import { getT, getLocale } from '../../bridges.js';
-  import { cn, formatUiDateTime } from '../../utils/index.js';
+  import { cn, getResolvedIanaTimeZone } from '../../utils/index.js';
   import {
     CircleAlert,
     CircleCheck,
@@ -41,6 +41,10 @@
     parseScheduleSpec,
     type ScheduleDescription,
   } from '../../utils/parse-schedule-spec.js';
+  import {
+    scheduleDescriptionText,
+    scheduleRunLabel,
+  } from '../../utils/schedule-spec-i18n.js';
   import type { HTMLInputAttributes } from 'svelte/elements';
 
   const t = getT();
@@ -74,19 +78,13 @@
   const parsed = $derived(parseScheduleSpec(value));
   const description = $derived(describeScheduleSpec(value, locale()));
 
-  /** Structured descriptor → localized phrase (i18n keys, plural-aware units). */
-  function descriptionText(d: ScheduleDescription): string {
-    if (d.kind === 'text') return d.text;
-    if (d.kind === 'at') {
-      return $t('app.widgets.schedule_spec.desc.at', {
-        date: formatUiDateTime(d.at, locale()),
-      });
-    }
-    return $t('app.widgets.schedule_spec.desc.every', {
-      n: d.n,
-      unit: $t(`app.widgets.schedule_spec.unit.${d.unit}.${d.n === 1 ? 'one' : 'other'}`),
-    });
-  }
+  // Fire instants are absolute — the preview renders them in the app's
+  // resolved zone (the same source the top bar reads), not the browser
+  // default the bare formatter would silently apply.
+  const appTz = getResolvedIanaTimeZone();
+  const runLabel = (d: Date) => scheduleRunLabel(d, locale());
+  const descriptionText = (d: ScheduleDescription) =>
+    scheduleDescriptionText(d, $t, locale());
   const runs = $derived(nextScheduleRuns(value, 3));
 
   // --- Assist builder ----------------------------------------------------
@@ -105,13 +103,19 @@
   // Once state — CalendarDateTime wall-clock + the picker's selected IANA zone.
   let atValue = $state<CalendarDateTime | null>(null);
   let atTz = $state('');
+  // L1 bound — the once-picker cannot commit an instant in the past.
+  // Seeded at popover open; the L2 shape rule re-checks at submit.
+  let atMin = $state<Date | undefined>(undefined);
   // Cron state
   let cronExpr = $state('');
   let cronValid = $state(false);
 
   /** Seed the builder fields from the current spec each time the popover opens. */
   $effect(() => {
-    if (assistOpen) seedFromValue();
+    if (assistOpen) {
+      seedFromValue();
+      atMin = new Date();
+    }
   });
 
   function seedFromValue() {
@@ -203,8 +207,8 @@
                       <span class="shrink-0 text-sm text-muted-foreground">{$t('app.widgets.schedule_spec.every')}</span>
                       <div class="min-w-0 flex-1">
                         <NumericInput
-                          type="bigint"
-                          type_config={'{"validation":{"unsigned":true}}'}
+                          kind="bigint"
+                          unsigned={true}
                           bind:value={everyN}
                           data-testid="{dataTestId}-every-n"
                         />
@@ -234,6 +238,7 @@
                       bind:value={atValue}
                       bind:timezone={atTz}
                       includeTime={true}
+                      minValue={atMin}
                       dataTestId="{dataTestId}-at-local"
                     />
                     </div>
@@ -259,11 +264,14 @@
 
               <div class="-mx-3 -mb-3 flex items-center justify-between gap-2 border-t bg-muted/50 px-3 py-2">
                 {#if mode === 'cron'}
-                  <div class="flex items-center gap-2 text-[10px] text-muted-foreground">
-                    <span class="flex items-center gap-0.5"><Kbd>←</Kbd><Kbd>→</Kbd> {$t('app.widgets.schedule_spec.kbd.fields')}</span>
-                    <span class="flex items-center gap-0.5"><Kbd>␣</Kbd><Kbd>⏎</Kbd> {$t('app.widgets.schedule_spec.kbd.next')}</span>
-                    <span class="flex items-center gap-0.5"><Kbd>esc</Kbd> {$t('app.common.close')}</span>
-                  </div>
+                  <KeyboardHints
+                    class="gap-2 text-[10px]"
+                    hints={[
+                      { keys: ['←', '→'], label: $t('app.widgets.schedule_spec.kbd.fields') },
+                      { keys: ['␣', '⏎'], label: $t('app.widgets.schedule_spec.kbd.next') },
+                      { keys: ['esc'], size: 'modifier', label: $t('app.common.close') },
+                    ]}
+                  />
                 {:else}
                   <span></span>
                 {/if}
@@ -298,8 +306,11 @@
             <div class="flex flex-wrap items-center gap-1">
               <span class="text-muted-foreground">{$t('app.widgets.schedule_spec.next')}:</span>
               {#each runs as run (run.getTime())}
-                <Badge variant="secondary" class="font-normal">{formatUiDateTime(run, locale())}</Badge>
+                <Badge variant="secondary" class="font-normal">{runLabel(run)}</Badge>
               {/each}
+              {#if appTz}
+                <span class="text-muted-foreground">· {appTz}</span>
+              {/if}
             </div>
           {/if}
         </div>

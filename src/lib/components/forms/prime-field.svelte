@@ -26,43 +26,25 @@
   import { getT } from '../../bridges.js';
   import { cn } from '../../utils/index.js';
   import FormLabelWithPriorityHelp from './FormLabelWithPriorityHelp.svelte';
-  import type { FieldHelp } from './field-help.js';
-  import type { TooltipPriority } from '../tooltip/index.js';
+  import DynamicIcon from '../dynamic-icon/DynamicIcon.svelte';
+  import {
+    resolveFieldHelp,
+    type HelpContext,
+    type PrimeFieldHelp,
+  } from './resolve-field-help.js';
   import type { Snippet } from 'svelte';
 
   const t = getT();
 
-  /**
-   * Help tooltip — either a pre-mapped `FieldHelp` (`text` already
-   * translated) or raw column meta fields (`tooltip*` are i18n keys,
-   * translated here and gated by `show_form_tooltip`). A `MetaColumn`
-   * (entity-list/types) is structurally assignable to the second variant.
-   */
-  /** Raw column-meta help shape (MetaColumn-compatible). */
-  export interface MetaTooltipHelp {
-    /** i18n key for tooltip content (translated internally). */
-    tooltip?: string;
-    /** Priority/severity from column meta. */
-    tooltip_priority?: TooltipPriority;
-    /** i18n key for tooltip title (translated internally). */
-    tooltip_title?: string;
-    /** Meta flag — tooltip hidden when `false`. */
-    show_form_tooltip?: boolean;
-  }
-
-  export type PrimeFieldHelp = FieldHelp | MetaTooltipHelp;
-
-  function isMetaTooltipHelp(h: PrimeFieldHelp): h is MetaTooltipHelp {
-    return 'tooltip' in h || 'tooltip_title' in h || 'tooltip_priority' in h;
-  }
-
   let {
     id: idProp,
     label,
+    icon,
     required = false,
     hint,
     error,
     help,
+    help_context = 'form',
     layout = 'stacked',
     control,
     class: className,
@@ -72,6 +54,9 @@
     id?: string;
     /** Translated label text. Omit for label-less rows (switch-only, etc.). */
     label?: string;
+    /** Lucide icon name rendered before the label (the field's semantic
+     *  marker — `MetaColumn.icon` on list-surface labels). */
+    icon?: string;
     /** Append the required `*` marker. */
     required?: boolean;
     /**
@@ -85,9 +70,15 @@
     /**
      * Tooltip help — pre-mapped `{ text, priority?, title?, labelKey? }` or
      * raw `MetaColumn` (`tooltip`, `tooltip_priority`, `tooltip_title`,
-     * `show_form_tooltip`).
+     * `show_form_tooltip` / `show_list_tooltip`).
      */
     help?: PrimeFieldHelp;
+    /**
+     * Which surface flag gates a `MetaColumn`-shaped `help`: `'form'` reads
+     * `show_form_tooltip`, `'list'` reads `show_list_tooltip`. Ignored for
+     * pre-mapped `FieldHelp`. Default `'form'`.
+     */
+    help_context?: HelpContext;
     /** `'stacked'` (label above) or `'inline'` (bool controls — label beside control). */
     layout?: 'stacked' | 'inline';
     /** The control — receives `{ id }` and MUST apply it for label wiring. */
@@ -101,33 +92,9 @@
   const generatedId = $props.id();
   const id = $derived(idProp ?? generatedId);
 
-  interface ResolvedHelp {
-    text?: string;
-    priority?: TooltipPriority;
-    title?: string;
-    labelKey?: string;
-  }
-
-  const resolvedHelp = $derived.by<ResolvedHelp | null>(() => {
-    if (!help) return null;
-    // MetaColumn-shaped help carries `tooltip*` keys; FieldHelp carries `text`.
-    if (isMetaTooltipHelp(help)) {
-      if (help.tooltip && help.show_form_tooltip !== false) {
-        return {
-          text: $t(help.tooltip),
-          priority: help.tooltip_priority,
-          title: help.tooltip_title ? $t(help.tooltip_title) : undefined,
-        };
-      }
-      return null;
-    }
-    return {
-      text: help.text,
-      priority: help.priority,
-      title: help.title,
-      labelKey: help.labelKey,
-    };
-  });
+  const resolvedHelp = $derived.by(() =>
+    resolveFieldHelp(help, help_context, (key) => $t(key)),
+  );
 
   const errors = $derived(
     error === undefined ? [] : Array.isArray(error) ? error : [error],
@@ -147,6 +114,7 @@
 
 {#snippet labelEl()}
   {#if label}
+    {#if icon}<DynamicIcon name={icon} size={14} class="inline-block opacity-70" />{/if}
     {label}{#if required}<span class="text-destructive">*</span>{/if}{@render helpIcon()}
   {/if}
 {/snippet}
