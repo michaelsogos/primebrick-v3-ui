@@ -572,7 +572,7 @@
               : "border-primary-gradient bg-background hover:brightness-105",
           "focus-visible:ring-ring/50 focus-visible:ring-[3px]",
           disabled
-            ? "pointer-events-none cursor-not-allowed opacity-50"
+            ? "pointer-events-none cursor-not-allowed border-disabled"
             : "cursor-pointer",
           "flex items-center gap-2 text-left",
           "aria-invalid:border-destructive-gradient aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40",

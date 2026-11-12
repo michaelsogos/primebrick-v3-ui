@@ -101,8 +101,7 @@ export type TrailingCta = {
 	let inputClass = $derived(
 		cn(
 			showTrailing && !multiCta && "pr-9",
-			mode === "readonly" && "border-readonly-gradient",
-			mode === "disabled" && "border-readonly-gradient",
+			mode === "readonly" && "border-readonly",
 			className,
 		),
 	);

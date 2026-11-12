@@ -25,7 +25,7 @@
 		bind:this={ref}
 		data-slot={dataSlot}
 		class={cn(
-			"selection:bg-primary selection:text-primary-foreground ring-offset-background placeholder:text-muted-foreground flex h-9 w-full min-w-0 rounded-md border-primary-gradient px-3 pt-1.5 text-sm font-medium shadow-xs transition-all outline-hidden disabled:cursor-not-allowed disabled:opacity-50 hover:brightness-105",
+			"selection:bg-primary selection:text-primary-foreground ring-offset-background placeholder:text-muted-foreground flex h-9 w-full min-w-0 rounded-md border-primary-gradient px-3 pt-1.5 text-sm font-medium shadow-xs transition-all outline-hidden disabled:cursor-not-allowed disabled:border-disabled hover:brightness-105",
 			"disabled:hover:brightness-100",
 			"focus-visible:ring-ring/50 focus-visible:ring-[3px]",
 			"aria-invalid:border-destructive-gradient aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40",
@@ -42,7 +42,7 @@
 			bind:this={ref}
 			data-slot={dataSlot}
 			class={cn(
-				"selection:bg-primary selection:text-primary-foreground ring-offset-background placeholder:text-muted-foreground relative z-1 flex h-9 w-full min-w-0 rounded-md border-primary-gradient px-3 py-1 text-base shadow-xs transition-all outline-hidden disabled:cursor-not-allowed disabled:opacity-50 md:text-sm hover:brightness-105",
+				"selection:bg-primary selection:text-primary-foreground ring-offset-background placeholder:text-muted-foreground relative z-1 flex h-9 w-full min-w-0 rounded-md border-primary-gradient px-3 py-1 text-base shadow-xs transition-all outline-hidden disabled:cursor-not-allowed disabled:border-disabled md:text-sm hover:brightness-105",
 				"disabled:hover:brightness-100",
 				"focus-visible:ring-ring/50 focus-visible:ring-[3px]",
 				"aria-invalid:border-destructive-gradient aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40",
