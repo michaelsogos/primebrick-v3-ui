@@ -840,8 +840,34 @@ SEMANTIC_ICONS registry (`src/lib/icons/semantic-icons.ts`): domain glyphs whose
 <p><strong>exec-start</strong> — <code>binds to color: success · filled play, emerald-400 → emerald-600</code></p>
 <div className="ic-row"><div className="ic"><div style={{width:16,height:16,display:'flex',alignItems:'center',justifyContent:'center'}}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><defs><linearGradient id="xp0" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#34d399"/><stop offset="100%" stop-color="#059669"/></linearGradient></defs><path d="M7.5 4.8c0-1.5 1.65-2.4 2.9-1.55l10 6.2c1.15.72 1.15 2.38 0 3.1l-10 6.2c-1.25.85-2.9-.05-2.9-1.55V4.8Z" fill="url(#xp0)"/></svg></div><span>16</span></div><div className="ic"><div style={{width:24,height:24,display:'flex',alignItems:'center',justifyContent:'center'}}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><defs><linearGradient id="xp1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#34d399"/><stop offset="100%" stop-color="#059669"/></linearGradient></defs><path d="M7.5 4.8c0-1.5 1.65-2.4 2.9-1.55l10 6.2c1.15.72 1.15 2.38 0 3.1l-10 6.2c-1.25.85-2.9-.05-2.9-1.55V4.8Z" fill="url(#xp1)"/></svg></div><span>24</span></div><div className="ic"><div style={{width:48,height:48,display:'flex',alignItems:'center',justifyContent:'center'}}><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" aria-hidden="true"><defs><linearGradient id="xp2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#34d399"/><stop offset="100%" stop-color="#059669"/></linearGradient></defs><path d="M7.5 4.8c0-1.5 1.65-2.4 2.9-1.55l10 6.2c1.15.72 1.15 2.38 0 3.1l-10 6.2c-1.25.85-2.9-.05-2.9-1.55V4.8Z" fill="url(#xp2)"/></svg></div><span>48</span></div></div>
 
+## Schema format/type icons (payload map, prop navigator)
+
+`payload-map-editor` owns a closed schema→glyph vocabulary — `FORMAT_TYPE_ICONS`
+(format wins) then `TYPE_ICONS` (bare JSON-schema type), resolved through the
+`_icon`/`_icon_dashed`/`_icon_color` option convention that `ComboSelect` and
+`PropNavigator` render. One vocabulary — other surfaces showing a uuid/format
+glyph reuse these names, never invent their own.
+
+| Slot | Icon |
+|------|------|
+| `format:"uuid"` | `file-key` — THE uuid glyph. `fingerprint`/`fingerprint-pattern` are the passkey/WebAuthn domain and are banned on uuid surfaces |
+| `format:"email"` | `mail` |
+| `format:"url"` / `uri` | `link` |
+| `format:"date-time"` / `datetime` | `calendar-clock` |
+| `date` / `time` | `calendar` / `clock` |
+| `phone` | `phone` |
+| `color_hex` | `palette` |
+| `lang` | `languages` |
+| `enum` | `tags` · `const` → `pin` |
+| `string` / `number`/`integer`/`bigint` | `type` / `hash` |
+| `boolean` / `array` / `object` / `null` | `toggle-left` / `brackets` / `braces` / `circle-slash` |
+| unknown | `circle-question-mark` |
+
+Meta-source glyphs (`META_ICONS`): `actor_uuid` → `user-cog`, `actor_email`/`creator_email` → `mail`, `trigger_id` → `file-key`, `fired_at` → `clock-check`, `actor_locale` → `languages`. Kind glyphs (`KIND_ICONS`): `path` → `zap` colored `amber-500` via `colorCssFromToken` (inline style — meta strings are invisible to Tailwind's content scan), `list` → `list-plus`, `map` → `braces`, `const` → `text-cursor-input`, `meta` → `activity-cog`, `inject` → `send`.
+
 ## Conventions
 
+- **UUID glyph is `file-key`** — declared in `FORMAT_TYPE_ICONS` and reused by the record-sheet uid badge. `fingerprint*` names are WebAuthn/passkey chrome only.
 - **Gradient stroke**: primary sweep `#38bdf8 → #818cf8` via `<linearGradient>` referenced as `stroke="url(#id)"`; `animated`/`no_animation` toggles the SMIL shimmer.
 - **GradientIcon path vocabulary**: every `GradientIcon` instance sources its geometry from `GRADIENT_ICON_PATHS` (and palettes from `GRADIENT_ICON_STOPS`) in `src/lib/components/ui/gradient-icon/paths.ts` (fe-v3) — raw `d` strings are never inlined in consumers, and each named entry is catalogued on this page.
 - **Composed icons**: declared in `src/lib/icons/composed-icons.ts` (base + overlay node tuples + transform), rendered by `DynamicIcon` with an SVG `<mask>` knockout — never a painted background disc.
