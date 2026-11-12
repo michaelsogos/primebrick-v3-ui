@@ -23,11 +23,11 @@
   class={cn(
     "group/switch peer relative inline-flex h-5 w-11 shrink-0 cursor-pointer items-center rounded-full px-1 shadow-xs outline-hidden ring-offset-background transition-colors focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50",
     // Unchecked palette — gradient border (sky→indigo) on white fill, reusing the
-    // border-primary-gradient utility (DRY). Disabled uses border-readonly-gradient
+    // border-primary-gradient utility (DRY). Disabled uses the canonical border-disabled chrome
     // (50% opacity gradient border) to match the disabled-checkbox convention.
     "border-primary-gradient dark:border-primary-gradient",
     "hover:border-primary-gradient-soft dark:hover:border-primary-gradient-soft",
-    "disabled:border-readonly-gradient dark:disabled:border-readonly-gradient",
+    "disabled:border-disabled dark:disabled:border-disabled",
     // Checked palette — full primary gradient fill (matches Checkbox checked +
     // Button default CTA: bg-linear-to-br from-sky-400 to-indigo-400).
     "data-[state=checked]:border-transparent data-[state=checked]:bg-linear-to-br data-[state=checked]:from-sky-400 data-[state=checked]:to-indigo-400",

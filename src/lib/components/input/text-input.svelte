@@ -38,7 +38,7 @@
 			clearable?: boolean;
 			onClear?: () => void;
 			clearLabel?: string;
-			// --- Copy button (readonly mode) ---
+			// --- Copy button (readonly/disabled mode) ---
 			onCopy?: (status: "success" | "failure" | undefined) => void;
 			copyTooltipLabel?: string;
 			copyAnimationDuration?: number;
@@ -86,7 +86,7 @@ export type TrailingCta = {
 	// `disabled` while there is nothing to clear.
 	let showClear = $derived(mode === "editable" && clearable);
 	let clearDisabled = $derived((value ?? "").length === 0);
-	let showCopy = $derived(mode === "readonly" && (value ?? "").length > 0);
+	let showCopy = $derived(mode !== "editable" && (value ?? "").length > 0);
 	let showTrailing = $derived(showClear || showCopy);
 
 	// Multi-CTA geometry — the DS's ONE existing standard is ComboSelect's
@@ -101,8 +101,7 @@ export type TrailingCta = {
 	let inputClass = $derived(
 		cn(
 			showTrailing && !multiCta && "pr-9",
-			mode === "readonly" && "border-readonly-gradient",
-			mode === "disabled" && "border-readonly-gradient",
+			mode === "readonly" && "border-readonly",
 			className,
 		),
 	);
@@ -142,7 +141,7 @@ export type TrailingCta = {
 								size="icon"
 								animationDuration={copyAnimationDuration}
 								onCopy={onCopy}
-								class={cn(inputTrailingIconButtonClasses, "text-foreground")}
+								class={inputTrailingIconButtonClasses}
 								{...tooltipProps}
 							/>
 						{/snippet}
@@ -156,7 +155,7 @@ export type TrailingCta = {
 					size="icon"
 					animationDuration={copyAnimationDuration}
 					onCopy={onCopy}
-					class={cn(inputTrailingIconButtonClasses, "text-foreground")}
+					class={inputTrailingIconButtonClasses}
 				/>
 			{/if}
 	{/if}

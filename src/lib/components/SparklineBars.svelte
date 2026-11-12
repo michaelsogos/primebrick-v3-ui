@@ -42,14 +42,16 @@
 	const W = 120;
 	const H = 28;
 	const PAD = 1;
-	const BAR_W = $derived(
-		buckets && buckets.length > 0
-			? Math.max(2, Math.floor((W - PAD * (buckets.length + 1)) / buckets.length))
-			: 3
-	);
+	/** Fixed slot count — the sample is always rendered as exactly MAX_BARS
+	 *  slots (missing/empty buckets render as gaps), so bar width is
+	 *  constant at any viewport and the cell never scales unboundedly. */
+	const MAX_BARS = 10;
+	const BAR_W = Math.floor((W - PAD * (MAX_BARS + 1)) / MAX_BARS);
+	/** Right-aligned tail: the most recent MAX_BARS buckets are shown. */
+	const shown = $derived(buckets ? buckets.slice(-MAX_BARS) : undefined);
 	const maxTotal = $derived(
-		buckets
-			? Math.max(1, ...buckets.map((b) => series.reduce((sum, s) => sum + num(b[s.field]), 0)))
+		shown && shown.length > 0
+			? Math.max(1, ...shown.map((b) => series.reduce((sum, s) => sum + num(b[s.field]), 0)))
 			: 1
 	);
 
@@ -78,10 +80,11 @@
 	}
 </script>
 
-{#if buckets && buckets.length > 0}
-	<svg viewBox="0 0 {W} {H}" class="block h-7 w-[120px]" role="img" aria-label="sparkline">
-		{#each buckets as b, i}
-			{@const x = barX(i)}
+<svg viewBox="0 0 {W} {H}" class="block h-7 w-[120px]" role="img" aria-label="sparkline">
+	{#each { length: MAX_BARS } as _, i}
+		{@const b = shown?.[i]}
+		{@const x = barX(i)}
+		{#if b}
 			{#each series as s, si}
 				{@const segH = h(num(b[s.field]))}
 				{#if segH > 0}
@@ -90,8 +93,6 @@
 					</rect>
 				{/if}
 			{/each}
-		{/each}
-	</svg>
-{:else}
-	<span class="text-muted-foreground text-xs">—</span>
-{/if}
+		{/if}
+	{/each}
+</svg>

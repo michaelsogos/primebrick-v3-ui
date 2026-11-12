@@ -14,12 +14,48 @@
   import { EyeDashed } from '../../vendor/lucide.js';
   import { tick, type Snippet } from "svelte";
   import { inputTrailingIconColorClasses, inputGhostChromeClasses } from "../input/input-chrome.js";
+  import type { TrailingCta } from "../input/text-input.svelte";
   import { menuListSelectedSurfaceDropdownClasses } from "../menu-row-chrome.js";
   import DynamicIcon from "../dynamic-icon/DynamicIcon.svelte";
 
   type ComboSelectMode = "single" | "multi";
+  type MultiBadgeMode = 'icon-label' | 'label' | 'icon';
 
-  type Props = {
+  /**
+   * Multi-mode selected-badge anatomy — opt-in via `multiBadge`:
+   *   'icon-label' (default) — resolved icon/flag + label + remove-X;
+   *   'label'                — label + remove-X (pre-feature render);
+   *   'icon'                 — icon/flag + remove-X only — REQUIRES
+   *                            `iconField` or `flagField` at the type level
+   *                            (icon-only without an icon source is a
+   *                            construction error, not a runtime fallback).
+   * An option whose icon/flag resolves null under 'icon' renders its label
+   * instead (label is always resolvable) — DEV warns once per value.
+   */
+  type MultiBadgeProps =
+    | {
+        /**
+         * Option field carrying a Lucide icon name — rendered via `DynamicIcon`
+         * before the label in option rows, in the single-mode selected
+         * display, and in multi badges per `multiBadge`. Ignored under
+         * display='custom' (the snippet owns rendering).
+         */
+        iconField?: string;
+        /** Option field carrying a flag-icons COUNTRY CODE (`gb`, `it`…) —
+         *  rendered as `<span class="fi fi-{code}">` in option rows, in the
+         *  single-mode selected display, and in multi badges per
+         *  `multiBadge`. Requires the host app's `flag-icons` stylesheet
+         *  (the `fi`/`fi-{cc}` classes live there). Ignored under
+         *  display='custom'. */
+        flagField?: string;
+        multiBadge?: 'icon-label' | 'label';
+      }
+    | ({ multiBadge: 'icon' } & (
+        | { iconField: string; flagField?: string }
+        | { flagField: string; iconField?: string }
+      ));
+
+  type CommonProps = {
     mode: ComboSelectMode;
     value: string | string[];
     onChange?: (value: string | string[]) => void;
@@ -66,21 +102,21 @@
     /** The secondaryField value is an i18n key — translate via $t. */
     isSecondaryTranslated?: boolean;
     /**
-     * Option field carrying a Lucide icon name — rendered via `DynamicIcon`
-     * before the label in option rows AND in the single-mode selected
-     * display. Ignored under display='custom' (the snippet owns rendering).
+     * Multi-mode collapse threshold — `selectedValues.length > N` swaps
+     * the whole badge list for ONE summary chip ("N selected",
+     * `app.common.selected_count.one|other` — the plural pair is picked
+     * in code, the canonical `.one`/`.other` contract). **Defaults to 1**: two or more
+     * selections collapse — stacking badges never inflates the trigger
+     * height. Per-value removal stays available in the dropdown; the
+     * trailing eraser still clears all. The chip is
+     * `variant="destructive"` when any selected value fails
+     * `isValueInvalid`. Pass a higher N to keep more badges visible.
      */
-    iconField?: string;
+    multiSummaryAt?: number;
     /** Option field carrying a color TOKEN (`amber-500` — the badge
      *  vocabulary, resolved to a real CSS color so no safelisted class is
      *  needed); unset → inherits `text-muted-foreground`. */
     iconColorField?: string;
-    /** Option field carrying a flag-icons COUNTRY CODE (`gb`, `it`…) —
-     *  rendered as `<span class="fi fi-{code}">` before the label in option
-     *  rows AND in the single-mode selected display. Requires the host app's
-     *  `flag-icons` stylesheet (the `fi`/`fi-{cc}` classes live there).
-     *  Ignored under display='custom'. */
-    flagField?: string;
     /** Option field carrying a boolean — when truthy the option icon
      *  renders with dashed strokes (`stroke-dasharray`) instead of solid.
      *  Works on ANY lucide icon, mirroring the lucide `*-dashed` variants
@@ -154,6 +190,14 @@
      */
     defaultSearch?: string;
     /**
+     * Trigger trailing zone extras — same contract as TextInput:
+     *   `trailing`      — non-CTA content (badges, indicators), left of ctas.
+     *   `trailing_ctas` — icon CTAs (`inputTrailingIconColorClasses` chrome),
+     *                     left of the clear button; array order = L→R.
+     */
+    trailing?: Snippet;
+    trailing_ctas?: TrailingCta[];
+    /**
      * Where the ellipsis goes when the selected value / option text
      * overflows: `'end'` (default, classic `truncate`) or `'start'`
      * (leading `…`, tail stays visible — for long keys whose meaningful
@@ -178,6 +222,8 @@
     "data-fs-error"?: string;
     [key: string]: unknown;
   };
+
+  type Props = CommonProps & MultiBadgeProps;
 
   let {
     mode,
@@ -206,6 +252,8 @@
     iconColorField,
     flagField,
     iconDashedField,
+    multiBadge = 'icon-label',
+    multiSummaryAt = 1,
     itemSnippet,
     isOptionDisabled,
     isValueInvalid,
@@ -218,6 +266,8 @@
     onLoadMore,
     loadingMore = false,
     defaultSearch = '',
+    trailing,
+    trailing_ctas,
     truncateFrom = 'end',
     "aria-invalid": ariaInvalid,
     "aria-describedby": ariaDescribedby,
@@ -412,6 +462,30 @@
     syncChange([]);
   }
 
+  // Summary collapse — `multiSummaryAt` (default 1) swaps the per-value
+  // badge list for ONE "N selected" chip (see the prop docs).
+  let summaryActive = $derived(
+    multiSummaryAt != null && selectedValues.length > multiSummaryAt,
+  );
+
+  // 'icon' badges without a resolvable icon/flag fall back to the label —
+  // visible degradation (label is always resolvable), never an empty pill.
+  // DEV warns once per offending value so sparse icon data is actionable.
+  let warnedBadgeNoIcon = new Set<string>();
+  $effect(() => {
+    if (!DEV || mode !== 'multi' || multiBadge !== 'icon') return;
+    for (const v of selectedValues) {
+      if (warnedBadgeNoIcon.has(v)) continue;
+      const opt = normalizedOptions.find((o) => o.value === v);
+      if (opt && !resolveIcon(opt.raw) && !resolveFlag(opt.raw)) {
+        warnedBadgeNoIcon.add(v);
+        console.warn(
+          `[ComboSelect] multiBadge="icon": option "${v}" resolves no icon/flag — badge renders its label.`,
+        );
+      }
+    }
+  });
+
   // --- Filtering ---
 
   let filteredOptions = $derived.by<NormalizedOption[]>(() => {
@@ -496,9 +570,9 @@
             : variant === "ghost"
               ? inputGhostChromeClasses
               : "border-primary-gradient bg-background hover:brightness-105",
-          "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+          "focus-visible:ring-ring/50 focus-visible:ring-[3px]",
           disabled
-            ? "pointer-events-none cursor-not-allowed opacity-50"
+            ? "pointer-events-none cursor-not-allowed border-disabled"
             : "cursor-pointer",
           "flex items-center gap-2 text-left",
           "aria-invalid:border-destructive-gradient aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40",
@@ -557,7 +631,7 @@
             {:else}
               <!-- Created-value chip hugs its content up to the trigger's
                    max, then ellipsizes — never stretches across the input. -->
-              <Badge variant="outline" class="gap-1 border-primary-gradient-soft text-foreground w-fit max-w-full justify-start">
+              <Badge variant="outline" class={cn("gap-1 border-primary-gradient-soft text-foreground w-fit max-w-full justify-start", disabled && "bg-background")}>
                 <span class={cn("min-w-0 text-left", truncateFrom === 'start' ? 'truncate-start' : 'truncate')}>
                   {value as string}
                 </span>
@@ -575,38 +649,86 @@
             </span>
           {:else}
             <div class="flex flex-1 flex-wrap gap-2 items-center text-left">
-              {#each selectedValues as val (val)}
-                {@const opt = normalizedOptions.find((o) => o.value === val)}
-                {@const invalid = isValueInvalid?.(val) ?? false}
-                <Badge variant={invalid ? 'destructive' : 'secondary'} class="gap-1" data-invalid={invalid || undefined}>
-                  {opt?.label ?? val}
-                  {#if !disabled}
-                    <button
-                      type="button"
-                      onpointerdown={(e) => e.stopPropagation()}
-                      onclick={(e) => {
-                        e.stopPropagation();
-                        handleRemoveMulti(val);
-                      }}
-                      class="rounded-full hover:bg-muted hover:text-foreground p-0.5"
-                    >
-                      <X class="h-3 w-3" />
-                    </button>
-                  {/if}
+              {#if summaryActive}
+                {@const anyInvalid = selectedValues.some((v) => isValueInvalid?.(v) ?? false)}
+                <Badge variant={anyInvalid ? 'destructive' : 'secondary'} class={cn("gap-1", disabled && "bg-background")} data-invalid={anyInvalid || undefined}>
+                  {$t(
+                    selectedValues.length === 1
+                      ? 'app.common.selected_count.one'
+                      : 'app.common.selected_count.other',
+                    { count: selectedValues.length },
+                  )}
                 </Badge>
-              {/each}
+              {:else}
+                {#each selectedValues as val (val)}
+                  {@const opt = normalizedOptions.find((o) => o.value === val)}
+                  {@const invalid = isValueInvalid?.(val) ?? false}
+                  {@const optIcon = opt ? resolveIcon(opt.raw) : null}
+                  {@const optFlag = opt ? resolveFlag(opt.raw) : null}
+                  {@const showGlyph = multiBadge !== 'label' && (optIcon != null || optFlag != null)}
+                  {@const showLabel = multiBadge !== 'icon' || !showGlyph}
+                  <Badge variant={invalid ? 'destructive' : 'secondary'} class={cn("gap-1", disabled && "bg-background")} data-invalid={invalid || undefined}>
+                    {#if showGlyph}
+                      {#if optIcon}
+                        {@const optIconColor = opt ? resolveIconColor(opt.raw) : null}
+                        <DynamicIcon
+                          name={optIcon}
+                          size={12}
+                          class="shrink-0"
+                          style={optIconColor ? `color:${optIconColor}` : undefined}
+                        />
+                      {:else if optFlag}
+                        <span class={`fi fi-${optFlag} shrink-0 rounded-sm`} aria-hidden="true"></span>
+                      {/if}
+                    {/if}
+                    {#if showLabel}
+                      {opt?.label ?? val}
+                    {/if}
+                    {#if !disabled}
+                      <button
+                        type="button"
+                        onpointerdown={(e) => e.stopPropagation()}
+                        onclick={(e) => {
+                          e.stopPropagation();
+                          handleRemoveMulti(val);
+                        }}
+                        class="rounded-full hover:bg-muted hover:text-foreground p-0.5"
+                      >
+                        <X class="h-3 w-3" />
+                      </button>
+                    {/if}
+                  </Badge>
+                {/each}
+              {/if}
             </div>
           {/if}
         {/if}
         <div class="ml-auto flex items-center gap-1 shrink-0">
+          {#if trailing}
+            {@render trailing()}
+          {/if}
+          {#each trailing_ctas ?? [] as cta (cta.label)}
+            <button
+              type="button"
+              onpointerdown={(e) => e.stopPropagation()}
+              onclick={(e) => { e.stopPropagation(); cta.onclick(); }}
+              class={inputTrailingIconColorClasses}
+              aria-label={cta.label}
+              title={cta.label}
+              disabled={cta.disabled}
+              data-testid={cta["data-testid"]}
+            >
+              <DynamicIcon name={cta.icon} size={16} />
+            </button>
+          {/each}
           {#if mode === "single" && !disabled}
             <button
               type="button"
               onpointerdown={(e) => e.stopPropagation()}
               onclick={(e) => { e.stopPropagation(); handleClearSingle(); }}
               class={inputTrailingIconColorClasses}
-              aria-label={$t("app.common.clearSelection")}
-              title={$t("app.common.clearSelection")}
+              aria-label={$t("app.common.clear_selection")}
+              title={$t("app.common.clear_selection")}
               disabled={!value}
             >
               <Eraser />
@@ -618,8 +740,8 @@
               onpointerdown={(e) => e.stopPropagation()}
               onclick={(e) => { e.stopPropagation(); handleClearMulti(); }}
               class={inputTrailingIconColorClasses}
-              aria-label={$t("app.common.clearSelection")}
-              title={$t("app.common.clearSelection")}
+              aria-label={$t("app.common.clear_selection")}
+              title={$t("app.common.clear_selection")}
               disabled={selectedValues.length === 0}
             >
               <Eraser />
@@ -664,8 +786,8 @@
                   showDisabledOptions = !showDisabledOptions;
                 }}
                 class={cn(inputTrailingIconColorClasses, showDisabledOptions && "text-foreground")}
-                aria-label={$t(showDisabledOptions ? "app.common.hideDisabledOptions" : "app.common.showDisabledOptions")}
-                title={$t(showDisabledOptions ? "app.common.hideDisabledOptions" : "app.common.showDisabledOptions")}
+                aria-label={$t(showDisabledOptions ? "app.common.hide_disabled_options" : "app.common.show_disabled_options")}
+                title={$t(showDisabledOptions ? "app.common.hide_disabled_options" : "app.common.show_disabled_options")}
                 aria-pressed={showDisabledOptions}
                 data-testid={dataTestId ? `${dataTestId}-toggle-disabled` : undefined}
               >
@@ -690,7 +812,9 @@
           >
             <div class="flex items-center gap-2 w-full">
               {#if mode === "multi"}
-                <div class="combo-select-checkbox h-4 w-4 rounded border border-input shrink-0"></div>
+                <!-- Unchecked chrome mirrors the canonical Checkbox:
+                     border-input + bg-background, rounded-[4px]. -->
+                <div class="combo-select-checkbox h-4 w-4 rounded-[4px] border border-input bg-background shadow-xs shrink-0"></div>
               {/if}
               {#if truncateFrom === 'start'}
                 <span class="flex min-w-0 flex-1 items-baseline whitespace-nowrap text-left">
@@ -705,7 +829,7 @@
           </Command.Item>
         {/if}
         {#if visibleOptions.length === 0 && !showCreateItem}
-          <Command.Empty>{$t('app.common.noResults')}</Command.Empty>
+          <Command.Empty>{$t('app.common.no_results')}</Command.Empty>
         {:else if visibleOptions.length > 0}
           {#each visibleOptions as opt (opt.value)}
             {@const isDisabled = isOptionDisabled ? isOptionDisabled(opt.raw) : false}
@@ -737,12 +861,17 @@
             >
               <div class="flex items-center gap-2 w-full">
                 {#if mode === "multi"}
+                  <!-- Checkbox chrome mirrors the canonical Checkbox tone
+                       "primary": unchecked border-input + bg-background;
+                       checked sky→indigo gradient, white check, borderless. -->
                   <div class={cn(
-                    "combo-select-checkbox h-4 w-4 rounded border shrink-0 flex items-center justify-center",
-                    selectedValues.includes(opt.value) ? "bg-primary border-primary" : "border-input",
+                    "combo-select-checkbox h-4 w-4 rounded-[4px] border shadow-xs shrink-0 flex items-center justify-center",
+                    selectedValues.includes(opt.value)
+                      ? "bg-linear-to-br from-sky-400 to-indigo-400 text-white border-transparent"
+                      : "border-input bg-background",
                   )}>
                     {#if selectedValues.includes(opt.value)}
-                      <Check class="h-3 w-3 text-primary-foreground" />
+                      <Check class="size-3.5" />
                     {/if}
                   </div>
                 {/if}

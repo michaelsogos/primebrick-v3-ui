@@ -1,0 +1,151 @@
+---
+title: Numeric Input
+description: The single canonical numeric control — kind/uom/steppers/clamping — shared by entity forms, advanced filters, and config inputs.
+---
+
+`NumericInput` (+ `useNumericInput`) is the **only** numeric field control in
+Primebrick. Entity forms, the advanced-filters value slot, config value inputs,
+and schedule quantities all mount the same component — resolution is
+metadata-driven through `numericKindOf(column)` from `@primebrick/core`, so a
+column's numeric contract is decided once and consumed everywhere.
+
+```ts
+import { NumericInput, useNumericInput, numericKindOf } from "@primebrick/ui";
+```
+
+## Canonical value contract
+
+The bound value is always a **canonical string** (`toPG()` format — dot decimal,
+no locale separators, no `d` suffix). Display formatting (thousand separators,
+locale decimal comma) happens only at the input surface; the model never sees
+locale characters. A `Decimal` instance is also accepted as `value` ingress and
+is normalized on the way in.
+
+```ts
+// value is "1234.56" — never 1234.56, never "1.234,56", never "1234.56d"
+let amount = $state<string>("1234.56");
+```
+
+`fieldSpecToZod` preprocesses that string into the right native type at the
+validation boundary: `bigint` → `BigInt`, `decimal` → `Decimal` (via `dec()`),
+`number` → `Number`.
+
+## Kinds
+
+| `kind` | PG types | Input filter | `toNative()` |
+|--------|----------|--------------|--------------|
+| `"number"` | `float4`, `float8`, `double precision` | digits + one separator | `Number` |
+| `"bigint"` | `int2`, `int4`, `int8`, `serial*` | digits only, `inputmode="numeric"` | `BigInt` |
+| `"decimal"` | `numeric(p,s)`, `decimal`, `money` | digits + one separator | `Decimal` (exact) |
+
+`kind` is inferred by `numericKindOf(column)` from `pg_type` / `type` /
+`format:"money"` / `ref_count` — pass it explicitly only when authoring a
+control outside the dispatcher.
+
+```svelte
+<NumericInput kind="bigint" bind:value />   <!-- integer only -->
+<NumericInput kind="decimal" bind:value />  <!-- exact decimal arithmetic -->
+<NumericInput kind="number" bind:value />   <!-- JS double -->
+```
+
+## Anatomy
+
+```
+[ + ]  [uom prefix]  value text  [uom suffix]  [ − ]  [ 🧹 ]
+```
+
+- **`+`** leftmost, **`−`** right side, **eraser rightmost** — `px-3` hit areas
+  (glyph edge exactly 12px from each border), `size-4` icons, per the canonical
+  input anatomy.
+- `role="spinbutton"` + `aria-valuemin/max/now/valuetext` — a real spin button,
+  not a text input that happens to hold digits.
+- Keyboard: `ArrowUp/Down` steps by `step`, `PageUp/PageDown` steps by `10×step`.
+- Eraser is **always rendered** (canonical trailing CTA), `tabindex={-1}`,
+  disabled when empty/disabled/readonly.
+
+## Steppers, min/max, unsigned, align
+
+```svelte
+<NumericInput
+  kind="decimal"
+  step="0.01"            <!-- default "1" bigint, "1.0" float/decimal; |step| ≤ max−min -->
+  min="0" max="9999.99"  <!-- blur clamps out-of-range + oob_issue hint -->
+  unsigned               <!-- rejects '-'; aria-valuemin defaults to 0 -->
+  align="right"          <!-- left (default) | center | right -->
+  clearable              <!-- eraser (default true) -->
+  bind:value
+/>
+```
+
+`min`/`max` resolve from direct props, `type_config.validation.rules`, or
+`MetaColumn.min/max`. `unsigned` is a `MetaColumn` field — DAL derives it from
+`pg_type` (`int8` + `CHECK (x >= 0)` domains) and `checkFieldValue` rejects
+negative wire values fail-closed.
+
+## UoM — unit of measure
+
+`uom` is display semantics, not a kind. Two layers exist:
+
+- **`MetaColumn.uom`** (contract, `@primebrick/core`) — declares the semantic:
+  `{kind:"percent"}` | `{kind:"currency", field, source?}` |
+  `{kind:"custom", field, source, symbol?}`. `field` names the **sibling
+  column** that persists the UoM code per row — required for `currency`/`custom`,
+  verified by `withColumnConstraints` at boot.
+- **`NumericUomSpec`** (component prop) — the **resolved** spec the host hands
+  to the control: `{kind, symbol?, code?, position?, on_pick?, before_return?,
+  after_receive?}`.
+
+| `uom.kind` | Behaviour |
+|------------|-----------|
+| `"percent"` | display ×100 on ingress, emit ÷100 on writeback — model holds the fraction (`"0.15"` shows `15` + `%` suffix). Built-in, no transforms needed. |
+| `"currency"` | `symbol`/`code` prefix adornment; `on_pick` opens the host's picker sheet |
+| `"custom"` | `before_return` (display→canonical) / `after_receive` (canonical→display) — normalized at the composable boundary |
+
+`format:"money"` on a column resolves to `kind:"decimal"` + currency UoM.
+
+```svelte
+<script lang="ts">
+  import { dec, div, mul, normalize, toPG } from "@primebrick/ui";
+
+  // percent: "15" shown, "0.15" bound — built-in transform.
+  const percentUom = { kind: "percent" } as const;
+
+  // currency: € prefix + CTA opens the currency sheet (host-owned surface).
+  const eurUom = {
+    kind: "currency",
+    symbol: "€",
+    code: "EUR",
+    on_pick: () => openCurrencySheet(),
+  } as const;
+
+  // custom: canonical grams stored, kg displayed.
+  const kgUom = {
+    kind: "custom",
+    symbol: "kg",
+    after_receive: (v: string) => toPG(normalize(div(dec(v), 1000))), // canonical → display
+    before_return: (v: string) => toPG(normalize(mul(dec(v), 1000))), // display → canonical
+  } as const;
+</script>
+
+<NumericInput kind="decimal" uom={percentUom} bind:value />
+<NumericInput kind="decimal" uom={eurUom} bind:value />
+<NumericInput kind="decimal" uom={kgUom} bind:value />
+```
+
+## Where it renders
+
+| Surface | Resolution |
+|---------|-----------|
+| Entity create/update form | `FormFieldDispatcher` → `numericKindOf(column) !== null` → `'number'` control |
+| Filter panel — **advanced tab only** | same dispatcher (`surface:"filter"`); numerics are excluded from the standard quick-filter tab by convention (a bare `=` is noise — `>`/`BETWEEN` live in criteria) |
+| Config value input | `ConfigValueInput` — `type:"money"` → `kind:"decimal"` + currency UoM |
+| Schedule spec | interval/quantity fields, `kind:"bigint"` + `unsigned` |
+
+## Common pitfalls
+
+- **Never bind a JS number** — the bound value is a canonical string; coercion
+  happens at `fieldSpecToZod`/`toNative()`, not in the input.
+- **Never do float math on `decimal` values** — all arithmetic goes through
+  `@primebrick/decimal`; `toPG(normalize(...))` keeps results scale-clean.
+- **`type` prop is gone** — use `kind` (avoids the HTML `type` ambiguity);
+  `money` is a UoM concern, not a kind.

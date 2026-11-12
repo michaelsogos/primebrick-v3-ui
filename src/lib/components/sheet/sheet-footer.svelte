@@ -13,7 +13,7 @@
 
 <div
 	bind:this={ref}
-	class={cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className)}
+	class={cn("bg-muted/50 -mx-6 -mb-6 border-t p-4 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end", className)}
 	{...restProps}
 >
 	{@render children?.()}

@@ -83,6 +83,7 @@
 <script lang="ts">
   import { cn } from '../../utils/index.js';
   import { COMPOSED_ICONS } from '../../icons/composed-icons.js';
+  import { SEMANTIC_ICONS } from '../../icons/semantic-icons.js';
 
   let {
     name,
@@ -99,6 +100,7 @@
   } = $props();
 
   const composed = $derived(COMPOSED_ICONS[name]);
+  const semantic = $derived(SEMANTIC_ICONS[name]);
 
   let IconComp = $state<any>(null);
   let baseNodes = $state<Array<[string, Record<string, string | number>]> | null>(null);
@@ -112,6 +114,12 @@
   $effect(() => {
     let cancelled = false;
     missing = false;
+    if (semantic || composed) {
+      // Semantic/composed paths render synchronously below — skip the
+      // lucide glob entirely.
+      IconComp = null;
+      if (semantic) return () => { cancelled = true; };
+    }
     if (composed) {
       IconComp = null;
       baseNodes = null;
@@ -131,7 +139,12 @@
   });
 </script>
 
-{#if composed}
+{#if semantic}
+  <!-- Semantic icon — self-colored (gradient baked), resolved before
+       lucide/composed. The icon's color IS the semantic; the label's
+       comes from `SEMANTIC_ICONS[name].color` — never free text. -->
+  <semantic.component {size} class={className} {style} />
+{:else if composed}
   {@const badge = Math.max(Math.round(size * 0.55), 8)}
   {@const overlayShape = composed.overlay_nodes ?? overlayNodes}
   {#if baseNodes && overlayShape}

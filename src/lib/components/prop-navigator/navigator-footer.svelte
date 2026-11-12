@@ -24,7 +24,7 @@
 	data-propnv-footer
 	hints={[
 		{ keys: ['↑', '↓', '←', '→'] },
-		{ keys: ['⏎'], label: $t('app.common.selectValue') },
+		{ keys: ['⏎'], label: $t('app.common.select_value') },
 		{ keys: ['esc'], size: 'modifier', label: $t('app.common.close') },
 	]}
 >
@@ -39,8 +39,8 @@
 					showDisabled = !showDisabled;
 				}}
 				class={cn(inputTrailingIconColorClasses, showDisabled && 'text-foreground')}
-				aria-label={$t(showDisabled ? 'app.common.hideDisabledOptions' : 'app.common.showDisabledOptions')}
-				title={$t(showDisabled ? 'app.common.hideDisabledOptions' : 'app.common.showDisabledOptions')}
+				aria-label={$t(showDisabled ? 'app.common.hide_disabled_options' : 'app.common.show_disabled_options')}
+				title={$t(showDisabled ? 'app.common.hide_disabled_options' : 'app.common.show_disabled_options')}
 				aria-pressed={showDisabled}
 				data-testid={dataTestId ? `${dataTestId}-toggle-disabled` : undefined}
 			>

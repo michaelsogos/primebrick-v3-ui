@@ -7,7 +7,7 @@
 	import { isWheelSelectionBelowMin } from "../../utils/date-wheel-bounds.js";
 	import { WheelPicker, WheelPickerItem, WheelPickerGroup } from '../wheel-picker/index.js';
 	import { getT, getLocale } from "../../bridges.js";
-	import { Tabs, TabsList, TabsTrigger, TabsContent } from '../tabs/index.js';
+	import { ButtonGroup } from '../button-group/index.js';
 	import { KeyboardHints } from '../keyboard-hints/index.js';
 	import { onMount } from "svelte";
 	import { ComboSelect } from '../combo-select/index.js';
@@ -24,9 +24,9 @@
 	 * timezone resolve to; date-only compares calendar days; `timeOnly`
 	 * carries no calendar so the bound is not applicable.
 	 */
-	let { value = $bindable(), placeholder = $t("app.common.selectDate"), includeTime = false, timeOnly = false, defaultTime = undefined, minValue = undefined, timezone = $bindable(), dataTestId = undefined } = $props();
+	let { value = $bindable(), placeholder = $t("app.common.select_date"), includeTime = false, timeOnly = false, defaultTime = undefined, minValue = undefined, timezone = $bindable(), dataTestId = undefined, id = undefined, disabled = false } = $props();
 	let isOpen = $state(false);
-	let activeTab = $derived(includeTime ? "date" : "date");
+	let activeTab = $state<"date" | "time">("date");
 
 	let df = $derived(new DateFormatter(uiLang(), timeOnly ? { timeStyle: "medium" } : includeTime ? { dateStyle: "long", timeStyle: "medium" } : { dateStyle: "long" }));
 	let monthFormatter = $derived(new DateFormatter(uiLang(), { month: "short" }));
@@ -313,6 +313,8 @@
 		{#snippet child({ props })}
 			<Button
 				{...props}
+				id={id ?? props.id}
+				{disabled}
 				variant="outline"
 				class="w-full justify-between font-normal"
 				data-testid={dataTestId}
@@ -360,13 +362,42 @@
 				</WheelPickerGroup>
 			</WheelPicker>
 		{:else if includeTime}
-			<Tabs bind:value={activeTab} class="flex flex-col h-full">
-				<TabsList class="w-full h-10 rounded-none border-b bg-muted/50">
-					<TabsTrigger value="date" class="flex-1">{$t("app.common.date")}</TabsTrigger>
-					<TabsTrigger value="time" class="flex-1">{$t("app.common.time")}</TabsTrigger>
-				</TabsList>
+			<div class="flex flex-col h-full">
+				<!-- DATA/ORA mode toggle — the SAME segmented ButtonGroup anatomy
+				     every mode surface uses (filters std/adv, ELT view mode):
+				     ghost buttons + aria-pressed, semantic icon carries the side. -->
+				<ButtonGroup segmented class="w-full h-10 rounded-none border-b bg-muted/50 px-1 py-1">
+					<Button
+						variant="ghost"
+						size="sm"
+						type="button"
+						class="flex-1 {activeTab === 'date'
+							? 'bg-foreground/10 text-foreground shadow-xs'
+							: 'text-muted-foreground'}"
+						aria-pressed={activeTab === 'date'}
+						data-testid={dataTestId ? `${dataTestId}-date-tab` : undefined}
+						onclick={() => (activeTab = 'date')}
+					>
+						<Calendar class="size-4" />
+						{$t("app.common.date")}
+					</Button>
+					<Button
+						variant="ghost"
+						size="sm"
+						type="button"
+						class="flex-1 {activeTab === 'time'
+							? 'bg-foreground/10 text-foreground shadow-xs'
+							: 'text-muted-foreground'}"
+						aria-pressed={activeTab === 'time'}
+						data-testid={dataTestId ? `${dataTestId}-time-tab` : undefined}
+						onclick={() => (activeTab = 'time')}
+					>
+						<Clock class="size-4" />
+						{$t("app.common.time")}
+					</Button>
+				</ButtonGroup>
 
-				{#if activeTab === "time" && includeTime}
+				{#if activeTab === "time"}
 					<div class="px-4 py-2 border-b border-border">
 						<ComboSelect
 							mode="single"
@@ -378,7 +409,7 @@
 					</div>
 				{/if}
 
-				<TabsContent value="date" class="flex-1 overflow-hidden mt-0">
+				<div class="flex-1 overflow-hidden mt-0">
 					{#if activeTab === "date"}
 						<WheelPicker>
 							<WheelPickerGroup bind:value={selectedDay} onValueChange={updateValue}>
@@ -403,11 +434,7 @@
 								{/each}
 							</WheelPickerGroup>
 						</WheelPicker>
-					{/if}
-				</TabsContent>
-
-				<TabsContent value="time" class="flex-1 overflow-hidden mt-0">
-					{#if activeTab === "time"}
+					{:else}
 						<WheelPicker>
 							<WheelPickerGroup bind:value={selectedHour} onValueChange={updateValue}>
 								{#each hours as hour (hour)}
@@ -432,8 +459,8 @@
 							</WheelPickerGroup>
 						</WheelPicker>
 					{/if}
-				</TabsContent>
-			</Tabs>
+				</div>
+			</div>
 		{:else}
 			<WheelPicker>
 				<WheelPickerGroup bind:value={selectedDay} onValueChange={updateValue}>

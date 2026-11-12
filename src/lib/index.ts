@@ -4,6 +4,7 @@ export * from '@primebrick/core';
 
 export * from './utils/index.js';
 export * from './icons/composed-icons.js';
+export * from './icons/semantic-icons.js';
 
 export * from './bridges.js';
 
@@ -17,6 +18,7 @@ export type { SparklineBucket, SparklineSeries } from './components/SparklineBar
 // `<Sheet.Root>`/`<Sheet.Content>`/…).
 export * as Sheet from './components/sheet/index.js';
 export { default as SheetPanelLayout } from './components/sheet/SheetPanelLayout.svelte';
+export { default as SheetPanelFooter } from './components/sheet/SheetPanelFooter.svelte';
 export { default as SheetHeader } from './components/sheet/SheetHeader.svelte';
 
 // Widget primitives — namespace exports mirror the FE `import * as X`
@@ -112,7 +114,8 @@ export {
 	FormButton,
 	PrimeField,
 } from './components/forms/index.js';
-export type { PrimeFieldHelp, MetaTooltipHelp } from './components/forms/index.js';
+export type { PrimeFieldHelp, MetaTooltipHelp, HelpContext, ResolvedHelp } from './components/forms/index.js';
+export { resolveFieldHelp } from './components/forms/index.js';
 export { default as Input } from './components/input/input.svelte';
 export { default as TextInput } from './components/input/text-input.svelte';
 export { Textarea } from './components/textarea/index.js';
@@ -139,6 +142,7 @@ export {
 export type { SearchTrailingButton } from './components/search-input/index.js';
 export * from './components/search-input/search-syntax.js';
 export { useNumericInput } from './composables/useNumericInput.svelte.js';
+export type { NumericKind, NumericUomSpec, NumericUomCtx } from './composables/useNumericInput.svelte.js';
 export { CopyButton } from './components/copy-button/index.js';
 export type { CopyButtonProps, CopyButtonPropsWithoutHTML } from './components/copy-button/index.js';
 export { UseClipboard, copyText } from './composables/useClipboard.svelte.js';
@@ -146,6 +150,7 @@ export { JsonCodeBlock, JsonEditor } from './components/json-code-block/index.js
 export { default as JsonValueEditor } from './components/json-value-editor/json-value-editor.svelte';
 export { default as PayloadMapEditor } from './components/payload-map-editor/payload-map-editor.svelte';
 export { default as AiIcon } from './components/ai-icon/ai-icon.svelte';
+export { default as AiTypingDots } from './components/ai-typing-dots/ai-typing-dots.svelte';
 export { ScheduleSpecInput } from './components/schedule-spec-input/index.js';
 export { ScheduleSpecCell } from './components/schedule-spec-cell/index.js';
 export { scheduleDescriptionText, scheduleRunLabel } from './utils/schedule-spec-i18n.js';

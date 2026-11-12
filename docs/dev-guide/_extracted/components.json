@@ -2024,6 +2024,59 @@
     }
   },
   {
+    "file": "src/lib/components/ai-typing-dots/ai-typing-dots.svelte",
+    "component": "ai-typing-dots",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 48,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 18,
+              "column": 8
+            },
+            "end": {
+              "line": 18,
+              "column": 24
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "Element",
+        "name": "span"
+      },
+      "contexts": [],
+      "diagnostics": []
+    }
+  },
+  {
     "file": "src/lib/components/badge/badge.svelte",
     "component": "badge",
     "data": {
@@ -3660,7 +3713,7 @@
           "column": 0
         },
         "end": {
-          "line": 816,
+          "line": 945,
           "column": 0
         }
       },
@@ -3679,11 +3732,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 183,
+              "line": 229,
               "column": 4
             },
             "end": {
-              "line": 183,
+              "line": 229,
               "column": 8
             }
           }
@@ -3701,11 +3754,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 184,
+              "line": 230,
               "column": 4
             },
             "end": {
-              "line": 184,
+              "line": 230,
               "column": 23
             }
           }
@@ -3722,11 +3775,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 185,
+              "line": 231,
               "column": 4
             },
             "end": {
-              "line": 185,
+              "line": 231,
               "column": 12
             }
           }
@@ -3743,11 +3796,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 186,
+              "line": 232,
               "column": 4
             },
             "end": {
-              "line": 186,
+              "line": 232,
               "column": 11
             }
           }
@@ -3764,11 +3817,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 187,
+              "line": 233,
               "column": 4
             },
             "end": {
-              "line": 187,
+              "line": 233,
               "column": 14
             }
           }
@@ -3785,11 +3838,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 188,
+              "line": 234,
               "column": 4
             },
             "end": {
-              "line": 188,
+              "line": 234,
               "column": 14
             }
           }
@@ -3812,11 +3865,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 189,
+              "line": 235,
               "column": 4
             },
             "end": {
-              "line": 189,
+              "line": 235,
               "column": 29
             }
           }
@@ -3839,11 +3892,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 190,
+              "line": 236,
               "column": 4
             },
             "end": {
-              "line": 190,
+              "line": 236,
               "column": 29
             }
           }
@@ -3866,11 +3919,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 191,
+              "line": 237,
               "column": 4
             },
             "end": {
-              "line": 191,
+              "line": 237,
               "column": 20
             }
           }
@@ -3893,11 +3946,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 192,
+              "line": 238,
               "column": 4
             },
             "end": {
-              "line": 192,
+              "line": 238,
               "column": 19
             }
           }
@@ -3914,11 +3967,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 193,
+              "line": 239,
               "column": 4
             },
             "end": {
-              "line": 193,
+              "line": 239,
               "column": 6
             }
           }
@@ -3941,11 +3994,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 194,
+              "line": 240,
               "column": 4
             },
             "end": {
-              "line": 194,
+              "line": 240,
               "column": 21
             }
           }
@@ -3967,11 +4020,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 195,
+              "line": 241,
               "column": 4
             },
             "end": {
-              "line": 195,
+              "line": 241,
               "column": 33
             }
           }
@@ -3994,11 +4047,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 196,
+              "line": 242,
               "column": 4
             },
             "end": {
-              "line": 196,
+              "line": 242,
               "column": 23
             }
           }
@@ -4021,11 +4074,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 197,
+              "line": 243,
               "column": 4
             },
             "end": {
-              "line": 197,
+              "line": 243,
               "column": 24
             }
           }
@@ -4042,11 +4095,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 198,
+              "line": 244,
               "column": 4
             },
             "end": {
-              "line": 198,
+              "line": 244,
               "column": 18
             }
           }
@@ -4063,11 +4116,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 199,
+              "line": 245,
               "column": 4
             },
             "end": {
-              "line": 199,
+              "line": 245,
               "column": 20
             }
           }
@@ -4090,11 +4143,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 200,
+              "line": 246,
               "column": 4
             },
             "end": {
-              "line": 200,
+              "line": 246,
               "column": 20
             }
           }
@@ -4117,11 +4170,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 201,
+              "line": 247,
               "column": 4
             },
             "end": {
-              "line": 201,
+              "line": 247,
               "column": 26
             }
           }
@@ -4144,11 +4197,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 202,
+              "line": 248,
               "column": 4
             },
             "end": {
-              "line": 202,
+              "line": 248,
               "column": 23
             }
           }
@@ -4171,11 +4224,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 203,
+              "line": 249,
               "column": 4
             },
             "end": {
-              "line": 203,
+              "line": 249,
               "column": 35
             }
           }
@@ -4198,11 +4251,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 204,
+              "line": 250,
               "column": 4
             },
             "end": {
-              "line": 204,
+              "line": 250,
               "column": 33
             }
           }
@@ -4210,20 +4263,19 @@
         {
           "name": "iconField",
           "kind": "let",
-          "type": "string",
-          "typeSource": "typescript",
+          "typeSource": "unknown",
           "isFunction": false,
           "isFunctionDeclaration": false,
-          "isRequired": false,
+          "isRequired": true,
           "constant": false,
           "reactive": false,
           "source": {
             "start": {
-              "line": 205,
+              "line": 251,
               "column": 4
             },
             "end": {
-              "line": 205,
+              "line": 251,
               "column": 13
             }
           }
@@ -4240,11 +4292,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 206,
+              "line": 252,
               "column": 4
             },
             "end": {
-              "line": 206,
+              "line": 252,
               "column": 18
             }
           }
@@ -4252,20 +4304,19 @@
         {
           "name": "flagField",
           "kind": "let",
-          "type": "string",
-          "typeSource": "typescript",
+          "typeSource": "unknown",
           "isFunction": false,
           "isFunctionDeclaration": false,
-          "isRequired": false,
+          "isRequired": true,
           "constant": false,
           "reactive": false,
           "source": {
             "start": {
-              "line": 207,
+              "line": 253,
               "column": 4
             },
             "end": {
-              "line": 207,
+              "line": 253,
               "column": 13
             }
           }
@@ -4282,12 +4333,66 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 208,
+              "line": 254,
               "column": 4
             },
             "end": {
-              "line": 208,
+              "line": 254,
               "column": 19
+            }
+          }
+        },
+        {
+          "name": "multiBadge",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "default",
+          "value": "'icon-label'",
+          "defaultValue": {
+            "raw": "'icon-label'",
+            "kind": "literal",
+            "value": "icon-label"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 255,
+              "column": 4
+            },
+            "end": {
+              "line": 255,
+              "column": 29
+            }
+          }
+        },
+        {
+          "name": "multiSummaryAt",
+          "kind": "let",
+          "type": "number",
+          "typeSource": "typescript",
+          "value": "1",
+          "defaultValue": {
+            "raw": "1",
+            "kind": "literal",
+            "value": 1
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 256,
+              "column": 4
+            },
+            "end": {
+              "line": 256,
+              "column": 22
             }
           }
         },
@@ -4303,11 +4408,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 210,
+              "line": 258,
               "column": 4
             },
             "end": {
-              "line": 210,
+              "line": 258,
               "column": 20
             }
           }
@@ -4324,11 +4429,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 211,
+              "line": 259,
               "column": 4
             },
             "end": {
-              "line": 211,
+              "line": 259,
               "column": 18
             }
           }
@@ -4345,11 +4450,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 212,
+              "line": 260,
               "column": 4
             },
             "end": {
-              "line": 212,
+              "line": 260,
               "column": 21
             }
           }
@@ -4372,11 +4477,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 213,
+              "line": 261,
               "column": 4
             },
             "end": {
-              "line": 213,
+              "line": 261,
               "column": 26
             }
           }
@@ -4399,11 +4504,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 215,
+              "line": 263,
               "column": 4
             },
             "end": {
-              "line": 215,
+              "line": 263,
               "column": 23
             }
           }
@@ -4420,11 +4525,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 216,
+              "line": 264,
               "column": 4
             },
             "end": {
-              "line": 216,
+              "line": 264,
               "column": 12
             }
           }
@@ -4441,11 +4546,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 217,
+              "line": 265,
               "column": 4
             },
             "end": {
-              "line": 217,
+              "line": 265,
               "column": 17
             }
           }
@@ -4462,11 +4567,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 218,
+              "line": 266,
               "column": 4
             },
             "end": {
-              "line": 218,
+              "line": 266,
               "column": 14
             }
           }
@@ -4489,11 +4594,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 219,
+              "line": 267,
               "column": 4
             },
             "end": {
-              "line": 219,
+              "line": 267,
               "column": 23
             }
           }
@@ -4516,12 +4621,33 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 220,
+              "line": 268,
               "column": 4
             },
             "end": {
-              "line": 220,
+              "line": 268,
               "column": 22
+            }
+          }
+        },
+        {
+          "name": "trailing_ctas",
+          "kind": "let",
+          "type": "TrailingCta[]",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 270,
+              "column": 4
+            },
+            "end": {
+              "line": 270,
+              "column": 17
             }
           }
         },
@@ -4543,11 +4669,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 221,
+              "line": 271,
               "column": 4
             },
             "end": {
-              "line": 221,
+              "line": 271,
               "column": 24
             }
           }
@@ -4565,11 +4691,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 222,
+              "line": 272,
               "column": 4
             },
             "end": {
-              "line": 222,
+              "line": 272,
               "column": 31
             }
           }
@@ -4587,11 +4713,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 223,
+              "line": 273,
               "column": 4
             },
             "end": {
-              "line": 223,
+              "line": 273,
               "column": 39
             }
           }
@@ -4609,11 +4735,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 224,
+              "line": 274,
               "column": 4
             },
             "end": {
-              "line": 224,
+              "line": 274,
               "column": 33
             }
           }
@@ -4631,11 +4757,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 225,
+              "line": 275,
               "column": 4
             },
             "end": {
-              "line": 225,
+              "line": 275,
               "column": 32
             }
           }
@@ -4658,11 +4784,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 226,
+              "line": 276,
               "column": 4
             },
             "end": {
-              "line": 226,
+              "line": 276,
               "column": 23
             }
           }
@@ -4680,11 +4806,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 227,
+              "line": 277,
               "column": 4
             },
             "end": {
-              "line": 227,
+              "line": 277,
               "column": 20
             }
           }
@@ -4701,11 +4827,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 228,
+              "line": 278,
               "column": 4
             },
             "end": {
-              "line": 228,
+              "line": 278,
               "column": 29
             }
           }
@@ -4719,11 +4845,11 @@
           "slot_props": "{\n  option: any;\n  selected: any;\n  resolvedLabel: any;\n  resolvedValue: any;\n}",
           "source": {
             "start": {
-              "line": 750,
+              "line": 879,
               "column": 18
             },
             "end": {
-              "line": 755,
+              "line": 884,
               "column": 21
             }
           }
@@ -4734,12 +4860,27 @@
           "slot_props": "{\n  option: any;\n  resolvedLabel: any;\n  resolvedValue: any;\n}",
           "source": {
             "start": {
-              "line": 552,
+              "line": 626,
               "column": 14
             },
             "end": {
-              "line": 556,
+              "line": 630,
               "column": 17
+            }
+          }
+        },
+        {
+          "name": "trailing",
+          "default": false,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 708,
+              "column": 12
+            },
+            "end": {
+              "line": 708,
+              "column": 32
             }
           }
         }
@@ -4752,15 +4893,47 @@
         {
           "component": "src/lib/components/combo-select/combo-select.svelte",
           "kind": "prop-unknown-type",
+          "name": "iconField",
+          "message": "Prop \"iconField\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 251,
+              "column": 4
+            },
+            "end": {
+              "line": 251,
+              "column": 13
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/combo-select/combo-select.svelte",
+          "kind": "prop-unknown-type",
+          "name": "flagField",
+          "message": "Prop \"flagField\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 253,
+              "column": 4
+            },
+            "end": {
+              "line": 253,
+              "column": 13
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/combo-select/combo-select.svelte",
+          "kind": "prop-unknown-type",
           "name": "data-testid",
           "message": "Prop \"data-testid\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 228,
+              "line": 278,
               "column": 4
             },
             "end": {
-              "line": 228,
+              "line": 278,
               "column": 29
             }
           }
@@ -6769,7 +6942,7 @@
           "column": 0
         },
         "end": {
-          "line": 491,
+          "line": 518,
           "column": 0
         }
       },
@@ -6801,9 +6974,9 @@
           "name": "placeholder",
           "kind": "let",
           "typeSource": "unknown",
-          "value": "$t(\"app.common.selectDate\")",
+          "value": "$t(\"app.common.select_date\")",
           "defaultValue": {
-            "raw": "$t(\"app.common.selectDate\")",
+            "raw": "$t(\"app.common.select_date\")",
             "kind": "expression"
           },
           "isFunction": false,
@@ -6818,7 +6991,7 @@
             },
             "end": {
               "line": 27,
-              "column": 69
+              "column": 70
             }
           }
         },
@@ -6841,11 +7014,11 @@
           "source": {
             "start": {
               "line": 27,
-              "column": 71
+              "column": 72
             },
             "end": {
               "line": 27,
-              "column": 90
+              "column": 91
             }
           }
         },
@@ -6868,11 +7041,11 @@
           "source": {
             "start": {
               "line": 27,
-              "column": 92
+              "column": 93
             },
             "end": {
               "line": 27,
-              "column": 108
+              "column": 109
             }
           }
         },
@@ -6893,11 +7066,11 @@
           "source": {
             "start": {
               "line": 27,
-              "column": 110
+              "column": 111
             },
             "end": {
               "line": 27,
-              "column": 133
+              "column": 134
             }
           }
         },
@@ -6918,11 +7091,11 @@
           "source": {
             "start": {
               "line": 27,
-              "column": 135
+              "column": 136
             },
             "end": {
               "line": 27,
-              "column": 155
+              "column": 156
             }
           }
         },
@@ -6939,11 +7112,11 @@
           "source": {
             "start": {
               "line": 27,
-              "column": 157
+              "column": 158
             },
             "end": {
               "line": 27,
-              "column": 179
+              "column": 180
             }
           }
         },
@@ -6964,11 +7137,63 @@
           "source": {
             "start": {
               "line": 27,
-              "column": 181
+              "column": 182
             },
             "end": {
               "line": 27,
-              "column": 203
+              "column": 204
+            }
+          }
+        },
+        {
+          "name": "id",
+          "kind": "let",
+          "typeSource": "unknown",
+          "value": "undefined",
+          "defaultValue": {
+            "raw": "undefined",
+            "kind": "expression"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 27,
+              "column": 206
+            },
+            "end": {
+              "line": 27,
+              "column": 220
+            }
+          }
+        },
+        {
+          "name": "disabled",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "default",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 27,
+              "column": 222
+            },
+            "end": {
+              "line": 27,
+              "column": 238
             }
           }
         }
@@ -7008,7 +7233,7 @@
             },
             "end": {
               "line": 27,
-              "column": 69
+              "column": 70
             }
           }
         },
@@ -7020,11 +7245,11 @@
           "source": {
             "start": {
               "line": 27,
-              "column": 110
+              "column": 111
             },
             "end": {
               "line": 27,
-              "column": 133
+              "column": 134
             }
           }
         },
@@ -7036,11 +7261,11 @@
           "source": {
             "start": {
               "line": 27,
-              "column": 135
+              "column": 136
             },
             "end": {
               "line": 27,
-              "column": 155
+              "column": 156
             }
           }
         },
@@ -7052,11 +7277,11 @@
           "source": {
             "start": {
               "line": 27,
-              "column": 157
+              "column": 158
             },
             "end": {
               "line": 27,
-              "column": 179
+              "column": 180
             }
           }
         },
@@ -7068,11 +7293,27 @@
           "source": {
             "start": {
               "line": 27,
-              "column": 181
+              "column": 182
             },
             "end": {
               "line": 27,
-              "column": 203
+              "column": 204
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/date-dropper/date-wheel-picker.svelte",
+          "kind": "prop-unknown-type",
+          "name": "id",
+          "message": "Prop \"id\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 27,
+              "column": 206
+            },
+            "end": {
+              "line": 27,
+              "column": 220
             }
           }
         }
@@ -8346,7 +8587,7 @@
           "column": 0
         },
         "end": {
-          "line": 195,
+          "line": 208,
           "column": 0
         }
       },
@@ -8365,11 +8606,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 88,
+              "line": 89,
               "column": 4
             },
             "end": {
-              "line": 88,
+              "line": 89,
               "column": 8
             }
           }
@@ -8392,11 +8633,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 89,
+              "line": 90,
               "column": 4
             },
             "end": {
-              "line": 89,
+              "line": 90,
               "column": 13
             }
           }
@@ -8414,11 +8655,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 90,
+              "line": 91,
               "column": 4
             },
             "end": {
-              "line": 90,
+              "line": 91,
               "column": 20
             }
           }
@@ -8435,11 +8676,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 91,
+              "line": 92,
               "column": 4
             },
             "end": {
-              "line": 91,
+              "line": 92,
               "column": 9
             }
           }
@@ -8486,7 +8727,7 @@
           "column": 0
         },
         "end": {
-          "line": 75,
+          "line": 89,
           "column": 0
         }
       },
@@ -8505,11 +8746,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 28,
+              "line": 39,
               "column": 4
             },
             "end": {
-              "line": 28,
+              "line": 39,
               "column": 10
             }
           }
@@ -8526,11 +8767,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 29,
+              "line": 40,
               "column": 4
             },
             "end": {
-              "line": 29,
+              "line": 40,
               "column": 15
             }
           }
@@ -8547,12 +8788,33 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 30,
+              "line": 41,
               "column": 4
             },
             "end": {
-              "line": 30,
+              "line": 41,
               "column": 14
+            }
+          }
+        },
+        {
+          "name": "chrome",
+          "kind": "let",
+          "type": "{\r\n      label_key?: string;\r\n      confirm_key?: string;\r\n      busy_key?: string;\r\n      color?: ActionColor;\r\n    }",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 42,
+              "column": 4
+            },
+            "end": {
+              "line": 42,
+              "column": 10
             }
           }
         },
@@ -8569,11 +8831,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 31,
+              "line": 43,
               "column": 4
             },
             "end": {
-              "line": 31,
+              "line": 43,
               "column": 22
             }
           }
@@ -8590,11 +8852,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 32,
+              "line": 44,
               "column": 4
             },
             "end": {
-              "line": 32,
+              "line": 44,
               "column": 16
             }
           }
@@ -8611,11 +8873,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 33,
+              "line": 45,
               "column": 4
             },
             "end": {
-              "line": 33,
+              "line": 45,
               "column": 14
             }
           }
@@ -8632,11 +8894,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 34,
+              "line": 46,
               "column": 4
             },
             "end": {
-              "line": 34,
+              "line": 46,
               "column": 13
             }
           }
@@ -8653,11 +8915,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 35,
+              "line": 47,
               "column": 4
             },
             "end": {
-              "line": 35,
+              "line": 47,
               "column": 12
             }
           }
@@ -8682,7 +8944,7 @@
           "column": 0
         },
         "end": {
-          "line": 41,
+          "line": 45,
           "column": 0
         }
       },
@@ -8730,6 +8992,27 @@
               "column": 30
             }
           }
+        },
+        {
+          "name": "test_id",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 11,
+              "column": 4
+            },
+            "end": {
+              "line": 11,
+              "column": 11
+            }
+          }
         }
       ],
       "moduleExports": [],
@@ -8751,7 +9034,7 @@
           "column": 0
         },
         "end": {
-          "line": 49,
+          "line": 54,
           "column": 0
         }
       },
@@ -8770,11 +9053,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 20,
+              "line": 25,
               "column": 8
             },
             "end": {
-              "line": 20,
+              "line": 25,
               "column": 14
             }
           }
@@ -8791,11 +9074,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 20,
+              "line": 25,
               "column": 16
             },
             "end": {
-              "line": 20,
+              "line": 25,
               "column": 22
             }
           }
@@ -8812,11 +9095,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 20,
+              "line": 25,
               "column": 24
             },
             "end": {
-              "line": 20,
+              "line": 25,
               "column": 35
             }
           }
@@ -8833,12 +9116,33 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 20,
+              "line": 25,
               "column": 37
             },
             "end": {
-              "line": 20,
+              "line": 25,
               "column": 47
+            }
+          }
+        },
+        {
+          "name": "confirm_key",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 25,
+              "column": 49
+            },
+            "end": {
+              "line": 25,
+              "column": 60
             }
           }
         }
@@ -10200,7 +10504,7 @@
           "column": 0
         },
         "end": {
-          "line": 183,
+          "line": 151,
           "column": 0
         }
       },
@@ -10220,11 +10524,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 60,
+              "line": 40,
               "column": 4
             },
             "end": {
-              "line": 60,
+              "line": 40,
               "column": 14
             }
           }
@@ -10241,12 +10545,33 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 61,
+              "line": 41,
               "column": 4
             },
             "end": {
-              "line": 61,
+              "line": 41,
               "column": 9
+            }
+          }
+        },
+        {
+          "name": "icon",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 42,
+              "column": 4
+            },
+            "end": {
+              "line": 42,
+              "column": 8
             }
           }
         },
@@ -10268,11 +10593,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 62,
+              "line": 43,
               "column": 4
             },
             "end": {
-              "line": 62,
+              "line": 43,
               "column": 20
             }
           }
@@ -10289,11 +10614,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 63,
+              "line": 44,
               "column": 4
             },
             "end": {
-              "line": 63,
+              "line": 44,
               "column": 8
             }
           }
@@ -10310,11 +10635,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 64,
+              "line": 45,
               "column": 4
             },
             "end": {
-              "line": 64,
+              "line": 45,
               "column": 9
             }
           }
@@ -10331,12 +10656,39 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 65,
+              "line": 46,
               "column": 4
             },
             "end": {
-              "line": 65,
+              "line": 46,
               "column": 8
+            }
+          }
+        },
+        {
+          "name": "help_context",
+          "kind": "let",
+          "type": "HelpContext",
+          "typeSource": "typescript",
+          "value": "'form'",
+          "defaultValue": {
+            "raw": "'form'",
+            "kind": "literal",
+            "value": "form"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 47,
+              "column": 4
+            },
+            "end": {
+              "line": 47,
+              "column": 25
             }
           }
         },
@@ -10358,11 +10710,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 66,
+              "line": 48,
               "column": 4
             },
             "end": {
-              "line": 66,
+              "line": 48,
               "column": 22
             }
           }
@@ -10380,11 +10732,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 68,
+              "line": 50,
               "column": 4
             },
             "end": {
-              "line": 68,
+              "line": 50,
               "column": 20
             }
           }
@@ -10402,11 +10754,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 69,
+              "line": 51,
               "column": 4
             },
             "end": {
-              "line": 69,
+              "line": 51,
               "column": 29
             }
           }
@@ -10420,11 +10772,11 @@
           "slot_props": "{ id: string }",
           "source": {
             "start": {
-              "line": 173,
+              "line": 141,
               "column": 4
             },
             "end": {
-              "line": 173,
+              "line": 141,
               "column": 29
             }
           }
@@ -10831,7 +11183,7 @@
           "column": 0
         },
         "end": {
-          "line": 212,
+          "line": 211,
           "column": 0
         }
       },
@@ -11158,11 +11510,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 165,
+              "line": 164,
               "column": 2
             },
             "end": {
-              "line": 165,
+              "line": 164,
               "column": 22
             }
           }
@@ -12296,7 +12648,7 @@
           "column": 0
         },
         "end": {
-          "line": 25,
+          "line": 31,
           "column": 0
         }
       },
@@ -12361,11 +12713,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 23,
+              "line": 29,
               "column": 1
             },
             "end": {
-              "line": 23,
+              "line": 29,
               "column": 23
             }
           }
@@ -13687,7 +14039,7 @@
           "column": 0
         },
         "end": {
-          "line": 36,
+          "line": 23,
           "column": 0
         }
       },
@@ -13713,11 +14065,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 30,
+              "line": 17,
               "column": 7
             },
             "end": {
-              "line": 30,
+              "line": 17,
               "column": 28
             }
           }
@@ -13734,11 +14086,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 30,
+              "line": 17,
               "column": 30
             },
             "end": {
-              "line": 30,
+              "line": 17,
               "column": 46
             }
           }
@@ -13761,43 +14113,44 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 30,
+              "line": 17,
               "column": 48
             },
             "end": {
-              "line": 30,
+              "line": 17,
               "column": 60
             }
           }
-        }
-      ],
-      "moduleExports": [
+        },
         {
-          "name": "kbdVariants",
-          "kind": "const",
-          "typeSource": "unknown",
-          "value": "tv({\r\n\t\tbase: \"inline-flex shrink-0 items-center justify-center rounded border border-border/80 bg-muted/50 font-mono font-semibold leading-none text-muted-foreground shadow-sm\",\r\n\t\tvariants: {\r\n\t\t\tsize: {\r\n\t\t\t\tkey: \"h-5 min-w-5 px-1 text-[11px]\",\r\n\t\t\t\tmodifier: \"h-5 px-1.5 text-[10px]\",\r\n\t\t\t\ticon: \"size-5 [&>svg]:size-3.5\",\r\n\t\t\t},\r\n\t\t},\r\n\t\tdefaultVariants: {\r\n\t\t\tsize: \"key\",\r\n\t\t},\r\n\t})",
+          "name": "tone",
+          "kind": "let",
+          "type": "KbdTone",
+          "typeSource": "typescript",
+          "value": "\"default\"",
           "defaultValue": {
-            "raw": "tv({ \t\tbase: \"inline-flex shrink-0 items-center justify-center rounded border border-border/80 bg-muted/50 font-mono font-semibold leading-none text-muted-foreground shadow-sm\", \t\tvariants: { \t\t\tsize: { \t\t\t\tkey: \"h-5 min-w-5 px-1 text-[11px]\", \t\t\t\tmodifier: \"h-5 px-1.5 text-[10px]\", \t\t\t\ticon: \"size-5 [&>svg]:size-3.5\", \t\t\t}, \t\t}, \t\tdefaultVariants: { \t\t\tsize: \"key\", \t\t}, \t})",
-            "kind": "expression"
+            "raw": "\"default\"",
+            "kind": "literal",
+            "value": "default"
           },
           "isFunction": false,
           "isFunctionDeclaration": false,
           "isRequired": false,
-          "constant": true,
+          "constant": false,
           "reactive": false,
           "source": {
             "start": {
-              "line": 4,
-              "column": 1
+              "line": 17,
+              "column": 62
             },
             "end": {
-              "line": 16,
-              "column": 4
+              "line": 17,
+              "column": 78
             }
           }
         }
       ],
+      "moduleExports": [],
       "slots": [
         {
           "name": null,
@@ -13805,11 +14158,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 34,
+              "line": 21,
               "column": 1
             },
             "end": {
-              "line": 34,
+              "line": 21,
               "column": 23
             }
           }
@@ -13831,11 +14184,11 @@
           "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 30,
+              "line": 17,
               "column": 30
             },
             "end": {
-              "line": 30,
+              "line": 17,
               "column": 46
             }
           }
@@ -13853,7 +14206,7 @@
           "column": 0
         },
         "end": {
-          "line": 71,
+          "line": 108,
           "column": 0
         }
       },
@@ -13879,11 +14232,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 38,
+              "line": 51,
               "column": 2
             },
             "end": {
-              "line": 38,
+              "line": 51,
               "column": 23
             }
           }
@@ -13900,11 +14253,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 39,
+              "line": 52,
               "column": 2
             },
             "end": {
-              "line": 39,
+              "line": 52,
               "column": 18
             }
           }
@@ -13921,12 +14274,66 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 40,
+              "line": 53,
               "column": 2
             },
             "end": {
-              "line": 40,
+              "line": 53,
               "column": 7
+            }
+          }
+        },
+        {
+          "name": "tone",
+          "kind": "let",
+          "type": "KbdTone",
+          "typeSource": "typescript",
+          "value": "'default'",
+          "defaultValue": {
+            "raw": "'default'",
+            "kind": "literal",
+            "value": "default"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 55,
+              "column": 2
+            },
+            "end": {
+              "line": 55,
+              "column": 18
+            }
+          }
+        },
+        {
+          "name": "layout",
+          "kind": "let",
+          "type": "'row' | 'median'",
+          "typeSource": "typescript",
+          "value": "'row'",
+          "defaultValue": {
+            "raw": "'row'",
+            "kind": "literal",
+            "value": "row"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 56,
+              "column": 2
+            },
+            "end": {
+              "line": 56,
+              "column": 16
             }
           }
         }
@@ -13939,11 +14346,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 67,
+              "line": 104,
               "column": 3
             },
             "end": {
-              "line": 67,
+              "line": 104,
               "column": 18
             }
           }
@@ -13965,11 +14372,11 @@
           "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 39,
+              "line": 52,
               "column": 2
             },
             "end": {
-              "line": 39,
+              "line": 52,
               "column": 18
             }
           }
@@ -14304,7 +14711,7 @@
           "column": 0
         },
         "end": {
-          "line": 229,
+          "line": 438,
           "column": 0
         }
       },
@@ -14329,17 +14736,17 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 62,
+              "line": 86,
               "column": 4
             },
             "end": {
-              "line": 62,
+              "line": 86,
               "column": 25
             }
           }
         },
         {
-          "name": "type",
+          "name": "kind",
           "kind": "let",
           "typeSource": "unknown",
           "isFunction": false,
@@ -14349,12 +14756,32 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 63,
+              "line": 87,
               "column": 4
             },
             "end": {
-              "line": 63,
+              "line": 87,
               "column": 8
+            }
+          }
+        },
+        {
+          "name": "uom",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 88,
+              "column": 4
+            },
+            "end": {
+              "line": 88,
+              "column": 7
             }
           }
         },
@@ -14375,11 +14802,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 64,
+              "line": 89,
               "column": 4
             },
             "end": {
-              "line": 64,
+              "line": 89,
               "column": 22
             }
           }
@@ -14403,11 +14830,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 65,
+              "line": 90,
               "column": 4
             },
             "end": {
-              "line": 65,
+              "line": 90,
               "column": 25
             }
           }
@@ -14423,11 +14850,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 66,
+              "line": 91,
               "column": 4
             },
             "end": {
-              "line": 66,
+              "line": 91,
               "column": 12
             }
           }
@@ -14450,17 +14877,44 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 67,
+              "line": 92,
               "column": 4
             },
             "end": {
-              "line": 67,
+              "line": 92,
               "column": 15
             }
           }
         },
         {
-          "name": "currencySymbol",
+          "name": "steppers",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "default",
+          "value": "true",
+          "defaultValue": {
+            "raw": "true",
+            "kind": "literal",
+            "value": true
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 93,
+              "column": 4
+            },
+            "end": {
+              "line": 93,
+              "column": 19
+            }
+          }
+        },
+        {
+          "name": "step",
           "kind": "let",
           "typeSource": "unknown",
           "isFunction": false,
@@ -14470,37 +14924,71 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 68,
+              "line": 94,
               "column": 4
             },
             "end": {
-              "line": 68,
+              "line": 94,
+              "column": 8
+            }
+          }
+        },
+        {
+          "name": "align",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "default",
+          "value": "\"left\"",
+          "defaultValue": {
+            "raw": "\"left\"",
+            "kind": "literal",
+            "value": "left"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 95,
+              "column": 4
+            },
+            "end": {
+              "line": 95,
               "column": 18
             }
           }
         },
         {
-          "name": "currencyCode",
+          "name": "clearable",
           "kind": "let",
-          "typeSource": "unknown",
+          "type": "boolean",
+          "typeSource": "default",
+          "value": "true",
+          "defaultValue": {
+            "raw": "true",
+            "kind": "literal",
+            "value": true
+          },
           "isFunction": false,
           "isFunctionDeclaration": false,
-          "isRequired": true,
+          "isRequired": false,
           "constant": false,
           "reactive": false,
           "source": {
             "start": {
-              "line": 69,
+              "line": 96,
               "column": 4
             },
             "end": {
-              "line": 69,
-              "column": 16
+              "line": 96,
+              "column": 20
             }
           }
         },
         {
-          "name": "onCurrencyClick",
+          "name": "unsigned",
           "kind": "let",
           "typeSource": "unknown",
           "isFunction": false,
@@ -14510,12 +14998,52 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 70,
+              "line": 97,
               "column": 4
             },
             "end": {
-              "line": 70,
-              "column": 19
+              "line": 97,
+              "column": 12
+            }
+          }
+        },
+        {
+          "name": "min",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 98,
+              "column": 4
+            },
+            "end": {
+              "line": 98,
+              "column": 7
+            }
+          }
+        },
+        {
+          "name": "max",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 99,
+              "column": 4
+            },
+            "end": {
+              "line": 99,
+              "column": 7
             }
           }
         },
@@ -14524,9 +15052,9 @@
           "kind": "let",
           "type": "string",
           "typeSource": "default",
-          "value": "'en-GB'",
+          "value": "\"en-GB\"",
           "defaultValue": {
-            "raw": "'en-GB'",
+            "raw": "\"en-GB\"",
             "kind": "literal",
             "value": "en-GB"
           },
@@ -14537,11 +15065,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 71,
+              "line": 100,
               "column": 4
             },
             "end": {
-              "line": 71,
+              "line": 100,
               "column": 18
             }
           }
@@ -14558,11 +15086,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 72,
+              "line": 101,
               "column": 4
             },
             "end": {
-              "line": 72,
+              "line": 101,
               "column": 20
             }
           }
@@ -14582,11 +15110,11 @@
           "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 62,
+              "line": 86,
               "column": 4
             },
             "end": {
-              "line": 62,
+              "line": 86,
               "column": 25
             }
           }
@@ -14594,16 +15122,32 @@
         {
           "component": "src/lib/components/numeric-input/numeric-input.svelte",
           "kind": "prop-unknown-type",
-          "name": "type",
-          "message": "Prop \"type\" type could not be inferred; falling back to \"any\".",
+          "name": "kind",
+          "message": "Prop \"kind\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 63,
+              "line": 87,
               "column": 4
             },
             "end": {
-              "line": 63,
+              "line": 87,
               "column": 8
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/numeric-input/numeric-input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "uom",
+          "message": "Prop \"uom\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 88,
+              "column": 4
+            },
+            "end": {
+              "line": 88,
+              "column": 7
             }
           }
         },
@@ -14614,11 +15158,11 @@
           "message": "Prop \"type_config\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 64,
+              "line": 89,
               "column": 4
             },
             "end": {
-              "line": 64,
+              "line": 89,
               "column": 22
             }
           }
@@ -14630,11 +15174,11 @@
           "message": "Prop \"onChange\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 66,
+              "line": 91,
               "column": 4
             },
             "end": {
-              "line": 66,
+              "line": 91,
               "column": 12
             }
           }
@@ -14642,48 +15186,64 @@
         {
           "component": "src/lib/components/numeric-input/numeric-input.svelte",
           "kind": "prop-unknown-type",
-          "name": "currencySymbol",
-          "message": "Prop \"currencySymbol\" type could not be inferred; falling back to \"any\".",
+          "name": "step",
+          "message": "Prop \"step\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 68,
+              "line": 94,
               "column": 4
             },
             "end": {
-              "line": 68,
-              "column": 18
+              "line": 94,
+              "column": 8
             }
           }
         },
         {
           "component": "src/lib/components/numeric-input/numeric-input.svelte",
           "kind": "prop-unknown-type",
-          "name": "currencyCode",
-          "message": "Prop \"currencyCode\" type could not be inferred; falling back to \"any\".",
+          "name": "unsigned",
+          "message": "Prop \"unsigned\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 69,
+              "line": 97,
               "column": 4
             },
             "end": {
-              "line": 69,
-              "column": 16
+              "line": 97,
+              "column": 12
             }
           }
         },
         {
           "component": "src/lib/components/numeric-input/numeric-input.svelte",
           "kind": "prop-unknown-type",
-          "name": "onCurrencyClick",
-          "message": "Prop \"onCurrencyClick\" type could not be inferred; falling back to \"any\".",
+          "name": "min",
+          "message": "Prop \"min\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 70,
+              "line": 98,
               "column": 4
             },
             "end": {
-              "line": 70,
-              "column": 19
+              "line": 98,
+              "column": 7
+            }
+          }
+        },
+        {
+          "component": "src/lib/components/numeric-input/numeric-input.svelte",
+          "kind": "prop-unknown-type",
+          "name": "max",
+          "message": "Prop \"max\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 99,
+              "column": 4
+            },
+            "end": {
+              "line": 99,
+              "column": 7
             }
           }
         },
@@ -14694,11 +15254,11 @@
           "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 72,
+              "line": 101,
               "column": 4
             },
             "end": {
-              "line": 72,
+              "line": 101,
               "column": 20
             }
           }
@@ -16925,7 +17485,7 @@
           "column": 0
         },
         "end": {
-          "line": 182,
+          "line": 185,
           "column": 0
         }
       },
@@ -17841,7 +18401,7 @@
             },
             "end": {
               "line": 52,
-              "column": 26
+              "column": 24
             }
           }
         }
@@ -19107,6 +19667,134 @@
     }
   },
   {
+    "file": "src/lib/components/sheet/SheetPanelFooter.svelte",
+    "component": "SheetPanelFooter",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 41,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "ref",
+          "kind": "let",
+          "bindable": true,
+          "type": "null | HTMLDivElement",
+          "typeSource": "inferred",
+          "value": "null",
+          "defaultValue": {
+            "raw": "null",
+            "kind": "literal",
+            "value": null
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 19,
+              "column": 4
+            },
+            "end": {
+              "line": 19,
+              "column": 25
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 20,
+              "column": 4
+            },
+            "end": {
+              "line": 20,
+              "column": 20
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [
+        {
+          "name": null,
+          "default": true,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 38,
+              "column": 4
+            },
+            "end": {
+              "line": 38,
+              "column": 26
+            }
+          }
+        },
+        {
+          "name": "start",
+          "default": false,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 36,
+              "column": 2
+            },
+            "end": {
+              "line": 36,
+              "column": 21
+            }
+          }
+        }
+      ],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "Element",
+        "name": "div"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/sheet/SheetPanelFooter.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 20,
+              "column": 4
+            },
+            "end": {
+              "line": 20,
+              "column": 20
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
     "file": "src/lib/components/sheet/SheetPanelLayout.svelte",
     "component": "SheetPanelLayout",
     "data": {
@@ -19116,34 +19804,13 @@
           "column": 0
         },
         "end": {
-          "line": 120,
+          "line": 136,
           "column": 0
         }
       },
       "syntaxMode": "runes",
       "scriptLanguage": "ts",
       "props": [
-        {
-          "name": "actions",
-          "kind": "let",
-          "type": "Snippet",
-          "typeSource": "typescript",
-          "isFunction": false,
-          "isFunctionDeclaration": false,
-          "isRequired": false,
-          "constant": false,
-          "reactive": false,
-          "source": {
-            "start": {
-              "line": 36,
-              "column": 4
-            },
-            "end": {
-              "line": 36,
-              "column": 11
-            }
-          }
-        },
         {
           "name": "onClose",
           "kind": "let",
@@ -19195,12 +19862,27 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 111,
+              "line": 127,
               "column": 4
             },
             "end": {
-              "line": 111,
+              "line": 127,
               "column": 24
+            }
+          }
+        },
+        {
+          "name": "actions",
+          "default": false,
+          "slot_props": "Record<string, never>",
+          "source": {
+            "start": {
+              "line": 113,
+              "column": 2
+            },
+            "end": {
+              "line": 113,
+              "column": 23
             }
           }
         },
@@ -19210,11 +19892,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 116,
+              "line": 132,
               "column": 6
             },
             "end": {
-              "line": 116,
+              "line": 132,
               "column": 24
             }
           }
@@ -19225,11 +19907,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 96,
+              "line": 107,
               "column": 4
             },
             "end": {
-              "line": 96,
+              "line": 107,
               "column": 20
             }
           }
@@ -19240,11 +19922,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 97,
+              "line": 108,
               "column": 4
             },
             "end": {
-              "line": 97,
+              "line": 108,
               "column": 21
             }
           }
@@ -19255,11 +19937,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 106,
+              "line": 122,
               "column": 6
             },
             "end": {
-              "line": 106,
+              "line": 122,
               "column": 25
             }
           }
@@ -19871,7 +20553,7 @@
           "column": 0
         },
         "end": {
-          "line": 98,
+          "line": 99,
           "column": 0
         }
       },
@@ -21533,7 +22215,7 @@
           "column": 0
         },
         "end": {
-          "line": 112,
+          "line": 146,
           "column": 0
         }
       },
@@ -21672,11 +22354,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 84,
+              "line": 118,
               "column": 4
             },
             "end": {
-              "line": 84,
+              "line": 118,
               "column": 26
             }
           }
@@ -21687,11 +22369,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 78,
+              "line": 112,
               "column": 8
             },
             "end": {
-              "line": 78,
+              "line": 112,
               "column": 26
             }
           }
@@ -21702,11 +22384,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 71,
+              "line": 105,
               "column": 6
             },
             "end": {
-              "line": 71,
+              "line": 105,
               "column": 22
             }
           }
@@ -21717,11 +22399,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 108,
+              "line": 142,
               "column": 6
             },
             "end": {
-              "line": 108,
+              "line": 142,
               "column": 25
             }
           }
@@ -22464,6 +23146,200 @@
           }
         }
       ],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "contexts": [],
+      "diagnostics": []
+    }
+  },
+  {
+    "file": "src/lib/icons/ExecStart.svelte",
+    "component": "ExecStart",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 47,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "size",
+          "kind": "let",
+          "type": "number",
+          "typeSource": "typescript",
+          "value": "16",
+          "defaultValue": {
+            "raw": "16",
+            "kind": "literal",
+            "value": 16
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 14,
+              "column": 4
+            },
+            "end": {
+              "line": 14,
+              "column": 13
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 15,
+              "column": 4
+            },
+            "end": {
+              "line": 15,
+              "column": 20
+            }
+          }
+        },
+        {
+          "name": "style",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 16,
+              "column": 4
+            },
+            "end": {
+              "line": 16,
+              "column": 9
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "contexts": [],
+      "diagnostics": []
+    }
+  },
+  {
+    "file": "src/lib/icons/ExecStop.svelte",
+    "component": "ExecStop",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 48,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "size",
+          "kind": "let",
+          "type": "number",
+          "typeSource": "typescript",
+          "value": "16",
+          "defaultValue": {
+            "raw": "16",
+            "kind": "literal",
+            "value": 16
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 18,
+              "column": 4
+            },
+            "end": {
+              "line": 18,
+              "column": 13
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 19,
+              "column": 4
+            },
+            "end": {
+              "line": 19,
+              "column": 20
+            }
+          }
+        },
+        {
+          "name": "style",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 20,
+              "column": 4
+            },
+            "end": {
+              "line": 20,
+              "column": 9
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
       "events": [],
       "typedefs": [],
       "generics": null,

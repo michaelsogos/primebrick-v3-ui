@@ -557,7 +557,7 @@
     email: 'mail',
     url: 'link',
     uri: 'link',
-    uuid: 'fingerprint-pattern',
+    uuid: 'file-key',
     'date-time': 'calendar-clock',
     datetime: 'calendar-clock',
     date: 'calendar',
@@ -586,7 +586,7 @@
     const base = types.find((t) => t !== 'null');
     let icon: string | undefined;
     // semantic slot wins over plain format — `x_semantic:"actor.uuid"`
-    // renders the actor glyph (META_ICONS family), not a bare fingerprint.
+    // renders the actor glyph (META_ICONS family), not a bare file-key.
     if (schema?.[PAYLOAD_X_SEMANTIC] === 'actor.uuid') icon = 'user-cog';
     if (!icon && typeof schema?.format === 'string') icon = FORMAT_TYPE_ICONS[schema.format];
     if (!icon && Array.isArray(schema?.enum) && schema.enum.length > 0) icon = 'tags';
