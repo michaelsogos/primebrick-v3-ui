@@ -141,7 +141,7 @@ export type TrailingCta = {
 								size="icon"
 								animationDuration={copyAnimationDuration}
 								onCopy={onCopy}
-								class={cn(inputTrailingIconButtonClasses, "text-foreground")}
+								class={inputTrailingIconButtonClasses}
 								{...tooltipProps}
 							/>
 						{/snippet}
@@ -155,7 +155,7 @@ export type TrailingCta = {
 					size="icon"
 					animationDuration={copyAnimationDuration}
 					onCopy={onCopy}
-					class={cn(inputTrailingIconButtonClasses, "text-foreground")}
+					class={inputTrailingIconButtonClasses}
 				/>
 			{/if}
 	{/if}
