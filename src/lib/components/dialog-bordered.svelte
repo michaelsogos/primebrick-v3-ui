@@ -9,6 +9,7 @@
 		| 'success'
 		| 'warning'
 		| 'destructive'
+		| 'violet'
 		| 'neutral';
 
 	export type DialogTone = '' | 'soft';
@@ -50,6 +51,8 @@
 				'bg-linear-to-r from-yellow-300 via-yellow-500 to-yellow-300 animate-gradient-pan',
 			destructive:
 				'bg-linear-to-r from-rose-400 via-red-600 to-rose-400 animate-gradient-pan',
+			// Violet IS the clone/duplicate semantic (ActionColor contract)
+			violet: 'bg-linear-to-br from-violet-400 to-purple-600',
 			neutral: 'bg-neutral-500',
 		};
 		return map[resolvedSeverity] ?? 'bg-linear-to-br from-sky-400 to-indigo-400';
@@ -64,6 +67,7 @@
 			success: 'border-success-gradient-popover',
 			warning: 'border-warning-gradient-popover',
 			destructive: 'border-destructive-gradient-popover',
+			violet: 'border-violet-gradient-popover',
 			neutral: 'border-neutral-gradient-popover',
 		};
 		return map[resolvedSeverity] ?? 'border-primary-gradient-popover';

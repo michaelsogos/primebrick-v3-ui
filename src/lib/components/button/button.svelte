@@ -22,6 +22,9 @@
 					"border border-success bg-linear-to-br from-emerald-400 to-emerald-600 text-white shadow-xs hover:from-emerald-500 hover:to-emerald-700 hover:brightness-105",
 				info:
 					"border border-blue-700 bg-linear-to-br from-sky-400 to-blue-600 text-white shadow-xs hover:from-sky-500 hover:to-blue-700 hover:brightness-105",
+				// Violet IS the clone/duplicate semantic (ActionColor contract)
+				violet:
+					"border border-violet-700 bg-linear-to-br from-violet-400 to-purple-600 text-white shadow-xs hover:from-violet-500 hover:to-purple-700 hover:brightness-105",
 				// Soft: structural base only — color/border come from tone compound variants
 				soft: "shadow-xs",
 				// AGGIUNTO: aria-expanded dal suggerito
@@ -41,6 +44,7 @@
 				warning: "",
 				success: "",
 				info: "",
+				violet: "",
 			},
 			size: {
 				// AGGIUNTI: in-data-[slot] e has-data-[icon] dal suggerito per spaziare i gruppi e le icone
@@ -85,6 +89,12 @@
 				tone: "warning",
 				class: "border-warning-gradient-soft text-foreground hover:brightness-105",
 			},
+			// Soft + violet: violet gradient border + tenue violet background
+			{
+				variant: "soft",
+				tone: "violet",
+				class: "border-violet-gradient-soft text-foreground hover:brightness-105",
+			},
 			// Outline + primary: sky→indigo gradient border (default, already in variant base)
 			{
 				variant: "outline",
@@ -114,6 +124,12 @@
 				variant: "outline",
 				tone: "info",
 				class: "border-info-gradient",
+			},
+			// Outline + violet: violet→purple gradient border
+			{
+				variant: "outline",
+				tone: "violet",
+				class: "border-violet-gradient",
 			},
 		],
 		defaultVariants: {

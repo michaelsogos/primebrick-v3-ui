@@ -2288,7 +2288,7 @@
           "column": 0
         },
         "end": {
-          "line": 178,
+          "line": 194,
           "column": 0
         }
       },
@@ -2307,11 +2307,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 140,
+              "line": 156,
               "column": 2
             },
             "end": {
-              "line": 140,
+              "line": 156,
               "column": 18
             }
           }
@@ -2334,11 +2334,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 141,
+              "line": 157,
               "column": 2
             },
             "end": {
-              "line": 141,
+              "line": 157,
               "column": 21
             }
           }
@@ -2361,11 +2361,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 142,
+              "line": 158,
               "column": 2
             },
             "end": {
-              "line": 142,
+              "line": 158,
               "column": 18
             }
           }
@@ -2388,11 +2388,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 143,
+              "line": 159,
               "column": 2
             },
             "end": {
-              "line": 143,
+              "line": 159,
               "column": 18
             }
           }
@@ -2416,11 +2416,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 144,
+              "line": 160,
               "column": 2
             },
             "end": {
-              "line": 144,
+              "line": 160,
               "column": 23
             }
           }
@@ -2441,11 +2441,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 145,
+              "line": 161,
               "column": 2
             },
             "end": {
-              "line": 145,
+              "line": 161,
               "column": 18
             }
           }
@@ -2468,11 +2468,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 146,
+              "line": 162,
               "column": 2
             },
             "end": {
-              "line": 146,
+              "line": 162,
               "column": 17
             }
           }
@@ -2488,11 +2488,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 147,
+              "line": 163,
               "column": 2
             },
             "end": {
-              "line": 147,
+              "line": 163,
               "column": 10
             }
           }
@@ -2503,9 +2503,9 @@
           "name": "buttonVariants",
           "kind": "const",
           "typeSource": "unknown",
-          "value": "tv({\r\n\t\t// AGGIUNTO: group/button e active:not-aria-[haspopup]:translate-y-px dal suggerito\r\n\t\tbase: \"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive group/button inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-hidden focus-visible:ring-[3px] cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 active:not-aria-[haspopup]:translate-y-px [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4\",\r\n\t\tvariants: {\r\n\t\t\tvariant: {\r\n\t\t\t\tdefault:\r\n\t\t\t\t\t\"border border-primary bg-linear-to-br from-sky-400 to-indigo-400 text-white shadow-xs hover:from-sky-500 hover:to-indigo-500 hover:brightness-105\",\r\n\t\t\t\t// MANTENUTO: Il tuo stile originale glass\r\n\t\t\t\tglass:\r\n\t\t\t\t\t\"bg-primary/80 text-primary-foreground shadow-xs backdrop-blur-xs ring-1 ring-white/15 hover:bg-primary/75 active:bg-primary/85\",\r\n\t\t\t\t// AGGIUNTO: aria-invalid del suggerito incorporato nel tuo destructive\r\n\t\t\t\tdestructive:\r\n\t\t\t\t\t\"border border-red-700 bg-linear-to-br from-rose-400 to-red-600 text-white shadow-xs hover:from-rose-500 hover:to-red-700 hover:brightness-105 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 focus-visible:border-destructive/40\",\r\n\t\t\t\twarning:\r\n\t\t\t\t\t\"border border-warning bg-linear-to-br from-yellow-300 to-yellow-500 text-yellow-950 shadow-xs hover:from-yellow-400 hover:to-yellow-600 hover:brightness-105\",\r\n\t\t\t\tsuccess:\r\n\t\t\t\t\t\"border border-success bg-linear-to-br from-emerald-400 to-emerald-600 text-white shadow-xs hover:from-emerald-500 hover:to-emerald-700 hover:brightness-105\",\r\n\t\t\t\tinfo:\r\n\t\t\t\t\t\"border border-blue-700 bg-linear-to-br from-sky-400 to-blue-600 text-white shadow-xs hover:from-sky-500 hover:to-blue-700 hover:brightness-105\",\r\n\t\t\t\t// Soft: structural base only — color/border come from tone compound variants\r\n\t\t\t\tsoft: \"shadow-xs\",\r\n\t\t\t\t// AGGIUNTO: aria-expanded dal suggerito\r\n\t\t\t\toutline:\r\n\t\t\t\t\t\"bg-background hover:brightness-105 dark:bg-input/30 dark:hover:bg-input/50 border-primary-gradient shadow-xs aria-expanded:bg-muted aria-expanded:text-foreground\",\r\n\t\t\t\t// AGGIUNTO: aria-expanded dal suggerito\r\n\t\t\t\tsecondary: \"bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-xs aria-expanded:bg-secondary aria-expanded:text-secondary-foreground\",\r\n\t\t\t\t// MANTENUTO: Il tuo stile originale secondary-outline\r\n\t\t\t\t\"secondary-outline\": \"bg-neutral-100 border border-neutral-300 hover:bg-neutral-200 hover:text-neutral-900 dark:bg-neutral-800 dark:border-neutral-600 dark:hover:bg-neutral-700 dark:hover:text-neutral-100 shadow-xs\",\r\n\t\t\t\t// AGGIUNTO: aria-expanded dal suggerito\r\n\t\t\t\tghost: \"hover:bg-neutral-200/80 hover:text-neutral-900 dark:hover:bg-neutral-700/80 dark:hover:text-neutral-100 aria-expanded:bg-muted aria-expanded:text-foreground\",\r\n\t\t\t\tlink: \"text-primary underline-offset-4 hover:underline\",\r\n\t\t\t},\r\n\t\t\ttone: {\r\n\t\t\t\tprimary: \"\",\r\n\t\t\t\tdestructive: \"\",\r\n\t\t\t\twarning: \"\",\r\n\t\t\t\tsuccess: \"\",\r\n\t\t\t\tinfo: \"\",\r\n\t\t\t},\r\n\t\t\tsize: {\r\n\t\t\t\t// AGGIUNTI: in-data-[slot] e has-data-[icon] dal suggerito per spaziare i gruppi e le icone\r\n\t\t\t\tdefault: \"h-9 px-4 py-2 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 has-[>svg]:px-3\",\r\n\t\t\t\tsm: \"h-8 gap-1.5 rounded-md px-3 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 has-[>svg]:px-2.5\",\r\n\t\t\t\txs: \"h-7 gap-1 px-2 text-xs in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 has-[>svg]:px-2 [&_svg:not([class*='size-'])]:size-3.5\",\r\n\t\t\t\tlg: \"h-10 rounded-md px-6 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 has-[>svg]:px-4\",\r\n\t\t\t\ticon: \"size-9\",\r\n\t\t\t\t\"icon-xs\": \"size-6 rounded-[min(var(--radius-md),8px)] in-data-[slot=button-group]:rounded-md [&_svg:not([class*='size-'])]:size-3\",\r\n\t\t\t\t\"icon-sm\": \"size-8 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-md\",\r\n\t\t\t\t\"icon-lg\": \"size-10\",\r\n\t\t\t},\r\n\t\t},\r\n\t\tcompoundVariants: [\r\n\t\t\t// Soft + primary: gradient border + tenue gradient background, dark text (not in tinta)\r\n\t\t\t{\r\n\t\t\t\tvariant: \"soft\",\r\n\t\t\t\ttone: \"primary\",\r\n\t\t\t\tclass: \"border-primary-gradient-soft text-foreground hover:brightness-105\",\r\n\t\t\t},\r\n\t\t\t// Soft + success: emerald gradient border + tenue emerald background\r\n\t\t\t{\r\n\t\t\t\tvariant: \"soft\",\r\n\t\t\t\ttone: \"success\",\r\n\t\t\t\tclass: \"border-success-gradient-soft text-foreground hover:brightness-105\",\r\n\t\t\t},\r\n\t\t\t// Soft + info: sky→blue gradient border + tenue sky/blue background\r\n\t\t\t{\r\n\t\t\t\tvariant: \"soft\",\r\n\t\t\t\ttone: \"info\",\r\n\t\t\t\tclass: \"border-info-gradient-soft text-foreground hover:brightness-105\",\r\n\t\t\t},\r\n\t\t\t// Soft + destructive: rose→red gradient border + tenue rose/red background\r\n\t\t\t{\r\n\t\t\t\tvariant: \"soft\",\r\n\t\t\t\ttone: \"destructive\",\r\n\t\t\t\tclass: \"border-destructive-gradient-soft text-foreground hover:brightness-105\",\r\n\t\t\t},\r\n\t\t\t// Soft + warning: yellow gradient border + tenue yellow background\r\n\t\t\t{\r\n\t\t\t\tvariant: \"soft\",\r\n\t\t\t\ttone: \"warning\",\r\n\t\t\t\tclass: \"border-warning-gradient-soft text-foreground hover:brightness-105\",\r\n\t\t\t},\r\n\t\t\t// Outline + primary: sky→indigo gradient border (default, already in variant base)\r\n\t\t\t{\r\n\t\t\t\tvariant: \"outline\",\r\n\t\t\t\ttone: \"primary\",\r\n\t\t\t\tclass: \"border-primary-gradient\",\r\n\t\t\t},\r\n\t\t\t// Outline + destructive: rose→red gradient border\r\n\t\t\t{\r\n\t\t\t\tvariant: \"outline\",\r\n\t\t\t\ttone: \"destructive\",\r\n\t\t\t\tclass: \"border-destructive-gradient\",\r\n\t\t\t},\r\n\t\t\t// Outline + warning: yellow gradient border\r\n\t\t\t{\r\n\t\t\t\tvariant: \"outline\",\r\n\t\t\t\ttone: \"warning\",\r\n\t\t\t\tclass: \"border-warning-gradient\",\r\n\t\t\t},\r\n\t\t\t// Outline + success: emerald gradient border\r\n\t\t\t{\r\n\t\t\t\tvariant: \"outline\",\r\n\t\t\t\ttone: \"success\",\r\n\t\t\t\tclass: \"border-success-gradient\",\r\n\t\t\t},\r\n\t\t\t// Outline + info: sky→blue gradient border\r\n\t\t\t{\r\n\t\t\t\tvariant: \"outline\",\r\n\t\t\t\ttone: \"info\",\r\n\t\t\t\tclass: \"border-info-gradient\",\r\n\t\t\t},\r\n\t\t],\r\n\t\tdefaultVariants: {\r\n\t\t\tvariant: \"default\",\r\n\t\t\tsize: \"default\",\r\n\t\t\ttone: \"primary\",\r\n\t\t},\r\n\t})",
+          "value": "tv({\r\n\t\t// AGGIUNTO: group/button e active:not-aria-[haspopup]:translate-y-px dal suggerito\r\n\t\tbase: \"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive group/button inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-hidden focus-visible:ring-[3px] cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 active:not-aria-[haspopup]:translate-y-px [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4\",\r\n\t\tvariants: {\r\n\t\t\tvariant: {\r\n\t\t\t\tdefault:\r\n\t\t\t\t\t\"border border-primary bg-linear-to-br from-sky-400 to-indigo-400 text-white shadow-xs hover:from-sky-500 hover:to-indigo-500 hover:brightness-105\",\r\n\t\t\t\t// MANTENUTO: Il tuo stile originale glass\r\n\t\t\t\tglass:\r\n\t\t\t\t\t\"bg-primary/80 text-primary-foreground shadow-xs backdrop-blur-xs ring-1 ring-white/15 hover:bg-primary/75 active:bg-primary/85\",\r\n\t\t\t\t// AGGIUNTO: aria-invalid del suggerito incorporato nel tuo destructive\r\n\t\t\t\tdestructive:\r\n\t\t\t\t\t\"border border-red-700 bg-linear-to-br from-rose-400 to-red-600 text-white shadow-xs hover:from-rose-500 hover:to-red-700 hover:brightness-105 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 focus-visible:border-destructive/40\",\r\n\t\t\t\twarning:\r\n\t\t\t\t\t\"border border-warning bg-linear-to-br from-yellow-300 to-yellow-500 text-yellow-950 shadow-xs hover:from-yellow-400 hover:to-yellow-600 hover:brightness-105\",\r\n\t\t\t\tsuccess:\r\n\t\t\t\t\t\"border border-success bg-linear-to-br from-emerald-400 to-emerald-600 text-white shadow-xs hover:from-emerald-500 hover:to-emerald-700 hover:brightness-105\",\r\n\t\t\t\tinfo:\r\n\t\t\t\t\t\"border border-blue-700 bg-linear-to-br from-sky-400 to-blue-600 text-white shadow-xs hover:from-sky-500 hover:to-blue-700 hover:brightness-105\",\r\n\t\t\t\t// Violet IS the clone/duplicate semantic (ActionColor contract)\r\n\t\t\t\tviolet:\r\n\t\t\t\t\t\"border border-violet-700 bg-linear-to-br from-violet-400 to-purple-600 text-white shadow-xs hover:from-violet-500 hover:to-purple-700 hover:brightness-105\",\r\n\t\t\t\t// Soft: structural base only — color/border come from tone compound variants\r\n\t\t\t\tsoft: \"shadow-xs\",\r\n\t\t\t\t// AGGIUNTO: aria-expanded dal suggerito\r\n\t\t\t\toutline:\r\n\t\t\t\t\t\"bg-background hover:brightness-105 dark:bg-input/30 dark:hover:bg-input/50 border-primary-gradient shadow-xs aria-expanded:bg-muted aria-expanded:text-foreground\",\r\n\t\t\t\t// AGGIUNTO: aria-expanded dal suggerito\r\n\t\t\t\tsecondary: \"bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-xs aria-expanded:bg-secondary aria-expanded:text-secondary-foreground\",\r\n\t\t\t\t// MANTENUTO: Il tuo stile originale secondary-outline\r\n\t\t\t\t\"secondary-outline\": \"bg-neutral-100 border border-neutral-300 hover:bg-neutral-200 hover:text-neutral-900 dark:bg-neutral-800 dark:border-neutral-600 dark:hover:bg-neutral-700 dark:hover:text-neutral-100 shadow-xs\",\r\n\t\t\t\t// AGGIUNTO: aria-expanded dal suggerito\r\n\t\t\t\tghost: \"hover:bg-neutral-200/80 hover:text-neutral-900 dark:hover:bg-neutral-700/80 dark:hover:text-neutral-100 aria-expanded:bg-muted aria-expanded:text-foreground\",\r\n\t\t\t\tlink: \"text-primary underline-offset-4 hover:underline\",\r\n\t\t\t},\r\n\t\t\ttone: {\r\n\t\t\t\tprimary: \"\",\r\n\t\t\t\tdestructive: \"\",\r\n\t\t\t\twarning: \"\",\r\n\t\t\t\tsuccess: \"\",\r\n\t\t\t\tinfo: \"\",\r\n\t\t\t\tviolet: \"\",\r\n\t\t\t},\r\n\t\t\tsize: {\r\n\t\t\t\t// AGGIUNTI: in-data-[slot] e has-data-[icon] dal suggerito per spaziare i gruppi e le icone\r\n\t\t\t\tdefault: \"h-9 px-4 py-2 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 has-[>svg]:px-3\",\r\n\t\t\t\tsm: \"h-8 gap-1.5 rounded-md px-3 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 has-[>svg]:px-2.5\",\r\n\t\t\t\txs: \"h-7 gap-1 px-2 text-xs in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 has-[>svg]:px-2 [&_svg:not([class*='size-'])]:size-3.5\",\r\n\t\t\t\tlg: \"h-10 rounded-md px-6 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 has-[>svg]:px-4\",\r\n\t\t\t\ticon: \"size-9\",\r\n\t\t\t\t\"icon-xs\": \"size-6 rounded-[min(var(--radius-md),8px)] in-data-[slot=button-group]:rounded-md [&_svg:not([class*='size-'])]:size-3\",\r\n\t\t\t\t\"icon-sm\": \"size-8 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-md\",\r\n\t\t\t\t\"icon-lg\": \"size-10\",\r\n\t\t\t},\r\n\t\t},\r\n\t\tcompoundVariants: [\r\n\t\t\t// Soft + primary: gradient border + tenue gradient background, dark text (not in tinta)\r\n\t\t\t{\r\n\t\t\t\tvariant: \"soft\",\r\n\t\t\t\ttone: \"primary\",\r\n\t\t\t\tclass: \"border-primary-gradient-soft text-foreground hover:brightness-105\",\r\n\t\t\t},\r\n\t\t\t// Soft + success: emerald gradient border + tenue emerald background\r\n\t\t\t{\r\n\t\t\t\tvariant: \"soft\",\r\n\t\t\t\ttone: \"success\",\r\n\t\t\t\tclass: \"border-success-gradient-soft text-foreground hover:brightness-105\",\r\n\t\t\t},\r\n\t\t\t// Soft + info: sky→blue gradient border + tenue sky/blue background\r\n\t\t\t{\r\n\t\t\t\tvariant: \"soft\",\r\n\t\t\t\ttone: \"info\",\r\n\t\t\t\tclass: \"border-info-gradient-soft text-foreground hover:brightness-105\",\r\n\t\t\t},\r\n\t\t\t// Soft + destructive: rose→red gradient border + tenue rose/red background\r\n\t\t\t{\r\n\t\t\t\tvariant: \"soft\",\r\n\t\t\t\ttone: \"destructive\",\r\n\t\t\t\tclass: \"border-destructive-gradient-soft text-foreground hover:brightness-105\",\r\n\t\t\t},\r\n\t\t\t// Soft + warning: yellow gradient border + tenue yellow background\r\n\t\t\t{\r\n\t\t\t\tvariant: \"soft\",\r\n\t\t\t\ttone: \"warning\",\r\n\t\t\t\tclass: \"border-warning-gradient-soft text-foreground hover:brightness-105\",\r\n\t\t\t},\r\n\t\t\t// Soft + violet: violet gradient border + tenue violet background\r\n\t\t\t{\r\n\t\t\t\tvariant: \"soft\",\r\n\t\t\t\ttone: \"violet\",\r\n\t\t\t\tclass: \"border-violet-gradient-soft text-foreground hover:brightness-105\",\r\n\t\t\t},\r\n\t\t\t// Outline + primary: sky→indigo gradient border (default, already in variant base)\r\n\t\t\t{\r\n\t\t\t\tvariant: \"outline\",\r\n\t\t\t\ttone: \"primary\",\r\n\t\t\t\tclass: \"border-primary-gradient\",\r\n\t\t\t},\r\n\t\t\t// Outline + destructive: rose→red gradient border\r\n\t\t\t{\r\n\t\t\t\tvariant: \"outline\",\r\n\t\t\t\ttone: \"destructive\",\r\n\t\t\t\tclass: \"border-destructive-gradient\",\r\n\t\t\t},\r\n\t\t\t// Outline + warning: yellow gradient border\r\n\t\t\t{\r\n\t\t\t\tvariant: \"outline\",\r\n\t\t\t\ttone: \"warning\",\r\n\t\t\t\tclass: \"border-warning-gradient\",\r\n\t\t\t},\r\n\t\t\t// Outline + success: emerald gradient border\r\n\t\t\t{\r\n\t\t\t\tvariant: \"outline\",\r\n\t\t\t\ttone: \"success\",\r\n\t\t\t\tclass: \"border-success-gradient\",\r\n\t\t\t},\r\n\t\t\t// Outline + info: sky→blue gradient border\r\n\t\t\t{\r\n\t\t\t\tvariant: \"outline\",\r\n\t\t\t\ttone: \"info\",\r\n\t\t\t\tclass: \"border-info-gradient\",\r\n\t\t\t},\r\n\t\t\t// Outline + violet: violet→purple gradient border\r\n\t\t\t{\r\n\t\t\t\tvariant: \"outline\",\r\n\t\t\t\ttone: \"violet\",\r\n\t\t\t\tclass: \"border-violet-gradient\",\r\n\t\t\t},\r\n\t\t],\r\n\t\tdefaultVariants: {\r\n\t\t\tvariant: \"default\",\r\n\t\t\tsize: \"default\",\r\n\t\t\ttone: \"primary\",\r\n\t\t},\r\n\t})",
           "defaultValue": {
-            "raw": "tv({ \t\t// AGGIUNTO: group/button e active:not-aria-[haspopup]:translate-y-px dal suggerito \t\tbase: \"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive group/button inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-hidden focus-visible:ring-[3px] cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 active:not-aria-[haspopup]:translate-y-px [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4\", \t\tvariants: { \t\t\tvariant: { \t\t\t\tdefault: \t\t\t\t\t\"border border-primary bg-linear-to-br from-sky-400 to-indigo-400 text-white shadow-xs hover:from-sky-500 hover:to-indigo-500 hover:brightness-105\", \t\t\t\t// MANTENUTO: Il tuo stile originale glass \t\t\t\tglass: \t\t\t\t\t\"bg-primary/80 text-primary-foreground shadow-xs backdrop-blur-xs ring-1 ring-white/15 hover:bg-primary/75 active:bg-primary/85\", \t\t\t\t// AGGIUNTO: aria-invalid del suggerito incorporato nel tuo destructive \t\t\t\tdestructive: \t\t\t\t\t\"border border-red-700 bg-linear-to-br from-rose-400 to-red-600 text-white shadow-xs hover:from-rose-500 hover:to-red-700 hover:brightness-105 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 focus-visible:border-destructive/40\", \t\t\t\twarning: \t\t\t\t\t\"border border-warning bg-linear-to-br from-yellow-300 to-yellow-500 text-yellow-950 shadow-xs hover:from-yellow-400 hover:to-yellow-600 hover:brightness-105\", \t\t\t\tsuccess: \t\t\t\t\t\"border border-success bg-linear-to-br from-emerald-400 to-emerald-600 text-white shadow-xs hover:from-emerald-500 hover:to-emerald-700 hover:brightness-105\", \t\t\t\tinfo: \t\t\t\t\t\"border border-blue-700 bg-linear-to-br from-sky-400 to-blue-600 text-white shadow-xs hover:from-sky-500 hover:to-blue-700 hover:brightness-105\", \t\t\t\t// Soft: structural base only — color/border come from tone compound variants \t\t\t\tsoft: \"shadow-xs\", \t\t\t\t// AGGIUNTO: aria-expanded dal suggerito \t\t\t\toutline: \t\t\t\t\t\"bg-background hover:brightness-105 dark:bg-input/30 dark:hover:bg-input/50 border-primary-gradient shadow-xs aria-expanded:bg-muted aria-expanded:text-foreground\", \t\t\t\t// AGGIUNTO: aria-expanded dal suggerito \t\t\t\tsecondary: \"bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-xs aria-expanded:bg-secondary aria-expanded:text-secondary-foreground\", \t\t\t\t// MANTENUTO: Il tuo stile originale secondary-outline \t\t\t\t\"secondary-outline\": \"bg-neutral-100 border border-neutral-300 hover:bg-neutral-200 hover:text-neutral-900 dark:bg-neutral-800 dark:border-neutral-600 dark:hover:bg-neutral-700 dark:hover:text-neutral-100 shadow-xs\", \t\t\t\t// AGGIUNTO: aria-expanded dal suggerito \t\t\t\tghost: \"hover:bg-neutral-200/80 hover:text-neutral-900 dark:hover:bg-neutral-700/80 dark:hover:text-neutral-100 aria-expanded:bg-muted aria-expanded:text-foreground\", \t\t\t\tlink: \"text-primary underline-offset-4 hover:underline\", \t\t\t}, \t\t\ttone: { \t\t\t\tprimary: \"\", \t\t\t\tdestructive: \"\", \t\t\t\twarning: \"\", \t\t\t\tsuccess: \"\", \t\t\t\tinfo: \"\", \t\t\t}, \t\t\tsize: { \t\t\t\t// AGGIUNTI: in-data-[slot] e has-data-[icon] dal suggerito per spaziare i gruppi e le icone \t\t\t\tdefault: \"h-9 px-4 py-2 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 has-[>svg]:px-3\", \t\t\t\tsm: \"h-8 gap-1.5 rounded-md px-3 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 has-[>svg]:px-2.5\", \t\t\t\txs: \"h-7 gap-1 px-2 text-xs in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 has-[>svg]:px-2 [&_svg:not([class*='size-'])]:size-3.5\", \t\t\t\tlg: \"h-10 rounded-md px-6 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 has-[>svg]:px-4\", \t\t\t\ticon: \"size-9\", \t\t\t\t\"icon-xs\": \"size-6 rounded-[min(var(--radius-md),8px)] in-data-[slot=button-group]:rounded-md [&_svg:not([class*='size-'])]:size-3\", \t\t\t\t\"icon-sm\": \"size-8 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-md\", \t\t\t\t\"icon-lg\": \"size-10\", \t\t\t}, \t\t}, \t\tcompoundVariants: [ \t\t\t// Soft + primary: gradient border + tenue gradient background, dark text (not in tinta) \t\t\t{ \t\t\t\tvariant: \"soft\", \t\t\t\ttone: \"primary\", \t\t\t\tclass: \"border-primary-gradient-soft text-foreground hover:brightness-105\", \t\t\t}, \t\t\t// Soft + success: emerald gradient border + tenue emerald background \t\t\t{ \t\t\t\tvariant: \"soft\", \t\t\t\ttone: \"success\", \t\t\t\tclass: \"border-success-gradient-soft text-foreground hover:brightness-105\", \t\t\t}, \t\t\t// Soft + info: sky→blue gradient border + tenue sky/blue background \t\t\t{ \t\t\t\tvariant: \"soft\", \t\t\t\ttone: \"info\", \t\t\t\tclass: \"border-info-gradient-soft text-foreground hover:brightness-105\", \t\t\t}, \t\t\t// Soft + destructive: rose→red gradient border + tenue rose/red background \t\t\t{ \t\t\t\tvariant: \"soft\", \t\t\t\ttone: \"destructive\", \t\t\t\tclass: \"border-destructive-gradient-soft text-foreground hover:brightness-105\", \t\t\t}, \t\t\t// Soft + warning: yellow gradient border + tenue yellow background \t\t\t{ \t\t\t\tvariant: \"soft\", \t\t\t\ttone: \"warning\", \t\t\t\tclass: \"border-warning-gradient-soft text-foreground hover:brightness-105\", \t\t\t}, \t\t\t// Outline + primary: sky→indigo gradient border (default, already in variant base) \t\t\t{ \t\t\t\tvariant: \"outline\", \t\t\t\ttone: \"primary\", \t\t\t\tclass: \"border-primary-gradient\", \t\t\t}, \t\t\t// Outline + destructive: rose→red gradient border \t\t\t{ \t\t\t\tvariant: \"outline\", \t\t\t\ttone: \"destructive\", \t\t\t\tclass: \"border-destructive-gradient\", \t\t\t}, \t\t\t// Outline + warning: yellow gradient border \t\t\t{ \t\t\t\tvariant: \"outline\", \t\t\t\ttone: \"warning\", \t\t\t\tclass: \"border-warning-gradient\", \t\t\t}, \t\t\t// Outline + success: emerald gradient border \t\t\t{ \t\t\t\tvariant: \"outline\", \t\t\t\ttone: \"success\", \t\t\t\tclass: \"border-success-gradient\", \t\t\t}, \t\t\t// Outline + info: sky→blue gradient border \t\t\t{ \t\t\t\tvariant: \"outline\", \t\t\t\ttone: \"info\", \t\t\t\tclass: \"border-info-gradient\", \t\t\t}, \t\t], \t\tdefaultVariants: { \t\t\tvariant: \"default\", \t\t\tsize: \"default\", \t\t\ttone: \"primary\", \t\t}, \t})",
+            "raw": "tv({ \t\t// AGGIUNTO: group/button e active:not-aria-[haspopup]:translate-y-px dal suggerito \t\tbase: \"focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive group/button inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-hidden focus-visible:ring-[3px] cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 active:not-aria-[haspopup]:translate-y-px [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4\", \t\tvariants: { \t\t\tvariant: { \t\t\t\tdefault: \t\t\t\t\t\"border border-primary bg-linear-to-br from-sky-400 to-indigo-400 text-white shadow-xs hover:from-sky-500 hover:to-indigo-500 hover:brightness-105\", \t\t\t\t// MANTENUTO: Il tuo stile originale glass \t\t\t\tglass: \t\t\t\t\t\"bg-primary/80 text-primary-foreground shadow-xs backdrop-blur-xs ring-1 ring-white/15 hover:bg-primary/75 active:bg-primary/85\", \t\t\t\t// AGGIUNTO: aria-invalid del suggerito incorporato nel tuo destructive \t\t\t\tdestructive: \t\t\t\t\t\"border border-red-700 bg-linear-to-br from-rose-400 to-red-600 text-white shadow-xs hover:from-rose-500 hover:to-red-700 hover:brightness-105 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 focus-visible:border-destructive/40\", \t\t\t\twarning: \t\t\t\t\t\"border border-warning bg-linear-to-br from-yellow-300 to-yellow-500 text-yellow-950 shadow-xs hover:from-yellow-400 hover:to-yellow-600 hover:brightness-105\", \t\t\t\tsuccess: \t\t\t\t\t\"border border-success bg-linear-to-br from-emerald-400 to-emerald-600 text-white shadow-xs hover:from-emerald-500 hover:to-emerald-700 hover:brightness-105\", \t\t\t\tinfo: \t\t\t\t\t\"border border-blue-700 bg-linear-to-br from-sky-400 to-blue-600 text-white shadow-xs hover:from-sky-500 hover:to-blue-700 hover:brightness-105\", \t\t\t\t// Violet IS the clone/duplicate semantic (ActionColor contract) \t\t\t\tviolet: \t\t\t\t\t\"border border-violet-700 bg-linear-to-br from-violet-400 to-purple-600 text-white shadow-xs hover:from-violet-500 hover:to-purple-700 hover:brightness-105\", \t\t\t\t// Soft: structural base only — color/border come from tone compound variants \t\t\t\tsoft: \"shadow-xs\", \t\t\t\t// AGGIUNTO: aria-expanded dal suggerito \t\t\t\toutline: \t\t\t\t\t\"bg-background hover:brightness-105 dark:bg-input/30 dark:hover:bg-input/50 border-primary-gradient shadow-xs aria-expanded:bg-muted aria-expanded:text-foreground\", \t\t\t\t// AGGIUNTO: aria-expanded dal suggerito \t\t\t\tsecondary: \"bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-xs aria-expanded:bg-secondary aria-expanded:text-secondary-foreground\", \t\t\t\t// MANTENUTO: Il tuo stile originale secondary-outline \t\t\t\t\"secondary-outline\": \"bg-neutral-100 border border-neutral-300 hover:bg-neutral-200 hover:text-neutral-900 dark:bg-neutral-800 dark:border-neutral-600 dark:hover:bg-neutral-700 dark:hover:text-neutral-100 shadow-xs\", \t\t\t\t// AGGIUNTO: aria-expanded dal suggerito \t\t\t\tghost: \"hover:bg-neutral-200/80 hover:text-neutral-900 dark:hover:bg-neutral-700/80 dark:hover:text-neutral-100 aria-expanded:bg-muted aria-expanded:text-foreground\", \t\t\t\tlink: \"text-primary underline-offset-4 hover:underline\", \t\t\t}, \t\t\ttone: { \t\t\t\tprimary: \"\", \t\t\t\tdestructive: \"\", \t\t\t\twarning: \"\", \t\t\t\tsuccess: \"\", \t\t\t\tinfo: \"\", \t\t\t\tviolet: \"\", \t\t\t}, \t\t\tsize: { \t\t\t\t// AGGIUNTI: in-data-[slot] e has-data-[icon] dal suggerito per spaziare i gruppi e le icone \t\t\t\tdefault: \"h-9 px-4 py-2 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 has-[>svg]:px-3\", \t\t\t\tsm: \"h-8 gap-1.5 rounded-md px-3 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 has-[>svg]:px-2.5\", \t\t\t\txs: \"h-7 gap-1 px-2 text-xs in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 has-[>svg]:px-2 [&_svg:not([class*='size-'])]:size-3.5\", \t\t\t\tlg: \"h-10 rounded-md px-6 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 has-[>svg]:px-4\", \t\t\t\ticon: \"size-9\", \t\t\t\t\"icon-xs\": \"size-6 rounded-[min(var(--radius-md),8px)] in-data-[slot=button-group]:rounded-md [&_svg:not([class*='size-'])]:size-3\", \t\t\t\t\"icon-sm\": \"size-8 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-md\", \t\t\t\t\"icon-lg\": \"size-10\", \t\t\t}, \t\t}, \t\tcompoundVariants: [ \t\t\t// Soft + primary: gradient border + tenue gradient background, dark text (not in tinta) \t\t\t{ \t\t\t\tvariant: \"soft\", \t\t\t\ttone: \"primary\", \t\t\t\tclass: \"border-primary-gradient-soft text-foreground hover:brightness-105\", \t\t\t}, \t\t\t// Soft + success: emerald gradient border + tenue emerald background \t\t\t{ \t\t\t\tvariant: \"soft\", \t\t\t\ttone: \"success\", \t\t\t\tclass: \"border-success-gradient-soft text-foreground hover:brightness-105\", \t\t\t}, \t\t\t// Soft + info: sky→blue gradient border + tenue sky/blue background \t\t\t{ \t\t\t\tvariant: \"soft\", \t\t\t\ttone: \"info\", \t\t\t\tclass: \"border-info-gradient-soft text-foreground hover:brightness-105\", \t\t\t}, \t\t\t// Soft + destructive: rose→red gradient border + tenue rose/red background \t\t\t{ \t\t\t\tvariant: \"soft\", \t\t\t\ttone: \"destructive\", \t\t\t\tclass: \"border-destructive-gradient-soft text-foreground hover:brightness-105\", \t\t\t}, \t\t\t// Soft + warning: yellow gradient border + tenue yellow background \t\t\t{ \t\t\t\tvariant: \"soft\", \t\t\t\ttone: \"warning\", \t\t\t\tclass: \"border-warning-gradient-soft text-foreground hover:brightness-105\", \t\t\t}, \t\t\t// Soft + violet: violet gradient border + tenue violet background \t\t\t{ \t\t\t\tvariant: \"soft\", \t\t\t\ttone: \"violet\", \t\t\t\tclass: \"border-violet-gradient-soft text-foreground hover:brightness-105\", \t\t\t}, \t\t\t// Outline + primary: sky→indigo gradient border (default, already in variant base) \t\t\t{ \t\t\t\tvariant: \"outline\", \t\t\t\ttone: \"primary\", \t\t\t\tclass: \"border-primary-gradient\", \t\t\t}, \t\t\t// Outline + destructive: rose→red gradient border \t\t\t{ \t\t\t\tvariant: \"outline\", \t\t\t\ttone: \"destructive\", \t\t\t\tclass: \"border-destructive-gradient\", \t\t\t}, \t\t\t// Outline + warning: yellow gradient border \t\t\t{ \t\t\t\tvariant: \"outline\", \t\t\t\ttone: \"warning\", \t\t\t\tclass: \"border-warning-gradient\", \t\t\t}, \t\t\t// Outline + success: emerald gradient border \t\t\t{ \t\t\t\tvariant: \"outline\", \t\t\t\ttone: \"success\", \t\t\t\tclass: \"border-success-gradient\", \t\t\t}, \t\t\t// Outline + info: sky→blue gradient border \t\t\t{ \t\t\t\tvariant: \"outline\", \t\t\t\ttone: \"info\", \t\t\t\tclass: \"border-info-gradient\", \t\t\t}, \t\t\t// Outline + violet: violet→purple gradient border \t\t\t{ \t\t\t\tvariant: \"outline\", \t\t\t\ttone: \"violet\", \t\t\t\tclass: \"border-violet-gradient\", \t\t\t}, \t\t], \t\tdefaultVariants: { \t\t\tvariant: \"default\", \t\t\tsize: \"default\", \t\t\ttone: \"primary\", \t\t}, \t})",
             "kind": "expression"
           },
           "isFunction": false,
@@ -2519,7 +2519,7 @@
               "column": 1
             },
             "end": {
-              "line": 124,
+              "line": 140,
               "column": 4
             }
           }
@@ -2532,11 +2532,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 175,
+              "line": 191,
               "column": 2
             },
             "end": {
-              "line": 175,
+              "line": 191,
               "column": 24
             }
           }
@@ -2558,11 +2558,11 @@
           "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 140,
+              "line": 156,
               "column": 2
             },
             "end": {
-              "line": 140,
+              "line": 156,
               "column": 18
             }
           }
@@ -2574,11 +2574,11 @@
           "message": "Prop \"href\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 145,
+              "line": 161,
               "column": 2
             },
             "end": {
-              "line": 145,
+              "line": 161,
               "column": 18
             }
           }
@@ -2590,11 +2590,11 @@
           "message": "Prop \"disabled\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 147,
+              "line": 163,
               "column": 2
             },
             "end": {
-              "line": 147,
+              "line": 163,
               "column": 10
             }
           }
@@ -8388,7 +8388,7 @@
           "column": 0
         },
         "end": {
-          "line": 99,
+          "line": 103,
           "column": 0
         }
       },
@@ -8408,11 +8408,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 17,
+              "line": 18,
               "column": 2
             },
             "end": {
-              "line": 17,
+              "line": 18,
               "column": 20
             }
           }
@@ -8429,11 +8429,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 18,
+              "line": 19,
               "column": 2
             },
             "end": {
-              "line": 18,
+              "line": 19,
               "column": 14
             }
           }
@@ -8456,11 +8456,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 19,
+              "line": 20,
               "column": 2
             },
             "end": {
-              "line": 19,
+              "line": 20,
               "column": 22
             }
           }
@@ -8483,11 +8483,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 20,
+              "line": 21,
               "column": 2
             },
             "end": {
-              "line": 20,
+              "line": 21,
               "column": 11
             }
           }
@@ -8510,11 +8510,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 21,
+              "line": 22,
               "column": 2
             },
             "end": {
-              "line": 21,
+              "line": 22,
               "column": 24
             }
           }
@@ -8538,11 +8538,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 22,
+              "line": 23,
               "column": 2
             },
             "end": {
-              "line": 22,
+              "line": 23,
               "column": 23
             }
           }
@@ -8556,11 +8556,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 94,
+              "line": 98,
               "column": 4
             },
             "end": {
-              "line": 94,
+              "line": 98,
               "column": 24
             }
           }

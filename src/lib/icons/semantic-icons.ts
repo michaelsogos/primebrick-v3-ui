@@ -38,12 +38,13 @@ export function semanticIconColor(icon: string | undefined): ActionColor | undef
  */
 export function actionColorButtonVariant(
   color: ActionColor | undefined | null,
-): "default" | "destructive" | "warning" | "success" | "info" {
+): "default" | "destructive" | "warning" | "success" | "info" | "violet" {
   switch (color) {
     case "destructive":
     case "warning":
     case "success":
     case "info":
+    case "violet":
       return color;
     default:
       return "default";
