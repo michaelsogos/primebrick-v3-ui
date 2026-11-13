@@ -9,19 +9,19 @@
 		variants: {
 			variant: {
 				default:
-					"bg-linear-to-br from-sky-400 to-indigo-400 text-white shadow-xs hover:from-sky-500 hover:to-indigo-500 hover:brightness-105",
+					"border border-primary bg-linear-to-br from-sky-400 to-indigo-400 text-white shadow-xs hover:from-sky-500 hover:to-indigo-500 hover:brightness-105",
 				// MANTENUTO: Il tuo stile originale glass
 				glass:
 					"bg-primary/80 text-primary-foreground shadow-xs backdrop-blur-xs ring-1 ring-white/15 hover:bg-primary/75 active:bg-primary/85",
 				// AGGIUNTO: aria-invalid del suggerito incorporato nel tuo destructive
 				destructive:
-					"bg-linear-to-br from-rose-400 to-red-600 text-white shadow-xs hover:from-rose-500 hover:to-red-700 hover:brightness-105 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 focus-visible:border-destructive/40",
+					"border border-red-700 bg-linear-to-br from-rose-400 to-red-600 text-white shadow-xs hover:from-rose-500 hover:to-red-700 hover:brightness-105 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 focus-visible:border-destructive/40",
 				warning:
-					"bg-linear-to-br from-yellow-300 to-yellow-500 text-yellow-950 shadow-xs hover:from-yellow-400 hover:to-yellow-600 hover:brightness-105",
+					"border border-warning bg-linear-to-br from-yellow-300 to-yellow-500 text-yellow-950 shadow-xs hover:from-yellow-400 hover:to-yellow-600 hover:brightness-105",
 				success:
-					"bg-linear-to-br from-emerald-400 to-emerald-600 text-white shadow-xs hover:from-emerald-500 hover:to-emerald-700 hover:brightness-105",
+					"border border-success bg-linear-to-br from-emerald-400 to-emerald-600 text-white shadow-xs hover:from-emerald-500 hover:to-emerald-700 hover:brightness-105",
 				info:
-					"bg-linear-to-br from-sky-400 to-blue-600 text-white shadow-xs hover:from-sky-500 hover:to-blue-700 hover:brightness-105",
+					"border border-blue-700 bg-linear-to-br from-sky-400 to-blue-600 text-white shadow-xs hover:from-sky-500 hover:to-blue-700 hover:brightness-105",
 				// Soft: structural base only — color/border come from tone compound variants
 				soft: "shadow-xs",
 				// AGGIUNTO: aria-expanded dal suggerito
