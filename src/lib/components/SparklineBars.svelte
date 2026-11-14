@@ -90,10 +90,42 @@
 		for (let j = 0; j < si; j++) below += h(num(b[series[j].field]));
 		return H - below - h(num(b[series[si].field]));
 	}
-	/** Per-slot tooltip — every series quantified, zero counts included. */
+	/** Flattened aria-label — every series quantified, zero counts included. */
 	function bucketTitle(b: SparklineBucket): string {
 		const parts = series.map((s) => `${num(b[s.field])} ${s.label ?? s.field}`);
 		return `${bucketLabel(b)}: ${parts.join(', ')}`;
+	}
+	/** Tooltip header — full localized date or range. Bucket boundaries
+	 *  are UTC (`date_trunc` server-side), so formatting pins UTC: the
+	 *  label names the same period the bucket covers. */
+	const dayFmt = new Intl.DateTimeFormat(undefined, {
+		day: 'numeric',
+		month: 'long',
+		year: 'numeric',
+		timeZone: 'UTC'
+	});
+	const monthFmt = new Intl.DateTimeFormat(undefined, {
+		month: 'long',
+		year: 'numeric',
+		timeZone: 'UTC'
+	});
+	const hourFmt = new Intl.DateTimeFormat(undefined, {
+		day: 'numeric',
+		month: 'long',
+		year: 'numeric',
+		hour: '2-digit',
+		minute: '2-digit',
+		hour12: false,
+		timeZone: 'UTC'
+	});
+	function bucketDateTitle(b: SparklineBucket): string {
+		const start = new Date(String(b[bucketField]));
+		if (bucketUnit === 'month') return monthFmt.format(start);
+		if (bucketUnit === 'week')
+			return dayFmt.formatRange(start, new Date(start.getTime() + 6 * 86400_000));
+		if (bucketUnit === 'hour')
+			return hourFmt.formatRange(start, new Date(start.getTime() + 3600_000));
+		return dayFmt.format(start);
 	}
 </script>
 
@@ -126,7 +158,19 @@
 					style="left: {(barX(i) / W) * 100}%; width: {(BAR_W / W) * 100}%"
 					aria-label={bucketTitle(b)}
 				/>
-				<Tooltip.Content>{bucketTitle(b)}</Tooltip.Content>
+				<Tooltip.Content>
+					<div class="flex flex-col gap-1">
+						<div class="font-semibold">{bucketDateTitle(b)}</div>
+						{#each series as s (s.field)}
+							<div class="flex items-center gap-1.5">
+								<svg class="size-2 shrink-0" viewBox="0 0 8 8" aria-hidden="true">
+									<circle cx="4" cy="4" r="4" class={s.color} />
+								</svg>
+								<span>{num(b[s.field])} {s.label ?? s.field}</span>
+							</div>
+						{/each}
+					</div>
+				</Tooltip.Content>
 			</Tooltip.Root>
 		{/if}
 	{/each}
