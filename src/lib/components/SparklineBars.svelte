@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { Tooltip } from './tooltip/index.js';
+
 	/**
 	 * SparklineBars — per-row stacked mini-histogram for `type:"sparkline"`
 	 * meta columns (Kestra-style execution buckets).
@@ -11,6 +13,11 @@
 	 * load declared by `column.sparkline` — no per-page wiring). Pure SVG +
 	 * plain props, so the same component compiles safely inside host and
 	 * remote module bundles.
+	 *
+	 * Tooltips are the canonical bits-ui standard — a transparent DOM
+	 * trigger overlays each slot (the painted segment can be ~1px tall, an
+	 * impossible hit target); the styled Content escapes the cell's
+	 * overflow via the portal.
 	 */
 
 	export type SparklineBucket = {
@@ -87,27 +94,37 @@
 	}
 </script>
 
-<svg viewBox="0 0 {W} {H}" class="block h-7 w-[120px]" role="img" aria-label="sparkline">
+<div class="relative inline-block">
+	<svg viewBox="0 0 {W} {H}" class="block h-7 w-[120px]" role="img" aria-label="sparkline">
+		{#each { length: MAX_BARS } as _, i (i)}
+			{@const b = shown && i >= offset ? shown[i - offset] : undefined}
+			{@const x = barX(i)}
+			{#if b}
+				{@const total = series.reduce((sum, s) => sum + num(b[s.field]), 0)}
+				{#if total === 0}
+					<rect {x} y={H - 2} width={BAR_W} height={1.5} class="fill-muted-foreground/30" rx="0.5" />
+				{:else}
+					{#each series as s, si (s.field)}
+						{@const segH = h(num(b[s.field]))}
+						{#if segH > 0}
+							<rect x={x} y={segmentY(b, si)} width={BAR_W} height={segH} class={s.color} rx="0.5" />
+						{/if}
+					{/each}
+				{/if}
+			{/if}
+		{/each}
+	</svg>
 	{#each { length: MAX_BARS } as _, i (i)}
 		{@const b = shown && i >= offset ? shown[i - offset] : undefined}
-		{@const x = barX(i)}
 		{#if b}
-			{@const total = series.reduce((sum, s) => sum + num(b[s.field]), 0)}
-			{#if total === 0}
-				<rect x={x} y={H - 2} width={BAR_W} height={1.5} class="fill-muted-foreground/30" rx="0.5" />
-			{:else}
-				{#each series as s, si (s.field)}
-					{@const segH = h(num(b[s.field]))}
-					{#if segH > 0}
-						<rect x={x} y={segmentY(b, si)} width={BAR_W} height={segH} class={s.color} rx="0.5" />
-					{/if}
-				{/each}
-			{/if}
-			<!-- Full-height hit target — the tooltip belongs to the SLOT, not
-			     to the painted segment (a 1-run bar is ~1px tall). -->
-			<rect {x} y={0} width={BAR_W} height={H} fill="transparent">
-				<title>{bucketTitle(b)}</title>
-			</rect>
+			<Tooltip.Root>
+				<Tooltip.Trigger
+					class="absolute top-0 h-full cursor-default"
+					style="left: {(barX(i) / W) * 100}%; width: {(BAR_W / W) * 100}%"
+					aria-label={bucketTitle(b)}
+				/>
+				<Tooltip.Content>{bucketTitle(b)}</Tooltip.Content>
+			</Tooltip.Root>
 		{/if}
 	{/each}
-</svg>
+</div>
