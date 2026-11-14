@@ -41,12 +41,16 @@
 		buckets,
 		bucketUnit,
 		series,
-		bucketField = 'bucket_start'
+		bucketField = 'bucket_start',
+		noRunsLabel
 	}: {
 		buckets: SparklineBucket[] | undefined;
 		bucketUnit?: string;
 		series: SparklineSeries[];
 		bucketField?: string;
+		/** Tooltip line for buckets whose total is zero — resolved upstream
+		 *  (host i18n), same contract as `series[].label`. */
+		noRunsLabel?: string;
 	} = $props();
 
 	const W = 120;
@@ -154,21 +158,28 @@
 		{#if b}
 			<Tooltip.Root>
 				<Tooltip.Trigger
-					class="absolute top-0 h-full cursor-default"
+					class="absolute top-0 h-full cursor-default rounded-[1px] transition-colors hover:bg-foreground/10 hover:ring-1 hover:ring-inset hover:ring-foreground/20"
 					style="left: {(barX(i) / W) * 100}%; width: {(BAR_W / W) * 100}%"
 					aria-label={bucketTitle(b)}
 				/>
 				<Tooltip.Content>
+					{@const total = series.reduce((sum, s) => sum + num(b[s.field]), 0)}
 					<div class="flex flex-col gap-1">
 						<div class="font-semibold">{bucketDateTitle(b)}</div>
-						{#each series as s (s.field)}
-							<div class="flex items-center gap-1.5">
-								<svg class="size-2 shrink-0" viewBox="0 0 8 8" aria-hidden="true">
-									<circle cx="4" cy="4" r="4" class={s.color} />
-								</svg>
-								<span>{num(b[s.field])} {s.label ?? s.field}</span>
-							</div>
-						{/each}
+						{#if total === 0}
+							<!-- One honest line for an empty bucket — the all-zero
+							     series rows carry no information. -->
+							<div class="text-muted-foreground">{noRunsLabel ?? 'No runs'}</div>
+						{:else}
+							{#each series as s (s.field)}
+								<div class="flex items-center gap-1.5">
+									<svg class="size-2 shrink-0" viewBox="0 0 8 8" aria-hidden="true">
+										<circle cx="4" cy="4" r="4" class={s.color} />
+									</svg>
+									<span>{num(b[s.field])} {s.label ?? s.field}</span>
+								</div>
+							{/each}
+						{/if}
 					</div>
 				</Tooltip.Content>
 			</Tooltip.Root>
