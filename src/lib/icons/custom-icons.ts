@@ -20,14 +20,16 @@
  *  same shape `COMPOSED_ICONS.overlay_nodes` already uses). */
 export type CustomIconNode = Array<[string, Record<string, string | number>]>;
 
-/** trash-restore — "restore from deleted": the lucide `trash` bin minus
+/** trash-arrow-up — "restore from deleted": the lucide `trash` bin minus
  *  its two inner verticals, the bottom edge split around x=12 with an
- *  8-unit gap (the `archive-restore`/`square-arrow-*-enter` edge-interrupt
+ *  8-unit gap (the `archive-arrow-up`/`square-arrow-*-enter` edge-interrupt
  *  construction), and the canonical lucide up-arrow (`m9 15 3-3 3 3`
  *  chevron + shaft) centered on it — the shaft lands exactly on the
- *  baseline, reading as the row coming back OUT of the bin. Name mirrors
- *  `archive-restore` for the upstream submission. */
-export const TRASH_RESTORE_NODES: CustomIconNode = [
+ *  baseline, reading as the row coming back OUT of the bin. Name follows
+ *  the upstream convention: lucide deprecated `archive-restore` in favour
+ *  of `archive-arrow-up` — icon names describe the shape, tags the
+ *  semantics. */
+export const TRASH_ARROW_UP_NODES: CustomIconNode = [
   ['path', { d: 'M3 6h18' }],
   ['path', { d: 'M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2' }],
   ['path', { d: 'M5 6v14a2 2 0 0 0 2 2h1' }],
@@ -37,5 +39,5 @@ export const TRASH_RESTORE_NODES: CustomIconNode = [
 ];
 
 export const CUSTOM_ICONS: Partial<Record<string, CustomIconNode>> = {
-  'trash-restore': TRASH_RESTORE_NODES,
+  'trash-arrow-up': TRASH_ARROW_UP_NODES,
 };

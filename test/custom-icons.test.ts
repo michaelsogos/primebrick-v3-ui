@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { CUSTOM_ICONS, TRASH_RESTORE_NODES, type CustomIconNode } from '../src/lib/icons/custom-icons.js';
+import { CUSTOM_ICONS, TRASH_ARROW_UP_NODES, type CustomIconNode } from '../src/lib/icons/custom-icons.js';
 
 const LUCIDE_ICON_NAMES = new Set(
 	readdirSync(
@@ -36,9 +36,9 @@ describe('CUSTOM_ICONS registry', () => {
 	});
 });
 
-describe('trash-restore authored geometry', () => {
+describe('trash-arrow-up authored geometry', () => {
 	it('keeps the approved path set verbatim (trash minus inner verticals, 8u baseline gap, canonical up-arrow)', () => {
-		expect(TRASH_RESTORE_NODES).toEqual([
+		expect(TRASH_ARROW_UP_NODES).toEqual([
 			['path', { d: 'M3 6h18' }],
 			['path', { d: 'M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2' }],
 			['path', { d: 'M5 6v14a2 2 0 0 0 2 2h1' }],
@@ -49,7 +49,7 @@ describe('trash-restore authored geometry', () => {
 	});
 
 	it('keeps every coordinate on the integer grid', () => {
-		for (const n of pathNumbers(TRASH_RESTORE_NODES)) {
+		for (const n of pathNumbers(TRASH_ARROW_UP_NODES)) {
 			expect(Number.isInteger(n), `non-integer coordinate ${n}`).toBe(true);
 		}
 	});
