@@ -83,6 +83,7 @@
 <script lang="ts">
   import { cn } from '../../utils/index.js';
   import { COMPOSED_ICONS } from '../../icons/composed-icons.js';
+  import { CUSTOM_ICONS } from '../../icons/custom-icons.js';
   import { SEMANTIC_ICONS } from '../../icons/semantic-icons.js';
   import { parseIconName } from '../../icons/icon-qualifiers.js';
 
@@ -106,6 +107,7 @@
 
   const parsed = $derived(parseIconName(name, filled));
   const composed = $derived(COMPOSED_ICONS[parsed.name]);
+  const custom = $derived(CUSTOM_ICONS[parsed.name]);
   const semantic = $derived(SEMANTIC_ICONS[parsed.name]);
 
   let IconComp = $state<any>(null);
@@ -120,11 +122,11 @@
   $effect(() => {
     let cancelled = false;
     missing = false;
-    if (semantic || composed) {
-      // Semantic/composed paths render synchronously below — skip the
-      // lucide glob entirely.
+    if (semantic || custom || composed) {
+      // Semantic/custom/composed paths render synchronously below — skip
+      // the lucide glob entirely.
       IconComp = null;
-      if (semantic) return () => { cancelled = true; };
+      if (semantic || custom) return () => { cancelled = true; };
     }
     if (composed) {
       IconComp = null;
@@ -150,6 +152,26 @@
        lucide/composed. The icon's color IS the semantic; the label's
        comes from `SEMANTIC_ICONS[name].color` — never free text. -->
   <semantic.component {size} class={className} {style} />
+{:else if custom}
+  <!-- Authored glyph — lucide-style single icon drawn from CUSTOM_ICONS
+       node tuples (currentColor), resolved before composed icons and
+       the lucide glob. -->
+  <svg
+    viewBox="0 0 24 24"
+    width={size}
+    height={size}
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class={className}
+    {style}
+  >
+    {#each custom as node}
+      <svelte:element this={node[0]} {...node[1]} />
+    {/each}
+  </svg>
 {:else if composed}
   {@const badge = Math.max(Math.round(size * 0.55), 8)}
   {@const overlayShape = composed.overlay_nodes ?? overlayNodes}
