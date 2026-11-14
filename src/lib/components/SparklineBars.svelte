@@ -80,6 +80,11 @@
 		for (let j = 0; j < si; j++) below += h(num(b[series[j].field]));
 		return H - below - h(num(b[series[si].field]));
 	}
+	/** Per-slot tooltip — every series quantified, zero counts included. */
+	function bucketTitle(b: SparklineBucket): string {
+		const parts = series.map((s) => `${num(b[s.field])} ${s.label ?? s.field}`);
+		return `${bucketLabel(b)}: ${parts.join(', ')}`;
+	}
 </script>
 
 <svg viewBox="0 0 {W} {H}" class="block h-7 w-[120px]" role="img" aria-label="sparkline">
@@ -89,19 +94,20 @@
 		{#if b}
 			{@const total = series.reduce((sum, s) => sum + num(b[s.field]), 0)}
 			{#if total === 0}
-				<rect x={x} y={H - 2} width={BAR_W} height={1.5} class="fill-muted-foreground/30" rx="0.5">
-					<title>{bucketLabel(b)}: 0</title>
-				</rect>
+				<rect x={x} y={H - 2} width={BAR_W} height={1.5} class="fill-muted-foreground/30" rx="0.5" />
 			{:else}
 				{#each series as s, si (s.field)}
 					{@const segH = h(num(b[s.field]))}
 					{#if segH > 0}
-						<rect x={x} y={segmentY(b, si)} width={BAR_W} height={segH} class={s.color} rx="0.5">
-							<title>{bucketLabel(b)}: {num(b[s.field])} {s.label ?? s.field}</title>
-						</rect>
+						<rect x={x} y={segmentY(b, si)} width={BAR_W} height={segH} class={s.color} rx="0.5" />
 					{/if}
 				{/each}
 			{/if}
+			<!-- Full-height hit target — the tooltip belongs to the SLOT, not
+			     to the painted segment (a 1-run bar is ~1px tall). -->
+			<rect {x} y={0} width={BAR_W} height={H} fill="transparent">
+				<title>{bucketTitle(b)}</title>
+			</rect>
 		{/if}
 	{/each}
 </svg>
