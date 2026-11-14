@@ -43,12 +43,14 @@
 	const H = 28;
 	const PAD = 1;
 	/** Fixed slot count — the sample is always rendered as exactly MAX_BARS
-	 *  slots (missing/empty buckets render as gaps), so bar width is
+	 *  slots (empty buckets render as a baseline tick), so bar width is
 	 *  constant at any viewport and the cell never scales unboundedly. */
 	const MAX_BARS = 10;
 	const BAR_W = Math.floor((W - PAD * (MAX_BARS + 1)) / MAX_BARS);
-	/** Right-aligned tail: the most recent MAX_BARS buckets are shown. */
+	/** Right-aligned tail: the LAST slot is the current bucket — the most
+	 *  recent MAX_BARS buckets are shown, position = time. */
 	const shown = $derived(buckets ? buckets.slice(-MAX_BARS) : undefined);
+	const offset = $derived(shown ? MAX_BARS - shown.length : 0);
 	const maxTotal = $derived(
 		shown && shown.length > 0
 			? Math.max(1, ...shown.map((b) => series.reduce((sum, s) => sum + num(b[s.field]), 0)))
@@ -81,18 +83,25 @@
 </script>
 
 <svg viewBox="0 0 {W} {H}" class="block h-7 w-[120px]" role="img" aria-label="sparkline">
-	{#each { length: MAX_BARS } as _, i}
-		{@const b = shown?.[i]}
+	{#each { length: MAX_BARS } as _, i (i)}
+		{@const b = shown && i >= offset ? shown[i - offset] : undefined}
 		{@const x = barX(i)}
 		{#if b}
-			{#each series as s, si}
-				{@const segH = h(num(b[s.field]))}
-				{#if segH > 0}
-					<rect x={x} y={segmentY(b, si)} width={BAR_W} height={segH} class={s.color} rx="0.5">
-						<title>{bucketLabel(b)}: {num(b[s.field])} {s.label ?? s.field}</title>
-					</rect>
-				{/if}
-			{/each}
+			{@const total = series.reduce((sum, s) => sum + num(b[s.field]), 0)}
+			{#if total === 0}
+				<rect x={x} y={H - 2} width={BAR_W} height={1.5} class="fill-muted-foreground/30" rx="0.5">
+					<title>{bucketLabel(b)}: 0</title>
+				</rect>
+			{:else}
+				{#each series as s, si (s.field)}
+					{@const segH = h(num(b[s.field]))}
+					{#if segH > 0}
+						<rect x={x} y={segmentY(b, si)} width={BAR_W} height={segH} class={s.color} rx="0.5">
+							<title>{bucketLabel(b)}: {num(b[s.field])} {s.label ?? s.field}</title>
+						</rect>
+					{/if}
+				{/each}
+			{/if}
 		{/if}
 	{/each}
 </svg>
