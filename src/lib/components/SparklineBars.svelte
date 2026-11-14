@@ -1,5 +1,8 @@
 <script lang="ts">
-	import { Tooltip } from './tooltip/index.js';
+	// Namespace import — the canonical shape (barrel: `export * as Tooltip`).
+	// `import { Tooltip }` would bind the Root-alias component, and
+	// `<Tooltip.Root>` would silently resolve undefined.
+	import * as Tooltip from './tooltip/index.js';
 
 	/**
 	 * SparklineBars — per-row stacked mini-histogram for `type:"sparkline"`
