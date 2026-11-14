@@ -84,12 +84,14 @@
   import { cn } from '../../utils/index.js';
   import { COMPOSED_ICONS } from '../../icons/composed-icons.js';
   import { SEMANTIC_ICONS } from '../../icons/semantic-icons.js';
+  import { parseIconName } from '../../icons/icon-qualifiers.js';
 
   let {
     name,
     size = 16,
     class: className,
     style,
+    filled = false,
   }: {
     name: string;
     size?: number;
@@ -97,10 +99,14 @@
     /** Inline style — for colors resolved from option data (token → CSS)
      *  where a Tailwind class cannot be generated. */
     style?: string;
+    /** Filled render (`fill="currentColor"`) — same request as the
+     *  `:filled` name suffix; sensible only on closed-shape glyphs. */
+    filled?: boolean;
   } = $props();
 
-  const composed = $derived(COMPOSED_ICONS[name]);
-  const semantic = $derived(SEMANTIC_ICONS[name]);
+  const parsed = $derived(parseIconName(name, filled));
+  const composed = $derived(COMPOSED_ICONS[parsed.name]);
+  const semantic = $derived(SEMANTIC_ICONS[parsed.name]);
 
   let IconComp = $state<any>(null);
   let baseNodes = $state<Array<[string, Record<string, string | number>]> | null>(null);
@@ -130,7 +136,7 @@
       }
       return () => { cancelled = true; };
     }
-    loadIcon(name).then((comp) => {
+    loadIcon(parsed.name).then((comp) => {
       if (cancelled) return;
       IconComp = comp;
       missing = comp === null;
@@ -189,7 +195,7 @@
     <span style="display:inline-block;width:{size}px;height:{size}px" class={className}></span>
   {/if}
 {:else if IconComp}
-  <IconComp {size} class={cn(className)} {style} />
+  <IconComp {size} class={cn(className)} {style} fill={parsed.filled ? 'currentColor' : 'none'} />
 {:else if missing}
   <span
     role="img"
