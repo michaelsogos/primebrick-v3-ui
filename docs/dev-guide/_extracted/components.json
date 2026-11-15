@@ -14738,7 +14738,7 @@
           "column": 0
         },
         "end": {
-          "line": 438,
+          "line": 480,
           "column": 0
         }
       },
@@ -14763,11 +14763,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 86,
+              "line": 89,
               "column": 4
             },
             "end": {
-              "line": 86,
+              "line": 89,
               "column": 25
             }
           }
@@ -14783,11 +14783,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 87,
+              "line": 90,
               "column": 4
             },
             "end": {
-              "line": 87,
+              "line": 90,
               "column": 8
             }
           }
@@ -14803,11 +14803,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 88,
+              "line": 91,
               "column": 4
             },
             "end": {
-              "line": 88,
+              "line": 91,
               "column": 7
             }
           }
@@ -14829,11 +14829,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 89,
+              "line": 92,
               "column": 4
             },
             "end": {
-              "line": 89,
+              "line": 92,
               "column": 22
             }
           }
@@ -14857,11 +14857,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 90,
+              "line": 93,
               "column": 4
             },
             "end": {
-              "line": 90,
+              "line": 93,
               "column": 25
             }
           }
@@ -14877,11 +14877,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 91,
+              "line": 94,
               "column": 4
             },
             "end": {
-              "line": 91,
+              "line": 94,
               "column": 12
             }
           }
@@ -14904,11 +14904,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 92,
+              "line": 95,
               "column": 4
             },
             "end": {
-              "line": 92,
+              "line": 95,
               "column": 15
             }
           }
@@ -14931,11 +14931,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 93,
+              "line": 96,
               "column": 4
             },
             "end": {
-              "line": 93,
+              "line": 96,
               "column": 19
             }
           }
@@ -14951,11 +14951,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 94,
+              "line": 97,
               "column": 4
             },
             "end": {
-              "line": 94,
+              "line": 97,
               "column": 8
             }
           }
@@ -14978,11 +14978,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 95,
+              "line": 98,
               "column": 4
             },
             "end": {
-              "line": 95,
+              "line": 98,
               "column": 18
             }
           }
@@ -15005,11 +15005,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 96,
+              "line": 99,
               "column": 4
             },
             "end": {
-              "line": 96,
+              "line": 99,
               "column": 20
             }
           }
@@ -15025,11 +15025,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 97,
+              "line": 100,
               "column": 4
             },
             "end": {
-              "line": 97,
+              "line": 100,
               "column": 12
             }
           }
@@ -15045,11 +15045,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 98,
+              "line": 101,
               "column": 4
             },
             "end": {
-              "line": 98,
+              "line": 101,
               "column": 7
             }
           }
@@ -15065,11 +15065,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 99,
+              "line": 102,
               "column": 4
             },
             "end": {
-              "line": 99,
+              "line": 102,
               "column": 7
             }
           }
@@ -15092,11 +15092,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 100,
+              "line": 103,
               "column": 4
             },
             "end": {
-              "line": 100,
+              "line": 103,
               "column": 18
             }
           }
@@ -15113,11 +15113,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 101,
+              "line": 104,
               "column": 4
             },
             "end": {
-              "line": 101,
+              "line": 104,
               "column": 20
             }
           }
@@ -15137,11 +15137,11 @@
           "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 86,
+              "line": 89,
               "column": 4
             },
             "end": {
-              "line": 86,
+              "line": 89,
               "column": 25
             }
           }
@@ -15153,11 +15153,11 @@
           "message": "Prop \"kind\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 87,
+              "line": 90,
               "column": 4
             },
             "end": {
-              "line": 87,
+              "line": 90,
               "column": 8
             }
           }
@@ -15169,11 +15169,11 @@
           "message": "Prop \"uom\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 88,
+              "line": 91,
               "column": 4
             },
             "end": {
-              "line": 88,
+              "line": 91,
               "column": 7
             }
           }
@@ -15185,11 +15185,11 @@
           "message": "Prop \"type_config\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 89,
+              "line": 92,
               "column": 4
             },
             "end": {
-              "line": 89,
+              "line": 92,
               "column": 22
             }
           }
@@ -15201,11 +15201,11 @@
           "message": "Prop \"onChange\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 91,
+              "line": 94,
               "column": 4
             },
             "end": {
-              "line": 91,
+              "line": 94,
               "column": 12
             }
           }
@@ -15217,11 +15217,11 @@
           "message": "Prop \"step\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 94,
+              "line": 97,
               "column": 4
             },
             "end": {
-              "line": 94,
+              "line": 97,
               "column": 8
             }
           }
@@ -15233,11 +15233,11 @@
           "message": "Prop \"unsigned\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 97,
+              "line": 100,
               "column": 4
             },
             "end": {
-              "line": 97,
+              "line": 100,
               "column": 12
             }
           }
@@ -15249,11 +15249,11 @@
           "message": "Prop \"min\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 98,
+              "line": 101,
               "column": 4
             },
             "end": {
-              "line": 98,
+              "line": 101,
               "column": 7
             }
           }
@@ -15265,11 +15265,11 @@
           "message": "Prop \"max\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 99,
+              "line": 102,
               "column": 4
             },
             "end": {
-              "line": 99,
+              "line": 102,
               "column": 7
             }
           }
@@ -15281,11 +15281,11 @@
           "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 101,
+              "line": 104,
               "column": 4
             },
             "end": {
-              "line": 101,
+              "line": 104,
               "column": 20
             }
           }
@@ -15807,6 +15807,117 @@
             "end": {
               "line": 115,
               "column": 20
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "file": "src/lib/components/payload-map-editor/payload-map-viewer.svelte",
+    "component": "payload-map-viewer",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 301,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "value",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 56,
+              "column": 8
+            },
+            "end": {
+              "line": 56,
+              "column": 13
+            }
+          }
+        },
+        {
+          "name": "target_schema",
+          "kind": "let",
+          "type": "JsonSchema",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 56,
+              "column": 15
+            },
+            "end": {
+              "line": 56,
+              "column": 28
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 56,
+              "column": 30
+            },
+            "end": {
+              "line": 56,
+              "column": 46
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "Element",
+        "name": "div"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/payload-map-editor/payload-map-viewer.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 56,
+              "column": 30
+            },
+            "end": {
+              "line": 56,
+              "column": 46
             }
           }
         }
