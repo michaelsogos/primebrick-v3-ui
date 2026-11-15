@@ -19,7 +19,7 @@
 		value,
 		class: className,
 	}: {
-		/** The canonical spec string (`@every 15s`, cron expr, `@at …`). */
+		/** The canonical spec string (`@every 5m`, cron expr, `@at …`). */
 		value: string;
 		class?: string;
 	} = $props();

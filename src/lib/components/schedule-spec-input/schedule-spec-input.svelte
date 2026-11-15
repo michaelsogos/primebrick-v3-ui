@@ -94,8 +94,9 @@
   // Interval state — product default: 1 hour.
   let everyN = $state('1');
   let everyUnit = $state('h');
+  // No seconds: recurring schedules floor at one minute — the smallest
+  // authorable interval is `1 m` (enforced by `isValidScheduleSpec`).
   const unitOptions = [
-    { value: 's', label_key: 'app.widgets.schedule_spec.unit.s' },
     { value: 'm', label_key: 'app.widgets.schedule_spec.unit.m' },
     { value: 'h', label_key: 'app.widgets.schedule_spec.unit.h' },
     { value: 'd', label_key: 'app.widgets.schedule_spec.unit.d' },
@@ -122,14 +123,16 @@
     const p = parseScheduleSpec(value);
     if (p.ok && p.spec.kind === 'every') {
       mode = 'interval';
-      const unitMs = { s: 1_000, m: 60_000, h: 3_600_000, d: 86_400_000 };
+      const unitMs = { m: 60_000, h: 3_600_000, d: 86_400_000 };
       // Largest-divisible-unit first — `@every 3600s` must seed "1 hour",
-      // not "3600 seconds".
-      const u = (['d', 'h', 'm', 's'] as const).find(
+      // not "3600 seconds". A legacy sub-minute spec seeds the smallest
+      // authorable interval (1 m) — the floor rejects it at submit anyway.
+      const u = (['d', 'h', 'm'] as const).find(
         (k) => p.spec.kind === 'every' && p.spec.everyMs % unitMs[k] === 0,
       ) ?? 'm';
       everyUnit = u;
-      everyN = p.spec.kind === 'every' ? String(p.spec.everyMs / unitMs[u]) : '1';
+      const n = p.spec.kind === 'every' ? p.spec.everyMs / unitMs[u] : 1;
+      everyN = String(Math.max(1, Math.round(n)));
     } else if (p.ok && p.spec.kind === 'at') {
       mode = 'once';
       const d = p.spec.at;
