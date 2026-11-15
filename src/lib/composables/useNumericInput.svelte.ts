@@ -65,6 +65,31 @@ export interface NumericUomCtx {
 	props: Record<string, unknown>;
 }
 
+/** One selectable unit in the uom selector — `label_key` translates when
+ *  present, `symbol`/`code` render verbatim otherwise. */
+export interface UomOption {
+	code: string;
+	label_key?: string;
+	symbol?: string;
+}
+
+/** Options at or under this bound render as the internal dropdown anchored
+ *  to the adornment CTA; larger or non-enumerable sets (api_url/entity
+ *  sources) go through the host's `on_pick` surface (sheet). */
+export const UOM_DROPDOWN_MAX_OPTIONS = 5;
+
+/** The picker-surface rule, in one place: a static set ≤
+ *  {@link UOM_DROPDOWN_MAX_OPTIONS} renders the component's internal
+ *  dropdown; anything else (larger set, or no enumerable set — e.g. an
+ *  api_url/entity source) falls to the host's `on_pick` surface. */
+export function uomUsesDropdown(spec: NumericUomSpec | undefined): boolean {
+	return (
+		!!spec?.options &&
+		spec.options.length > 0 &&
+		spec.options.length <= UOM_DROPDOWN_MAX_OPTIONS
+	);
+}
+
 /**
  * Resolved unit-of-measure spec — what the COMPONENT receives. The
  * contract-level declaration lives on `MetaColumn.uom`; hosts resolve it
@@ -80,6 +105,13 @@ export interface NumericUomSpec {
 	position?: 'prefix' | 'suffix';
 	/** Selector CTA — host opens the picker surface (sheet) on click. */
 	on_pick?: () => void;
+	/** Static option set for the internal dropdown — at most
+	 *  {@link UOM_DROPDOWN_MAX_OPTIONS}; a larger set must go through
+	 *  `on_pick` instead (the surface rule lives on the host). */
+	options?: readonly UomOption[];
+	/** Internal-dropdown pick — the host writes the new code (same
+	 *  host-owned-write contract as `on_pick`'s change callback). */
+	on_uom_change?: (code: string) => void;
 	/** display-canonical → emitted canonical (e.g. percent ÷100). */
 	before_return?: (canonical: string, ctx: NumericUomCtx) => string;
 	/** emitted canonical → display-canonical (e.g. percent ×100). */

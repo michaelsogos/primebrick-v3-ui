@@ -24,7 +24,7 @@
   import Button from '../button/button.svelte';
   import Badge from '../badge/badge.svelte';
   import { NumericInput } from '../numeric-input/index.js';
-  import { ComboSelect } from '../combo-select/index.js';
+  import type { UomOption } from '../../composables/useNumericInput.svelte.js';
   import { DateWheelPicker } from '../date-dropper/index.js';
   import { CronInput } from '../cron-input/index.js';
   import { KeyboardHints } from '../keyboard-hints/index.js';
@@ -94,11 +94,12 @@
   // Interval state — product default: 1 hour.
   let everyN = $state('1');
   let everyUnit = $state('h');
-  const unitOptions = [
-    { value: 's', label_key: 'app.widgets.schedule_spec.unit.s' },
-    { value: 'm', label_key: 'app.widgets.schedule_spec.unit.m' },
-    { value: 'h', label_key: 'app.widgets.schedule_spec.unit.h' },
-    { value: 'd', label_key: 'app.widgets.schedule_spec.unit.d' },
+  // No seconds: recurring schedules floor at one minute — the smallest
+  // authorable interval is `1 m` (enforced by `isValidScheduleSpec`).
+  const unitOptions: UomOption[] = [
+    { code: 'm', label_key: 'app.widgets.schedule_spec.unit.m' },
+    { code: 'h', label_key: 'app.widgets.schedule_spec.unit.h' },
+    { code: 'd', label_key: 'app.widgets.schedule_spec.unit.d' },
   ];
   // Once state — CalendarDateTime wall-clock + the picker's selected IANA zone.
   let atValue = $state<CalendarDateTime | null>(null);
@@ -122,14 +123,16 @@
     const p = parseScheduleSpec(value);
     if (p.ok && p.spec.kind === 'every') {
       mode = 'interval';
-      const unitMs = { s: 1_000, m: 60_000, h: 3_600_000, d: 86_400_000 };
+      const unitMs = { m: 60_000, h: 3_600_000, d: 86_400_000 };
       // Largest-divisible-unit first — `@every 3600s` must seed "1 hour",
-      // not "3600 seconds".
-      const u = (['d', 'h', 'm', 's'] as const).find(
+      // not "3600 seconds". A legacy sub-minute spec seeds the smallest
+      // authorable interval (1 m) — the floor rejects it at submit anyway.
+      const u = (['d', 'h', 'm'] as const).find(
         (k) => p.spec.kind === 'every' && p.spec.everyMs % unitMs[k] === 0,
       ) ?? 'm';
       everyUnit = u;
-      everyN = p.spec.kind === 'every' ? String(p.spec.everyMs / unitMs[u]) : '1';
+      const n = p.spec.kind === 'every' ? p.spec.everyMs / unitMs[u] : 1;
+      everyN = String(Math.max(1, Math.round(n)));
     } else if (p.ok && p.spec.kind === 'at') {
       mode = 'once';
       const d = p.spec.at;
@@ -209,21 +212,18 @@
                         <NumericInput
                           kind="bigint"
                           unsigned={true}
+                          steppers={false}
                           bind:value={everyN}
+                          uom={{
+                            kind: 'custom',
+                            code: everyUnit,
+                            symbol: everyUnit,
+                            options: unitOptions,
+                            on_uom_change: (c) => (everyUnit = c),
+                          }}
                           data-testid="{dataTestId}-every-n"
                         />
                       </div>
-                      <ComboSelect
-                        mode="single"
-                        bind:value={everyUnit}
-                        options={unitOptions}
-                        valueField="value"
-                        labelField="label_key"
-                        isLabelTranslated={true}
-                        searchable={false}
-                        class="w-28 shrink-0"
-                        data-testid="{dataTestId}-every-unit"
-                      />
                     </div>
                   {/if}
                 </Choicebox.Item>

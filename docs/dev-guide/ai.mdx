@@ -1,0 +1,33 @@
+---
+title: AI domain surface
+description: The @primebrick/ui/ai subpath and AI-domain composables — fetchers, cerebellum params, resumable fetch, machine-capability benchmark.
+---
+
+## `@primebrick/ui/ai`
+
+A narrow subpath export that does **not** pull the component/vendor barrel —
+remote module chunks and tests import only what they pay for. Domain truth
+stays service-side; these are consumption mirrors.
+
+| Export | Purpose |
+|--------|---------|
+| `fetchAiModels`, `fetchAiCerebellum` | Read ai-domain rows via the `/ws/ai` gateway |
+| `fetchAiConfigEntries`, `updateAiConfigEntry` | Read/write `ai.config_entries` |
+| `fetchDocsIndexStatus`, `reindexDocsPacks` | Docs-pack index status probe + reindex trigger |
+| `resolveEffectiveParams`, `tuningOverriddenKeys` | Cerebellum tuning — effective param resolution vs defaults |
+| `resumableFetch`, `setByteReporter` | Byte-counted fetch with resume — model downloads report progress through a global byte reporter |
+| `types.ts` | `AiModel`, cerebellum/test-score contract types |
+
+## AI composables (`src/lib/composables/`)
+
+| Composable | Purpose |
+|------------|---------|
+| `useAiModels` | ai_models list state — `ensureLoaded`, deletion filter |
+| `useAiCerebellum` | cerebellum rows + effective-param resolution |
+| `useModelCache` | on-disk model cache state |
+| `useMachineCapabilities` | **browser-side hardware benchmark** — WebGPU bandwidth/FLOPS measure + VRAM ladder probe; results persist in `localStorage` (`primebrick:machine-capabilities`, TTL 24h) and re-measure automatically when the cache is stale or absent |
+| `useConfigEntries` | generic `config_entries` reader for any module schema |
+
+These composables are consumed by the AI module's remote chunks
+(`ai-pages.js` / `ai-sheets.js`) — each remote bundles its own copy of this
+library, so per-bundle state isolation is expected and correct.

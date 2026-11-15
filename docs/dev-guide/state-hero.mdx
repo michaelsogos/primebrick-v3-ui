@@ -1,0 +1,63 @@
+---
+title: State Hero
+description: The canonical severity-driven watermark hero — one anatomy for loading, empty, warning, and destructive terminal states with a huge animated icon.
+---
+
+`StateHero` is the **single** large-icon + message state component in
+Primebrick — the generalized anatomy of what auth surfaces rendered ad-hoc as
+`LoadingWatermark`. Every "terminal state" surface (record-sheet failures,
+pseudo-actor warnings, empty loads, destructive errors) mounts the same
+component, so icon sizing, animation, opacity, and message chrome can never
+drift.
+
+```ts
+import { StateHero } from "@primebrick/ui";
+```
+
+```svelte
+<StateHero
+  severity="warning"
+  icon="ghost"
+  animation="pulse"
+  title_key="system.entities.record.pseudo_subject"
+  params={{ entity_singular: "utente" }}
+/>
+```
+
+## Anatomy
+
+- **Huge `DynamicIcon`** (`size={80}` px), colored by severity — never a
+  raw `<img>` or inline SVG.
+- **`text-sm font-medium` title**, severity-colored + optional `text-xs`
+  muted hint, centered.
+- **`min-h-56` centered column** — the watermark presence, not an alert box.
+
+## Severity vocabulary
+
+| `severity` | Icon | Title | Use |
+|-----------|------|-------|-----|
+| `"info"` (default) | `text-primary` | muted | Loading, informational empties |
+| `"warning"` | `text-amber-500` | amber | Pseudo-actor refs, degraded states |
+| `"destructive"` | `text-destructive` | destructive | Missing subject, failed loads |
+
+## Animation
+
+`animation` selects the loop applied to the icon:
+
+| `animation` | Effect |
+|-------------|--------|
+| `"pulse"` (default) | float + zoom + opacity breathing (2s) — loading/boot states |
+| `"flip"` | rotateY coin-flip + zoom (1.2s) — the auth loading watermark loop |
+| `"none"` | static icon — destructive errors stay still |
+
+## Texts — i18n keys with interpolation
+
+`title_key` / `hint_key` are resolved through `getT()` (the ui bridge the
+host injects) — components in this package never hardcode copy.
+`params` is the interpolation map (`{entity_singular}` → translated entity
+singular), so ONE key serves every entity:
+
+| Key | Use |
+|-----|-----|
+| `system.entities.record.pseudo_subject` | Non-uuid actor ref (`system`, seed aliases) |
+| `system.entities.record.unavailable` | Uuid-shaped ref whose subject is gone (404) |

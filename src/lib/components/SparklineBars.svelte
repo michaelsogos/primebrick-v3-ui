@@ -1,4 +1,9 @@
 <script lang="ts">
+	// Namespace import — the canonical shape (barrel: `export * as Tooltip`).
+	// `import { Tooltip }` would bind the Root-alias component, and
+	// `<Tooltip.Root>` would silently resolve undefined.
+	import * as Tooltip from './tooltip/index.js';
+
 	/**
 	 * SparklineBars — per-row stacked mini-histogram for `type:"sparkline"`
 	 * meta columns (Kestra-style execution buckets).
@@ -11,6 +16,11 @@
 	 * load declared by `column.sparkline` — no per-page wiring). Pure SVG +
 	 * plain props, so the same component compiles safely inside host and
 	 * remote module bundles.
+	 *
+	 * Tooltips are the canonical bits-ui standard — a transparent DOM
+	 * trigger overlays each slot (the painted segment can be ~1px tall, an
+	 * impossible hit target); the styled Content escapes the cell's
+	 * overflow via the portal.
 	 */
 
 	export type SparklineBucket = {
@@ -31,24 +41,30 @@
 		buckets,
 		bucketUnit,
 		series,
-		bucketField = 'bucket_start'
+		bucketField = 'bucket_start',
+		noRunsLabel
 	}: {
 		buckets: SparklineBucket[] | undefined;
 		bucketUnit?: string;
 		series: SparklineSeries[];
 		bucketField?: string;
+		/** Tooltip line for buckets whose total is zero — resolved upstream
+		 *  (host i18n), same contract as `series[].label`. */
+		noRunsLabel?: string;
 	} = $props();
 
 	const W = 120;
 	const H = 28;
 	const PAD = 1;
 	/** Fixed slot count — the sample is always rendered as exactly MAX_BARS
-	 *  slots (missing/empty buckets render as gaps), so bar width is
+	 *  slots (empty buckets render as a baseline tick), so bar width is
 	 *  constant at any viewport and the cell never scales unboundedly. */
 	const MAX_BARS = 10;
 	const BAR_W = Math.floor((W - PAD * (MAX_BARS + 1)) / MAX_BARS);
-	/** Right-aligned tail: the most recent MAX_BARS buckets are shown. */
+	/** Right-aligned tail: the LAST slot is the current bucket — the most
+	 *  recent MAX_BARS buckets are shown, position = time. */
 	const shown = $derived(buckets ? buckets.slice(-MAX_BARS) : undefined);
+	const offset = $derived(shown ? MAX_BARS - shown.length : 0);
 	const maxTotal = $derived(
 		shown && shown.length > 0
 			? Math.max(1, ...shown.map((b) => series.reduce((sum, s) => sum + num(b[s.field]), 0)))
@@ -78,21 +94,95 @@
 		for (let j = 0; j < si; j++) below += h(num(b[series[j].field]));
 		return H - below - h(num(b[series[si].field]));
 	}
+	/** Flattened aria-label — every series quantified, zero counts included. */
+	function bucketTitle(b: SparklineBucket): string {
+		const parts = series.map((s) => `${num(b[s.field])} ${s.label ?? s.field}`);
+		return `${bucketLabel(b)}: ${parts.join(', ')}`;
+	}
+	/** Tooltip header — full localized date or range. Bucket boundaries
+	 *  are UTC (`date_trunc` server-side), so formatting pins UTC: the
+	 *  label names the same period the bucket covers. */
+	const dayFmt = new Intl.DateTimeFormat(undefined, {
+		day: 'numeric',
+		month: 'long',
+		year: 'numeric',
+		timeZone: 'UTC'
+	});
+	const monthFmt = new Intl.DateTimeFormat(undefined, {
+		month: 'long',
+		year: 'numeric',
+		timeZone: 'UTC'
+	});
+	const hourFmt = new Intl.DateTimeFormat(undefined, {
+		day: 'numeric',
+		month: 'long',
+		year: 'numeric',
+		hour: '2-digit',
+		minute: '2-digit',
+		hour12: false,
+		timeZone: 'UTC'
+	});
+	function bucketDateTitle(b: SparklineBucket): string {
+		const start = new Date(String(b[bucketField]));
+		if (bucketUnit === 'month') return monthFmt.format(start);
+		if (bucketUnit === 'week')
+			return dayFmt.formatRange(start, new Date(start.getTime() + 6 * 86400_000));
+		if (bucketUnit === 'hour')
+			return hourFmt.formatRange(start, new Date(start.getTime() + 3600_000));
+		return dayFmt.format(start);
+	}
 </script>
 
-<svg viewBox="0 0 {W} {H}" class="block h-7 w-[120px]" role="img" aria-label="sparkline">
-	{#each { length: MAX_BARS } as _, i}
-		{@const b = shown?.[i]}
-		{@const x = barX(i)}
-		{#if b}
-			{#each series as s, si}
-				{@const segH = h(num(b[s.field]))}
-				{#if segH > 0}
-					<rect x={x} y={segmentY(b, si)} width={BAR_W} height={segH} class={s.color} rx="0.5">
-						<title>{bucketLabel(b)}: {num(b[s.field])} {s.label ?? s.field}</title>
-					</rect>
+<div class="relative inline-block">
+	<svg viewBox="0 0 {W} {H}" class="block h-7 w-[120px]" role="img" aria-label="sparkline">
+		{#each { length: MAX_BARS } as _, i (i)}
+			{@const b = shown && i >= offset ? shown[i - offset] : undefined}
+			{@const x = barX(i)}
+			{#if b}
+				{@const total = series.reduce((sum, s) => sum + num(b[s.field]), 0)}
+				{#if total === 0}
+					<rect {x} y={H - 2} width={BAR_W} height={1.5} class="fill-muted-foreground/30" rx="0.5" />
+				{:else}
+					{#each series as s, si (s.field)}
+						{@const segH = h(num(b[s.field]))}
+						{#if segH > 0}
+							<rect x={x} y={segmentY(b, si)} width={BAR_W} height={segH} class={s.color} rx="0.5" />
+						{/if}
+					{/each}
 				{/if}
-			{/each}
+			{/if}
+		{/each}
+	</svg>
+	{#each { length: MAX_BARS } as _, i (i)}
+		{@const b = shown && i >= offset ? shown[i - offset] : undefined}
+		{#if b}
+			<Tooltip.Root>
+				<Tooltip.Trigger
+					class="absolute top-0 h-full cursor-default rounded-[1px] transition-colors hover:bg-foreground/10 hover:ring-1 hover:ring-inset hover:ring-foreground/20"
+					style="left: {(barX(i) / W) * 100}%; width: {(BAR_W / W) * 100}%"
+					aria-label={bucketTitle(b)}
+				/>
+				<Tooltip.Content>
+					{@const total = series.reduce((sum, s) => sum + num(b[s.field]), 0)}
+					<div class="flex flex-col gap-1">
+						<div class="font-semibold">{bucketDateTitle(b)}</div>
+						{#if total === 0}
+							<!-- One honest line for an empty bucket — the all-zero
+							     series rows carry no information. -->
+							<div class="text-muted-foreground">{noRunsLabel ?? 'No runs'}</div>
+						{:else}
+							{#each series as s (s.field)}
+								<div class="flex items-center gap-1.5">
+									<svg class="size-2 shrink-0" viewBox="0 0 8 8" aria-hidden="true">
+										<circle cx="4" cy="4" r="4" class={s.color} />
+									</svg>
+									<span>{num(b[s.field])} {s.label ?? s.field}</span>
+								</div>
+							{/each}
+						{/if}
+					</div>
+				</Tooltip.Content>
+			</Tooltip.Root>
 		{/if}
 	{/each}
-</svg>
+</div>

@@ -12,9 +12,12 @@
   } from "../input-group/index.js";
   import {
     useNumericInput,
+    uomUsesDropdown,
     type NumericKind,
     type NumericUomSpec,
+    type UomOption,
   } from "../../composables/useNumericInput.svelte.js";
+  import * as Popover from "../popover/index.js";
   import { getT } from "../../bridges.js";
   import type { Decimal } from "@primebrick/core";
   const t = getT();
@@ -129,8 +132,16 @@
   let uomIsPrefix = $derived(
     (uomSpec?.position ?? (uomSpec?.kind === "currency" ? "prefix" : "suffix")) === "prefix",
   );
-  let hasUomAdornment = $derived(!!uomSpec && (uomSymbol !== "" || !!uomSpec.on_pick));
-  let hasUomCta = $derived(!!uomSpec?.on_pick);
+  // Internal dropdown vs host surface — the surface rule: a static set ≤
+  // UOM_DROPDOWN_MAX_OPTIONS renders inline; larger/async sets go through
+  // `on_pick` (sheet). Either way the CTA is a picker affordance.
+  let uomOptions = $derived(uomUsesDropdown(uomSpec) ? uomSpec?.options : undefined);
+  let uomDropdownOpen = $state(false);
+  let rootEl: HTMLElement | undefined = $state();
+  let hasUomAdornment = $derived(
+    !!uomSpec && (uomSymbol !== "" || !!uomSpec.on_pick || !!uomOptions),
+  );
+  let hasUomCta = $derived(!!uomSpec?.on_pick || !!uomOptions);
 
   // Group chrome is needed whenever steppers, a uom adornment or the
   // eraser trailing CTA render — i.e. always; the plain-Input branch only
@@ -240,10 +251,19 @@
   let translatedError = $derived(firstError ? translateError(firstError) : "");
   let shownError = $derived(translatedError || (oobError ? translateError(oobError) : ""));
 
-  // Forward the uom CTA click — the host owns the picker surface
-  // (e.g. opens the currency selection sheet with the change callback).
+  // UOM CTA — internal dropdown for ≤5 static options, otherwise the host's
+  // surface (e.g. the currency selection sheet).
   function openUomSheet() {
+    if (uomOptions) {
+      uomDropdownOpen = !uomDropdownOpen;
+      return;
+    }
     uomSpec?.on_pick?.();
+  }
+
+  function pickUom(opt: UomOption) {
+    uomDropdownOpen = false;
+    uomSpec?.on_uom_change?.(opt.code);
   }
 
   // Spinbutton aria — the input advertises the numeric role and bounds.
@@ -285,7 +305,7 @@
   }
 </script>
 
-<div class="w-full">
+<div class="w-full" bind:this={rootEl}>
   {#if needGroup}
     <InputGroup
       class="group/input border-primary-gradient hover:brightness-105 focus-within:ring-2 focus-within:ring-ring/50 rounded-md transition-all duration-200 {className}"
@@ -434,4 +454,26 @@
   {#if shownError}
     <p class="text-xs text-destructive mt-1">{shownError}</p>
   {/if}
+  <Popover.Root bind:open={uomDropdownOpen}>
+    <Popover.Content
+      class="w-44 space-y-0.5 p-1"
+      align="end"
+      customAnchor={rootEl}
+      data-testid="{baseTestId}-uom-dropdown"
+    >
+      {#each uomOptions ?? [] as opt}
+        <button
+          type="button"
+          class="flex w-full items-center justify-between gap-2 rounded-sm px-2 py-1.5 text-left text-sm hover:bg-accent hover:text-accent-foreground {opt.code === uomSpec?.code ? 'bg-accent/50 font-medium' : ''}"
+          onclick={() => pickUom(opt)}
+          data-testid="{baseTestId}-uom-option-{opt.code}"
+        >
+          <span>{opt.label_key ? $t(opt.label_key) : (opt.symbol ?? opt.code)}</span>
+          {#if opt.symbol && opt.symbol !== opt.code}
+            <span class="font-mono text-xs text-muted-foreground">{opt.code}</span>
+          {/if}
+        </button>
+      {/each}
+    </Popover.Content>
+  </Popover.Root>
 </div>

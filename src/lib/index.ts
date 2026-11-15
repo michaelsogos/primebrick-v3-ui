@@ -4,6 +4,7 @@ export * from '@primebrick/core';
 
 export * from './utils/index.js';
 export * from './icons/composed-icons.js';
+export * from './icons/custom-icons.js';
 export * from './icons/semantic-icons.js';
 
 export * from './bridges.js';
@@ -98,6 +99,7 @@ export { useMachineCapabilities } from './composables/useMachineCapabilities.sve
 export type { MachineCapabilities } from './composables/useMachineCapabilities.svelte.js';
 export { default as BorderedDialog } from './components/dialog-bordered.svelte';
 export { default as DynamicIcon } from './components/dynamic-icon/DynamicIcon.svelte';
+export { StateHero } from './components/state-hero/index.js';
 export { default as FormLabelWithPriorityHelp } from './components/forms/FormLabelWithPriorityHelp.svelte';
 export type { FieldHelp } from './components/forms/field-help.js';
 export { Label } from './components/label/index.js';
