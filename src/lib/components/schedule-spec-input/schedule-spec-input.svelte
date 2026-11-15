@@ -24,7 +24,7 @@
   import Button from '../button/button.svelte';
   import Badge from '../badge/badge.svelte';
   import { NumericInput } from '../numeric-input/index.js';
-  import { ComboSelect } from '../combo-select/index.js';
+  import type { UomOption } from '../../composables/useNumericInput.svelte.js';
   import { DateWheelPicker } from '../date-dropper/index.js';
   import { CronInput } from '../cron-input/index.js';
   import { KeyboardHints } from '../keyboard-hints/index.js';
@@ -96,10 +96,10 @@
   let everyUnit = $state('h');
   // No seconds: recurring schedules floor at one minute — the smallest
   // authorable interval is `1 m` (enforced by `isValidScheduleSpec`).
-  const unitOptions = [
-    { value: 'm', label_key: 'app.widgets.schedule_spec.unit.m' },
-    { value: 'h', label_key: 'app.widgets.schedule_spec.unit.h' },
-    { value: 'd', label_key: 'app.widgets.schedule_spec.unit.d' },
+  const unitOptions: UomOption[] = [
+    { code: 'm', label_key: 'app.widgets.schedule_spec.unit.m' },
+    { code: 'h', label_key: 'app.widgets.schedule_spec.unit.h' },
+    { code: 'd', label_key: 'app.widgets.schedule_spec.unit.d' },
   ];
   // Once state — CalendarDateTime wall-clock + the picker's selected IANA zone.
   let atValue = $state<CalendarDateTime | null>(null);
@@ -212,21 +212,18 @@
                         <NumericInput
                           kind="bigint"
                           unsigned={true}
+                          steppers={false}
                           bind:value={everyN}
+                          uom={{
+                            kind: 'custom',
+                            code: everyUnit,
+                            symbol: everyUnit,
+                            options: unitOptions,
+                            on_uom_change: (c) => (everyUnit = c),
+                          }}
                           data-testid="{dataTestId}-every-n"
                         />
                       </div>
-                      <ComboSelect
-                        mode="single"
-                        bind:value={everyUnit}
-                        options={unitOptions}
-                        valueField="value"
-                        labelField="label_key"
-                        isLabelTranslated={true}
-                        searchable={false}
-                        class="w-28 shrink-0"
-                        data-testid="{dataTestId}-every-unit"
-                      />
                     </div>
                   {/if}
                 </Choicebox.Item>
