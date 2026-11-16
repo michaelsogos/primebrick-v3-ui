@@ -42,7 +42,9 @@ async function main() {
     process.exit(1);
   }
 
-  const svelteFiles = findSvelteFiles(LIB_DIR);
+  // readdirSync order is filesystem-dependent (NTFS sorts, ext4 doesn't) —
+  // sort so the emitted array order is deterministic cross-platform.
+  const svelteFiles = findSvelteFiles(LIB_DIR).sort();
   console.log(`Found ${svelteFiles.length} .svelte files in src/lib/`);
 
   const results = [];
