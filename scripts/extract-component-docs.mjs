@@ -64,8 +64,21 @@ async function main() {
   const successCount = results.filter(r => !r.error).length;
   const errorCount = results.filter(r => r.error).length;
 
+  // TSDoc/docstring text captures the source files' line endings — \r\n on
+  // Windows checkouts vs \n on CI, which makes the committed extraction
+  // permanently "stale" on the other platform. Normalize to \n so the
+  // artifact is byte-identical cross-platform.
+  const normalizeEol = (value) => {
+    if (typeof value === 'string') return value.replace(/\r\n?/g, '\n');
+    if (Array.isArray(value)) return value.map(normalizeEol);
+    if (value && typeof value === 'object') {
+      return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, normalizeEol(v)]));
+    }
+    return value;
+  };
+
   mkdirSync(OUTPUT_DIR, { recursive: true });
-  writeFileSync(OUTPUT_FILE, JSON.stringify(results, null, 2), 'utf-8');
+  writeFileSync(OUTPUT_FILE, JSON.stringify(normalizeEol(results), null, 2) + '\n', 'utf-8');
   console.log(`\nExtracted: ${successCount} success, ${errorCount} errors out of ${results.length} components`);
   console.log(`Wrote to ${relative(projectRoot, OUTPUT_FILE)}`);
   console.log('=== Extraction complete ===');
