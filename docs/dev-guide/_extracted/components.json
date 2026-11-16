@@ -15823,7 +15823,7 @@
           "column": 0
         },
         "end": {
-          "line": 301,
+          "line": 302,
           "column": 0
         }
       },
@@ -15842,11 +15842,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 56,
+              "line": 58,
               "column": 8
             },
             "end": {
-              "line": 56,
+              "line": 58,
               "column": 13
             }
           }
@@ -15863,11 +15863,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 56,
+              "line": 58,
               "column": 15
             },
             "end": {
-              "line": 56,
+              "line": 58,
               "column": 28
             }
           }
@@ -15884,11 +15884,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 56,
+              "line": 58,
               "column": 30
             },
             "end": {
-              "line": 56,
+              "line": 58,
               "column": 46
             }
           }
@@ -15912,11 +15912,11 @@
           "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 56,
+              "line": 58,
               "column": 30
             },
             "end": {
-              "line": 56,
+              "line": 58,
               "column": 46
             }
           }
