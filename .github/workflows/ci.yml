@@ -85,8 +85,9 @@ jobs:
         run: pnpm run build
 
       - name: Type check
+        # svelte-check, not tsc — plain tsc cannot resolve *.svelte modules.
         working-directory: primebrick-v3-ui
-        run: npx tsc --noEmit
+        run: pnpm check
 
       - name: Docs freshness check
         # `pnpm build` already regenerated docs/ via prebuild+extract-docs —
