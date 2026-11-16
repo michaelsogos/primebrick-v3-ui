@@ -15952,6 +15952,117 @@
     }
   },
   {
+    "file": "src/lib/components/payload-map-editor/payload-map-viewer.svelte",
+    "component": "payload-map-viewer",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 302,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "value",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 58,
+              "column": 8
+            },
+            "end": {
+              "line": 58,
+              "column": 13
+            }
+          }
+        },
+        {
+          "name": "target_schema",
+          "kind": "let",
+          "type": "JsonSchema",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 58,
+              "column": 15
+            },
+            "end": {
+              "line": 58,
+              "column": 28
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "typeSource": "unknown",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 58,
+              "column": 30
+            },
+            "end": {
+              "line": 58,
+              "column": 46
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "rest_props": {
+        "type": "Element",
+        "name": "div"
+      },
+      "contexts": [],
+      "diagnostics": [
+        {
+          "component": "src/lib/components/payload-map-editor/payload-map-viewer.svelte",
+          "kind": "prop-unknown-type",
+          "name": "class",
+          "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
+          "source": {
+            "start": {
+              "line": 58,
+              "column": 30
+            },
+            "end": {
+              "line": 58,
+              "column": 46
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
     "file": "src/lib/components/popover/popover-close-on-scroll.svelte",
     "component": "popover-close-on-scroll",
     "data": {

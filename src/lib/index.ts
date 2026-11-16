@@ -151,6 +151,7 @@ export { UseClipboard, copyText } from './composables/useClipboard.svelte.js';
 export { JsonCodeBlock, JsonEditor } from './components/json-code-block/index.js';
 export { default as JsonValueEditor } from './components/json-value-editor/json-value-editor.svelte';
 export { default as PayloadMapEditor } from './components/payload-map-editor/payload-map-editor.svelte';
+export { default as PayloadMapViewer } from './components/payload-map-editor/payload-map-viewer.svelte';
 export { default as AiIcon } from './components/ai-icon/ai-icon.svelte';
 export { default as AiTypingDots } from './components/ai-typing-dots/ai-typing-dots.svelte';
 export { ScheduleSpecInput } from './components/schedule-spec-input/index.js';
