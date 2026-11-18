@@ -121,9 +121,9 @@
     target_schema?: Record<string, unknown>;
     /** The source event's `payload_schema` — feeds the path picker. */
     source_schema?: Record<string, unknown>;
-    /** The source emit's declared `entity` pointer (`{key,entity,table}`)
+    /** The source emit's declared `entity` pointer (`{key,entity,table?}`)
      *  — kept for contract parity with the host's seeding helper. */
-    source_entity?: { key: string; entity: string; table: string };
+    source_entity?: { key: string; entity: string; table?: string };
     /** Host-injected fetcher for `x_options` fields — resolves api_url
      *  sources through the host's transport and built-in values_source
      *  lists (e.g. `locales`). */

@@ -15743,7 +15743,7 @@
         {
           "name": "source_entity",
           "kind": "let",
-          "type": "{ key: string; entity: string; table: string }",
+          "type": "{ key: string; entity: string; table?: string }",
           "typeSource": "typescript",
           "isFunction": false,
           "isFunctionDeclaration": false,
