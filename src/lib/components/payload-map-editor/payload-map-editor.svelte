@@ -288,18 +288,20 @@
   const pathTree = $derived.by(() => {
     const walk = (schema: JsonSchema | undefined, prefix: string, depth: number): PropNavNode[] => {
       if (!schema?.properties || depth > 5) return [];
-      return Object.entries(schema.properties).map(([key, sub]) => {
-        const path = `${prefix}.${key}`;
-        const children = walk(sub, path, depth + 1);
-        return {
-          value: path,
-          label: key,
-          _sub: subLabel(sub),
-          _schema: sub,
-          ...typeIcon(sub),
-          ...(children.length > 0 ? { children } : {}),
-        } satisfies PropNavNode;
-      });
+      return Object.entries(schema.properties)
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([key, sub]) => {
+          const path = `${prefix}.${key}`;
+          const children = walk(sub, path, depth + 1);
+          return {
+            value: path,
+            label: key,
+            _sub: subLabel(sub),
+            _schema: sub,
+            ...typeIcon(sub),
+            ...(children.length > 0 ? { children } : {}),
+          } satisfies PropNavNode;
+        });
     };
     return walk(sourceSchema, '$', 1);
   });
@@ -560,6 +562,8 @@
     uuid: 'file-key',
     'date-time': 'calendar-clock',
     datetime: 'calendar-clock',
+    unix_ms: 'calendar-clock',
+    actor_token: 'user-cog',
     date: 'calendar',
     time: 'clock',
     phone: 'phone',
@@ -1095,6 +1099,7 @@
             valueField="value"
             labelField="label"
             allowCreate
+            multiSummaryAt={Infinity}
             placeholder={$t('app.widgets.payload_map.const_array_placeholder')}
             disabled={!editable}
             aria-invalid={itemIssues(field).length > 0 || leafIssues(field).length > 0 || undefined}
