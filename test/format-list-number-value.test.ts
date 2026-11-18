@@ -88,13 +88,19 @@ describe('formatListNumberValue — uom', () => {
     expect(formatListNumberValue(fld, 1234.5, 'it-IT', { uom_code: 'kg' })).toBe('1.234,5 kg');
   });
 
-  it('custom unit renders via Intl style:"unit" — the fixed sanctioned unit', () => {
-    const col = { uom: { kind: 'custom', unit: 'millisecond' } } as const;
+  it('category kind fixed unit renders via Intl style:"unit"', () => {
+    const col = { uom: { kind: 'time', unit: 'millisecond' } } as const;
     expect(formatListNumberValue(col, 24, 'it-IT')).toBe('24 ms');
     expect(formatListNumberValue(col, 24, 'en-GB')).toBe('24 ms');
     expect(formatListNumberValue(col, 1234.5, 'it-IT')).toBe('1.234,5 ms');
-    const kg = { uom: { kind: 'custom', unit: 'kilogram' } } as const;
+    const kg = { uom: { kind: 'mass', unit: 'kilogram' } } as const;
     expect(formatListNumberValue(kg, 1234.5, 'it-IT')).toBe('1.234,5 kg');
+  });
+
+  it('category kind per-row field renders via Intl style:"unit"', () => {
+    const col = { uom: { kind: 'time', field: 'dur_unit' } } as const;
+    expect(formatListNumberValue(col, 24, 'it-IT', { dur_unit: 'millisecond' })).toBe('24 ms');
+    expect(formatListNumberValue(col, 2, 'en-GB', { dur_unit: 'hour' })).toBe('2 hrs');
   });
 
   it('custom field resolves a sanctioned per-row code via Intl style:"unit"', () => {

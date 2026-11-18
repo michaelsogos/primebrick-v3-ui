@@ -1,4 +1,4 @@
-import { extJsonStringify, numericKindOf, type MetaColumn } from '@primebrick/core';
+import { extJsonStringify, numericKindOf, UNIT_CATEGORIES, type MetaColumn } from '@primebrick/core';
 
 
 const dateOnlyFmt = new Map<string, Intl.DateTimeFormat>();
@@ -180,10 +180,13 @@ function formatUnit(n: number | bigint, tag: string, unit: string, maxFrac: numb
  *   renders it as percent-points natively (0.1234 → "12,34%").
  * - `currency` — ISO 4217 code lives in the `uom.field` sibling of `row`;
  *   an absent/invalid code degrades to decimal + code text (never throws).
- * - `custom` — `symbol` is the explicit adornment override (wins, never
- *   Intl); else the unit code from `uom.unit` (fixed) or `uom.field`
- *   (per-row sibling) renders via Intl `style:"unit"` when sanctioned
- *   and as a plain suffix otherwise.
+ * - category kinds (`time`, `length`, `digital`, …) — the unit is FIXED
+ *   (`uom.unit`) or per-row (`uom.field` sibling); sanctioned membership
+ *   was verified at meta bind, and `style:"unit"` renders it natively.
+ * - `custom` — `symbol` is the explicit adornment (wins, never Intl);
+ *   else the per-row code from `uom.field` renders via Intl
+ *   `style:"unit"` when it happens to be sanctioned, as a plain suffix
+ *   otherwise.
  */
 export function formatListNumberValue(
   column: Pick<MetaColumn, 'uom' | 'type' | 'format' | 'pg_type'>,
@@ -219,12 +222,22 @@ export function formatListNumberValue(
       }
     }
   }
+  if (uom && uom.kind in UNIT_CATEGORIES) {
+    // Category kind — FIXED `uom.unit` or per-row code on the `uom.field`
+    // sibling; membership was verified at meta bind. Belt: a runtime
+    // without the unit degrades to decimal + code text (never throws).
+    const unit = 'unit' in uom ? uom.unit : 'field' in uom ? toDisplayString(row?.[uom.field]).trim() : '';
+    if (unit) {
+      if (INTL_UNITS.has(unit)) return formatUnit(n, tag, unit, maxFrac);
+      return `${formatDecimal(n, tag, maxFrac)} ${unit}`;
+    }
+  }
   if (uom?.kind === 'custom') {
-    // `symbol` is the declared adornment override — it always wins and is
-    // never fed to Intl (it is free text, not a sanctioned identifier).
+    // `symbol` is the declared adornment — fixed suffix on the standalone
+    // variant, per-row override on the field variant; never fed to Intl.
     const symbol = 'symbol' in uom ? uom.symbol : undefined;
     if (symbol) return `${formatDecimal(n, tag, maxFrac)} ${symbol}`;
-    const code = 'unit' in uom ? uom.unit : 'field' in uom ? toDisplayString(row?.[uom.field]).trim() : '';
+    const code = 'field' in uom ? toDisplayString(row?.[uom.field]).trim() : '';
     if (code) {
       if (INTL_UNITS.has(code)) return formatUnit(n, tag, code, maxFrac);
       return `${formatDecimal(n, tag, maxFrac)} ${code}`;

@@ -32,7 +32,7 @@ every other surface that prints a column value go through these; never
 formatListNumberValue({}, 1234.5, "it-IT");              // "1.234,5"
 formatListNumberValue({ pg_type: "int8" }, 1496, "it-IT"); // "1.496"
 formatListNumberValue(
-  { uom: { kind: "custom", unit: "millisecond" } }, 24, "en-GB"
+  { uom: { kind: "time", unit: "millisecond" } }, 24, "en-GB"
 );                                                       // "24 ms"
 uomUnitSymbol("millisecond", "it-IT");                   // "ms"
 ```
