@@ -88,8 +88,11 @@ negative wire values fail-closed.
 
 - **`MetaColumn.uom`** (contract, `@primebrick/core`) — declares the semantic:
   `{kind:"percent"}` | `{kind:"currency", field, source?}` |
-  `{kind:"custom", field, source, symbol?}`. `field` names the **sibling
-  column** that persists the UoM code per row — required for `currency`/`custom`,
+  `{kind:"custom", field, source, symbol?}` | `{kind:"custom", unit}` |
+  `{kind:"custom", symbol}`. `field` names the **sibling column** that
+  persists the UoM code per row; `unit` is a FIXED Intl-sanctioned unit
+  (`Intl.supportedValuesOf("unit")` vocabulary — `millisecond`, `kilogram`,
+  `byte`, …); `symbol` is a FIXED arbitrary suffix. Exactly one facet —
   verified by `withColumnConstraints` at boot.
 - **`NumericUomSpec`** (component prop) — the **resolved** spec the host hands
   to the control: `{kind, symbol?, code?, position?, on_pick?, before_return?,

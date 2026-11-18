@@ -3,6 +3,40 @@ title: Utilities
 description: Shared utility functions and prop-helper types exported by @primebrick/ui.
 ---
 
+## List-cell formatters
+
+```ts
+import { formatListCellValue, formatListNumberValue, uomUnitSymbol } from "@primebrick/ui";
+```
+
+The single display contract for `type:"number"` values — table cells and
+every other surface that prints a column value go through these; never
+`String(raw)` or a hand-rolled `Intl.NumberFormat`.
+
+- `formatListCellValue(column, raw, lang, row?)` — type dispatch:
+  `date`/`datetime` → locale date; `number` → `formatListNumberValue`;
+  everything else → `toDisplayString`. Pass the whole `row` when
+  `column.uom` resolves a sibling (`uom.field`).
+- `formatListNumberValue(column, raw, lang, row?)` — the numeric rule:
+  `Intl.NumberFormat` with `useGrouping:'always'` (group separators in
+  EVERY locale — `auto` would skip 4-digit groups in e.g. it-IT), fraction
+  budget derived by `numericKindOf(column)` (`bigint` → 0 decimals,
+  `number`/`decimal` → full precision), `uom` semantics via native Intl
+  styles (`percent`, `currency`, `unit` short) or suffix fallback for
+  arbitrary codes/`symbol`.
+- `uomUnitSymbol(unit, lang)` — the locale-short symbol of a sanctioned
+  unit (`"ms"`, `"kg"`) for adornment surfaces (inputs) that show the unit
+  without formatting a value.
+
+```ts
+formatListNumberValue({}, 1234.5, "it-IT");              // "1.234,5"
+formatListNumberValue({ pg_type: "int8" }, 1496, "it-IT"); // "1.496"
+formatListNumberValue(
+  { uom: { kind: "custom", unit: "millisecond" } }, 24, "en-GB"
+);                                                       // "24 ms"
+uomUnitSymbol("millisecond", "it-IT");                   // "ms"
+```
+
 ## `cn`
 
 ```ts

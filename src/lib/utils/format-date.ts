@@ -1,4 +1,4 @@
-import { extJsonStringify, type MetaColumn } from '@primebrick/core';
+import { extJsonStringify, numericKindOf, type MetaColumn } from '@primebrick/core';
 
 
 const dateOnlyFmt = new Map<string, Intl.DateTimeFormat>();
@@ -138,9 +138,39 @@ function toNumberish(raw: unknown): number | bigint | undefined {
   return undefined;
 }
 
-/** Locale decimal — group separators always on, full fractional precision preserved. */
-function formatDecimal(n: number | bigint, tag: string): string {
-  return getCachedNumber(tag, { maximumFractionDigits: 20 }).format(n);
+/** Intl-sanctioned unit identifiers — the same vocabulary `uom.unit`
+ *  declares (`Intl.supportedValuesOf("unit")`, ~45 entries). A resolved
+ *  custom code outside the list renders as a plain suffix. */
+const INTL_UNITS = new Set(Intl.supportedValuesOf?.('unit') ?? []);
+
+/** Fraction-digit budget per numeric kind — derived from `pg_type` via
+ *  `numericKindOf` (the class owns the numeric type; display must not
+ *  restate it): `bigint` integers never show decimals; `number`/`decimal`
+ *  keep full fractional precision (maxFractionDigits is a cap, not a pad). */
+function fractionBudget(kind: ReturnType<typeof numericKindOf>): number {
+  return kind === 'bigint' ? 0 : 20;
+}
+
+/** Locale decimal — `useGrouping:"always"` is mandatory: `auto` lets ICU
+ *  skip 4-digit groups in e.g. it-IT ("1234" vs "1.234"), which is the
+ *  inconsistency this contract exists to kill. */
+function formatDecimal(n: number | bigint, tag: string, maxFrac: number): string {
+  return getCachedNumber(tag, {
+    style: 'decimal',
+    useGrouping: true,
+    maximumFractionDigits: maxFrac
+  }).format(n);
+}
+
+/** Intl `style:"unit"` — locale-correct unit inflection, short display. */
+function formatUnit(n: number | bigint, tag: string, unit: string, maxFrac: number): string {
+  return getCachedNumber(tag, {
+    style: 'unit',
+    unit,
+    unitDisplay: 'short',
+    useGrouping: true,
+    maximumFractionDigits: maxFrac
+  }).format(n);
 }
 
 /**
@@ -150,10 +180,13 @@ function formatDecimal(n: number | bigint, tag: string): string {
  *   renders it as percent-points natively (0.1234 → "12,34%").
  * - `currency` — ISO 4217 code lives in the `uom.field` sibling of `row`;
  *   an absent/invalid code degrades to decimal + code text (never throws).
- * - `custom` — `symbol` wins, else the row's `uom.field` code as suffix.
+ * - `custom` — `symbol` is the explicit adornment override (wins, never
+ *   Intl); else the unit code from `uom.unit` (fixed) or `uom.field`
+ *   (per-row sibling) renders via Intl `style:"unit"` when sanctioned
+ *   and as a plain suffix otherwise.
  */
 export function formatListNumberValue(
-  column: Pick<MetaColumn, 'uom'>,
+  column: Pick<MetaColumn, 'uom' | 'type' | 'format' | 'pg_type'>,
   raw: unknown,
   lang: string,
   row?: Record<string, unknown>
@@ -162,33 +195,69 @@ export function formatListNumberValue(
   if (n === undefined) return toDisplayString(raw);
   const tag = uiLocaleTag(lang);
   const uom = column.uom;
+  const maxFrac = fractionBudget(numericKindOf(column as MetaColumn));
   if (uom?.kind === 'percent') {
-    return getCachedNumber(tag, { style: 'percent', maximumFractionDigits: 20 }).format(n);
+    return getCachedNumber(tag, {
+      style: 'percent',
+      useGrouping: true,
+      maximumFractionDigits: maxFrac
+    }).format(n);
   }
   if (uom?.kind === 'currency') {
     const code = toDisplayString(row?.[uom.field]).trim();
     if (code) {
       try {
-        return getCachedNumber(tag, { style: 'currency', currency: code }).format(n);
+        return getCachedNumber(tag, {
+          style: 'currency',
+          currency: code,
+          useGrouping: true,
+          maximumFractionDigits: maxFrac
+        }).format(n);
       } catch {
         // Not an ISO 4217 code — decimal + code text is the honest display.
-        return `${formatDecimal(n, tag)} ${code}`;
+        return `${formatDecimal(n, tag, maxFrac)} ${code}`;
       }
     }
   }
-  const base = formatDecimal(n, tag);
   if (uom?.kind === 'custom') {
-    const unit = uom.symbol ?? toDisplayString(row?.[uom.field]).trim();
-    if (unit) return `${base} ${unit}`;
+    // `symbol` is the declared adornment override — it always wins and is
+    // never fed to Intl (it is free text, not a sanctioned identifier).
+    const symbol = 'symbol' in uom ? uom.symbol : undefined;
+    if (symbol) return `${formatDecimal(n, tag, maxFrac)} ${symbol}`;
+    const code = 'unit' in uom ? uom.unit : 'field' in uom ? toDisplayString(row?.[uom.field]).trim() : '';
+    if (code) {
+      if (INTL_UNITS.has(code)) return formatUnit(n, tag, code, maxFrac);
+      return `${formatDecimal(n, tag, maxFrac)} ${code}`;
+    }
   }
-  return base;
+  return formatDecimal(n, tag, maxFrac);
+}
+
+/** Locale-short display symbol of an Intl-sanctioned unit (`ms`, `kg`) —
+ *  for adornment surfaces (numeric inputs) that show the unit without
+ *  formatting a value. Falls back to the identifier itself when Intl
+ *  cannot format it. */
+export function uomUnitSymbol(unit: string, lang: string): string {
+  try {
+    const part = getCachedNumber(uiLocaleTag(lang), {
+      style: 'unit',
+      unit,
+      unitDisplay: 'short',
+      useGrouping: true
+    })
+      .formatToParts(0)
+      .find((p) => p.type === 'unit');
+    return part?.value ?? unit;
+  } catch {
+    return unit;
+  }
 }
 
 /** Default table cell: `date` → locale date only; `datetime` → {@link formatUiDateTime};
  *  `number` → {@link formatListNumberValue}; else {@link toDisplayString}. `row`
  *  is needed only when `column.uom` resolves its code from a sibling field. */
 export function formatListCellValue(
-  column: Pick<MetaColumn, 'type' | 'uom'>,
+  column: Pick<MetaColumn, 'type' | 'uom' | 'format' | 'pg_type'>,
   raw: unknown,
   lang: string,
   row?: Record<string, unknown>
