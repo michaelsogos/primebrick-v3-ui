@@ -82,15 +82,22 @@ export function schemaTypeIcon(schema: SchemaLike | undefined): {
 
 /** Readable type line — honest about the shape, never a bare `string`
  *  when the schema declares more: a `format` IS the type (`lang`,
- *  `email`, `date-time`), arrays unwrap to `array<email>`, an enum IS
- *  the vocabulary, a `const` IS the literal. */
+ *  `email`, `date-time`), arrays unwrap to `array<email>`, a `const` IS
+ *  the literal. An enum's TYPE is its literals' runtime type (`string`)
+ *  — the vocabulary lives in the value picker (tags icon), not in the
+ *  type line. */
 export function schemaLeafSub(sub: SchemaLike | undefined): string {
 	const raw = sub?.type;
 	const types = Array.isArray(raw) ? raw.map(String) : raw !== undefined ? [String(raw)] : [];
 	const base = types.find((x) => x !== 'null');
 	if (base === 'array') return `array<${sub?.items ? schemaLeafSub(sub.items) : 'unknown'}>`;
 	if (typeof sub?.format === 'string') return sub.format;
-	if (Array.isArray(sub?.enum)) return sub.enum.map(String).join(' · ');
+	if (Array.isArray(sub?.enum)) {
+		const kinds = new Set(
+			sub.enum.map((v) => (v === null ? 'null' : typeof v === 'number' ? 'number' : typeof v === 'boolean' ? 'boolean' : 'string')),
+		);
+		return kinds.size === 1 ? [...kinds][0] : 'enum';
+	}
 	if (sub && 'const' in sub) return `const: ${String(sub.const)}`;
 	return base ?? 'unknown';
 }
