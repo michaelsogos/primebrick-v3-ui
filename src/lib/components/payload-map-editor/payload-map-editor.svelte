@@ -293,9 +293,10 @@
         .map(([key, sub]) => {
           const path = `${prefix}.${key}`;
           const children = walk(sub, path, depth + 1);
+          const labelKey = (sub as Record<string, unknown>)?.x_label_key;
           return {
             value: path,
-            label: key,
+            label: typeof labelKey === 'string' && labelKey ? $t(labelKey) : key,
             _sub: subLabel(sub),
             _schema: sub,
             ...typeIcon(sub),
