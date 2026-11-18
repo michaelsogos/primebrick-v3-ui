@@ -47,6 +47,14 @@ const FORMAT_TYPE_ICONS: Record<string, string> = {
 	color_hex: 'palette',
 	lang: 'languages',
 };
+/** Runtime type name of a JSON literal — `2`→number, `"x"`→string. */
+function literalKind(v: unknown): string {
+	if (v === null) return 'null';
+	if (typeof v === 'number') return 'number';
+	if (typeof v === 'boolean') return 'boolean';
+	return 'string';
+}
+
 const TYPE_ICONS: Record<string, string> = {
 	string: 'type',
 	number: 'hash',
@@ -74,7 +82,9 @@ export function schemaTypeIcon(schema: SchemaLike | undefined): {
 	if (schema?.[PAYLOAD_X_SEMANTIC] === 'actor.uuid') icon = 'user-cog';
 	if (!icon && typeof schema?.format === 'string') icon = FORMAT_TYPE_ICONS[schema.format];
 	if (!icon && Array.isArray(schema?.enum) && schema.enum.length > 0) icon = 'tags';
-	if (!icon && schema && 'const' in schema) icon = 'pin';
+	// `const`/`type`-less leaves: the literal's runtime type IS the icon —
+	// no jargon glyph for a wire constraint the author never sees.
+	if (!icon && schema && 'const' in schema) icon = TYPE_ICONS[literalKind(schema.const)];
 	if (!icon && base) icon = TYPE_ICONS[base];
 	if (!icon) icon = 'circle-question-mark';
 	return nullable ? { _icon: icon, _icon_dashed: true } : { _icon: icon };
@@ -93,12 +103,12 @@ export function schemaLeafSub(sub: SchemaLike | undefined): string {
 	if (base === 'array') return `array<${sub?.items ? schemaLeafSub(sub.items) : 'unknown'}>`;
 	if (typeof sub?.format === 'string') return sub.format;
 	if (Array.isArray(sub?.enum)) {
-		const kinds = new Set(
-			sub.enum.map((v) => (v === null ? 'null' : typeof v === 'number' ? 'number' : typeof v === 'boolean' ? 'boolean' : 'string')),
-		);
+		const kinds = new Set(sub.enum.map(literalKind));
 		return kinds.size === 1 ? [...kinds][0] : 'enum';
 	}
-	if (sub && 'const' in sub) return `const: ${String(sub.const)}`;
+	// `const` — the TYPE is the literal's kind; the pinned value lives in
+	// the value picker (like enum vocabulary), not in the type line.
+	if (sub && 'const' in sub) return literalKind(sub.const);
 	return base ?? 'unknown';
 }
 
