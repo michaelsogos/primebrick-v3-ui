@@ -5,6 +5,8 @@ const dateOnlyFmt = new Map<string, Intl.DateTimeFormat>();
 const dateTimeFmt = new Map<string, Intl.DateTimeFormat>();
 /** Key: `${localeTag}@@${timeZone}` */
 const dateTimeTzFmt = new Map<string, Intl.DateTimeFormat>();
+/** Key: `${localeTag}@@${extJsonStringify(init)}` */
+const numberFmt = new Map<string, Intl.NumberFormat>();
 
 /** `UiLang` is already a BCP 47 tag — pass through to `Intl` as-is. */
 export function uiLocaleTag(lang: string): string {
@@ -21,6 +23,16 @@ function getCached(
   if (!f) {
     f = new Intl.DateTimeFormat(tag, init);
     cache.set(key, f);
+  }
+  return f;
+}
+
+function getCachedNumber(tag: string, init: Intl.NumberFormatOptions): Intl.NumberFormat {
+  const key = `${tag}:${extJsonStringify(init)}`;
+  let f = numberFmt.get(key);
+  if (!f) {
+    f = new Intl.NumberFormat(tag, init);
+    numberFmt.set(key, f);
   }
   return f;
 }
@@ -112,11 +124,74 @@ export function toDisplayString(raw: unknown): string {
   return String(raw);
 }
 
-/** Default table cell: `date` → locale date only; `datetime` → {@link formatUiDateTime}; else {@link toDisplayString}. */
-export function formatListCellValue(
-  column: Pick<MetaColumn, 'type'>,
+/**
+ * Coerce a numeric wire value to `number | bigint` — `numeric`/`decimal`
+ * columns legitimately cross the wire as strings (pg preserves precision);
+ * a string that is not plain numeric is a data bug and stays untouched so
+ * it remains visible instead of silently formatting as NaN.
+ */
+function toNumberish(raw: unknown): number | bigint | undefined {
+  if (typeof raw === 'number' || typeof raw === 'bigint') return raw;
+  if (typeof raw === 'string' && /^-?\d+(\.\d+)?([eE][+-]?\d+)?$/.test(raw.trim())) {
+    return Number(raw);
+  }
+  return undefined;
+}
+
+/** Locale decimal — group separators always on, full fractional precision preserved. */
+function formatDecimal(n: number | bigint, tag: string): string {
+  return getCachedNumber(tag, { maximumFractionDigits: 20 }).format(n);
+}
+
+/**
+ * `type:"number"` cell — ALWAYS locale-formatted (group + decimal separators)
+ * and the caller right-aligns it. `column.uom` adds the unit semantics:
+ * - `percent` — the canonical value is a FRACTION; Intl `style:"percent"`
+ *   renders it as percent-points natively (0.1234 → "12,34%").
+ * - `currency` — ISO 4217 code lives in the `uom.field` sibling of `row`;
+ *   an absent/invalid code degrades to decimal + code text (never throws).
+ * - `custom` — `symbol` wins, else the row's `uom.field` code as suffix.
+ */
+export function formatListNumberValue(
+  column: Pick<MetaColumn, 'uom'>,
   raw: unknown,
-  lang: string
+  lang: string,
+  row?: Record<string, unknown>
+): string {
+  const n = toNumberish(raw);
+  if (n === undefined) return toDisplayString(raw);
+  const tag = uiLocaleTag(lang);
+  const uom = column.uom;
+  if (uom?.kind === 'percent') {
+    return getCachedNumber(tag, { style: 'percent', maximumFractionDigits: 20 }).format(n);
+  }
+  if (uom?.kind === 'currency') {
+    const code = toDisplayString(row?.[uom.field]).trim();
+    if (code) {
+      try {
+        return getCachedNumber(tag, { style: 'currency', currency: code }).format(n);
+      } catch {
+        // Not an ISO 4217 code — decimal + code text is the honest display.
+        return `${formatDecimal(n, tag)} ${code}`;
+      }
+    }
+  }
+  const base = formatDecimal(n, tag);
+  if (uom?.kind === 'custom') {
+    const unit = uom.symbol ?? toDisplayString(row?.[uom.field]).trim();
+    if (unit) return `${base} ${unit}`;
+  }
+  return base;
+}
+
+/** Default table cell: `date` → locale date only; `datetime` → {@link formatUiDateTime};
+ *  `number` → {@link formatListNumberValue}; else {@link toDisplayString}. `row`
+ *  is needed only when `column.uom` resolves its code from a sibling field. */
+export function formatListCellValue(
+  column: Pick<MetaColumn, 'type' | 'uom'>,
+  raw: unknown,
+  lang: string,
+  row?: Record<string, unknown>
 ): string {
   if (raw === null || raw === undefined) return '';
   const kind = column.type ?? 'text';
@@ -129,6 +204,9 @@ export function formatListCellValue(
     if (typeof raw === 'string' || typeof raw === 'number' || raw instanceof Date) {
       return formatUiDateTime(raw, lang);
     }
+  }
+  if (kind === 'number') {
+    return formatListNumberValue(column, raw, lang, row);
   }
   return toDisplayString(raw);
 }
