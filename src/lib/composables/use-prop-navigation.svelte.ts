@@ -12,8 +12,8 @@ import type { PropNavNode } from '../components/prop-navigator/prop-nav.types.js
  *   column (the row becomes `selectionPath[col]`).
  * - **Activate = the node's primary affordance**: navigable → descend,
  *   selectable leaf → commit. A node that is BOTH navigable and selectable
- *   descends on activate; the commit goes through Enter/Space or the row's
- *   check CTA — the launcher separation (row = preview, CTA = activate).
+ *   descends on activate; the commit goes through Enter/Space on the
+ *   focused row — the launcher separation (row = preview, key = activate).
  * - **Keyboard**: ↑↓ wrap inside the column, → descend (if navigable),
  *   ← back to the parent row, Enter/Space = the selectable-commit,
  *   `commit` stays the only way out.

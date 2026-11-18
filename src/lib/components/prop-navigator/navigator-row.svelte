@@ -2,12 +2,9 @@
 	import { cn } from '../../utils/index.js';
 	import DynamicIcon from '../dynamic-icon/DynamicIcon.svelte';
 	import { menuListHoverNeutral, menuListSelectedSurfaceDropdownClasses } from '../menu-row-chrome.js';
-	import { Check, ChevronRight } from '../../vendor/lucide.js';
-	import { getT } from '../../bridges.js';
+	import { ChevronRight } from '../../vendor/lucide.js';
 	import type { PropNavNode } from './prop-nav.types.js';
 	import type { usePropNavigation } from '../../composables/use-prop-navigation.svelte.js';
-
-	const t = getT();
 
 	let {
 		node,
@@ -27,7 +24,6 @@
 	} = $props();
 
 	const navigable = $derived(nav.isNavigable(node));
-	const selectable = $derived(nav.selectable(node));
 	const isDisabled = $derived(nav.disabled(node));
 	const selected = $derived(selectedValue === node.value);
 </script>
@@ -71,28 +67,9 @@
 		<span class="shrink-0 truncate text-[10px] text-muted-foreground">{node._sub}</span>
 	{/if}
 	{#if navigable}
-		<!-- Trailing cluster — ONE ms-auto so the commit CTA and the
-		     descend chevron hug the right edge together instead of
-		     splitting the free space between them. -->
-		<div class="ms-auto flex shrink-0 items-center gap-1">
-			{#if selectable && !isDisabled}
-				<!-- A container that is ALSO a value gets the explicit
-				     commit CTA — the row descends, the CTA activates. -->
-				<button
-					type="button"
-					class="flex size-6 items-center justify-center rounded-md text-muted-foreground outline-hidden hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
-					aria-label={$t('app.common.select_value')}
-					title={node.value}
-					onpointerdown={(e) => e.stopPropagation()}
-					onclick={(e) => {
-						e.stopPropagation();
-						nav.commit(node);
-					}}
-				>
-					<Check class="size-3.5" />
-				</button>
-			{/if}
-			<ChevronRight class="size-4 text-muted-foreground" aria-hidden="true" />
-		</div>
+		<!-- Descend chevron only — container commits go through Enter
+		     (footer hint) or the picker-level commit affordance; the
+		     inline check CTA is dead chrome (bits-ui tick ban). -->
+		<ChevronRight class="ms-auto size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
 	{/if}
 </div>
