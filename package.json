@@ -112,6 +112,7 @@
     "codemirror": "6.0.2",
     "croner": "10.0.1",
     "cronstrue": "3.35.0",
+    "dompurify": "3.4.17",
     "esm-env": "1.2.2",
     "formsnap": "2.0.1",
     "shiki": "4.5.0",

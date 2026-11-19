@@ -17456,6 +17456,81 @@
     }
   },
   {
+    "file": "src/lib/components/safe-html/safe-html.svelte",
+    "component": "safe-html",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 39,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "html",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": true,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 24,
+              "column": 8
+            },
+            "end": {
+              "line": 24,
+              "column": 12
+            }
+          }
+        },
+        {
+          "name": "profile",
+          "kind": "let",
+          "type": "'strict' | 'docs'",
+          "typeSource": "typescript",
+          "value": "'strict'",
+          "defaultValue": {
+            "raw": "'strict'",
+            "kind": "literal",
+            "value": "strict"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 24,
+              "column": 14
+            },
+            "end": {
+              "line": 24,
+              "column": 32
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "contexts": [],
+      "diagnostics": []
+    }
+  },
+  {
     "file": "src/lib/components/schedule-spec-cell/schedule-spec-cell.svelte",
     "component": "schedule-spec-cell",
     "data": {
