@@ -12,7 +12,7 @@
 	import type { Component } from "svelte";
 	import { Provider as TooltipProvider } from "../components/tooltip/index.js";
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any -- remote component props are declared by each module — no shared Props union exists at the mount boundary
 	let { content, ctx }: { content: Component<any>; ctx: unknown } = $props();
 </script>
 
