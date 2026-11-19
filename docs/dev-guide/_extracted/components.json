@@ -15663,7 +15663,7 @@
           "column": 0
         },
         "end": {
-          "line": 1376,
+          "line": 1310,
           "column": 0
         }
       },
@@ -15689,11 +15689,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 105,
+              "line": 109,
               "column": 4
             },
             "end": {
-              "line": 105,
+              "line": 109,
               "column": 25
             }
           }
@@ -15710,11 +15710,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 106,
+              "line": 110,
               "column": 4
             },
             "end": {
-              "line": 106,
+              "line": 110,
               "column": 17
             }
           }
@@ -15731,11 +15731,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 107,
+              "line": 111,
               "column": 4
             },
             "end": {
-              "line": 107,
+              "line": 111,
               "column": 17
             }
           }
@@ -15743,7 +15743,7 @@
         {
           "name": "source_entity",
           "kind": "let",
-          "type": "{ key: string; entity: string; table: string }",
+          "type": "{ key: string; entity: string; table?: string }",
           "typeSource": "typescript",
           "isFunction": false,
           "isFunctionDeclaration": false,
@@ -15752,11 +15752,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 108,
+              "line": 112,
               "column": 4
             },
             "end": {
-              "line": 108,
+              "line": 112,
               "column": 17
             }
           }
@@ -15773,11 +15773,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 109,
+              "line": 113,
               "column": 4
             },
             "end": {
-              "line": 109,
+              "line": 113,
               "column": 20
             }
           }
@@ -15800,11 +15800,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 110,
+              "line": 114,
               "column": 4
             },
             "end": {
-              "line": 110,
+              "line": 114,
               "column": 20
             }
           }
@@ -15827,11 +15827,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 111,
+              "line": 115,
               "column": 4
             },
             "end": {
-              "line": 111,
+              "line": 115,
               "column": 20
             }
           }
@@ -15848,11 +15848,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 112,
+              "line": 116,
               "column": 4
             },
             "end": {
-              "line": 112,
+              "line": 116,
               "column": 16
             }
           }
@@ -15869,11 +15869,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 113,
+              "line": 117,
               "column": 4
             },
             "end": {
-              "line": 113,
+              "line": 117,
               "column": 12
             }
           }
@@ -15890,11 +15890,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 114,
+              "line": 118,
               "column": 4
             },
             "end": {
-              "line": 114,
+              "line": 118,
               "column": 21
             }
           }
@@ -15911,11 +15911,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 115,
+              "line": 119,
               "column": 4
             },
             "end": {
-              "line": 115,
+              "line": 119,
               "column": 20
             }
           }
@@ -15939,11 +15939,11 @@
           "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 115,
+              "line": 119,
               "column": 4
             },
             "end": {
-              "line": 115,
+              "line": 119,
               "column": 20
             }
           }
@@ -16756,7 +16756,7 @@
           "column": 0
         },
         "end": {
-          "line": 99,
+          "line": 76,
           "column": 0
         }
       },
@@ -16775,11 +16775,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 13,
+              "line": 10,
               "column": 2
             },
             "end": {
-              "line": 13,
+              "line": 10,
               "column": 6
             }
           }
@@ -16796,11 +16796,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 14,
+              "line": 11,
               "column": 2
             },
             "end": {
-              "line": 14,
+              "line": 11,
               "column": 5
             }
           }
@@ -16817,11 +16817,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 15,
+              "line": 12,
               "column": 2
             },
             "end": {
-              "line": 15,
+              "line": 12,
               "column": 5
             }
           }
@@ -16838,11 +16838,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 16,
+              "line": 13,
               "column": 2
             },
             "end": {
-              "line": 16,
+              "line": 13,
               "column": 5
             }
           }
@@ -16859,11 +16859,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 17,
+              "line": 14,
               "column": 2
             },
             "end": {
-              "line": 17,
+              "line": 14,
               "column": 7
             }
           }
@@ -16880,11 +16880,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 18,
+              "line": 15,
               "column": 2
             },
             "end": {
-              "line": 18,
+              "line": 15,
               "column": 15
             }
           }

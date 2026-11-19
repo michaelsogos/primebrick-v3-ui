@@ -38,6 +38,18 @@ export const TRASH_ARROW_UP_NODES: CustomIconNode = [
   ['path', { d: 'M12 12v10' }],
 ];
 
+/** question-mark — the bare "?" glyph (arc + dot). Upstream lucide ships
+ *  this name from 1.72.0; the pinned `@lucide/svelte` 1.70.0 predates it
+ *  and only carries the composed variants (`circle-/badge-/message-…`).
+ *  Node tuple copied verbatim from `lucide-static/icons/question-mark.svg`
+ *  (ISC) — drop this entry once the pinned dep ships the name and the
+ *  no-collision test flags it. */
+export const QUESTION_MARK_NODES: CustomIconNode = [
+  ['path', { d: 'M12 15c0-2.48 5-2.99 5-6.5a5 4.5 0 00-10 0' }],
+  ['path', { d: 'M12 20h.01' }],
+];
+
 export const CUSTOM_ICONS: Partial<Record<string, CustomIconNode>> = {
   'trash-arrow-up': TRASH_ARROW_UP_NODES,
+  'question-mark': QUESTION_MARK_NODES,
 };

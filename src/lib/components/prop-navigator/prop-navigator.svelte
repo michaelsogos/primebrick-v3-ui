@@ -9,8 +9,8 @@
 	 *   inside a horizontal scroller that auto-positions on the newest.
 	 * - Rows: navigable → descend (row = preview), leaf → commit. A node
 	 *   that is BOTH navigable and selectable descends on activate and
-	 *   commits via its check CTA / Enter — the two predicates stay
-	 *   orthogonal, never conflated.
+	 *   commits via Enter/Space — the two predicates stay orthogonal,
+	 *   never conflated, and no check/tick chrome exists here.
 	 * - Search: non-empty query swaps columns for a flat filtered list
 	 *   (type-ahead preserved — "city" finds `$.customer.address.city`).
 	 * - Footer: keybinding hints + the `eye-dashed` reveal toggle for the

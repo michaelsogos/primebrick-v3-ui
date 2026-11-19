@@ -61,6 +61,12 @@ export type { CheckboxTone } from './components/checkbox/index.js';
 export { ComboSelect } from './components/combo-select/index.js';
 export { PropNavigator } from './components/prop-navigator/index.js';
 export type { PropNavNode } from './components/prop-navigator/index.js';
+export {
+	schemaToNavNodes,
+	schemaLeafSub,
+	schemaTypeIcon,
+} from './components/prop-navigator/index.js';
+export type { SchemaLike } from './components/prop-navigator/index.js';
 export { usePropNavigation } from './composables/use-prop-navigation.svelte.js';
 export { Kbd, kbdVariants } from './components/kbd/index.js';
 export type { KbdSize } from './components/kbd/index.js';

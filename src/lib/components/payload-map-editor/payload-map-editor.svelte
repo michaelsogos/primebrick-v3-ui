@@ -60,7 +60,6 @@
     PAYLOAD_X_MAP_KEYS,
     PAYLOAD_X_NOT_EDITABLE,
     PAYLOAD_X_OPTIONS,
-    PAYLOAD_X_SEMANTIC,
     pathCompatible,
     parseMapKeysDeclaration,
     payloadMapConformance,
@@ -69,6 +68,11 @@
   import TextInput from '../input/text-input.svelte';
   import ComboSelect from '../combo-select/combo-select.svelte';
   import PropNavigator from '../prop-navigator/prop-navigator.svelte';
+  import {
+    schemaToNavNodes,
+    schemaTypeIcon,
+    schemaLeafSub,
+  } from '../prop-navigator/schema-nav-nodes.js';
   import type { PropNavNode } from '../prop-navigator/prop-nav.types.js';
   import JsonValueEditor from '../json-value-editor/json-value-editor.svelte';
   import DynamicIcon from '../dynamic-icon/DynamicIcon.svelte';
@@ -121,9 +125,9 @@
     target_schema?: Record<string, unknown>;
     /** The source event's `payload_schema` — feeds the path picker. */
     source_schema?: Record<string, unknown>;
-    /** The source emit's declared `entity` pointer (`{key,entity,table}`)
+    /** The source emit's declared `entity` pointer (`{key,entity,table?}`)
      *  — kept for contract parity with the host's seeding helper. */
-    source_entity?: { key: string; entity: string; table: string };
+    source_entity?: { key: string; entity: string; table?: string };
     /** Host-injected fetcher for `x_options` fields — resolves api_url
      *  sources through the host's transport and built-in values_source
      *  lists (e.g. `locales`). */
@@ -285,37 +289,7 @@
    *  `properties`; `_schema` carries each node's schema so
    *  `pathCompatible` can screen it against the row's destination field;
    *  `_sub` shows `array<items>` / `type · format`. */
-  const pathTree = $derived.by(() => {
-    const walk = (schema: JsonSchema | undefined, prefix: string, depth: number): PropNavNode[] => {
-      if (!schema?.properties || depth > 5) return [];
-      return Object.entries(schema.properties).map(([key, sub]) => {
-        const path = `${prefix}.${key}`;
-        const children = walk(sub, path, depth + 1);
-        return {
-          value: path,
-          label: key,
-          _sub: subLabel(sub),
-          _schema: sub,
-          ...typeIcon(sub),
-          ...(children.length > 0 ? { children } : {}),
-        } satisfies PropNavNode;
-      });
-    };
-    return walk(sourceSchema, '$', 1);
-  });
-
-  /** Readable type line for a source leaf — honest about the shape, never
-   *  a bare `string` when the schema declares more: a `format` IS the type
-   *  (`lang`, `email`, `date-time`), arrays unwrap to `array<email>` —
-   *  never `array` alone. */
-  function subLabel(sub: JsonSchema): string {
-    const raw = sub.type;
-    const types = Array.isArray(raw) ? raw.map(String) : raw !== undefined ? [String(raw)] : [];
-    const base = types.find((t) => t !== 'null');
-    if (base === 'array') return `array<${sub.items ? subLabel(sub.items) : 'unknown'}>`;
-    if (typeof sub.format === 'string') return sub.format;
-    return base ?? 'unknown';
-  }
+  const pathTree = $derived.by(() => schemaToNavNodes(sourceSchema));
 
   /**
    * Write one field's entry back into the DST text. Keys the map never
@@ -549,52 +523,11 @@
     })),
   );
 
-  /** Schema-type icons — the format wins over the bare type (an `email`
-   *  string shows `mail`, not `type`). Rendered by ComboSelect via the
-   *  `_icon`/`_icon_dashed` convention; nullable unions carry the base
-   *  type's icon with the dashed modifier. */
-  const FORMAT_TYPE_ICONS: Record<string, string> = {
-    email: 'mail',
-    url: 'link',
-    uri: 'link',
-    uuid: 'file-key',
-    'date-time': 'calendar-clock',
-    datetime: 'calendar-clock',
-    date: 'calendar',
-    time: 'clock',
-    phone: 'phone',
-    color_hex: 'palette',
-    lang: 'languages',
-  };
-  const TYPE_ICONS: Record<string, string> = {
-    string: 'type',
-    number: 'hash',
-    integer: 'hash',
-    bigint: 'hash',
-    boolean: 'toggle-left',
-    array: 'brackets',
-    object: 'braces',
-    null: 'circle-slash',
-  };
-
-  /** `{ icon, dashed }` for a schema property — `null` in a type union
-   *  flags the base icon as dashed rather than picking a "null" glyph. */
-  function typeIcon(schema: JsonSchema | undefined): { _icon: string; _icon_dashed?: boolean } {
-    const raw = schema?.type;
-    const types = Array.isArray(raw) ? raw.map(String) : raw !== undefined ? [String(raw)] : [];
-    const nullable = types.includes('null');
-    const base = types.find((t) => t !== 'null');
-    let icon: string | undefined;
-    // semantic slot wins over plain format — `x_semantic:"actor.uuid"`
-    // renders the actor glyph (META_ICONS family), not a bare file-key.
-    if (schema?.[PAYLOAD_X_SEMANTIC] === 'actor.uuid') icon = 'user-cog';
-    if (!icon && typeof schema?.format === 'string') icon = FORMAT_TYPE_ICONS[schema.format];
-    if (!icon && Array.isArray(schema?.enum) && schema.enum.length > 0) icon = 'tags';
-    if (!icon && schema && 'const' in schema) icon = 'pin';
-    if (!icon && base) icon = TYPE_ICONS[base];
-    if (!icon) icon = 'circle-question-mark';
-    return nullable ? { _icon: icon, _icon_dashed: true } : { _icon: icon };
-  }
+  /** Type icons + readable `_sub` live in the shared navigator builder
+   *  (`prop-navigator/schema-nav-nodes.ts`) — the ONE source for schema→
+   *  node presentation so every picker renders the same truth. */
+  const typeIcon = schemaTypeIcon;
+  const subLabel = schemaLeafSub;
 
   /** Declarative icon per `meta` source — same `_icon` convention. */
   const META_ICONS: Record<string, string> = {
@@ -1095,6 +1028,7 @@
             valueField="value"
             labelField="label"
             allowCreate
+            multiSummaryAt={Infinity}
             placeholder={$t('app.widgets.payload_map.const_array_placeholder')}
             disabled={!editable}
             aria-invalid={itemIssues(field).length > 0 || leafIssues(field).length > 0 || undefined}

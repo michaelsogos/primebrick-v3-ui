@@ -88,9 +88,16 @@ negative wire values fail-closed.
 
 - **`MetaColumn.uom`** (contract, `@primebrick/core`) — declares the semantic:
   `{kind:"percent"}` | `{kind:"currency", field, source?}` |
-  `{kind:"custom", field, source, symbol?}`. `field` names the **sibling
-  column** that persists the UoM code per row — required for `currency`/`custom`,
-  verified by `withColumnConstraints` at boot.
+  `{kind:"<category>", unit}` | `{kind:"<category>", field}` |
+  `{kind:"custom", field, source, symbol?}` | `{kind:"custom", symbol}`.
+  Category kinds come from `UNIT_CATEGORIES` (CLDR census in core — Intl
+  exposes no `unitCategory`): `time`, `length`, `mass`, `volume`, `area`,
+  `temperature`, `digital`, `angle`. `unit` is a FIXED sanctioned
+  identifier of that category; `field` names the **sibling column**
+  persisting the code per row — on category kinds the category itself is
+  the picker vocabulary (no `source`); on `custom` the per-row vocabulary
+  is the declared `source`. `symbol` is a FIXED arbitrary suffix.
+  Verified by `withColumnConstraints` at boot.
 - **`NumericUomSpec`** (component prop) — the **resolved** spec the host hands
   to the control: `{kind, symbol?, code?, position?, on_pick?, before_return?,
   after_receive?}`.

@@ -67,7 +67,7 @@ export function fieldSpecToZod(
 		// The control binds a JSON string; the parsed value is checked by
 		// the shared predicate (json_schema + friends). Parsed at submit.
 		let s = z.string();
-		if (opts.required) s = s.min(1);
+		if (opts.required) s = s.min(1, { message: 'app.common.validation.required' });
 		return s.superRefine((raw, ctx) => {
 			const trimmed = raw.trim();
 			if (trimmed.length === 0) return; // emptiness handled by the required wrap
@@ -80,6 +80,6 @@ export function fieldSpecToZod(
 	}
 
 	let s = z.string();
-	if (opts.required) s = s.min(1);
+	if (opts.required) s = s.min(1, { message: 'app.common.validation.required' });
 	return s.superRefine((v, ctx) => emitIssues(col, v, ctx));
 }

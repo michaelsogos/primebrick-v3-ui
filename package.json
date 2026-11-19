@@ -1,6 +1,6 @@
 {
   "name": "@primebrick/ui",
-  "version": "3.5.0",
+  "version": "3.5.1",
   "description": "Shared Svelte 5 component library for Primebrick v3 — reusable components, composables, primitives and utilities consumed by the core frontend app and remote module pages.",
   "type": "module",
   "license": "MIT",
@@ -105,7 +105,7 @@
     "@huggingface/transformers": "4.3.1",
     "@internationalized/date": "3.12.4",
     "@lezer/highlight": "1.2.5",
-    "@lucide/svelte": "1.59.0",
+    "@lucide/svelte": "1.70.0",
     "@primebrick/core": "workspace:*",
     "bits-ui": "2.19.5",
     "clsx": "2.1.1",
