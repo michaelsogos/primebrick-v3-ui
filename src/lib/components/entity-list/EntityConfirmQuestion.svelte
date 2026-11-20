@@ -40,7 +40,7 @@
   });
 
   let segments = $derived.by(() => {
-    const raw = $t(confirm_key ?? `app.common.${action}EntityConfirm`, {
+    const raw = $t(confirm_key ?? `app.common.${action}_entity_confirm`, {
       entity: ENTITY_MARK,
       name: NAME_MARK
     });

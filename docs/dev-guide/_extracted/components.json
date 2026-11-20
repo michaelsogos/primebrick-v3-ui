@@ -8864,11 +8864,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 78,
+              "line": 77,
               "column": 2
             },
             "end": {
-              "line": 80,
+              "line": 79,
               "column": 3
             }
           }
@@ -10989,11 +10989,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 9,
+              "line": 10,
               "column": 2
             },
             "end": {
-              "line": 9,
+              "line": 10,
               "column": 23
             }
           }
@@ -11010,11 +11010,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 10,
+              "line": 11,
               "column": 2
             },
             "end": {
-              "line": 10,
+              "line": 11,
               "column": 18
             }
           }
@@ -11031,11 +11031,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 11,
+              "line": 12,
               "column": 2
             },
             "end": {
-              "line": 11,
+              "line": 12,
               "column": 14
             }
           }
@@ -11075,11 +11075,11 @@
           "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 9,
+              "line": 10,
               "column": 2
             },
             "end": {
-              "line": 9,
+              "line": 10,
               "column": 23
             }
           }
@@ -11091,11 +11091,11 @@
           "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 10,
+              "line": 11,
               "column": 2
             },
             "end": {
-              "line": 10,
+              "line": 11,
               "column": 18
             }
           }
@@ -13464,11 +13464,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 8,
+              "line": 9,
               "column": 4
             },
             "end": {
-              "line": 8,
+              "line": 9,
               "column": 8
             }
           }
@@ -13491,11 +13491,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 9,
+              "line": 10,
               "column": 4
             },
             "end": {
-              "line": 9,
+              "line": 10,
               "column": 23
             }
           }
@@ -13518,11 +13518,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 10,
+              "line": 11,
               "column": 4
             },
             "end": {
-              "line": 10,
+              "line": 11,
               "column": 20
             }
           }
@@ -13545,11 +13545,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 11,
+              "line": 12,
               "column": 4
             },
             "end": {
-              "line": 11,
+              "line": 12,
               "column": 15
             }
           }
@@ -13566,11 +13566,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 12,
+              "line": 13,
               "column": 4
             },
             "end": {
-              "line": 12,
+              "line": 13,
               "column": 13
             }
           }
@@ -13587,11 +13587,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 13,
+              "line": 14,
               "column": 4
             },
             "end": {
-              "line": 13,
+              "line": 14,
               "column": 20
             }
           }
@@ -13615,11 +13615,11 @@
           "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 13,
+              "line": 14,
               "column": 4
             },
             "end": {
-              "line": 13,
+              "line": 14,
               "column": 20
             }
           }
@@ -13663,11 +13663,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 9,
+              "line": 10,
               "column": 4
             },
             "end": {
-              "line": 9,
+              "line": 10,
               "column": 25
             }
           }
@@ -13690,11 +13690,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 10,
+              "line": 11,
               "column": 4
             },
             "end": {
-              "line": 10,
+              "line": 11,
               "column": 15
             }
           }
@@ -13711,11 +13711,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 11,
+              "line": 12,
               "column": 4
             },
             "end": {
-              "line": 11,
+              "line": 12,
               "column": 13
             }
           }
@@ -13733,11 +13733,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 12,
+              "line": 13,
               "column": 4
             },
             "end": {
-              "line": 12,
+              "line": 13,
               "column": 32
             }
           }
@@ -13754,11 +13754,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 13,
+              "line": 14,
               "column": 4
             },
             "end": {
-              "line": 13,
+              "line": 14,
               "column": 12
             }
           }
@@ -13775,11 +13775,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 14,
+              "line": 15,
               "column": 4
             },
             "end": {
-              "line": 14,
+              "line": 15,
               "column": 10
             }
           }
@@ -13796,11 +13796,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 15,
+              "line": 16,
               "column": 4
             },
             "end": {
-              "line": 15,
+              "line": 16,
               "column": 21
             }
           }
@@ -13817,11 +13817,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 16,
+              "line": 17,
               "column": 4
             },
             "end": {
-              "line": 16,
+              "line": 17,
               "column": 20
             }
           }
@@ -13845,11 +13845,11 @@
           "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 16,
+              "line": 17,
               "column": 4
             },
             "end": {
-              "line": 16,
+              "line": 17,
               "column": 20
             }
           }
@@ -13867,7 +13867,7 @@
           "column": 0
         },
         "end": {
-          "line": 187,
+          "line": 186,
           "column": 0
         }
       },
@@ -13893,11 +13893,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 32,
+              "line": 33,
               "column": 4
             },
             "end": {
-              "line": 32,
+              "line": 33,
               "column": 25
             }
           }
@@ -13914,11 +13914,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 33,
+              "line": 34,
               "column": 4
             },
             "end": {
-              "line": 33,
+              "line": 34,
               "column": 10
             }
           }
@@ -13941,11 +13941,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 34,
+              "line": 35,
               "column": 4
             },
             "end": {
-              "line": 34,
+              "line": 35,
               "column": 16
             }
           }
@@ -13968,11 +13968,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 35,
+              "line": 36,
               "column": 4
             },
             "end": {
-              "line": 35,
+              "line": 36,
               "column": 23
             }
           }
@@ -13995,11 +13995,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 36,
+              "line": 37,
               "column": 4
             },
             "end": {
-              "line": 36,
+              "line": 37,
               "column": 23
             }
           }
@@ -14016,11 +14016,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 37,
+              "line": 38,
               "column": 4
             },
             "end": {
-              "line": 37,
+              "line": 38,
               "column": 15
             }
           }
@@ -14043,11 +14043,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 38,
+              "line": 39,
               "column": 4
             },
             "end": {
-              "line": 38,
+              "line": 39,
               "column": 20
             }
           }
@@ -14070,11 +14070,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 39,
+              "line": 40,
               "column": 4
             },
             "end": {
-              "line": 39,
+              "line": 40,
               "column": 20
             }
           }
@@ -14091,11 +14091,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 40,
+              "line": 41,
               "column": 4
             },
             "end": {
-              "line": 40,
+              "line": 41,
               "column": 16
             }
           }
@@ -14112,11 +14112,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 41,
+              "line": 42,
               "column": 4
             },
             "end": {
-              "line": 41,
+              "line": 42,
               "column": 12
             }
           }
@@ -14133,11 +14133,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 42,
+              "line": 43,
               "column": 4
             },
             "end": {
-              "line": 42,
+              "line": 43,
               "column": 21
             }
           }
@@ -14154,11 +14154,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 43,
+              "line": 44,
               "column": 4
             },
             "end": {
-              "line": 43,
+              "line": 44,
               "column": 20
             }
           }
@@ -14182,11 +14182,11 @@
           "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 43,
+              "line": 44,
               "column": 4
             },
             "end": {
-              "line": 43,
+              "line": 44,
               "column": 20
             }
           }
@@ -14901,11 +14901,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 89,
+              "line": 90,
               "column": 4
             },
             "end": {
-              "line": 89,
+              "line": 90,
               "column": 25
             }
           }
@@ -14921,11 +14921,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 90,
+              "line": 91,
               "column": 4
             },
             "end": {
-              "line": 90,
+              "line": 91,
               "column": 8
             }
           }
@@ -14941,11 +14941,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 91,
+              "line": 92,
               "column": 4
             },
             "end": {
-              "line": 91,
+              "line": 92,
               "column": 7
             }
           }
@@ -14967,11 +14967,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 92,
+              "line": 93,
               "column": 4
             },
             "end": {
-              "line": 92,
+              "line": 93,
               "column": 22
             }
           }
@@ -14995,11 +14995,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 93,
+              "line": 94,
               "column": 4
             },
             "end": {
-              "line": 93,
+              "line": 94,
               "column": 25
             }
           }
@@ -15015,11 +15015,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 94,
+              "line": 95,
               "column": 4
             },
             "end": {
-              "line": 94,
+              "line": 95,
               "column": 12
             }
           }
@@ -15042,11 +15042,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 95,
+              "line": 96,
               "column": 4
             },
             "end": {
-              "line": 95,
+              "line": 96,
               "column": 15
             }
           }
@@ -15069,11 +15069,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 96,
+              "line": 97,
               "column": 4
             },
             "end": {
-              "line": 96,
+              "line": 97,
               "column": 19
             }
           }
@@ -15089,11 +15089,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 97,
+              "line": 98,
               "column": 4
             },
             "end": {
-              "line": 97,
+              "line": 98,
               "column": 8
             }
           }
@@ -15116,11 +15116,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 98,
+              "line": 99,
               "column": 4
             },
             "end": {
-              "line": 98,
+              "line": 99,
               "column": 18
             }
           }
@@ -15143,11 +15143,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 99,
+              "line": 100,
               "column": 4
             },
             "end": {
-              "line": 99,
+              "line": 100,
               "column": 20
             }
           }
@@ -15163,11 +15163,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 100,
+              "line": 101,
               "column": 4
             },
             "end": {
-              "line": 100,
+              "line": 101,
               "column": 12
             }
           }
@@ -15183,11 +15183,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 101,
+              "line": 102,
               "column": 4
             },
             "end": {
-              "line": 101,
+              "line": 102,
               "column": 7
             }
           }
@@ -15203,11 +15203,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 102,
+              "line": 103,
               "column": 4
             },
             "end": {
-              "line": 102,
+              "line": 103,
               "column": 7
             }
           }
@@ -15230,11 +15230,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 103,
+              "line": 104,
               "column": 4
             },
             "end": {
-              "line": 103,
+              "line": 104,
               "column": 18
             }
           }
@@ -15251,11 +15251,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 104,
+              "line": 105,
               "column": 4
             },
             "end": {
-              "line": 104,
+              "line": 105,
               "column": 20
             }
           }
@@ -15275,11 +15275,11 @@
           "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 89,
+              "line": 90,
               "column": 4
             },
             "end": {
-              "line": 89,
+              "line": 90,
               "column": 25
             }
           }
@@ -15291,11 +15291,11 @@
           "message": "Prop \"kind\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 90,
+              "line": 91,
               "column": 4
             },
             "end": {
-              "line": 90,
+              "line": 91,
               "column": 8
             }
           }
@@ -15307,11 +15307,11 @@
           "message": "Prop \"uom\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 91,
+              "line": 92,
               "column": 4
             },
             "end": {
-              "line": 91,
+              "line": 92,
               "column": 7
             }
           }
@@ -15323,11 +15323,11 @@
           "message": "Prop \"type_config\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 92,
+              "line": 93,
               "column": 4
             },
             "end": {
-              "line": 92,
+              "line": 93,
               "column": 22
             }
           }
@@ -15339,11 +15339,11 @@
           "message": "Prop \"onChange\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 94,
+              "line": 95,
               "column": 4
             },
             "end": {
-              "line": 94,
+              "line": 95,
               "column": 12
             }
           }
@@ -15355,11 +15355,11 @@
           "message": "Prop \"step\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 97,
+              "line": 98,
               "column": 4
             },
             "end": {
-              "line": 97,
+              "line": 98,
               "column": 8
             }
           }
@@ -15371,11 +15371,11 @@
           "message": "Prop \"unsigned\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 100,
+              "line": 101,
               "column": 4
             },
             "end": {
-              "line": 100,
+              "line": 101,
               "column": 12
             }
           }
@@ -15387,11 +15387,11 @@
           "message": "Prop \"min\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 101,
+              "line": 102,
               "column": 4
             },
             "end": {
-              "line": 101,
+              "line": 102,
               "column": 7
             }
           }
@@ -15403,11 +15403,11 @@
           "message": "Prop \"max\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 102,
+              "line": 103,
               "column": 4
             },
             "end": {
-              "line": 102,
+              "line": 103,
               "column": 7
             }
           }
@@ -15419,11 +15419,11 @@
           "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 104,
+              "line": 105,
               "column": 4
             },
             "end": {
-              "line": 104,
+              "line": 105,
               "column": 20
             }
           }
@@ -15663,7 +15663,7 @@
           "column": 0
         },
         "end": {
-          "line": 1310,
+          "line": 1293,
           "column": 0
         }
       },
@@ -15689,11 +15689,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 109,
+              "line": 97,
               "column": 4
             },
             "end": {
-              "line": 109,
+              "line": 97,
               "column": 25
             }
           }
@@ -15710,11 +15710,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 110,
+              "line": 98,
               "column": 4
             },
             "end": {
-              "line": 110,
+              "line": 98,
               "column": 17
             }
           }
@@ -15731,11 +15731,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 111,
+              "line": 99,
               "column": 4
             },
             "end": {
-              "line": 111,
+              "line": 99,
               "column": 17
             }
           }
@@ -15752,11 +15752,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 112,
+              "line": 100,
               "column": 4
             },
             "end": {
-              "line": 112,
+              "line": 100,
               "column": 17
             }
           }
@@ -15773,11 +15773,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 113,
+              "line": 101,
               "column": 4
             },
             "end": {
-              "line": 113,
+              "line": 101,
               "column": 20
             }
           }
@@ -15800,11 +15800,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 114,
+              "line": 102,
               "column": 4
             },
             "end": {
-              "line": 114,
+              "line": 102,
               "column": 20
             }
           }
@@ -15827,11 +15827,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 115,
+              "line": 103,
               "column": 4
             },
             "end": {
-              "line": 115,
+              "line": 103,
               "column": 20
             }
           }
@@ -15848,11 +15848,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 116,
+              "line": 104,
               "column": 4
             },
             "end": {
-              "line": 116,
+              "line": 104,
               "column": 16
             }
           }
@@ -15869,11 +15869,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 117,
+              "line": 105,
               "column": 4
             },
             "end": {
-              "line": 117,
+              "line": 105,
               "column": 12
             }
           }
@@ -15890,11 +15890,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 118,
+              "line": 106,
               "column": 4
             },
             "end": {
-              "line": 118,
+              "line": 106,
               "column": 21
             }
           }
@@ -15911,11 +15911,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 119,
+              "line": 107,
               "column": 4
             },
             "end": {
-              "line": 119,
+              "line": 107,
               "column": 20
             }
           }
@@ -15939,11 +15939,11 @@
           "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 119,
+              "line": 107,
               "column": 4
             },
             "end": {
-              "line": 119,
+              "line": 107,
               "column": 20
             }
           }
@@ -15961,7 +15961,7 @@
           "column": 0
         },
         "end": {
-          "line": 302,
+          "line": 296,
           "column": 0
         }
       },
@@ -15980,11 +15980,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 58,
+              "line": 54,
               "column": 8
             },
             "end": {
-              "line": 58,
+              "line": 54,
               "column": 13
             }
           }
@@ -16001,11 +16001,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 58,
+              "line": 54,
               "column": 15
             },
             "end": {
-              "line": 58,
+              "line": 54,
               "column": 28
             }
           }
@@ -16022,11 +16022,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 58,
+              "line": 54,
               "column": 30
             },
             "end": {
-              "line": 58,
+              "line": 54,
               "column": 46
             }
           }
@@ -16050,11 +16050,11 @@
           "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 58,
+              "line": 54,
               "column": 30
             },
             "end": {
-              "line": 58,
+              "line": 54,
               "column": 46
             }
           }
@@ -18398,7 +18398,7 @@
           "column": 0
         },
         "end": {
-          "line": 61,
+          "line": 64,
           "column": 0
         }
       },
@@ -18417,11 +18417,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 20,
+              "line": 21,
               "column": 4
             },
             "end": {
-              "line": 20,
+              "line": 21,
               "column": 6
             }
           }
@@ -18444,11 +18444,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 21,
+              "line": 22,
               "column": 4
             },
             "end": {
-              "line": 21,
+              "line": 22,
               "column": 20
             }
           }
@@ -18471,12 +18471,39 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 22,
+              "line": 23,
               "column": 4
             },
             "end": {
-              "line": 22,
+              "line": 23,
               "column": 19
+            }
+          }
+        },
+        {
+          "name": "info",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 24,
+              "column": 4
+            },
+            "end": {
+              "line": 24,
+              "column": 16
             }
           }
         },
@@ -18498,11 +18525,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 23,
+              "line": 25,
               "column": 4
             },
             "end": {
-              "line": 23,
+              "line": 25,
               "column": 20
             }
           }
@@ -18519,11 +18546,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 24,
+              "line": 26,
               "column": 4
             },
             "end": {
-              "line": 24,
+              "line": 26,
               "column": 20
             }
           }
@@ -18547,11 +18574,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 26,
+              "line": 28,
               "column": 4
             },
             "end": {
-              "line": 26,
+              "line": 28,
               "column": 21
             }
           }
@@ -18565,11 +18592,11 @@
           "slot_props": "Record<string, never>",
           "source": {
             "start": {
-              "line": 59,
+              "line": 62,
               "column": 2
             },
             "end": {
-              "line": 59,
+              "line": 62,
               "column": 22
             }
           }

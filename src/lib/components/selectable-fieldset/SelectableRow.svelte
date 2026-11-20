@@ -6,6 +6,7 @@
    * in a slot. The consumer controls the inner layout via the `class` prop.
    *
    * Left border (5px) colors based on state:
+   * - `info` prop (info) — e.g. confirmed-but-unsaved pending rows
    * - `warning` prop (yellow) — e.g. tainted form fields
    * - `selected` prop (primary) — when row is selected
    * - default (border) — unselected
@@ -20,6 +21,7 @@
     id,
     selected = false,
     warning = false,
+    info = false,
     disabled = false,
     on_toggle_select,
     children,
@@ -28,6 +30,7 @@
     id: string;
     selected?: boolean;
     warning?: boolean;
+    info?: boolean;
     disabled?: boolean;
     on_toggle_select: (id: string, checked: boolean) => void;
     children: Snippet;
@@ -36,7 +39,7 @@
 </script>
 
 <div
-  class="rounded-lg border bg-background p-3 border-l-[5px] cursor-pointer select-none {warning ? 'border-l-warning' : selected ? 'border-l-primary' : 'border-l-border'} {klass}"
+  class="rounded-lg border bg-background p-3 border-l-[5px] cursor-pointer select-none {info ? 'border-l-info' : warning ? 'border-l-warning' : selected ? 'border-l-primary' : 'border-l-border'} {klass}"
   role="button"
   tabindex={disabled ? -1 : 0}
   aria-pressed={selected}
