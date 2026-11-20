@@ -187,6 +187,14 @@
      * Initial search text when the popover opens. Used to pre-filter
      * options (e.g. prefix-filter i18n keys by config.auth.{key}.).
      * The user can clear it via the X button to see all options.
+     *
+     * CONTRACT with `allowCreate`: any non-empty seeded search produces a
+     * "Create '{defaultSearch}'" row that commits the seed VERBATIM when
+     * no option exact-matches it. Seed a full selectable value (e.g. the
+     * computed `custom.*` suggestion) or a prefix you actually intend to
+     * be creatable — never a bare vocabulary prefix, which would offer a
+     * garbage key. With `truncateFrom="start"`, a long seed shows only
+     * its tail, so a bare prefix reads as a meaningless fragment.
      */
     defaultSearch?: string;
     /**
