@@ -637,11 +637,12 @@
                 resolvedValue: value as string,
               })}
             {:else}
-              <!-- Created-value chip takes the space remaining AFTER the
-                   shrink-0 trailing icons — icons never exit the chrome.
-                   The "new" suffix marks the value as outside the option
-                   vocabulary — same marker as multi-mode created badges. -->
-              <Badge variant="outline" class={cn("gap-1 border-primary-gradient-soft text-foreground min-w-0 flex-1 justify-start", disabled && "bg-background")}>
+              <!-- Created-value chip hugs its content; when it would push
+                   the shrink-0 trailing icons out of the chrome it shrinks
+                   instead (min-w-0) and the text ellipsizes. The "new"
+                   suffix marks the value as outside the option vocabulary —
+                   same marker as multi-mode created badges. -->
+              <Badge variant="outline" class={cn("gap-1 border-primary-gradient-soft text-foreground w-fit min-w-0 justify-start", disabled && "bg-background")}>
                 <span class={cn("min-w-0 text-left", truncateFrom === 'start' ? 'truncate-start' : 'truncate')}>
                   {value as string}
                 </span>
