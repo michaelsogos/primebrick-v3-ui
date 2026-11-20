@@ -637,12 +637,14 @@
                 resolvedValue: value as string,
               })}
             {:else}
-              <!-- Created-value chip hugs its content; when it would push
-                   the shrink-0 trailing icons out of the chrome it shrinks
-                   instead (min-w-0) and the text ellipsizes. The "new"
+              <!-- Created-value chip hugs its content (w-fit); the Badge
+                   base bakes `shrink-0`, so `shrink` must re-enable
+                   flex-shrink — the chip yields to the shrink-0 trailing
+                   icons (never pushed out of the chrome) and the text
+                   ellipsizes via min-w-0 + truncate-start. The "new"
                    suffix marks the value as outside the option vocabulary —
                    same marker as multi-mode created badges. -->
-              <Badge variant="outline" class={cn("gap-1 border-primary-gradient-soft text-foreground w-fit min-w-0 justify-start", disabled && "bg-background")}>
+              <Badge variant="outline" class={cn("gap-1 border-primary-gradient-soft text-foreground w-fit min-w-0 shrink justify-start", disabled && "bg-background")}>
                 <span class={cn("min-w-0 text-left", truncateFrom === 'start' ? 'truncate-start' : 'truncate')}>
                   {value as string}
                 </span>
