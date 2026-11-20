@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import {
 	CUSTOM_ICONS,
 	TABLE_DICTIONARY_NODES,
+	TABLE_DICTIONARY_ROWS_NODES,
 	TRASH_ARROW_UP_NODES,
 	type CustomIconNode,
 } from '../src/lib/icons/custom-icons.js';
@@ -73,6 +74,25 @@ describe('table-dictionary authored geometry', () => {
 	it('keeps every coordinate on the half-unit grid — .5 is upstream-conformant', () => {
 		for (const n of pathNumbers(TABLE_DICTIONARY_NODES)) {
 			expect(Number.isInteger(n * 2), `sub-half-pixel coordinate ${n}`).toBe(true);
+		}
+	});
+});
+
+describe('table-dictionary-rows authored geometry', () => {
+	it('keeps the approved path set verbatim (3 detached h=4 rows y=3/10/17, code x3w6 + label x12w9 per row)', () => {
+		expect(TABLE_DICTIONARY_ROWS_NODES).toEqual([
+			['rect', { x: 3, y: 3, width: 6, height: 4, rx: 1 }],
+			['rect', { x: 12, y: 3, width: 9, height: 4, rx: 1 }],
+			['rect', { x: 3, y: 10, width: 6, height: 4, rx: 1 }],
+			['rect', { x: 12, y: 10, width: 9, height: 4, rx: 1 }],
+			['rect', { x: 3, y: 17, width: 6, height: 4, rx: 1 }],
+			['rect', { x: 12, y: 17, width: 9, height: 4, rx: 1 }],
+		]);
+	});
+
+	it('keeps every coordinate on the integer grid', () => {
+		for (const n of pathNumbers(TABLE_DICTIONARY_ROWS_NODES)) {
+			expect(Number.isInteger(n), `non-integer coordinate ${n}`).toBe(true);
 		}
 	});
 });
