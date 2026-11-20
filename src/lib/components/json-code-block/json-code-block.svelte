@@ -4,6 +4,7 @@
   import { cn } from '../../utils/index.js';
   import type { HTMLAttributes } from 'svelte/elements';
 
+import { extJsonStringify } from '@primebrick/core';
   let {
     code,
     lineNumbers = false,
@@ -26,7 +27,7 @@
   } & HTMLAttributes<HTMLDivElement> = $props();
 
   const jsonString = $derived(
-    typeof code === 'string' ? code : JSON.stringify(code, null, 2)
+    typeof code === 'string' ? code : extJsonStringify(code,2)
   );
 
   let html = $state('');

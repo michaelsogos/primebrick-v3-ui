@@ -23,6 +23,7 @@
   const t = getT();
   import { ChevronDown, Plus, Minus, Eraser } from "@primebrick/ui/vendor/lucide";
 
+import { extJsonParse } from '@primebrick/core';
   type NumericAlign = "left" | "center" | "right";
 
   type Props = WithElementRef<
@@ -232,7 +233,7 @@
     if (!error.includes("|")) return $t(error);
     const [key, jsonParams] = error.split("|", 2);
     try {
-      const params = JSON.parse(jsonParams);
+      const params = extJsonParse<any>(jsonParams);
       return $t(key, params);
     } catch {
       return $t(key);

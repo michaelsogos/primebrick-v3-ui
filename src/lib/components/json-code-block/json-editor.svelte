@@ -5,6 +5,7 @@
   import type { EditorView } from '@codemirror/view';
   import { jsonLsExtensions } from './json-language-service.js';
 
+import { extJsonParse } from '@primebrick/core';
   let {
     value = $bindable(''),
     minRows = 0,
@@ -78,7 +79,7 @@
       // This variant extends the range to end-of-line → wavy underline.
       const jsonLintRange = () => (v: EditorView) => {
         try {
-          JSON.parse(v.state.doc.toString());
+          extJsonParse<any>(v.state.doc.toString());
           return [];
         } catch (e) {
           if (!(e instanceof SyntaxError)) throw e;

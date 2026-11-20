@@ -8,7 +8,7 @@
  *
  * Paths are service-relative (`/api/v1/…`) — the slot prepends `/svc/ai`.
  */
-import { extJsonStringify } from '@primebrick/core';
+import { extJsonStringify, extJsonParse } from '@primebrick/core';
 import { getServiceApi } from '../bridges.js';
 import type { AiCerebellum, AiModel } from './types.js';
 
@@ -23,7 +23,7 @@ export async function fetchAiModels(deletedRecords?: 'EXCLUDED' | 'ONLY' | 'INCL
 		if (deletedRecords) params.set('deleted_records', deletedRecords);
 		const res = await api(`/api/v1/entities/ai_model/list?${params}`);
 		if (!res.ok) throw new Error(`AI models fetch failed (${res.status})`);
-		const data = (await res.json()) as { rows: AiModel[]; total?: number };
+		const data = (await res.text().then((t) => extJsonParse<any>(t))) as { rows: AiModel[]; total?: number };
 		rows.push(...data.rows);
 		if (data.rows.length < 100 || (data.total !== undefined && rows.length >= data.total)) break;
 		page++;
@@ -54,7 +54,7 @@ export async function fetchAiCerebellum(filters?: {
 	const url = `/api/v1/entities/ai_cerebellum/list?${params.toString()}`;
 	const res = await getServiceApi('ai')(url);
 	if (!res.ok) throw new Error(`AI cerebellum fetch failed (${res.status})`);
-	const data = (await res.json()) as { rows: AiCerebellum[] };
+	const data = (await res.text().then((t) => extJsonParse<any>(t))) as { rows: AiCerebellum[] };
 	return data.rows;
 }
 
@@ -76,7 +76,7 @@ export type AiConfigEntry = {
 export async function fetchAiConfigEntries(): Promise<AiConfigEntry[]> {
 	const res = await getServiceApi('ai')('/api/v1/entities/config_entry/list');
 	if (!res.ok) throw new Error(`Config fetch failed (${res.status})`);
-	const data = (await res.json()) as { config_entries: AiConfigEntry[] };
+	const data = (await res.text().then((t) => extJsonParse<any>(t))) as { config_entries: AiConfigEntry[] };
 	return data.config_entries;
 }
 
@@ -94,7 +94,7 @@ export async function updateAiConfigEntry(
 		},
 	);
 	if (!res.ok) throw new Error(`Config update failed (${res.status})`);
-	const data = (await res.json()) as { config_entries: AiConfigEntry };
+	const data = (await res.text().then((t) => extJsonParse<any>(t))) as { config_entries: AiConfigEntry };
 	return data.config_entries;
 }
 
@@ -150,7 +150,7 @@ export interface DocsIndexStatus {
 export async function fetchDocsIndexStatus(probe = false): Promise<DocsIndexStatus> {
 	const res = await getServiceApi('ai')(`/api/v1/ai/docs/index-status${probe ? '?probe=1' : ''}`);
 	if (!res.ok) throw new Error(`Docs index status failed (${res.status})`);
-	return (await res.json()) as DocsIndexStatus;
+	return (await res.text().then((t) => extJsonParse<any>(t))) as DocsIndexStatus;
 }
 
 export interface DocsReindexResult {
@@ -168,6 +168,6 @@ export async function reindexDocsPacks(repo?: string): Promise<DocsReindexResult
 		body: extJsonStringify({ mode: 'packs', ...(repo ? { repo } : {}) }),
 	});
 	if (!res.ok) throw new Error(`Reindex failed (${res.status})`);
-	const data = (await res.json()) as { results: DocsReindexResult[] };
+	const data = (await res.text().then((t) => extJsonParse<any>(t))) as { results: DocsReindexResult[] };
 	return data.results;
 }

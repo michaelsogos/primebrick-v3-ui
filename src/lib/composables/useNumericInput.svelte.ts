@@ -33,21 +33,7 @@
  *   - Mutations through mutator functions or controlled getter/setter pairs
  */
 import type { DeepReadonly } from '../utils/index.js';
-import {
-	dec,
-	add,
-	mul,
-	div,
-	neg,
-	cmp,
-	signum,
-	isDecimal,
-	normalize as decNormalize,
-	toPG,
-	DecimalError,
-	type Decimal,
-	type DecimalInput,
-} from '@primebrick/core';
+import { dec, add, mul, div, neg, cmp, signum, isDecimal, normalize as decNormalize, toPG, DecimalError, type Decimal, type DecimalInput, extJsonParse } from '@primebrick/core';
 
 /** Canonical string from a Decimal — PG form with trailing zeros stripped
  *  (`10.0` → `"10"`, `0.1000…` → `"0.1"`). Scale noise from mul/div must
@@ -155,7 +141,7 @@ function parseTypeConfig(raw: string | null): {
 } | null {
 	if (!raw) return null;
 	try {
-		const v = JSON.parse(raw);
+		const v = extJsonParse<any>(raw);
 		return v && typeof v === 'object' ? v : null;
 	} catch {
 		return null;

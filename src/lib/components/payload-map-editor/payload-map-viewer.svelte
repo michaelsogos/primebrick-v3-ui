@@ -20,11 +20,7 @@
     PayloadMapEntry,
     PayloadMapItemEntry,
   } from '@primebrick/core';
-  import {
-    PAYLOAD_X_HELP_KEY,
-    PAYLOAD_X_NOT_EDITABLE,
-    PAYLOAD_X_MAP_KEYS,
-  } from '@primebrick/core';
+  import { PAYLOAD_X_HELP_KEY, PAYLOAD_X_NOT_EDITABLE, PAYLOAD_X_MAP_KEYS, extJsonStringify, extJsonParse } from '@primebrick/core';
   import DynamicIcon from '../dynamic-icon/DynamicIcon.svelte';
   import FormLabelWithPriorityHelp from '../forms/FormLabelWithPriorityHelp.svelte';
   import JsonCodeBlock from '../json-code-block/json-code-block.svelte';
@@ -110,7 +106,7 @@
   /** Parsed DST — unparseable text flags `bad` so the view degrades to raw. */
   const parsed = $derived.by((): { map: PayloadMap; bad: boolean } => {
     try {
-      const p = JSON.parse(value || 'null');
+      const p = extJsonParse<any>(value || 'null');
       return p && typeof p === 'object' && !Array.isArray(p)
         ? { map: p as PayloadMap, bad: false }
         : { map: {}, bad: p !== null };
@@ -153,7 +149,7 @@
   function entryProse(e: PayloadMapItemEntry): { icon?: string; text: string } {
     switch (e.kind) {
       case 'const':
-        return { text: typeof e.value === 'object' ? JSON.stringify(e.value) : String(e.value) };
+        return { text: typeof e.value === 'object' ? extJsonStringify(e.value) : String(e.value) };
       case 'path':
         return { text: e.path || '—' };
       case 'meta':

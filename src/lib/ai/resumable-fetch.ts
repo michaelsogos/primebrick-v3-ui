@@ -1,4 +1,4 @@
-import { extJsonStringify } from '@primebrick/core';
+import { extJsonStringify, extJsonParse } from '@primebrick/core';
 
 /**
  * resumable-fetch.ts — `env.fetch` override for Transformers.js that makes
@@ -83,7 +83,7 @@ async function readManifest(cache: Cache, url: string): Promise<ShardManifest | 
   try {
     const r = await cache.match(manifestKey(url));
     if (!r) return null;
-    const m = (await r.json()) as ShardManifest;
+    const m = (await r.text().then((t) => extJsonParse<any>(t))) as ShardManifest;
     return typeof m?.size === 'number' && typeof m?.done_count === 'number' ? m : null;
   } catch {
     return null;

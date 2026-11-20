@@ -63,7 +63,7 @@
       }
       const loaded = loader().then((src: string) => {
         const m = src.match(/iconData = ({.*?});/s);
-        return m ? (JSON.parse(m[1]).node as Array<[string, Record<string, string | number>]>) : null;
+        return m ? (extJsonParse<any>(m[1]).node as Array<[string, Record<string, string | number>]>) : null;
       });
       nodesCache.set(name, loaded);
       mod = loaded;
@@ -86,6 +86,7 @@
   import { SEMANTIC_ICONS } from '../../icons/semantic-icons.js';
   import { parseIconName } from '../../icons/icon-qualifiers.js';
 
+import { extJsonParse } from '@primebrick/core';
   let {
     name,
     size = 16,

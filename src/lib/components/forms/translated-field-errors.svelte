@@ -3,6 +3,7 @@
 	import { cn, type WithoutChild } from "../../utils/index.js";
 	import { getT } from "../../bridges.js";
 
+import { extJsonParse } from '@primebrick/core';
 	const t = getT();
 
 	let {
@@ -22,7 +23,7 @@
 
 		const [key, jsonParams] = error.split('|', 2);
 		try {
-			const params = JSON.parse(jsonParams);
+			const params = extJsonParse<any>(jsonParams);
 			return $t(key, params);
 		} catch {
 			// Malformed JSON — fall back to translating the key without params

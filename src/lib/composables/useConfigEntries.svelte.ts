@@ -30,6 +30,7 @@ import type { DeepReadonly } from '../utils/index.js';
 import { getServiceApi } from '../bridges.js';
 import { clearCachedETag } from '../cache/etag-store.js';
 
+import { extJsonParse } from '@primebrick/core';
 const CONFIG_ENTRIES_URL = '/api/v1/entities/config_entry/list';
 
 // Module-level singleton — shared across all callers.
@@ -53,7 +54,7 @@ async function ensureLoaded(): Promise<void> {
 		try {
 			const res = await getServiceApi('host')(CONFIG_ENTRIES_URL);
 			if (!res.ok) throw new Error(`Config entries fetch failed (${res.status})`);
-			const data = (await res.json()) as { rows: ConfigEntry[] };
+			const data = (await res.text().then((t) => extJsonParse<any>(t))) as { rows: ConfigEntry[] };
 			_state.entries = data.rows;
 			_state.fetched = true;
 		} catch (err) {

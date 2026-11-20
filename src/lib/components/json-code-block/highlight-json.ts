@@ -1,5 +1,6 @@
 import { createHighlighter, type Highlighter } from 'shiki';
 
+import { extJsonStringify } from '@primebrick/core';
 /**
  * Shared lazy Shiki highlighter for JSON rendering.
  * Single instance + module-level html cache keyed by code string —
@@ -23,7 +24,7 @@ async function getHighlighter(): Promise<Highlighter> {
  * Throws on shiki failure — callers provide their own fallback.
  */
 export async function highlightJson(value: unknown): Promise<string> {
-  const code = typeof value === 'string' ? value : JSON.stringify(value, null, 2);
+  const code = typeof value === 'string' ? value : extJsonStringify(value,2);
   const hit = htmlCache.get(code);
   if (hit) return hit;
   const hl = await getHighlighter();

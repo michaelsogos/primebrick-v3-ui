@@ -26,6 +26,7 @@
   import JsonCodeBlock from '../json-code-block/json-code-block.svelte';
   import AiIcon from '../ai-icon/ai-icon.svelte';
 
+import { extJsonParse } from '@primebrick/core';
   const t = getT();
 
   let {
@@ -82,7 +83,7 @@
   // Preview content: pretty-printed when parseable, the raw string when not.
   const previewJson = $derived.by(() => {
     try {
-      return JSON.parse(value || 'null');
+      return extJsonParse<any>(value || 'null');
     } catch {
       return value;
     }
@@ -95,7 +96,7 @@
     const v = value?.trim();
     if (!v || !editing) return '';
     try {
-      JSON.parse(v);
+      extJsonParse<any>(v);
       return '';
     } catch (e) {
       return e instanceof Error ? e.message : String(e);

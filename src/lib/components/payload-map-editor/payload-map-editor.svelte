@@ -52,19 +52,7 @@
     MapKeyDecl,
     FieldIssue,
   } from '@primebrick/core';
-  import {
-    PAYLOAD_MAP_META_KINDS,
-    PAYLOAD_MAP_META_SCHEMAS,
-    PAYLOAD_INJECTORS,
-    PAYLOAD_X_HELP_KEY,
-    PAYLOAD_X_MAP_KEYS,
-    PAYLOAD_X_NOT_EDITABLE,
-    PAYLOAD_X_OPTIONS,
-    pathCompatible,
-    parseMapKeysDeclaration,
-    payloadMapConformance,
-    jsonSchemaCheck,
-  } from '@primebrick/core';
+  import { PAYLOAD_MAP_META_KINDS, PAYLOAD_MAP_META_SCHEMAS, PAYLOAD_INJECTORS, PAYLOAD_X_HELP_KEY, PAYLOAD_X_MAP_KEYS, PAYLOAD_X_NOT_EDITABLE, PAYLOAD_X_OPTIONS, pathCompatible, parseMapKeysDeclaration, payloadMapConformance, jsonSchemaCheck, extJsonStringify, extJsonParse } from '@primebrick/core';
   import TextInput from '../input/text-input.svelte';
   import ComboSelect from '../combo-select/combo-select.svelte';
   import PropNavigator from '../prop-navigator/prop-navigator.svelte';
@@ -152,7 +140,7 @@
   /** Current DST document — unparseable text degrades to empty rows. */
   const map = $derived.by((): PayloadMap => {
     try {
-      const parsed = JSON.parse(value || 'null');
+      const parsed = extJsonParse<any>(value || 'null');
       return parsed && typeof parsed === 'object' && !Array.isArray(parsed)
         ? (parsed as PayloadMap)
         : {};
@@ -299,7 +287,7 @@
     const next: Record<string, unknown> = { ...(map as Record<string, unknown>) };
     if (entry === undefined) delete next[field];
     else next[field] = entry;
-    value = Object.keys(next).length === 0 ? '' : JSON.stringify(next, null, 2);
+    value = Object.keys(next).length === 0 ? '' : extJsonStringify(next,2);
   }
 
   function entryOf(field: string): PayloadMapEntry | undefined {
@@ -620,7 +608,7 @@
       case 'boolean': return raw === 'true';
       case 'array':
       case 'object': {
-        try { return JSON.parse(raw || (prop?.type === 'array' ? '[]' : '{}')); }
+        try { return extJsonParse<any>(raw || (prop?.type === 'array' ? '[]' : '{}')); }
         catch { return raw; }
       }
       default: return raw;
@@ -637,7 +625,7 @@
     if (e?.kind !== 'const') return '';
     const v = e.value;
     if (v === undefined || v === null) return '';
-    return typeof v === 'object' ? JSON.stringify(v) : String(v);
+    return typeof v === 'object' ? extJsonStringify(v) : String(v);
   }
 
   // ─── fallback clause helpers — property OF the entry ────────────────
@@ -744,7 +732,7 @@
   {#each issues as i (i.path + i.code + i.message)}
     {@const msg = i.message.includes('|')
       ? (() => { const [k, p] = i.message.split('|', 2);
-          try { return $t(k, JSON.parse(p) as Record<string, unknown>); } catch { return $t(k); } })()
+          try { return $t(k, extJsonParse<any>(p) as Record<string, unknown>); } catch { return $t(k); } })()
       : $t(i.message)}
     <p class="mt-1 text-xs font-medium text-destructive" data-testid="payload-map-issue">
       <!-- `required` speaks bare — the message already says what is
