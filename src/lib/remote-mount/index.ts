@@ -14,7 +14,7 @@ import ModuleMountRoot from "./ModuleMountRoot.svelte";
 export function mountModuleContent(
 	el: HTMLElement,
 	ctx: ModuleHostBase,
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any -- remote component props are declared by each module — no shared Props union exists at the mount boundary
 	content: Component<any>,
 ): () => Promise<void> {
 	// Return a dispose closure, never the raw mount result: the record is
