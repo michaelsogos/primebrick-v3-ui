@@ -155,7 +155,6 @@ function parseTypeConfig(raw: string | null): {
 } | null {
 	if (!raw) return null;
 	try {
-		// standards-exempt: ext-json — type_config is stored config JSON, not an ext-json wire payload
 		const v = JSON.parse(raw);
 		return v && typeof v === 'object' ? v : null;
 	} catch {

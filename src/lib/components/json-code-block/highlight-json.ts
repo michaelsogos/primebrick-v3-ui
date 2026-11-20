@@ -23,7 +23,6 @@ async function getHighlighter(): Promise<Highlighter> {
  * Throws on shiki failure — callers provide their own fallback.
  */
 export async function highlightJson(value: unknown): Promise<string> {
-  // standards-exempt: ext-json — pretty-print for display needs the indent arg; extJsonStringify is the wire serializer (no indent) and bigint fidelity is irrelevant for a highlight-only render path
   const code = typeof value === 'string' ? value : JSON.stringify(value, null, 2);
   const hit = htmlCache.get(code);
   if (hit) return hit;

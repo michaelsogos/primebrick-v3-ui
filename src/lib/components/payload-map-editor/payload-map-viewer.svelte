@@ -110,7 +110,6 @@
   /** Parsed DST — unparseable text flags `bad` so the view degrades to raw. */
   const parsed = $derived.by((): { map: PayloadMap; bad: boolean } => {
     try {
-      // standards-exempt: ext-json — the DST document IS plain JSON text, not an ext-json wire payload
       const p = JSON.parse(value || 'null');
       return p && typeof p === 'object' && !Array.isArray(p)
         ? { map: p as PayloadMap, bad: false }
@@ -154,7 +153,6 @@
   function entryProse(e: PayloadMapItemEntry): { icon?: string; text: string } {
     switch (e.kind) {
       case 'const':
-        // standards-exempt: ext-json — display serialization for the const preview, not a wire payload
         return { text: typeof e.value === 'object' ? JSON.stringify(e.value) : String(e.value) };
       case 'path':
         return { text: e.path || '—' };

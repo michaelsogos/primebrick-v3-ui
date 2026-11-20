@@ -232,7 +232,6 @@
     if (!error.includes("|")) return $t(error);
     const [key, jsonParams] = error.split("|", 2);
     try {
-      // standards-exempt: ext-json — `key|{json}` is the plain-JSON translation-params contract
       const params = JSON.parse(jsonParams);
       return $t(key, params);
     } catch {

@@ -63,7 +63,6 @@
       }
       const loaded = loader().then((src: string) => {
         const m = src.match(/iconData = ({.*?});/s);
-        // standards-exempt: ext-json — icon-internal spec format, not wire payloads
         return m ? (JSON.parse(m[1]).node as Array<[string, Record<string, string | number>]>) : null;
       });
       nodesCache.set(name, loaded);
