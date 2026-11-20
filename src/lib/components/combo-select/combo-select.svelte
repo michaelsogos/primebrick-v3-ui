@@ -637,12 +637,15 @@
                 resolvedValue: value as string,
               })}
             {:else}
-              <!-- Created-value chip hugs its content up to the trigger's
-                   max, then ellipsizes — never stretches across the input. -->
-              <Badge variant="outline" class={cn("gap-1 border-primary-gradient-soft text-foreground w-fit max-w-full justify-start", disabled && "bg-background")}>
+              <!-- Created-value chip takes the space remaining AFTER the
+                   shrink-0 trailing icons — icons never exit the chrome.
+                   The "new" suffix marks the value as outside the option
+                   vocabulary — same marker as multi-mode created badges. -->
+              <Badge variant="outline" class={cn("gap-1 border-primary-gradient-soft text-foreground min-w-0 flex-1 justify-start", disabled && "bg-background")}>
                 <span class={cn("min-w-0 text-left", truncateFrom === 'start' ? 'truncate-start' : 'truncate')}>
                   {value as string}
                 </span>
+                <span class="shrink-0 text-[10px] font-normal opacity-60">{$t('app.common.new')}</span>
               </Badge>
             {/if}
           {:else}
@@ -691,6 +694,9 @@
                     {/if}
                     {#if showLabel}
                       {opt?.label ?? val}
+                    {/if}
+                    {#if !opt}
+                      <span class="text-[10px] opacity-60">{$t('app.common.new')}</span>
                     {/if}
                     {#if !disabled}
                       <button
