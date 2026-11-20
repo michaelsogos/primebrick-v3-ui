@@ -62,14 +62,17 @@ export const TABLE_DICTIONARY_NODES: CustomIconNode = [
   ['path', { d: 'M3 15h18' }],
 ];
 
-/** table-dictionary-rows — the dict rows DETACHED: the continuous grid of
+/** list-dictionary — the dict rows DETACHED: the continuous grid of
  *  `table-dictionary` becomes three independent `h=4` rows at y=3/10/17
  *  (3px gaps, the only symmetric integer decomposition of the 18u field),
  *  each split into a code cell (`x3 w6`) and a label cell (`x12 w9`) with a
  *  real 3px column gap — 6/9 keeps the parent's exact 40/60 split while the
- *  uniform 3px gaps read "rows, not a table". All-integer coords. POC:
- *  pending live evaluation before any upstream contribution. */
-export const TABLE_DICTIONARY_ROWS_NODES: CustomIconNode = [
+ *  uniform 3px gaps read "rows, not a table". Name follows the upstream
+ *  `list-*` subject-qualifier family (`list-todo`, `list-music`): a list
+ *  of dictionary entries — `table` would misdescribe the detached shape,
+ *  `book-*` is a different vocabulary. All-integer coords. POC: pending
+ *  live evaluation before any upstream contribution. */
+export const LIST_DICTIONARY_NODES: CustomIconNode = [
   ['rect', { x: 3, y: 3, width: 6, height: 4, rx: 1 }],
   ['rect', { x: 12, y: 3, width: 9, height: 4, rx: 1 }],
   ['rect', { x: 3, y: 10, width: 6, height: 4, rx: 1 }],
@@ -82,5 +85,5 @@ export const CUSTOM_ICONS: Partial<Record<string, CustomIconNode>> = {
   'trash-arrow-up': TRASH_ARROW_UP_NODES,
   'question-mark': QUESTION_MARK_NODES,
   'table-dictionary': TABLE_DICTIONARY_NODES,
-  'table-dictionary-rows': TABLE_DICTIONARY_ROWS_NODES,
+  'list-dictionary': LIST_DICTIONARY_NODES,
 };
