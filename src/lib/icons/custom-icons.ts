@@ -70,8 +70,8 @@ export const TABLE_DICTIONARY_NODES: CustomIconNode = [
  *  uniform 3px gaps read "rows, not a table". Name follows the upstream
  *  `list-*` subject-qualifier family (`list-todo`, `list-music`): a list
  *  of dictionary entries — `table` would misdescribe the detached shape,
- *  `book-*` is a different vocabulary. All-integer coords. POC: pending
- *  live evaluation before any upstream contribution. */
+ *  `book-*` is a different vocabulary. All-integer coords. Submitted
+ *  upstream as PR lucide-icons/lucide#5270. */
 export const LIST_DICTIONARY_NODES: CustomIconNode = [
   ['rect', { x: 3, y: 3, width: 6, height: 4, rx: 1 }],
   ['rect', { x: 12, y: 3, width: 9, height: 4, rx: 1 }],
