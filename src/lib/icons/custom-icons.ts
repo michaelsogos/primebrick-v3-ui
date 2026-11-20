@@ -49,7 +49,21 @@ export const QUESTION_MARK_NODES: CustomIconNode = [
   ['path', { d: 'M12 20h.01' }],
 ];
 
+/** table-dictionary — the `table` construction (rect + header row + row
+ *  divider) with the column split moved to x=10.5: 7.5u narrow `code`
+ *  column / 10.5u wide `label` column ≈ 42/58 — the dict row anatomy
+ *  (`table` splits 50/50 at x=12, `table-properties` 67/33 at x=15). The
+ *  half-pixel coordinate is upstream-conformant — hundreds of lucide
+ *  glyphs carry `.5` values. */
+export const TABLE_DICTIONARY_NODES: CustomIconNode = [
+  ['path', { d: 'M10.5 3v18' }],
+  ['rect', { width: 18, height: 18, x: 3, y: 3, rx: 2 }],
+  ['path', { d: 'M3 9h18' }],
+  ['path', { d: 'M3 15h18' }],
+];
+
 export const CUSTOM_ICONS: Partial<Record<string, CustomIconNode>> = {
   'trash-arrow-up': TRASH_ARROW_UP_NODES,
   'question-mark': QUESTION_MARK_NODES,
+  'table-dictionary': TABLE_DICTIONARY_NODES,
 };

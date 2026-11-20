@@ -1,7 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import { readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { CUSTOM_ICONS, TRASH_ARROW_UP_NODES, type CustomIconNode } from '../src/lib/icons/custom-icons.js';
+import {
+	CUSTOM_ICONS,
+	TABLE_DICTIONARY_NODES,
+	TRASH_ARROW_UP_NODES,
+	type CustomIconNode,
+} from '../src/lib/icons/custom-icons.js';
 
 const LUCIDE_ICON_NAMES = new Set(
 	readdirSync(
@@ -51,6 +56,23 @@ describe('trash-arrow-up authored geometry', () => {
 	it('keeps every coordinate on the integer grid', () => {
 		for (const n of pathNumbers(TRASH_ARROW_UP_NODES)) {
 			expect(Number.isInteger(n), `non-integer coordinate ${n}`).toBe(true);
+		}
+	});
+});
+
+describe('table-dictionary authored geometry', () => {
+	it('keeps the approved path set verbatim (table construction, column split at x=10.5 → 7.5u/10.5u)', () => {
+		expect(TABLE_DICTIONARY_NODES).toEqual([
+			['path', { d: 'M10.5 3v18' }],
+			['rect', { width: 18, height: 18, x: 3, y: 3, rx: 2 }],
+			['path', { d: 'M3 9h18' }],
+			['path', { d: 'M3 15h18' }],
+		]);
+	});
+
+	it('keeps every coordinate on the half-unit grid — .5 is upstream-conformant', () => {
+		for (const n of pathNumbers(TABLE_DICTIONARY_NODES)) {
+			expect(Number.isInteger(n * 2), `sub-half-pixel coordinate ${n}`).toBe(true);
 		}
 	});
 });
