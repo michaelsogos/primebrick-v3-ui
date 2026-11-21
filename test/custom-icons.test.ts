@@ -5,6 +5,7 @@ import {
 	CUSTOM_ICONS,
 	TABLE_DICTIONARY_NODES,
 	LIST_DICTIONARY_NODES,
+	SEQUENCE_NUMERIC_RIGHT_NODES,
 	TRASH_ARROW_UP_NODES,
 	type CustomIconNode,
 } from '../src/lib/icons/custom-icons.js';
@@ -93,6 +94,25 @@ describe('list-dictionary authored geometry', () => {
 	it('keeps every coordinate on the integer grid', () => {
 		for (const n of pathNumbers(LIST_DICTIONARY_NODES)) {
 			expect(Number.isInteger(n), `non-integer coordinate ${n}`).toBe(true);
+		}
+	});
+});
+
+describe('sequence-numeric-right authored geometry', () => {
+	it('keeps the approved path set verbatim ("1 › N" sequence + layout-arrow-right arrow)', () => {
+		expect(SEQUENCE_NUMERIC_RIGHT_NODES).toEqual([
+			['path', { d: 'M4 5h1v5' }],
+			['path', { d: 'M4 10h2' }],
+			['path', { d: 'm9 10 2.5-2.5-2.5-2.5' }],
+			['path', { d: 'M14.5 10V5l4.5 5V5' }],
+			['path', { d: 'M3 18h18' }],
+			['path', { d: 'm18 21 3-3-3-3' }],
+		]);
+	});
+
+	it('keeps every coordinate on the half-unit grid — .5 is upstream-conformant', () => {
+		for (const n of pathNumbers(SEQUENCE_NUMERIC_RIGHT_NODES)) {
+			expect(Number.isInteger(n * 2), `sub-half-pixel coordinate ${n}`).toBe(true);
 		}
 	});
 });

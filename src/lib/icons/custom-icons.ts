@@ -81,9 +81,29 @@ export const LIST_DICTIONARY_NODES: CustomIconNode = [
   ['rect', { x: 12, y: 17, width: 9, height: 4, rx: 1 }],
 ];
 
+/** sequence-numeric-right — "1 › N →": an ordered progression from the
+ *  first to the nth item. The `layout-arrow-right` construction (arrow
+ *  kept verbatim) with its two squares replaced by a numeric sequence:
+ *  "1" in the `list-ordered` digit style (stem + top tick + baseline
+ *  foot, h5, baseline y=10), "N" in the `arrow-down-a-z` geometric
+ *  letter style (two stems + diagonal), and a `>` chevron apex-centred
+ *  at cy=7.5 — the exact mid-height of the h5 glyphs. Coordinates sit
+ *  on the half-unit grid (upstream-conformant, as `table-dictionary`).
+ *  Name follows the shape-based upstream convention: subject
+ *  (`sequence-numeric`) + direction qualifier (`-right`). */
+export const SEQUENCE_NUMERIC_RIGHT_NODES: CustomIconNode = [
+  ['path', { d: 'M4 5h1v5' }],
+  ['path', { d: 'M4 10h2' }],
+  ['path', { d: 'm9 10 2.5-2.5-2.5-2.5' }],
+  ['path', { d: 'M14.5 10V5l4.5 5V5' }],
+  ['path', { d: 'M3 18h18' }],
+  ['path', { d: 'm18 21 3-3-3-3' }],
+];
+
 export const CUSTOM_ICONS: Partial<Record<string, CustomIconNode>> = {
   'trash-arrow-up': TRASH_ARROW_UP_NODES,
   'question-mark': QUESTION_MARK_NODES,
   'table-dictionary': TABLE_DICTIONARY_NODES,
   'list-dictionary': LIST_DICTIONARY_NODES,
+  'sequence-numeric-right': SEQUENCE_NUMERIC_RIGHT_NODES,
 };
