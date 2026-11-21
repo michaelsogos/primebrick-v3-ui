@@ -99,12 +99,11 @@ describe('list-dictionary authored geometry', () => {
 });
 
 describe('sequence-numeric-right authored geometry', () => {
-	it('keeps the approved path set verbatim ("1 › N" sequence + layout-arrow-right arrow)', () => {
+	it('keeps the approved path set verbatim ("1 › N" thin glyphs + stroke-2 layout-arrow-right arrow)', () => {
 		expect(SEQUENCE_NUMERIC_RIGHT_NODES).toEqual([
-			['path', { d: 'M4 5h1v5' }],
-			['path', { d: 'M4 10h2' }],
-			['path', { d: 'm9 10 2.5-2.5-2.5-2.5' }],
-			['path', { d: 'M14.5 10V5l4.5 5V5' }],
+			['path', { d: 'm3.5 6.5 1.5-1.5V10', 'stroke-width': 1.5 }],
+			['path', { d: 'm9.5 10 2.5-2.5-2.5-2.5', 'stroke-width': 1.5 }],
+			['path', { d: 'M16 10V5l4.5 5V5', 'stroke-width': 1.5 }],
 			['path', { d: 'M3 18h18' }],
 			['path', { d: 'm18 21 3-3-3-3' }],
 		]);
