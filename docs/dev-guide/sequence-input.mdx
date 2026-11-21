@@ -1,0 +1,85 @@
+---
+title: Sequence Input
+description: The directive editor for format:"sequence" columns — readonly display + assist popover with generate/select modes and forecast feedback.
+---
+
+`SequenceInput` is the canonical control for `format:"sequence"` columns — a
+seq-bound field never accepts a literal: the widget emits a **sequence
+directive** that the DAL resolves inside the write transaction (one claim,
+same tx as the entity write, bulk claims batched into a single `count:N`
+counter update).
+
+```ts
+import { SequenceInput } from "@primebrick/ui";
+```
+
+## Canonical value contract
+
+The bound value is either `''` (untouched — the field is **omitted** from the
+payload, so the bound default allocates) or a directive object:
+
+```ts
+// generate mode — inline pattern, materializes an expr_* registry row
+value = { seq: { pattern: "INV-{yyyy}-{seq:4}", step: 1n, start: 1n } };
+// select mode — an existing module-local registry row
+value = { seq: { code: "customers.code" } };
+// sez context rides on both shapes: { seq: { code, sez: "EU" } }
+```
+
+A persisted literal renders through the `existing` prop (readonly display) —
+it is **never** re-sent as a directive unless the user applies a new one.
+
+## Column contract
+
+`MetaColumn.seq` authors the modes and defaults:
+
+| Field | Meaning |
+|-------|---------|
+| `code` | bound default sequence (omitted directive allocates here) |
+| `modes` | `("generate" \| "select")[]` — the popover's authored tabs |
+| `default_mode` | pre-checked tab |
+| `allow_create` | shows the "new sequence" CTA (opens `/{service}/settings/sequences` in a tab) |
+
+## Anatomy
+
+```
+[ readonly field            ] [ sequence-numeric-right ]
+                     popover: (•) generate  |  ( ) select
+                             pattern / step / start / sez_*
+                             combobox  [+ New sequence]
+                     [Reset to auto]            [Apply]
+        Next: CUST-00151   ← forecast strip (read-only)
+```
+
+- The field input is **readonly** — every writable path goes through the
+  assist popover.
+- The forecast strip shows the next emitted value: the registry row's `next`
+  for partition-free patterns, or a `POST /api/v1/actions/sequence-forecast`
+  call for partitioned/business-date contexts.
+- `primebrick_sequence_sync` BroadcastChannel refreshes the select options
+  after the dict page saves — a sequence authored in the new tab is
+  selectable without reload.
+
+## Service resolution
+
+`service` is the **owning module code** (`crm`). Remote bundles resolve it
+through the bound service-api slot; the host falls back to
+`/svc/<service>` — builtin entities are mounted on every service, so the
+explicit module context is mandatory for the module-local registry.
+
+## Where it renders
+
+| Surface | Path |
+|---------|------|
+| Entity create/update form | `FormFieldDispatcher` → `format:"sequence"` |
+| Bulk editor | same dispatcher — untouched seq fields stay out of `set` |
+| Record sheet / dict page | same dispatcher, explicit module context |
+
+## Common pitfalls
+
+- **Never write literals** — a literal on a seq-bound column is strict-rejected
+  by the resolver; only `''` (omit) or a directive object cross the wire.
+- **`''` ≠ `null`** — untouched seq fields are *omitted*, not nulled; the
+  bulk `set` and record-sheet diff both skip them.
+- The seed runs on the popover's **open edge only** — re-seeding on fetch
+  completion would reset the user's mode choice mid-interaction.

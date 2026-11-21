@@ -2,6 +2,7 @@
   "pages": [
     "overview",
     "numeric-input",
+    "sequence-input",
     "state-hero",
     "utilities",
     "special-icons",
