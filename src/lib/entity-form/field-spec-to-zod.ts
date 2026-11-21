@@ -38,6 +38,12 @@ export function fieldSpecToZod(
 	const pg = col.pg_type;
 	const type = col.type;
 
+	if (format === 'sequence') {
+		// The SequenceInput binds a sequence DIRECTIVE object ({seq:…}), not a
+		// string — the shared predicate owns the shape contract.
+		return z.unknown().superRefine((v, ctx) => emitIssues(col, v, ctx));
+	}
+
 	if (type === 'boolean' || pg === 'boolean') {
 		return z.boolean().superRefine((v, ctx) => emitIssues(col, v, ctx));
 	}
