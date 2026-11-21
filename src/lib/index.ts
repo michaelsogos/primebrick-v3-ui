@@ -162,6 +162,8 @@ export { default as AiIcon } from './components/ai-icon/ai-icon.svelte';
 export { default as AiTypingDots } from './components/ai-typing-dots/ai-typing-dots.svelte';
 export { default as SafeHtml } from './components/safe-html/safe-html.svelte';
 export { ScheduleSpecInput } from './components/schedule-spec-input/index.js';
+export { SequenceInput } from './components/sequence-input/index.js';
+export type { SequenceInputSeqDecl } from './components/sequence-input/index.js';
 export { ScheduleSpecCell } from './components/schedule-spec-cell/index.js';
 export { scheduleDescriptionText, scheduleRunLabel } from './utils/schedule-spec-i18n.js';
 
