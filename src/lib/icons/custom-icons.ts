@@ -83,21 +83,19 @@ export const LIST_DICTIONARY_NODES: CustomIconNode = [
 
 /** sequence-numeric-right — "1 › N →": an ordered progression from the
  *  first to the nth item — the numeric-sequencer glyph. The
- *  `layout-arrow-right` construction (arrow kept verbatim at stroke 2)
- *  with its two squares replaced by a numeric sequence at stroke 1.5:
- *  "1" as a diagonal-flag stem (no foot), "N" in the `arrow-down-a-z`
- *  geometric letter style (two stems + diagonal), and a `>` chevron
- *  apex-centred at cy=7.5 — the exact mid-height of the h5 glyphs —
- *  with equal ~4u gaps between tokens (group x3.5–20.5, the same span
- *  as the arrow). The two-weight construction is a deliberate
- *  Primebrick deviation from upstream's uniform stroke 2. Coordinates
- *  sit on the half-unit grid. Name follows the shape-based upstream
- *  convention: subject (`sequence-numeric`) + direction qualifier
- *  (`-right`). */
+ *  `layout-arrow-right` construction (arrow kept verbatim) with its two
+ *  squares replaced by a numeric sequence: "1" as a diagonal-flag stem
+ *  (no foot), "N" in the `arrow-down-a-z` geometric letter style (two
+ *  stems + diagonal), and a `>` chevron apex-centred at cy=7.5 — the
+ *  exact mid-height of the h5 glyphs — with equal ~4u gaps between
+ *  tokens (group x3.5–20.5, the same span as the arrow). Uniform
+ *  stroke 2, coordinates on the half-unit grid — contribution-ready.
+ *  Name follows the shape-based upstream convention: subject
+ *  (`sequence-numeric`) + direction qualifier (`-right`). */
 export const SEQUENCE_NUMERIC_RIGHT_NODES: CustomIconNode = [
-  ['path', { d: 'm3.5 6.5 1.5-1.5V10', 'stroke-width': 1.5 }],
-  ['path', { d: 'm9.5 10 2.5-2.5-2.5-2.5', 'stroke-width': 1.5 }],
-  ['path', { d: 'M16 10V5l4.5 5V5', 'stroke-width': 1.5 }],
+  ['path', { d: 'm3.5 6.5 1.5-1.5V10' }],
+  ['path', { d: 'm9.5 10 2.5-2.5-2.5-2.5' }],
+  ['path', { d: 'M16 10V5l4.5 5V5' }],
   ['path', { d: 'M3 18h18' }],
   ['path', { d: 'm18 21 3-3-3-3' }],
 ];
