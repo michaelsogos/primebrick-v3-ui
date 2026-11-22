@@ -19,6 +19,9 @@ The bound value is the literal pattern text — grammar:
 
 - exactly one counter slot: `{seq}` or `{seq:W}` (`W` 1–19)
 - date tokens, at most once each: `{yyyy}` `{yy}` `{MM}` `{dd}` `{q}`
+- time tokens, at most once each — cosmetic claim-time stamps, never
+  period-scoped: `{HH}` (24h) `{hh}` (12h) `{mm}` (minutes) `{ss}` (seconds).
+  **Case IS the grammar**: `{MM}` is month, `{mm}` is minutes.
 - partition tokens, at most once each: `{sez}` `{sez2}` `{sez3}`
 - literal braces escaped as `{{` / `}}`; arbitrary literal text otherwise
 
@@ -51,33 +54,48 @@ invalid pattern is blocked client-side with the standard field chrome.
 
 ```ts
 interface SequencePatternPick {
-  get_value: () => string;                        // live pattern getter
-  caret: { start: number; end: number } | null;   // tracked selection — null = untouched → append
-  context?: Record<string, unknown>;              // the form record (step/start/tz previews)
+  get_value: () => string;                          // live pattern getter
+  get_caret: () => { start: number; end: number } | null;  // tracked selection — null = untouched → append
+  context?: Record<string, unknown>;                // the form record (step/start/tz previews)
 }
 ```
 
-`caret` is a **snapshot** at open time — the widget tracks
-`selectionStart/End` on every focus/select/key/click. The host's token
-surface should prefer the input's **live DOM selection** at insert time (it
-survives blur and post-open caret moves), falling back to `pick.caret` only
-when the DOM reports a cleared `{0,0}`.
+`get_caret` reads the widget's tracked selection — but note it freezes the
+moment the stack remount kills the widget instance. The host's token
+surface should therefore prefer, in order: the input's **live DOM
+selection** (Chrome preserves it across blur), then a **host-side live
+caret** recorded from real selection events on the element (the FE
+dispatcher keeps one for the sheet's lifetime), then `get_caret()` — the
+open-time value. `null` all the way = untouched → append.
 
 ## Token surface (host side)
 
 The FE mounts `entity.sequencePattern` as a **stacked sheet** (record pane
 stays on the left). It renders `sequenceTokenCatalog()` from
 `@primebrick/core` — grammar knowledge is never duplicated — with per-token
-syntax, localized label, a rendered example, and an insert CTA. Already-used
-slots are gated (icon badge, no CTA) because the grammar allows each slot at
-most once. A live preview interpolates the pattern through the shared
-`renderSequenceValue` with an example counter/date/partition context —
-invalid patterns show the parser error, never a guess.
+syntax, localized label, a rendered example, and an insert CTA.
+
+- **One counter row** — `kind:"counter"` is listed once; its padding is
+  authored in the small form right under the row (`0` = no padding, the
+  default; `N` → `{seq:N}` on insert). While the slot is consumed the form
+  mirrors the pattern's `counter_width`, disabled.
+- **Used slots** carry the lucide `Tags` badge plus a `-` remove CTA —
+  `removeSequenceToken(source, slot)` strips the whole token span
+  (`{seq:W}` included, escapes untouched) and the host writes the result
+  through the same live channel (`on_write`).
+- **i18n keys are explicit** — `spec.key`, not `id.toLowerCase()`: `{MM}`
+  (month) and `{mm}` (minutes) would collide as `mm`, so minutes is `min`
+  and `{HH}`/`{hh}` are `hh`/`hh12`.
+- A live preview interpolates the pattern through the shared
+  `renderSequenceValue` with an example counter/date/partition context —
+  invalid patterns show the parser error, never a guess.
 
 Because stacking **remounts** the record pane, the host writes tokens
 through the **live DOM input** (`el.value` + `input` event — the real bind
 chain, identical to keystrokes) rather than component bindings captured in
-the pick — those orphan the moment the pane remounts.
+the pick — those orphan the moment the pane remounts. For the same reason
+the widget's clear CTA writes through the DOM channel too, so the sheet's
+`on_change` feed sees the erase exactly like keyboard deletion.
 
 ## Where it renders
 
@@ -91,8 +109,9 @@ the pick — those orphan the moment the pane remounts.
 - **Never reuse `format:"sequence"`** — that is the seq-bound directive
   contract; pattern authoring is a separate semantic and needs its own
   format.
-- **`pick.caret` is a snapshot, not a bind** — after the sheet opens the
-  live DOM selection is authoritative.
-- **Token labels are `snake_case` keys** — the i18n vocabulary is
-  `app.widgets.sequence_pattern.tokens.<id_lowercase>` (the catalog id `MM`
-  lowercases to `mm`; key grammar forbids uppercase segments).
+- **`get_caret()` freezes post-remount** — the live DOM selection is
+  authoritative when present; only `{0,0}` consults the tracked fallbacks.
+- **Token labels are `snake_case` keys via `spec.key`** — the i18n
+  vocabulary is `app.widgets.sequence_pattern.tokens.<key>`; the key is
+  explicit because case-meaningful ids would collide under lowercasing
+  (`MM`/`mm` → `mm`/`min`, `HH`/`hh` → `hh`/`hh12`).

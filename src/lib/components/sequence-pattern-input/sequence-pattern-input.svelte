@@ -7,14 +7,17 @@
   import { Eraser, Tags } from "@primebrick/ui/vendor/lucide";
 
   /** Helpers handed to the host's token surface (sheet) when the CTA
-   *  fires. `caret` is the tracked selection SNAPSHOT at open time —
-   *  `null` when the field was never careted (untouched = append). The
-   *  host's `insert` should prefer the input's LIVE DOM selection when
-   *  present (it survives blur and post-open caret moves), falling back
-   *  to this snapshot only when the DOM reports a cleared `{0,0}`. */
+   *  fires. `get_caret` reads the widget's CURRENT tracked selection —
+   *  live across sheet-stack remounts (the fresh widget keeps tracking
+   *  its own focus/select/key/click); `null` while the field was never
+   *  careted (untouched = append). The host's `insert` should prefer the
+   *  input's LIVE DOM selection when present, falling back to
+   *  `get_caret()` only when the DOM reports a cleared `{0,0}` — which
+   *  is exactly why a getter beats a snapshot: a click at position 0
+   *  post-open must still land at 0. */
   export interface SequencePatternPick {
     get_value: () => string;
-    caret: { start: number; end: number } | null;
+    get_caret: () => { start: number; end: number } | null;
     /** The form record — the sheet's example context reads `step`/`start`/
      *  `tz` when the authoring surface carries them (illustrative only:
      *  partitions are claim-time context, never persisted). */
@@ -54,6 +57,9 @@
 
   const t = getT();
 
+  /** The live input element — `bind:ref` is a PROP-TO-PROP bind (the
+   *  canonical ui convention): `ref` is the $bindable prop itself, so the
+   *  element reaches both us and any parent that bound it. */
   let inputRef = $derived(ref as HTMLInputElement | null);
   let isDisabled = $derived(disabled || readonly);
 
@@ -74,28 +80,39 @@
 
   function openTokens() {
     if (isDisabled) return;
-    // `caret` is already live — every real focus/select/key/click tracked
-    // it. Do NOT resample here: an untouched input reports `0` and would
-    // forge a `{0,0}` caret; `null` is the "untouched → append" flag.
+    // Hand the host a live getter, not a snapshot — `caret` keeps
+    // tracking after the sheet opens (and after pane remounts). `null`
+    // stays the "untouched → append" flag: an input that was never
+    // careted must not forge `{0,0}`.
     on_pick?.({
       get_value: () => value ?? "",
-      caret: caret ? { start: caret.start, end: caret.end } : null,
+      get_caret: () => (caret ? { start: caret.start, end: caret.end } : null),
       context,
     });
   }
 
   let canClear = $derived(value !== "" && !isDisabled);
   function clearValue() {
-    value = "";
+    const el = inputRef;
+    if (el) {
+      // DOM channel — same as host inserts: el.value + a bubbling `input`
+      // event rides the real bind chain AND notifies every `input`
+      // listener (the token sheet's on_change feed) — clearing via this
+      // CTA must be indistinguishable from keyboard deletion.
+      el.value = "";
+      el.dispatchEvent(new InputEvent("input", { bubbles: true }));
+    } else {
+      value = "";
+    }
     onChange?.("");
     caret = null;
-    inputRef?.focus();
+    el?.focus();
   }
 </script>
 
 <div class="relative w-full">
   <Input
-    bind:ref={inputRef}
+    bind:ref
     bind:value
     oninput={handleInput}
     onclick={trackCaret}
