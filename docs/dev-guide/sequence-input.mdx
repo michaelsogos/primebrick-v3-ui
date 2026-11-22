@@ -21,9 +21,10 @@ payload, so the bound default allocates) or a directive object:
 ```ts
 // generate mode — inline pattern, materializes an expr_* registry row
 value = { seq: { pattern: "INV-{yyyy}-{seq:4}", step: 1n, start: 1n } };
-// select mode — an existing module-local registry row
-value = { seq: { code: "customers.code" } };
-// sez context rides on both shapes: { seq: { code, sez: "EU" } }
+// select mode — an existing module-local registry row (uuid is the
+// ONLY sequence identity — `name` is display data, never an address)
+value = { seq: { uuid: "58da4ddb-b38c-53ec-95d7-4e5b867bf578" } };
+// sez context rides on both shapes: { seq: { uuid, sez: "EU" } }
 ```
 
 A persisted literal renders through the `existing` prop (readonly display) —
@@ -35,7 +36,8 @@ it is **never** re-sent as a directive unless the user applies a new one.
 
 | Field | Meaning |
 |-------|---------|
-| `code` | bound default sequence (omitted directive allocates here) |
+| `uuid` | bound default sequence identity (omitted directive allocates here) — deterministic, derived from `<table>.<field>` |
+| `name` | bound default's display name (`<table>.<field>`) |
 | `modes` | `("generate" \| "select")[]` — the popover's authored tabs |
 | `default_mode` | pre-checked tab |
 | `allow_create` | shows the "new sequence" CTA (opens `/{service}/settings/sequences` in a tab) |
@@ -53,9 +55,10 @@ it is **never** re-sent as a directive unless the user applies a new one.
 
 - The field input is **readonly** — every writable path goes through the
   assist popover.
-- The forecast strip shows the next emitted value: the registry row's `next`
-  for partition-free patterns, or a `POST /api/v1/actions/sequence-forecast`
-  call for partitioned/business-date contexts.
+- The forecast strip shows the next emitted value: the registry row's
+  `emitted_next` for partition-free patterns, or a `POST
+  /api/v1/actions/sequence-forecast` call (uuid-only body) for
+  partitioned/business-date contexts.
 - `primebrick_sequence_sync` BroadcastChannel refreshes the select options
   after the dict page saves — a sequence authored in the new tab is
   selectable without reload.

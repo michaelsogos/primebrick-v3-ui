@@ -22,12 +22,13 @@
    *   - `generate` — inline pattern builder → `{seq:{pattern,step,start,sez*}}`
    *     materialized + allocated inside the write transaction;
    *   - `select` — paged/search combobox over the module's `sequence`
-   *     registry → `{seq:{code,sez*}}`; the new-tab CTA opens the
+   *     registry → `{seq:{uuid,sez*}}` — uuid is the ONLY sequence
+   *     identity (`name` is display data); the new-tab CTA opens the
    *     `/{service}/settings/sequences` dict page so a missing sequence
    *     is one tab away.
    *
    * Forecast is READ-ONLY by contract: registry list rows already carry
-   * `next` for partition-free patterns; `POST /api/v1/actions/sequence-forecast`
+   * `emitted_next` for partition-free patterns; `POST /api/v1/actions/sequence-forecast`
    * resolves the value only when the picked pattern needs sezionale
    * context the list row cannot carry. The `primebrick_sequence_sync`
    * BroadcastChannel refreshes the option vocabulary when the dict tab
@@ -73,14 +74,16 @@
   /** One registry row as served by `entities/sequence/list`. */
   interface SequenceRow {
     uuid: string;
-    code: string;
+    name: string;
     pattern: string;
     step?: bigint | number | string;
     start?: bigint | number | string;
     tz?: string | null;
-    /** `attachForecast` — the next emitted value on the default
+    /** i18n key for the explanatory description — the option tooltip. */
+    description_key?: string | null;
+    /** `attachCounterProjection` — the next emitted value on the default
      *  partition at now; `null` when the pattern needs sez context. */
-    next?: string | null;
+    emitted_next?: string | null;
   }
 
   interface SeqOption extends Record<string, unknown> {
@@ -93,7 +96,10 @@
 
   /** The column-authored `seq` block on `MetaColumn` (see entity-meta). */
   export interface SequenceInputSeqDecl {
-    code?: string;
+    /** DERIVED default sequence identity — deterministic bound uuid. */
+    uuid?: string;
+    /** DERIVED bound name — `<table>.<field>` (display only). */
+    name?: string;
     modes?: readonly SequenceMode[];
     default_mode?: SequenceMode;
     allow_create?: boolean;
@@ -119,7 +125,7 @@
     /** The record's stored literal on update surfaces — display context
      *  only, it never travels back through `value`. */
     existing?: string;
-    /** The column's `seq` block — default code + authored modes. */
+    /** The column's `seq` block — bound identity (uuid) + authored modes. */
     seq?: SequenceInputSeqDecl;
     /** Owning module code (`crm`) — resolves the module-local builtin
      *  registry through the service-api bridge (remote) or the
@@ -171,10 +177,10 @@
 
   function mapSeqRows(rows: SequenceRow[]): SeqOption[] {
     return rows.map((row) => ({
-      value: row.code,
-      label: row.code,
-      _desc: row.pattern,
-      _sub: row.next ?? row.pattern,
+      value: row.uuid,
+      label: row.name,
+      _desc: row.description_key ? $t(row.description_key) : row.pattern,
+      _sub: row.emitted_next ?? row.pattern,
       _raw: row,
     }));
   }
@@ -237,7 +243,7 @@
   let genStart = $state('1');
   let genSez = $state<Record<SequenceSezToken, string>>({ sez: '', sez2: '', sez3: '' });
   // select-mode fields
-  let selCode = $state('');
+  let selUuid = $state('');
   let selSez = $state<Record<SequenceSezToken, string>>({ sez: '', sez2: '', sez3: '' });
 
   const genParsed = $derived.by<SequencePattern | null>(() => {
@@ -257,7 +263,7 @@
     }
   });
 
-  const selRow = $derived(seqOptions.find((o) => o.value === selCode)?._raw);
+  const selRow = $derived(seqOptions.find((o) => o.value === selUuid)?._raw);
   const selParsed = $derived.by<SequencePattern | null>(() => {
     if (!selRow) return null;
     try {
@@ -304,7 +310,7 @@
       if (BigInt(genStep.trim()) === 0n) return false;
       return sezComplete(genParsed, genSez);
     }
-    if (!selCode) return false;
+    if (!selUuid) return false;
     if (selRow && !selParsed) return false; // corrupt registry pattern
     return selParsed ? sezComplete(selParsed, selSez) : true;
   });
@@ -336,7 +342,7 @@
         genSez = pickSez(s);
       } else if (modes.includes('select')) {
         mode = 'select';
-        selCode = typeof s === 'string' ? s : String((s as { code?: string; uuid?: string }).code ?? (s as { uuid?: string }).uuid ?? '');
+        selUuid = typeof s === 'string' ? s : String((s as { uuid?: string }).uuid ?? '');
         selSez = pickSez(s);
       } else {
         mode = defaultMode;
@@ -363,9 +369,9 @@
         start: BigInt(genStart.trim()),
       };
       value = { seq: { ...decl, ...sezCtx(genParsed, genSez) } };
-    } else if (mode === 'select' && selCode) {
+    } else if (mode === 'select' && selUuid) {
       value = {
-        seq: { code: selCode, ...(selParsed ? sezCtx(selParsed, selSez) : {}) },
+        seq: { uuid: selUuid, ...(selParsed ? sezCtx(selParsed, selSez) : {}) },
       };
     }
     assistOpen = false;
@@ -385,9 +391,8 @@
     const d = directive;
     if (d) {
       const s = d.seq;
-      if (typeof s === 'string') return s;
-      if ('code' in s && s.code) return s.code;
-      if ('uuid' in s && s.uuid) return s.uuid;
+      if (typeof s === 'string') return seqOptions.find((o) => o.value === s)?.label ?? s;
+      if ('uuid' in s && s.uuid) return seqOptions.find((o) => o.value === s.uuid)?.label ?? s.uuid;
       if ('pattern' in s) {
         try {
           const p = parseSequencePattern(s.pattern);
@@ -403,7 +408,7 @@
   });
 
   const autoPlaceholder = $derived(
-    placeholder ?? (seq?.code ? $t('app.widgets.sequence.auto_of', { code: seq.code }) : $t('app.widgets.sequence.auto')),
+    placeholder ?? (seq?.name ? $t('app.widgets.sequence.auto_of', { code: seq.name }) : $t('app.widgets.sequence.auto')),
   );
 
   // Forecast strip — the value the NEXT claim emits for the effective
@@ -430,23 +435,25 @@
     return null;
   });
 
-  /** Forecast target: the applied directive's sequence identity, else the
-   *  column default while the field stays untouched. `null` while a
+  /** Forecast target: the applied directive's sequence uuid, else the
+   *  column's bound uuid while the field stays untouched. `null` while a
    *  stored literal is shown — the next emission is not the question an
    *  unchanged field asks. */
-  const forecastIdentity = $derived.by<{ uuid?: string; code?: string; sez?: SequenceDirectiveContext } | null>(
+  const forecastIdentity = $derived.by<{ uuid: string; sez?: SequenceDirectiveContext } | null>(
     () => {
       const s = directive?.seq;
-      if (s && typeof s === 'object' && ('code' in s || 'uuid' in s)) {
+      if (typeof s === 'string' && s) {
+        return { uuid: s };
+      }
+      if (s && typeof s === 'object' && 'uuid' in s && s.uuid) {
         const parts = pickSez(s);
         const hasSez = SEZ_SLOTS.some((slot) => parts[slot] !== '');
         return {
-          code: 'code' in s ? s.code : undefined,
-          uuid: 'uuid' in s ? s.uuid : undefined,
+          uuid: s.uuid,
           sez: hasSez ? (parts as SequenceDirectiveContext) : undefined,
         };
       }
-      if (!directive && !existing && seq?.code) return { code: seq.code };
+      if (!directive && !existing && seq?.uuid) return { uuid: seq.uuid };
       return null;
     },
   );
@@ -460,18 +467,16 @@
       return;
     }
     stripErr = false;
-    // A registry row's own `next` answers without a call when the
+    // A registry row's own `emitted_next` answers without a call when the
     // directive names a loaded sequence on the default partition.
-    if (target.code && !target.sez) {
-      const row = seqOptions.find((o) => o.value === target.code)?._raw;
-      if (row?.next) {
-        stripNext = row.next;
+    if (!target.sez) {
+      const row = seqOptions.find((o) => o.value === target.uuid)?._raw;
+      if (row?.emitted_next) {
+        stripNext = row.emitted_next;
         return;
       }
     }
-    const body: Record<string, unknown> = { ...(target.sez ?? {}) };
-    if (target.uuid) body.uuid = target.uuid;
-    else body.code = target.code;
+    const body: Record<string, unknown> = { uuid: target.uuid, ...(target.sez ?? {}) };
     serviceApi()('/api/v1/actions/sequence-forecast', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -642,7 +647,7 @@
   <div class="space-y-2 pt-3">
     <ComboSelect
       mode="single"
-      bind:value={selCode}
+      bind:value={selUuid}
       options={seqOptions}
       valueField="value"
       labelField="label"
