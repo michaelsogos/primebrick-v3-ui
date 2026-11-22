@@ -4,7 +4,12 @@
   import Input from "../input/input.svelte";
   import { inputTrailingIconButtonClasses } from "../input/input-chrome.js";
   import { getT } from "../../bridges.js";
-  import { Eraser, Tags } from "@primebrick/ui/vendor/lucide";
+  import { CircleAlert, CircleCheck, Eraser, Tags } from "@primebrick/ui/vendor/lucide";
+  import {
+    parseSequencePattern,
+    renderSequenceValue,
+    sequenceTokenExampleDefaults,
+  } from "@primebrick/core";
 
   /** Helpers handed to the host's token surface (sheet) when the CTA
    *  fires. `get_caret` reads the widget's CURRENT tracked selection —
@@ -91,6 +96,45 @@
     });
   }
 
+  /** Example/preview render — same shared helpers the token sheet uses:
+   *  counter rides the host `context.start` when carried (the first
+   *  emitted value) else the catalog default; partitions always use the
+   *  catalog example defaults (claim-time context, never persisted). */
+  let exampleCounter = $derived.by(() => {
+    const s = context?.start;
+    if (typeof s === "bigint" || typeof s === "number" || typeof s === "string") {
+      try {
+        return BigInt(s);
+      } catch {
+        /* fall through to default */
+      }
+    }
+    return sequenceTokenExampleDefaults.counter;
+  });
+  let ctxTz = $derived(typeof context?.tz === "string" && context.tz !== "" ? context.tz : undefined);
+
+  let parsed = $derived.by(() => {
+    const v = value ?? "";
+    if (v.trim() === "") return null;
+    try {
+      return parseSequencePattern(v);
+    } catch (e) {
+      return e instanceof Error ? e : new Error(String(e));
+    }
+  });
+
+  let preview = $derived.by(() => {
+    if (!parsed || parsed instanceof Error) return null;
+    try {
+      return renderSequenceValue(parsed, exampleCounter, new Date(), {
+        tz: ctxTz,
+        partitions: { ...sequenceTokenExampleDefaults.partitions },
+      });
+    } catch (e) {
+      return e instanceof Error ? e.message : String(e);
+    }
+  });
+
   let canClear = $derived(value !== "" && !isDisabled);
   function clearValue() {
     const el = inputRef;
@@ -110,55 +154,80 @@
   }
 </script>
 
-<div class="relative w-full">
-  <Input
-    bind:ref
-    bind:value
-    oninput={handleInput}
-    onclick={trackCaret}
-    onkeyup={trackCaret}
-    onselect={trackCaret}
-    onfocus={trackCaret}
-    class={cn("font-mono", on_pick ? "pr-14" : "pr-8", className)}
-    aria-invalid={errors.length > 0 || restProps["aria-invalid"] === "true" || restProps["aria-invalid"] === true}
-    data-testid={restProps["data-testid"]}
-    placeholder={restProps.placeholder}
-    {disabled}
-    {readonly}
-    required={restProps.required}
-    id={restProps.id}
-    name={restProps.name}
-  />
+<div class="w-full">
+  <!-- The `relative` scope is input+CTAs only — the interpreter strip
+       below must NOT join it (absolute `top-1/2` centers on the scope). -->
+  <div class="relative w-full">
+    <Input
+      bind:ref
+      bind:value
+      oninput={handleInput}
+      onclick={trackCaret}
+      onkeyup={trackCaret}
+      onselect={trackCaret}
+      onfocus={trackCaret}
+      class={cn("font-mono", on_pick ? "pr-14" : "pr-8", className)}
+      aria-invalid={errors.length > 0 || restProps["aria-invalid"] === "true" || restProps["aria-invalid"] === true}
+      data-testid={restProps["data-testid"]}
+      placeholder={restProps.placeholder}
+      {disabled}
+      {readonly}
+      required={restProps.required}
+      id={restProps.id}
+      name={restProps.name}
+    />
 
-  <!-- Trailing CTAs — input-chrome convention (command-input/cron-input):
-       rightmost CTA at `right-1.5` (symmetric to px-3), the second slot at
-       `right-10`; ghost icon chips, `tabindex=-1` — they never enter the
-       form's tab order. -->
-  {#if on_pick}
+    <!-- Trailing CTAs — input-chrome convention (command-input/cron-input):
+         rightmost CTA at `right-1.5` (symmetric to px-3), the second slot at
+         `right-10`; ghost icon chips, `tabindex=-1` — they never enter the
+         form's tab order. -->
+    {#if on_pick}
+      <button
+        type="button"
+        class={cn(inputTrailingIconButtonClasses, "right-10")}
+        onclick={openTokens}
+        disabled={isDisabled}
+        tabindex={-1}
+        aria-label={$t("app.widgets.sequence_pattern.tokens_cta")}
+        title={$t("app.widgets.sequence_pattern.tokens_cta")}
+        data-testid={`${restProps["data-testid"] ?? "sequence-pattern-input"}-tokens-cta`}
+      >
+        <Tags class="size-4" />
+      </button>
+    {/if}
+
     <button
       type="button"
-      class={cn(inputTrailingIconButtonClasses, "right-10")}
-      onclick={openTokens}
-      disabled={isDisabled}
+      class={inputTrailingIconButtonClasses}
+      onclick={clearValue}
+      disabled={!canClear}
       tabindex={-1}
-      aria-label={$t("app.widgets.sequence_pattern.tokens_cta")}
-      title={$t("app.widgets.sequence_pattern.tokens_cta")}
-      data-testid={`${restProps["data-testid"] ?? "sequence-pattern-input"}-tokens-cta`}
+      aria-label={$t("app.common.reset")}
+      title={$t("app.common.reset")}
+      data-testid={`${restProps["data-testid"] ?? "sequence-pattern-input"}-clear`}
     >
-      <Tags class="size-4" />
+      <Eraser class="size-4" />
     </button>
-  {/if}
+  </div>
 
-  <button
-    type="button"
-    class={inputTrailingIconButtonClasses}
-    onclick={clearValue}
-    disabled={!canClear}
-    tabindex={-1}
-    aria-label={$t("app.common.reset")}
-    title={$t("app.common.reset")}
-    data-testid={`${restProps["data-testid"] ?? "sequence-pattern-input"}-clear`}
-  >
-    <Eraser class="size-4" />
-  </button>
+  <!-- Interpreter strip (schedule-spec-input convention): the rendered
+       example lives right under the input — valid parses show the
+       interpolated preview, invalid ones the parser error. -->
+  {#if (value ?? "").trim() !== ""}
+    <div
+      class="mt-1 flex items-start gap-1.5 px-1 text-xs"
+      data-testid={`${restProps["data-testid"] ?? "sequence-pattern-input"}-interpreter`}
+    >
+      {#if parsed && !(parsed instanceof Error)}
+        <CircleCheck class="mt-0.5 size-3.5 shrink-0 text-emerald-600" />
+        <span class="min-w-0">
+          <span class="text-muted-foreground">{$t("app.widgets.sequence_pattern.preview")}:</span>
+          <code class="font-mono" data-testid={`${restProps["data-testid"] ?? "sequence-pattern-input"}-example`}>{preview}</code>
+        </span>
+      {:else if parsed instanceof Error}
+        <CircleAlert class="mt-0.5 size-3.5 shrink-0 text-destructive" />
+        <span class="text-destructive" data-testid={`${restProps["data-testid"] ?? "sequence-pattern-input"}-error`}>{parsed.message}</span>
+      {/if}
+    </div>
+  {/if}
 </div>

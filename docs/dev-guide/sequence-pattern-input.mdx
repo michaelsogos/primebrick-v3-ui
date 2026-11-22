@@ -1,6 +1,6 @@
 ---
 title: Sequence Pattern Input
-description: The pattern-builder for format:"sequence_pattern" columns — free literal typing, in-input Tags CTA opening a host token surface with insert-at-caret and live interpolation preview.
+description: The pattern-builder for format:"sequence_pattern" columns — free literal typing, in-input Tags CTA opening a host token surface, interpreter-strip preview under the input.
 ---
 
 `SequencePatternInput` is the canonical control for `format:"sequence_pattern"`
@@ -32,8 +32,18 @@ invalid pattern is blocked client-side with the standard field chrome.
 ## Anatomy
 
 ```
-[ pattern text                                🏷 tags-cta] [⌫ eraser]
+[ pattern text                              🏷 tags-cta] [⌫ eraser]
+✓ Preview: INV-2026-0001          ← interpreter strip (scheduler-style)
 ```
+
+- **Interpreter strip** — directly under the input, the
+  `schedule-spec-input` convention (`flex items-start gap-1.5 px-1
+  text-xs`, no enclosing box): `CircleCheck` + `Preview: <rendered>` while
+  the pattern parses, `CircleAlert` + the parser error while it doesn't.
+  Hidden entirely on empty input. The example renders through the shared
+  `renderSequenceValue` — counter rides `context.start` when the host
+  record carries it (else `sequenceTokenExampleDefaults.counter`),
+  partitions ride the shared catalog defaults.
 
 - **Free typing** — arbitrary literal text is always accepted verbatim.
 - **Anatomy** — a plain `Input` inside a `relative` wrapper; the trailing
@@ -87,8 +97,12 @@ syntax, localized label, a rendered example, and an insert CTA.
   (month) and `{mm}` (minutes) would collide as `mm`, so minutes is `min`
   and `{HH}`/`{hh}` are `hh`/`hh12`.
 - A live preview interpolates the pattern through the shared
-  `renderSequenceValue` with an example counter/date/partition context —
-  invalid patterns show the parser error, never a guess.
+  `renderSequenceValue` — display-only (no sample-value inputs; the
+  counter comes from the host record's `start` or
+  `sequenceTokenExampleDefaults`, partitions from the same defaults).
+  Invalid patterns show the parser error, never a guess. Neither the
+  token list nor the preview sit inside a bordered card — flat rows
+  under the section titles.
 
 Because stacking **remounts** the record pane, the host writes tokens
 through the **live DOM input** (`el.value` + `input` event — the real bind
