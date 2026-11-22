@@ -168,6 +168,7 @@ export { ScheduleSpecCell } from './components/schedule-spec-cell/index.js';
 export { scheduleDescriptionText, scheduleRunLabel } from './utils/schedule-spec-i18n.js';
 
 export { fieldSpecToZod } from './entity-form/field-spec-to-zod.js';
+export { translateFieldError, type FieldErrorTranslateFn } from './utils/translate-field-error.js';
 
 // CSS-chrome helpers — class-string constants shared by form controls.
 export {

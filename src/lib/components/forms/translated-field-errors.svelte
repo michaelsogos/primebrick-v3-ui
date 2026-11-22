@@ -3,7 +3,7 @@
 	import { cn, type WithoutChild } from "../../utils/index.js";
 	import { getT } from "../../bridges.js";
 
-import { extJsonParse } from '@primebrick/core';
+import { translateFieldError } from '../../utils/translate-field-error.js';
 	const t = getT();
 
 	let {
@@ -17,18 +17,7 @@ import { extJsonParse } from '@primebrick/core';
 	} = $props();
 
 	function translateError(error: string): string {
-		// Generic format: `translationKey|jsonParams` (e.g., `validation.tooShort|{"min": 3}`)
-		// If no `|` separator, the error is a plain translation key with no params.
-		if (!error.includes('|')) return $t(error);
-
-		const [key, jsonParams] = error.split('|', 2);
-		try {
-			const params = extJsonParse<any>(jsonParams);
-			return $t(key, params);
-		} catch {
-			// Malformed JSON — fall back to translating the key without params
-			return $t(key);
-		}
+		return translateFieldError(error, $t);
 	}
 </script>
 
