@@ -1,0 +1,90 @@
+---
+title: Sequence Pattern Input
+description: The pattern-builder for format:"sequence_pattern" columns — free literal typing, in-input {} CTA opening a host token surface with insert-at-caret and live interpolation preview.
+---
+
+`SequencePatternInput` is the canonical control for `format:"sequence_pattern"`
+columns — the **authoring** surface for sequence patterns (the sequence
+entity's `pattern` column uses it). It is distinct from `format:"sequence"`,
+which binds a seq-claim directive: here the bound value is the **authored
+pattern string**, persisted verbatim.
+
+```ts
+import { SequencePatternInput } from "@primebrick/ui";
+```
+
+## Canonical value contract
+
+The bound value is the literal pattern text — grammar:
+
+- exactly one counter slot: `{seq}` or `{seq:W}` (`W` 1–19)
+- date tokens, at most once each: `{yyyy}` `{yy}` `{MM}` `{dd}` `{q}`
+- partition tokens, at most once each: `{sez}` `{sez2}` `{sez3}`
+- literal braces escaped as `{{` / `}}`; arbitrary literal text otherwise
+
+Validation rides the shared `checkFieldValue` path (`format` case →
+`parseSequencePattern`) — the same predicate the wire validator runs, so an
+invalid pattern is blocked client-side with the standard field chrome.
+
+## Anatomy
+
+```
+[ pattern text            ] [{} tokens-cta] [eraser]
+```
+
+- **Free typing** — arbitrary literal text is always accepted verbatim.
+- **`{}` CTA** — inside the `InputGroup`, left of the standard eraser; fires
+  the host-injected `on_pick` (same contract family as `NumericInput`'s
+  `uom.on_pick`). ui stays environment-neutral: the host wires
+  `openSheet('entity.sequencePattern', …)`.
+- **Eraser** — the standard `InputGroupButton` clear, disabled on empty.
+
+## Host contract (`on_pick`)
+
+```ts
+interface SequencePatternPick {
+  get_value: () => string;                        // live pattern getter
+  caret: { start: number; end: number } | null;   // tracked selection — null = untouched → append
+  context?: Record<string, unknown>;              // the form record (step/start/tz previews)
+}
+```
+
+`caret` is a **snapshot** at open time — the widget tracks
+`selectionStart/End` on every focus/select/key/click. The host's token
+surface should prefer the input's **live DOM selection** at insert time (it
+survives blur and post-open caret moves), falling back to `pick.caret` only
+when the DOM reports a cleared `{0,0}`.
+
+## Token surface (host side)
+
+The FE mounts `entity.sequencePattern` as a **stacked sheet** (record pane
+stays on the left). It renders `sequenceTokenCatalog()` from
+`@primebrick/core` — grammar knowledge is never duplicated — with per-token
+syntax, localized label, a rendered example, and an insert CTA. Already-used
+slots are gated (icon badge, no CTA) because the grammar allows each slot at
+most once. A live preview interpolates the pattern through the shared
+`renderSequenceValue` with an example counter/date/partition context —
+invalid patterns show the parser error, never a guess.
+
+Because stacking **remounts** the record pane, the host writes tokens
+through the **live DOM input** (`el.value` + `input` event — the real bind
+chain, identical to keystrokes) rather than component bindings captured in
+the pick — those orphan the moment the pane remounts.
+
+## Where it renders
+
+| Surface | Path |
+|---------|------|
+| Entity create/update form | `FormFieldDispatcher` → `format:"sequence_pattern"` |
+| Record sheet | same dispatcher — the token sheet stacks over it |
+
+## Common pitfalls
+
+- **Never reuse `format:"sequence"`** — that is the seq-bound directive
+  contract; pattern authoring is a separate semantic and needs its own
+  format.
+- **`pick.caret` is a snapshot, not a bind** — after the sheet opens the
+  live DOM selection is authoritative.
+- **Token labels are `snake_case` keys** — the i18n vocabulary is
+  `app.widgets.sequence_pattern.tokens.<id_lowercase>` (the catalog id `MM`
+  lowercases to `mm`; key grammar forbids uppercase segments).
