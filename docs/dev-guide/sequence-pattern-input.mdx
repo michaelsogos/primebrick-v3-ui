@@ -1,6 +1,6 @@
 ---
 title: Sequence Pattern Input
-description: The pattern-builder for format:"sequence_pattern" columns — free literal typing, in-input {} CTA opening a host token surface with insert-at-caret and live interpolation preview.
+description: The pattern-builder for format:"sequence_pattern" columns — free literal typing, in-input Tags CTA opening a host token surface with insert-at-caret and live interpolation preview.
 ---
 
 `SequencePatternInput` is the canonical control for `format:"sequence_pattern"`
@@ -29,15 +29,23 @@ invalid pattern is blocked client-side with the standard field chrome.
 ## Anatomy
 
 ```
-[ pattern text            ] [{} tokens-cta] [eraser]
+[ pattern text                                🏷 tags-cta] [⌫ eraser]
 ```
 
 - **Free typing** — arbitrary literal text is always accepted verbatim.
-- **`{}` CTA** — inside the `InputGroup`, left of the standard eraser; fires
-  the host-injected `on_pick` (same contract family as `NumericInput`'s
-  `uom.on_pick`). ui stays environment-neutral: the host wires
-  `openSheet('entity.sequencePattern', …)`.
-- **Eraser** — the standard `InputGroupButton` clear, disabled on empty.
+- **Anatomy** — a plain `Input` inside a `relative` wrapper; the trailing
+  controls are the standard floating icon chips
+  (`inputTrailingIconButtonClasses` → `inputTrailingIconColorClasses`), the
+  same treatment `Input`'s own clear/copy/search slots use — **not**
+  `InputGroup`/`InputGroupButton` blocks (those are reserved for
+  `NumericInput` steppers and UOM adornments).
+- **Tags CTA** — lucide `Tags` icon, second trailing slot (`right-10`), left
+  of the eraser; fires the host-injected `on_pick` (same contract family as
+  `NumericInput`'s `uom.on_pick`). ui stays environment-neutral: the host
+  wires `openSheet('entity.sequencePattern', …)`.
+- **Eraser** — rightmost floating chip (`right-1.5`), the standard clear
+  icon; disabled on empty. With both CTAs the input carries `pr-14` so text
+  never slides under the icons.
 
 ## Host contract (`on_pick`)
 
