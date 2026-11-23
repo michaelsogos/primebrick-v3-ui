@@ -72,8 +72,8 @@ function regionOf(tag: string): string | undefined {
 
 /**
  * Picker-ordered IANA list — shared by every zone-picker surface:
- *   1. the browser's resolved zone (the user's own context, first row)
- *   2. `UTC` — the canonical default must always be one tap away
+ *   1. `UTC` — the canonical default, always the first row
+ *   2. the browser's resolved zone (the user's own context)
  *   3. the primary zone of each supported locale's region
  *   4. the rest, sorted
  */
@@ -86,8 +86,8 @@ export function getPrioritizedIanaTimeZones(opts?: {
 	const pin = (tz: string | null | undefined) => {
 		if (tz && zones.includes(tz) && !first.includes(tz)) first.push(tz);
 	};
-	pin(opts?.browser !== undefined ? opts.browser : getResolvedIanaTimeZone());
 	pin('UTC');
+	pin(opts?.browser !== undefined ? opts.browser : getResolvedIanaTimeZone());
 	for (const tag of opts?.locales ?? []) pin(REGION_PRIMARY_ZONE[regionOf(tag) ?? '']);
 	return [...first, ...zones.filter((z) => !first.includes(z))];
 }
