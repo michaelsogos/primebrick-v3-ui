@@ -111,7 +111,13 @@
     }
     return sequenceTokenExampleDefaults.counter;
   });
-  let ctxTz = $derived(typeof context?.tz === "string" && context.tz !== "" ? context.tz : undefined);
+  // Example tz — the record's `tz` sibling when authored, else the
+  // BROWSER-local zone: examples must read like the user's clock, not UTC.
+  let ctxTz = $derived(
+    typeof context?.tz === "string" && context.tz !== ""
+      ? context.tz
+      : Intl.DateTimeFormat().resolvedOptions().timeZone,
+  );
 
   let parsed = $derived.by(() => {
     const v = value ?? "";
