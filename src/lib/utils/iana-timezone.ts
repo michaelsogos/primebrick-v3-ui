@@ -45,3 +45,49 @@ export function getIanaTimeZones(): string[] {
 		];
 	}
 }
+
+/**
+ * Canonical (CLDR largest-city) zone of a supported BCP-47 region — the
+ * curated territory→zone table, `Intl` exposes no locale→zone resolution.
+ */
+export const REGION_PRIMARY_ZONE: Record<string, string> = {
+	GB: 'Europe/London',
+	US: 'America/New_York',
+	IT: 'Europe/Rome',
+	FR: 'Europe/Paris',
+	ES: 'Europe/Madrid',
+	DE: 'Europe/Berlin',
+	PT: 'Europe/Lisbon',
+};
+
+/** Region of a BCP-47 tag — `Intl.Locale` handles script tags
+ *  (`zh-Hans-CN`→CN); bare `en` resolves undefined. */
+function regionOf(tag: string): string | undefined {
+	try {
+		return new Intl.Locale(tag).region;
+	} catch {
+		return undefined;
+	}
+}
+
+/**
+ * Picker-ordered IANA list — shared by every zone-picker surface:
+ *   1. the browser's resolved zone (the user's own context, first row)
+ *   2. `UTC` — the canonical default must always be one tap away
+ *   3. the primary zone of each supported locale's region
+ *   4. the rest, sorted
+ */
+export function getPrioritizedIanaTimeZones(opts?: {
+	locales?: readonly string[];
+	browser?: string | null;
+}): string[] {
+	const zones = getIanaTimeZones();
+	const first: string[] = [];
+	const pin = (tz: string | null | undefined) => {
+		if (tz && zones.includes(tz) && !first.includes(tz)) first.push(tz);
+	};
+	pin(opts?.browser !== undefined ? opts.browser : getResolvedIanaTimeZone());
+	pin('UTC');
+	for (const tag of opts?.locales ?? []) pin(REGION_PRIMARY_ZONE[regionOf(tag) ?? '']);
+	return [...first, ...zones.filter((z) => !first.includes(z))];
+}

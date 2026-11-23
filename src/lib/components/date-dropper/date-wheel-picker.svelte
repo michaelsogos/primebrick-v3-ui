@@ -3,7 +3,7 @@
 	import Button from '../button/button.svelte';
 	import { Calendar, Clock, CircleAlert } from '@primebrick/ui/vendor/lucide'
 	import { DateFormatter, getLocalTimeZone, today, now, CalendarDate, CalendarDateTime } from "@internationalized/date";
-	import { cn, getIanaTimeZones, getResolvedIanaTimeZone } from "../../utils/index.js";
+	import { cn, getPrioritizedIanaTimeZones, getResolvedIanaTimeZone } from "../../utils/index.js";
 	import { isWheelSelectionBelowMin } from "../../utils/date-wheel-bounds.js";
 	import { WheelPicker, WheelPickerItem, WheelPickerGroup } from '../wheel-picker/index.js';
 	import { getT, getLocale } from "../../bridges.js";
@@ -111,8 +111,9 @@
 		timezone = selectedTimezone;
 	});
 
-	// Get all IANA timezones supported by the browser
-	const allTimezones = $derived(() => getIanaTimeZones());
+	// Get all IANA timezones supported by the browser — picker order:
+	// browser zone first, UTC pinned, then the sorted list.
+	const allTimezones = $derived(() => getPrioritizedIanaTimeZones());
 
 	// Refresh time to NOW each time the popover opens (if user hasn't interacted and no value set)
 	$effect(() => {
