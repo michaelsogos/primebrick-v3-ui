@@ -1,7 +1,8 @@
-import { SEMANTIC_ICON_COLORS, type ActionColor } from "@primebrick/core";
+import { SEMANTIC_ICON_COLORS, type ActionColor, type ActionVariant } from "@primebrick/core";
 import ExecStart from "./ExecStart.svelte";
 import ExecStop from "./ExecStop.svelte";
 import type { Component } from "svelte";
+import type { ButtonTone, ButtonVariant } from "../components/button/button.svelte";
 
 /**
  * Semantic icon registry — domain glyphs whose COLOR IS THE SEMANTIC.
@@ -49,4 +50,34 @@ export function actionColorButtonVariant(
     default:
       return "default";
   }
+}
+
+/**
+ * Resolves `meta` chrome to the concrete Button props — the ONE
+ * (color, variant) → {variant, tone} mapping for CTA surfaces. The two
+ * meta axes map onto the Button's own variant×tone model:
+ *
+ * - `variant:"outline"` → `variant="outline"` + `tone=<color>` (the
+ *   gradient-ghost compounds `outline+tone` → `border-{tone}-gradient`).
+ *   The contract guarantees a non-neutral `color` here —
+ *   `validateActionChrome` rejects the ambiguous pair at construction;
+ *   an absent tone just falls back to the component default.
+ * - `variant:"default"`/absent → the filled severity variant via
+ *   `actionColorButtonVariant` (tone is a soft/outline-only axis —
+ *   passing it on a filled variant would be dead config).
+ *
+ * Dialog confirm buttons keep calling `actionColorButtonVariant`
+ * directly — the dialog's confirm is always the filled severity action.
+ */
+export function actionChromeButtonProps(
+  chrome: { color?: ActionColor | null; variant?: ActionVariant | null } | undefined | null,
+  fallback?: ButtonVariant,
+): { variant: ButtonVariant; tone?: ButtonTone } {
+  if (chrome?.variant === "outline") {
+    const tone =
+      chrome.color && chrome.color !== "neutral" ? (chrome.color as ButtonTone) : undefined;
+    return { variant: "outline", ...(tone ? { tone } : {}) };
+  }
+  if (!chrome?.color && fallback) return { variant: fallback };
+  return { variant: actionColorButtonVariant(chrome?.color) };
 }

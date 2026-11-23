@@ -36,7 +36,7 @@ CTAs.
   gets — never after the stored format: `Label Key` → `Label
   translation` / `Traduzione etichetta`, `Description (translation key)`
   → `Description translation` / `Traduzione descrizione`, `Error label
-  key` → `Error label translation` / `Traduzione etichetta errore`.
+  key` → `Error message translation` / `Traduzione messaggio errore`.
   Help/hint text MAY quote a real key as an example (`e.g.
   shell.settings.roles.label.admin`) — there the key itself is the
   information.
