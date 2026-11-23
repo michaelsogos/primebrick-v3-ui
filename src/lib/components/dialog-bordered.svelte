@@ -44,7 +44,8 @@
 	// Top accent strip class (tone=""): a colored/gradient bar on the top edge.
 	const topStripClass = $derived.by<string>(() => {
 		const map: Record<DialogSeverity, string> = {
-			primary: 'bg-linear-to-br from-sky-400 to-indigo-400',
+			primary:
+				'bg-linear-to-r from-sky-300 via-indigo-500 to-sky-300 animate-gradient-pan',
 			info: 'bg-linear-to-br from-sky-400 to-blue-600',
 			success: 'bg-linear-to-br from-emerald-400 to-emerald-600',
 			warning:
