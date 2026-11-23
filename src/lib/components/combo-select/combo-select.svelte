@@ -174,6 +174,16 @@
      */
     onCreate?: (value: string) => void;
     /**
+     * Single-mode anatomy for a created value (not in the options
+     * vocabulary): renders the FIELD's icon — synthesized into `iconField`
+     * so it rides the same icon pipeline as normal options — plus the
+     * label and a muted "New" marker. Badges are the multi-mode anatomy;
+     * single selections keep icon+text.
+     */
+    createdIcon?: string;
+    /** `iconColorField` value synthesized for the created value (token like `sky-500`). */
+    createdIconColor?: string;
+    /**
      * Called whenever the search text changes while the popover is open
      * (fires once with `defaultSearch` on open). Lets the parent drive a
      * remote/async options source — standard ComboSelect stays the same
@@ -276,6 +286,8 @@
     selectedSnippet,
     allowCreate = false,
     onCreate,
+    createdIcon,
+    createdIconColor,
     onSearchInput,
     onLoadMore,
     loadingMore = false,
@@ -643,19 +655,32 @@
                 resolvedValue: value as string,
               })}
             {:else}
-              <!-- Created-value chip hugs its content (w-fit); the Badge
-                   base bakes `shrink-0`, so `shrink` must re-enable
-                   flex-shrink — the chip yields to the shrink-0 trailing
-                   icons (never pushed out of the chrome) and the text
-                   ellipsizes via min-w-0 + truncate-start. The "new"
-                   suffix marks the value as outside the option vocabulary —
-                   same marker as multi-mode created badges. -->
-              <Badge variant="outline" class={cn("gap-1 border-primary-gradient-soft text-foreground w-fit min-w-0 shrink justify-start", disabled && "bg-background")}>
-                <span class={cn("min-w-0 text-left", truncateFrom === 'start' ? 'truncate-start' : 'truncate')}>
-                  {value as string}
-                </span>
-                <span class="shrink-0 text-[10px] font-normal opacity-60">{$t('app.common.new')}</span>
-              </Badge>
+              <!-- Created value — SINGLE anatomy mirrors a normal
+                   selection (icon + text), never a Badge: badges are the
+                   multi-mode surface. `createdIcon`/`createdIconColor` are
+                   synthesized into iconField so the value rides the same
+                   icon pipeline as vocabulary options; the muted "New"
+                   suffix marks it as outside the vocabulary — same marker
+                   as multi-mode created badges. -->
+              {@const createdRaw = {
+                [valueField ?? 'value']: value,
+                ...(iconField && createdIcon ? { [iconField]: createdIcon } : {}),
+                ...(iconColorField && createdIconColor ? { [iconColorField]: createdIconColor } : {}),
+              }}
+              {@const createdIconResolved = resolveIcon(createdRaw)}
+              {#if createdIconResolved}
+                {@const createdIconColorResolved = resolveIconColor(createdRaw)}
+                <DynamicIcon
+                  name={createdIconResolved}
+                  size={16}
+                  class={cn("shrink-0", !createdIconColorResolved && "text-muted-foreground")}
+                  style={createdIconColorResolved ? `color:${createdIconColorResolved}` : undefined}
+                />
+              {/if}
+              <span class={cn("flex-1 min-w-0 text-left", truncateFrom === 'start' ? 'truncate-start' : 'truncate')}>
+                {value as string}
+              </span>
+              <span class="shrink-0 text-[10px] font-normal opacity-60">{$t('app.common.new')}</span>
             {/if}
           {:else}
             <span class="flex-1 truncate text-left text-muted-foreground">
