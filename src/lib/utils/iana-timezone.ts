@@ -77,11 +77,12 @@ function regionOf(tag: string): string | undefined {
  *   3. the primary zone of each supported locale's region
  *   4. the rest, sorted
  */
-export function getPrioritizedIanaTimeZones(opts?: {
+interface PinnedOpts {
 	locales?: readonly string[];
 	browser?: string | null;
-}): string[] {
-	const zones = getIanaTimeZones();
+}
+
+function pinnedZones(zones: readonly string[], opts?: PinnedOpts): string[] {
 	const first: string[] = [];
 	const pin = (tz: string | null | undefined) => {
 		if (tz && zones.includes(tz) && !first.includes(tz)) first.push(tz);
@@ -89,5 +90,17 @@ export function getPrioritizedIanaTimeZones(opts?: {
 	pin('UTC');
 	pin(opts?.browser !== undefined ? opts.browser : getResolvedIanaTimeZone());
 	for (const tag of opts?.locales ?? []) pin(REGION_PRIMARY_ZONE[regionOf(tag) ?? '']);
+	return first;
+}
+
+/** The pinned prefix alone — the divider boundary for pickers that split
+ *  promoted zones from the alphabetical rest. */
+export function getPinnedIanaTimeZones(opts?: PinnedOpts): string[] {
+	return pinnedZones(getIanaTimeZones(), opts);
+}
+
+export function getPrioritizedIanaTimeZones(opts?: PinnedOpts): string[] {
+	const zones = getIanaTimeZones();
+	const first = pinnedZones(zones, opts);
 	return [...first, ...zones.filter((z) => !first.includes(z))];
 }

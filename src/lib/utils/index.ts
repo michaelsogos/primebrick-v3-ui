@@ -12,6 +12,7 @@ export type {
 export { formatUiDate, formatUiDateTime, formatUiDateTimeInTimeZone, formatListCellValue, formatListNumberValue, toDisplayString, uiLocaleTag, uomUnitSymbol } from './format-date.js';
 export {
 	getIanaTimeZones,
+	getPinnedIanaTimeZones,
 	getPrioritizedIanaTimeZones,
 	getResolvedIanaTimeZone,
 } from './iana-timezone.js';

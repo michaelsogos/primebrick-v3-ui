@@ -122,6 +122,11 @@
      *  Works on ANY lucide icon, mirroring the lucide `*-dashed` variants
      *  for names that don't ship one (e.g. `mail` has no `mail-dashed`). */
     iconDashedField?: string;
+    /** Option field carrying a boolean — when truthy a divider renders
+     *  ABOVE that option row (visual group boundary; e.g. promoted
+     *  vocabulary vs the alphabetical rest). Follows filtering: the
+     *  divider only shows while its row is visible. */
+    separatorBeforeField?: string;
     itemSnippet?: Snippet<[{
       option: string | Record<string, unknown>;
       selected: boolean;
@@ -260,6 +265,7 @@
     iconColorField,
     flagField,
     iconDashedField,
+    separatorBeforeField,
     multiBadge = 'icon-label',
     multiSummaryAt = 1,
     itemSnippet,
@@ -851,6 +857,9 @@
           {#each visibleOptions as opt (opt.value)}
             {@const isDisabled = isOptionDisabled ? isOptionDisabled(opt.raw) : false}
             {@const isSelected = mode === "single" ? (value as string) === opt.value : selectedValues.includes(opt.value)}
+            {#if separatorBeforeField && (opt.raw as Record<string, unknown>)[separatorBeforeField]}
+              <div class="mx-1 my-1 h-px bg-border" role="separator"></div>
+            {/if}
             <Command.Item
               value={opt.value}
               keywords={getSearchKeywords ? getSearchKeywords(opt.raw) : undefined}
