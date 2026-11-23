@@ -10,5 +10,5 @@ export type {
 	WithElementRef,
 } from './types.js';
 export { formatUiDate, formatUiDateTime, formatUiDateTimeInTimeZone, formatListCellValue, formatListNumberValue, toDisplayString, uiLocaleTag, uomUnitSymbol } from './format-date.js';
-export { getResolvedIanaTimeZone } from './iana-timezone.js';
+export { getIanaTimeZones, getResolvedIanaTimeZone } from './iana-timezone.js';
 export { isWheelSelectionBelowMin } from './date-wheel-bounds.js';

@@ -3,7 +3,7 @@
 	import Button from '../button/button.svelte';
 	import { Calendar, Clock, CircleAlert } from '@primebrick/ui/vendor/lucide'
 	import { DateFormatter, getLocalTimeZone, today, now, CalendarDate, CalendarDateTime } from "@internationalized/date";
-	import { cn, getResolvedIanaTimeZone } from "../../utils/index.js";
+	import { cn, getIanaTimeZones, getResolvedIanaTimeZone } from "../../utils/index.js";
 	import { isWheelSelectionBelowMin } from "../../utils/date-wheel-bounds.js";
 	import { WheelPicker, WheelPickerItem, WheelPickerGroup } from '../wheel-picker/index.js';
 	import { getT, getLocale } from "../../bridges.js";
@@ -112,31 +112,7 @@
 	});
 
 	// Get all IANA timezones supported by the browser
-	const allTimezones = $derived(() => {
-		let timezones: string[];
-		try {
-			timezones = Intl.supportedValuesOf('timeZone').sort();
-		} catch {
-			// Fallback to common timezones if Intl.supportedValuesOf is not supported
-			timezones = [
-				"UTC",
-				"Europe/Rome",
-				"Europe/London",
-				"Europe/Paris",
-				"Europe/Berlin",
-				"Europe/Madrid",
-				"America/New_York",
-				"America/Los_Angeles",
-				"America/Chicago",
-				"Asia/Tokyo",
-				"Asia/Shanghai",
-				"Asia/Dubai",
-				"Australia/Sydney",
-				"Australia/Melbourne",
-			];
-		}
-		return timezones;
-	});
+	const allTimezones = $derived(() => getIanaTimeZones());
 
 	// Refresh time to NOW each time the popover opens (if user hasn't interacted and no value set)
 	$effect(() => {
