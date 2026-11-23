@@ -38,11 +38,7 @@ export {
 	DialogTitle,
 	DialogDescription,
 	DialogFooter,
-	DialogContent,
-	DialogTrigger,
 	DialogClose,
-	DialogOverlay,
-	DialogPortal,
 } from './components/dialog/index.js';
 export {
 	TooltipContent,
