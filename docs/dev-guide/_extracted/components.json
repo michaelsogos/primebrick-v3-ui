@@ -15166,11 +15166,11 @@
           "kind": "let",
           "type": "string",
           "typeSource": "default",
-          "value": "\"left\"",
+          "value": "\"right\"",
           "defaultValue": {
-            "raw": "\"left\"",
+            "raw": "\"right\"",
             "kind": "literal",
-            "value": "left"
+            "value": "right"
           },
           "isFunction": false,
           "isFunctionDeclaration": false,
@@ -15184,7 +15184,7 @@
             },
             "end": {
               "line": 99,
-              "column": 18
+              "column": 19
             }
           }
         },

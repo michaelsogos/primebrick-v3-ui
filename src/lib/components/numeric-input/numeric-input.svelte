@@ -65,9 +65,9 @@ import { extJsonParse } from '@primebrick/core';
        *  (number/decimal). Must be non-zero and ≤ (max − min) when both
        *  bounds exist; signed values allowed. */
       step?: string;
-      /** Text alignment of the value — default `"left"`, matching every
-       *  sibling field (placeholder included). `"right"` (spreadsheet
-       *  convention) / `"center"` are opt-in. */
+      /** Text alignment of the value — default `"right"` (spreadsheet
+       *  convention: the number hugs its unit/stepper cluster instead of
+       *  floating away across the flex gap). `"left"` / `"center"` opt-in. */
       align?: NumericAlign;
       /** Eraser trailing CTA — canonical anatomy: always rendered, disabled
        *  when the value is empty. Default `true`. */
@@ -96,7 +96,7 @@ import { extJsonParse } from '@primebrick/core';
     errors = [],
     steppers = true,
     step,
-    align = "left",
+    align = "right",
     clearable = true,
     unsigned,
     min,
