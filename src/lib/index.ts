@@ -157,6 +157,7 @@ export { default as PayloadMapViewer } from './components/payload-map-editor/pay
 export { default as AiIcon } from './components/ai-icon/ai-icon.svelte';
 export { default as AiTypingDots } from './components/ai-typing-dots/ai-typing-dots.svelte';
 export { default as SafeHtml } from './components/safe-html/safe-html.svelte';
+export { ReviveIntervalInput } from './components/revive-interval-input/index.js';
 export { ScheduleSpecInput } from './components/schedule-spec-input/index.js';
 export { SequenceInput } from './components/sequence-input/index.js';
 export type { SequenceInputSeqDecl } from './components/sequence-input/index.js';

@@ -17519,6 +17519,228 @@
     }
   },
   {
+    "file": "src/lib/components/revive-interval-input/revive-interval-input.svelte",
+    "component": "revive-interval-input",
+    "data": {
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 115,
+          "column": 0
+        }
+      },
+      "syntaxMode": "runes",
+      "scriptLanguage": "ts",
+      "props": [
+        {
+          "name": "value",
+          "kind": "let",
+          "bindable": true,
+          "type": "string",
+          "typeSource": "typescript",
+          "value": "''",
+          "defaultValue": {
+            "raw": "''",
+            "kind": "literal",
+            "value": ""
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": true,
+          "source": {
+            "start": {
+              "line": 32,
+              "column": 4
+            },
+            "end": {
+              "line": 32,
+              "column": 25
+            }
+          }
+        },
+        {
+          "name": "id",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 33,
+              "column": 4
+            },
+            "end": {
+              "line": 33,
+              "column": 6
+            }
+          }
+        },
+        {
+          "name": "name",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 34,
+              "column": 4
+            },
+            "end": {
+              "line": 34,
+              "column": 8
+            }
+          }
+        },
+        {
+          "name": "placeholder",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 35,
+              "column": 4
+            },
+            "end": {
+              "line": 35,
+              "column": 15
+            }
+          }
+        },
+        {
+          "name": "readonly",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 36,
+              "column": 4
+            },
+            "end": {
+              "line": 36,
+              "column": 20
+            }
+          }
+        },
+        {
+          "name": "disabled",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 37,
+              "column": 4
+            },
+            "end": {
+              "line": 37,
+              "column": 20
+            }
+          }
+        },
+        {
+          "name": "data-testid",
+          "localName": "dataTestId",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "value": "'revive-interval-input'",
+          "defaultValue": {
+            "raw": "'revive-interval-input'",
+            "kind": "literal",
+            "value": "revive-interval-input"
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 38,
+              "column": 4
+            },
+            "end": {
+              "line": 38,
+              "column": 55
+            }
+          }
+        },
+        {
+          "name": "class",
+          "localName": "className",
+          "kind": "let",
+          "type": "string",
+          "typeSource": "typescript",
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 39,
+              "column": 4
+            },
+            "end": {
+              "line": 39,
+              "column": 20
+            }
+          }
+        }
+      ],
+      "moduleExports": [],
+      "slots": [],
+      "events": [],
+      "typedefs": [],
+      "generics": null,
+      "contexts": [],
+      "diagnostics": []
+    }
+  },
+  {
     "file": "src/lib/components/safe-html/safe-html.svelte",
     "component": "safe-html",
     "data": {
