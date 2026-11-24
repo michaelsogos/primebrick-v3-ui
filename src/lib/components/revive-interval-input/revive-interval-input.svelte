@@ -62,6 +62,15 @@
   // --- dual state: n/unit internal ↔ canonical string outward -----------
   let n = $state('');
   let unit = $state<ReviveUnit>('year');
+  // Seed the pair from the INITIAL bound value: the outward $effect emits
+  // `canonical` on its first run — with an empty pair it would clobber a
+  // mount-time value (view/update modes bind the stored row before the
+  // first effect tick). Seeded, that first emission is idempotent.
+  const seed = value === '' ? null : parseReviveInterval(value);
+  if (seed) {
+    n = String(seed.count);
+    unit = seed.unit as ReviveUnit;
+  }
 
   /** What the current n/unit pair emits — singular when n === '1'. */
   const canonical = $derived(
