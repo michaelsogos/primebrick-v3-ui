@@ -83,7 +83,7 @@ export type AiModel = {
   created_by: string;
   updated_at: string;
   updated_by: string;
-  version: number;
+  version: bigint;
   deleted_at?: string;
   deleted_by?: string;
 };
@@ -133,7 +133,7 @@ export type AiCerebellum = {
   created_by: string;
   updated_at: string;
   updated_by: string;
-  version: number;
+  version: bigint;
   deleted_at?: string;
   deleted_by?: string;
 };
