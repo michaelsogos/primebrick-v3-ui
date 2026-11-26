@@ -104,6 +104,9 @@ export function schemaTypeIcon(schema: SchemaLike | undefined): {
  *  `text` type glyph would lie about what the value is. */
 const OPTIONS_SOURCE_TYPE_ICONS: Record<string, string> = {
 	'iana.tzones': 'globe',
+	// actor stamps (created_by/revived_by/…) — the ratified actor glyph,
+	// same semantic the prop-navigator assigns actor.uuid leaves.
+	'audit.actors': 'user-cog',
 };
 
 /**

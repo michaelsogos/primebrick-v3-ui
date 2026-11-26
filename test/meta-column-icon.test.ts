@@ -25,6 +25,9 @@ describe('metaColumnIcon', () => {
 	it('unknown options_source falls through to the type glyph', () => {
 		expect(metaColumnIcon(col({ options_source: 'census.emits' }))).toBe('type');
 	});
+	it('audit.actors vocabulary carries the user-cog actor glyph — revived_by and created_by uniform', () => {
+		expect(metaColumnIcon(col({ options_source: 'audit.actors' }))).toBe('user-cog');
+	});
 	it('i18n_key format carries the languages glyph — same as the key combobox options', () => {
 		expect(metaColumnIcon(col({ format: 'i18n_key' }))).toBe('languages');
 	});
