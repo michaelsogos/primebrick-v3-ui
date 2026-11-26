@@ -61,6 +61,7 @@ export {
 	schemaToNavNodes,
 	schemaLeafSub,
 	schemaTypeIcon,
+	metaColumnIcon,
 } from './components/prop-navigator/index.js';
 export type { SchemaLike } from './components/prop-navigator/index.js';
 export { usePropNavigation } from './composables/use-prop-navigation.svelte.js';

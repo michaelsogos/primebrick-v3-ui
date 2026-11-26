@@ -19,7 +19,7 @@
  */
 import { get } from 'svelte/store';
 import { getT } from '../../bridges.js';
-import { PAYLOAD_X_SEMANTIC } from '@primebrick/core';
+import { PAYLOAD_X_SEMANTIC, columnSchemaLeaf, type MetaColumn } from '@primebrick/core';
 import type { PropNavNode } from './prop-nav.types.js';
 
 export interface SchemaLike {
@@ -88,6 +88,27 @@ export function schemaTypeIcon(schema: SchemaLike | undefined): {
 	if (!icon && base) icon = TYPE_ICONS[base];
 	if (!icon) icon = 'circle-question-mark';
 	return nullable ? { _icon: icon, _icon_dashed: true } : { _icon: icon };
+}
+
+/**
+ * metaColumnIcon — the ONE canonical icon derivation for a metadata column
+ * in a PICKER surface (field selectors, criteria builders, column menus):
+ * the declared metadata `icon` wins when the author set one; otherwise the
+ * glyph derives from the column's wire shape via `schemaTypeIcon(
+ * columnSchemaLeaf(col))` — format over type, badge vocabularies as tags,
+ * refs as file-keys. Composing the two helpers by hand at every consumer
+ * is exactly how the filters panel shipped without icons (user-reported
+ * 2026-11-26) — the derivation is enforced here at construction.
+ *
+ * In-place decoration (table headers, form labels, criterion summaries)
+ * keeps the declared-only semantic — a type glyph there is noise, not
+ * affordance.
+ */
+export function metaColumnIcon(
+	col: Pick<MetaColumn, 'type' | 'icon'> &
+		Partial<Pick<MetaColumn, 'format' | 'nullable' | 'badge'>>,
+): string {
+	return col.icon ?? schemaTypeIcon(columnSchemaLeaf(col))._icon;
 }
 
 /** Readable type line — honest about the shape, never a bare `string`
