@@ -168,7 +168,7 @@
     if (mode === 'interval') {
       value = reviveIntervalCanonical(Number(everyN) || 1, everyUnit);
     } else if (pinValue) {
-      value = `${axisLiteral} ${pinValue.toDate(pinTz || getLocalTimeZone()).toISOString()}`;
+      value = `@${axisLiteral} ${pinValue.toDate(pinTz || getLocalTimeZone()).toISOString()}`;
     }
     assistOpen = false;
   }
