@@ -25,6 +25,9 @@ describe('metaColumnIcon', () => {
 	it('unknown options_source falls through to the type glyph', () => {
 		expect(metaColumnIcon(col({ options_source: 'census.emits' }))).toBe('type');
 	});
+	it('i18n_key format carries the languages glyph — same as the key combobox options', () => {
+		expect(metaColumnIcon(col({ format: 'i18n_key' }))).toBe('languages');
+	});
 	it('revive_interval format carries the clipboard-clock cadence glyph — never bare text', () => {
 		expect(metaColumnIcon(col({ format: 'revive_interval' }))).toBe('clipboard-clock');
 	});

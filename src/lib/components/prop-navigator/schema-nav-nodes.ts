@@ -51,6 +51,8 @@ const FORMAT_TYPE_ICONS: Record<string, string> = {
 	schedule_spec: 'clipboard-clock',
 	revive_interval: 'clipboard-clock',
 	revive_offset: 'clipboard-clock',
+	// i18n vocabulary — the same glyph the key combobox options carry.
+	i18n_key: 'languages',
 };
 /** Runtime type name of a JSON literal — `2`→number, `"x"`→string. */
 function literalKind(v: unknown): string {
