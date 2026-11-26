@@ -1,44 +1,66 @@
 <script lang="ts">
   /**
-   * ReviveIntervalInput — composite editor for the revive spec grammar
+   * ReviveIntervalInput — single-string editor for the revive axis grammar
    * (`parseReviveSpec`/`parseGraceSpec` in @primebrick/core):
    *
-   *   - interval mode: the closed `'N unit'` cadence (`day|week|month|
-   *     quarter|year`, never a pg `interval`) — `NumericInput` + the
-   *     5-unit internal dropdown on the trailing UoM CTA;
-   *   - literal mode: an explicit instant — `'at <RFC3339>'` pins
-   *     `expire_at`, `'until <RFC3339>'` pins `switch_at`. The axis picks
-   *     the keyword via the `literal` prop (`revive_interval` → `at`,
-   *     `revive_offset` → `until`). Rendered through `DateWheelPicker`
-   *     (`includeTime`) — the emitted instant is absolute RFC3339.
+   *   - interval: `'N unit'` — the closed calendar cadence
+   *     (`day|week|month|quarter|year`);
+   *   - instant pin: `'at <RFC3339>'` (expire axis) / `'until <RFC3339>'`
+   *     (switch axis) — the keyword comes from the `literal` prop.
    *
-   *   ┌───────────────────────────────┐
-   *   │ [Ogni] 3                [yr] │  ← emits `value = "3 years"`
-   *   │ [Il]   16 giu 2027, 00:00 📅 │  ← emits `value = "at 2027-06-16T…"`
-   *   └───────────────────────────────┘
+   * Anatomy mirrors `ScheduleSpecInput` — same grammar of the surface,
+   * different algebra of the value:
    *
-   * The bound `value` is the varchar canonical verbatim — what the wire
-   * validator and the DB round-trip. Unit/mode labels are
-   * `app.widgets.revive_interval.*` keys through the ui i18n bridge.
+   *   ┌──────────────────────────────────────┐
+   *   │ 1 year                           [🗓] │  ← canonical text + assist CTA
+   *   ├──────────────────────────────────────┤
+   *   │ ✓ Renews every 1 year, aligned …     │  ← live interpreter strip
+   *   └──────────────────────────────────────┘
+   *
+   * The free-text field is primary and carries the canonical varchar
+   * verbatim — what the wire validator and the DB round-trip, and what
+   * filter criteria ILIKE-match. The assist popover is a structured
+   * builder that WRITES the canonical into the same value — one source
+   * of truth, two ways to fill it. Exactly TWO modes (interval / fixed
+   * date): the revive algebra has no cron and no sub-day units, so the
+   * builder cannot author them.
+   *
+   * Labels are `app.widgets.revive_interval.*` keys through the ui i18n
+   * bridge — the owning translations patch seeds them for every locale.
    */
+  import TextInput from '../input/text-input.svelte';
+  import * as Popover from '../popover/index.js';
+  import * as Choicebox from '../choicebox/index.js';
+  import Button from '../button/button.svelte';
   import { NumericInput } from '../numeric-input/index.js';
   import type { UomOption } from '../../composables/useNumericInput.svelte.js';
   import { DateWheelPicker } from '../date-dropper/index.js';
-  import Button from '../button/button.svelte';
-  import {
-    parseReviveSpec,
-    parseGraceSpec,
-    type ReviveSpec,
-  } from '@primebrick/core';
   import { CalendarDateTime, getLocalTimeZone } from '@internationalized/date';
-  import { getT } from '../../bridges.js';
-  import { cn } from '../../utils/index.js';
+  import { getT, getLocale } from '../../bridges.js';
+  import { cn, getResolvedIanaTimeZone } from '../../utils/index.js';
+  import {
+    CircleAlert,
+    CircleCheck,
+    Info,
+  } from '@primebrick/ui/vendor/lucide';
+  import type { SequenceReviveUnit } from '@primebrick/core';
+  import {
+    describeReviveAxis,
+    parseReviveAxisSpec,
+    reviveIntervalCanonical,
+    type ReviveLiteral,
+  } from '../../utils/revive-spec.js';
+  import { formatUiDateTime, formatUiDateTimeInTimeZone } from '../../utils/format-date.js';
+  import type { HTMLInputAttributes } from 'svelte/elements';
 
   const t = getT();
+  const locale = getLocale();
 
-  /** The closed unit vocabulary — order IS the dropdown order. */
-  const UNITS = ['day', 'week', 'month', 'quarter', 'year'] as const;
-  type ReviveUnit = (typeof UNITS)[number];
+  type AssistMode = 'interval' | 'pin';
+
+  /** The closed unit vocabulary — order IS the dropdown order. Exactly five,
+   *  the internal-dropdown ceiling of NumericInput (no picker sheet). */
+  const UNITS: readonly SequenceReviveUnit[] = ['day', 'week', 'month', 'quarter', 'year'];
 
   let {
     value = $bindable(''),
@@ -50,6 +72,7 @@
     disabled = false,
     'data-testid': dataTestId = 'revive-interval-input',
     class: className,
+    ...rest
   }: {
     /** The spec canonical string — `'N unit'` or `'<keyword> <RFC3339>'`. */
     value?: string;
@@ -65,136 +88,214 @@
     disabled?: boolean;
     'data-testid'?: string;
     class?: string;
-    // Explicit props only — NumericInput re-declares the native input
-    // attributes with narrower (`| undefined`, no `| null`) types, so a
-    // rest-spread of `HTMLInputAttributes` can never typecheck. This is a
-    // composite control, not an `<input>`: passthrough attrs aren't a
-    // contract here.
-  } = $props();
+  } & Omit<HTMLInputAttributes, 'value' | 'readonly' | 'disabled' | 'placeholder' | 'class' | 'type'> = $props();
 
-  /** Axis-bound spec parser — `at` literals on the every axis,
-   *  `until` on the grace axis. */
-  const parseSpec = (s: string): ReviveSpec | null =>
-    literal === 'at' ? parseReviveSpec(s) : parseGraceSpec(s);
+  const axisLiteral = $derived<ReviveLiteral>(literal);
 
+  // --- Interpreter strip -------------------------------------------------
+  const description = $derived(describeReviveAxis(value, axisLiteral));
+
+  // Pin instants are absolute — render them in the app's resolved zone
+  // (the same source the top bar reads), not the browser default.
+  const appTz = getResolvedIanaTimeZone();
+  const pinLabel = (d: Date) =>
+    appTz ? formatUiDateTimeInTimeZone(d, locale(), appTz) : formatUiDateTime(d, locale());
+
+  /** Plural-aware unit prose — `unit.<unit>.one/other` keys. */
+  const unitProse = (n: number, unit: SequenceReviveUnit) =>
+    $t(`app.widgets.revive_interval.unit.${unit}.${n === 1 ? 'one' : 'other'}`);
+
+  // --- Assist builder ----------------------------------------------------
+  let assistOpen = $state(false);
+  let mode = $state<AssistMode>('interval');
+
+  // Interval state — product default: 1 year (the dominant cadence in
+  // real data; the old composite defaulted the same way).
+  let everyN = $state('1');
+  let everyUnit = $state<SequenceReviveUnit>('year');
   const unitOptions: UomOption[] = UNITS.map((u) => ({
     code: u,
     label_key: `app.widgets.revive_interval.unit.${u}`,
   }));
 
-  // --- dual state: (mode, n|at, unit) ↔ canonical string outward --------
-  let mode = $state<'interval' | 'literal'>('interval');
-  let n = $state('');
-  let unit = $state<ReviveUnit>('year');
-  let atValue = $state<CalendarDateTime | null>(null);
-  let atTz = $state('');
+  // Pin state — CalendarDateTime wall-clock + the picker's selected IANA zone.
+  let pinValue = $state<CalendarDateTime | null>(null);
+  let pinTz = $state('');
+  // Pins must stay future at write time (the wire validation re-checks at
+  // submit) — the picker cannot commit a past instant. Filter matching of
+  // past pins stays possible through the free-text field.
+  let pinMin = $state<Date | undefined>(undefined);
 
-  // Seed all slots from the INITIAL bound value: the outward $effect
-  // emits `canonical` on its first run — with empty state it would
-  // clobber a mount-time value (view/update modes bind the stored row
-  // before the first effect tick). Seeded, that first emission is
-  // idempotent.
-  const seed = value === '' ? null : parseSpec(value);
-  if (seed?.kind === 'interval') {
-    n = String(seed.count);
-    unit = seed.unit as ReviveUnit;
-  } else if (seed?.kind === 'at') {
-    mode = 'literal';
-    const d = seed.at;
-    atValue = new CalendarDateTime(
-      d.getFullYear(), d.getMonth() + 1, d.getDate(),
-      d.getHours(), d.getMinutes(), d.getSeconds(),
-    );
-  }
-
-  /** What the active mode emits — singular when n === '1'; the literal
-   *  keyword is the axis-bound `literal` prop. Empty state emits ''. */
-  const canonical = $derived(
-    mode === 'interval'
-      ? n === '' ? '' : `${n} ${unit}${n === '1' ? '' : 's'}`
-      : atValue === null
-        ? ''
-        : `${literal} ${atValue.toDate(atTz || getLocalTimeZone()).toISOString()}`,
-  );
-
-  // outward: internal state → bound canonical. `lastEmitted` lets the
-  // inward pass distinguish "our own emission" from an external write
-  // (record load, reset) without an update loop.
-  let lastEmitted = $state('');
+  /** Seed the builder fields from the current spec each time the popover opens. */
   $effect(() => {
-    lastEmitted = canonical;
-    value = canonical;
+    if (assistOpen) {
+      seedFromValue();
+      pinMin = new Date();
+    }
   });
 
-  // inward: external value → internal state. Unparseable values keep the
-  // slots untouched — the spec format check flags the stored string;
-  // destroying state on a foreign value is the bug.
-  $effect(() => {
-    if (value === lastEmitted) return;
-    const p = value === '' ? null : parseSpec(value);
+  function seedFromValue() {
+    const p = parseReviveAxisSpec(value, axisLiteral);
     if (p?.kind === 'interval') {
       mode = 'interval';
-      n = String(p.count);
-      unit = p.unit as ReviveUnit;
+      everyN = String(p.count);
+      everyUnit = p.unit;
     } else if (p?.kind === 'at') {
-      mode = 'literal';
+      mode = 'pin';
       const d = p.at;
-      atValue = new CalendarDateTime(
-        d.getFullYear(), d.getMonth() + 1, d.getDate(),
-        d.getHours(), d.getMinutes(), d.getSeconds(),
+      pinValue = new CalendarDateTime(
+        d.getFullYear(),
+        d.getMonth() + 1,
+        d.getDate(),
+        d.getHours(),
+        d.getMinutes(),
+        d.getSeconds(),
       );
-    } else if (value === '') {
-      n = '';
-      atValue = null;
     }
-    lastEmitted = value;
-  });
+    // Foreign/empty text keeps the previous builder state — composing from
+    // scratch must not destroy a half-authored draft on popover reopen.
+  }
+
+  function applyAssist() {
+    if (mode === 'interval') {
+      value = reviveIntervalCanonical(Number(everyN) || 1, everyUnit);
+    } else if (pinValue) {
+      value = `${axisLiteral} ${pinValue.toDate(pinTz || getLocalTimeZone()).toISOString()}`;
+    }
+    assistOpen = false;
+  }
+
+  const canApply = $derived(
+    mode === 'interval' ? Number(everyN) > 0 : pinValue !== null,
+  );
+
+  // The assist CTA is declared via `trailing_ctas` — TextInput owns the
+  // slot geometry; the popover anchors to the field wrapper.
+  let inputWrap: HTMLElement | undefined = $state();
 </script>
 
-<div class={cn('flex items-center gap-1.5', className)} data-testid={dataTestId}>
-  {#if !readonly && !disabled}
-    <Button
-      type="button"
-      variant="ghost"
-      size="xs"
-      class="shrink-0 px-2"
-      onclick={() => (mode = mode === 'interval' ? 'literal' : 'interval')}
-      data-testid="{dataTestId}-mode"
-      title={$t(`app.widgets.revive_interval.mode.${mode === 'interval' ? 'every' : literal}`)}
-    >
-      {$t(`app.widgets.revive_interval.mode.${mode === 'interval' ? 'every' : literal}`)}
-    </Button>
-  {/if}
-  {#if mode === 'interval'}
-    <NumericInput
-      kind="bigint"
-      unsigned={true}
-      steppers={false}
-      bind:value={n}
-      uom={{
-        kind: 'custom',
-        code: unit,
-        options: unitOptions,
-        on_uom_change: (c) => (unit = c as ReviveUnit),
-      }}
-      {id}
-      {name}
-      {placeholder}
-      {readonly}
-      {disabled}
-      data-testid="{dataTestId}-field"
-    />
-  {:else}
-    <!-- DateWheelPicker has no readonly prop — view mode maps to disabled
-         (the stored literal still renders; the popover stays shut). -->
-    <DateWheelPicker
-      bind:value={atValue}
-      bind:timezone={atTz}
-      includeTime={true}
-      {placeholder}
-      disabled={disabled || readonly}
-      {id}
-      dataTestId="{dataTestId}-at"
-    />
-  {/if}
+<div class={cn('space-y-1', className)} data-testid={dataTestId}>
+  <div class="relative" bind:this={inputWrap}>
+    <Popover.Root bind:open={assistOpen}>
+      <TextInput
+        {id}
+        {name}
+        bind:value
+        {placeholder}
+        {readonly}
+        {disabled}
+        data-testid="{dataTestId}-field"
+        trailing_ctas={!readonly && !disabled
+          ? [{
+              icon: 'calendar-clock',
+              label: $t('app.widgets.revive_interval.assist'),
+              onclick: () => (assistOpen = true),
+              'data-testid': `${dataTestId}-assist`,
+            }]
+          : undefined}
+        {...rest}
+      />
+      <Popover.Content class="w-96 space-y-3 p-3" align="end" customAnchor={inputWrap}>
+        <!-- Mode selector — choice cards; the selected card hosts its own
+             builder form (radio-group semantics, one value). Exactly two:
+             the revive algebra has no cron and no sub-day units. -->
+        <Choicebox.Root
+          value={mode}
+          onValueChange={(v) => (mode = v as AssistMode)}
+          name="revive-mode"
+          data-testid="{dataTestId}-modes"
+        >
+          <Choicebox.Item value="interval" data-testid="{dataTestId}-mode-interval">
+            <Choicebox.Title>{$t('app.widgets.revive_interval.mode.interval')}</Choicebox.Title>
+            <Choicebox.Description>{$t('app.widgets.revive_interval.mode.interval.desc')}</Choicebox.Description>
+            <Choicebox.Indicator />
+            {#if mode === 'interval'}
+              <div class="flex items-center gap-2 pt-3">
+                <span class="shrink-0 text-sm text-muted-foreground">{$t('app.widgets.revive_interval.mode.every')}</span>
+                <div class="min-w-0 flex-1">
+                  <NumericInput
+                    kind="bigint"
+                    unsigned={true}
+                    steppers={false}
+                    bind:value={everyN}
+                    uom={{
+                      kind: 'custom',
+                      code: everyUnit,
+                      options: unitOptions,
+                      on_uom_change: (c) => (everyUnit = c as SequenceReviveUnit),
+                    }}
+                    data-testid="{dataTestId}-every-n"
+                  />
+                </div>
+              </div>
+            {/if}
+          </Choicebox.Item>
+
+          <Choicebox.Item value="pin" data-testid="{dataTestId}-mode-pin">
+            <Choicebox.Title>{$t('app.widgets.revive_interval.mode.pin')}</Choicebox.Title>
+            <Choicebox.Description>{$t('app.widgets.revive_interval.mode.pin.desc')}</Choicebox.Description>
+            <Choicebox.Indicator />
+            {#if mode === 'pin'}
+              <div class="pt-3">
+                <DateWheelPicker
+                  bind:value={pinValue}
+                  bind:timezone={pinTz}
+                  includeTime={true}
+                  minValue={pinMin}
+                  dataTestId="{dataTestId}-pin"
+                />
+              </div>
+            {/if}
+          </Choicebox.Item>
+        </Choicebox.Root>
+
+        <div class="-mx-3 -mb-3 flex items-center justify-end gap-2 border-t bg-muted/50 px-3 py-2">
+          <Button
+            type="button"
+            size="xs"
+            disabled={!canApply}
+            data-testid="{dataTestId}-apply"
+            onclick={applyAssist}
+          >
+            {$t('app.common.apply')}
+          </Button>
+        </div>
+      </Popover.Content>
+    </Popover.Root>
+  </div>
+
+  <!-- Interpreter strip — empty is first-class: NULL carries the
+       revive-off / no-grace semantics and the strip says so. -->
+  <div
+    class="flex items-start gap-1.5 px-1 text-xs"
+    data-testid="{dataTestId}-interpreter"
+  >
+    {#if description.kind === 'empty'}
+      <Info class="mt-0.5 size-3.5 shrink-0 text-muted-foreground" />
+      <span class="text-muted-foreground">
+        {$t(`app.widgets.revive_interval.desc.empty.${axisLiteral}`)}
+      </span>
+    {:else if description.kind === 'interval'}
+      <CircleCheck class="mt-0.5 size-3.5 shrink-0 text-emerald-600" />
+      <span class="text-muted-foreground">
+        {$t(`app.widgets.revive_interval.desc.interval.${axisLiteral}`, {
+          n: description.n,
+          unit: unitProse(description.n, description.unit),
+        })}
+      </span>
+    {:else if description.kind === 'pin'}
+      <CircleCheck class="mt-0.5 size-3.5 shrink-0 text-emerald-600" />
+      <span class="text-muted-foreground">
+        {$t(`app.widgets.revive_interval.desc.pin.${axisLiteral}`, { date: pinLabel(description.at) })}
+        {#if appTz}
+          <span class="text-muted-foreground/70">· {appTz}</span>
+        {/if}
+      </span>
+    {:else}
+      <CircleAlert class="mt-0.5 size-3.5 shrink-0 text-destructive" />
+      <span class="text-destructive" data-testid="{dataTestId}-error">
+        {$t('app.widgets.revive_interval.invalid')}
+      </span>
+    {/if}
+  </div>
 </div>
