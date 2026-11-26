@@ -105,6 +105,10 @@
   const unitProse = (n: number, unit: SequenceReviveUnit) =>
     $t(`app.widgets.revive_interval.unit.${unit}.${n === 1 ? 'one' : 'other'}`);
 
+  /** First-letter uppercasing for standalone unit labels — a no-op for
+   *  German (nouns born capitalized), correct for the other six locales. */
+  const cap = (s: string) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s);
+
   // --- Assist builder ----------------------------------------------------
   let assistOpen = $state(false);
   let mode = $state<AssistMode>('interval');
@@ -113,6 +117,10 @@
   // real data; the old composite defaulted the same way).
   let everyN = $state('1');
   let everyUnit = $state<SequenceReviveUnit>('year');
+  /** CTA label — the SAME plural agreement as the strip prose,
+   *  standalone-capitalized: the seeded `.one/.other` forms are lowercase
+   *  sentence prose, the adornment is a label. */
+  const uomCtaSymbol = $derived(cap(unitProse(Number(everyN) || 0, everyUnit)));
   const unitOptions: UomOption[] = UNITS.map((u) => ({
     code: u,
     label_key: `app.widgets.revive_interval.unit.${u}`,
@@ -221,6 +229,7 @@
                     uom={{
                       kind: 'custom',
                       code: everyUnit,
+                      symbol: uomCtaSymbol,
                       options: unitOptions,
                       on_uom_change: (c) => (everyUnit = c as SequenceReviveUnit),
                     }}

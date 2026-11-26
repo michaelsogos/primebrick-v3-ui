@@ -136,6 +136,14 @@ import { extJsonParse } from '@primebrick/core';
     return opt.label_key ? $t(opt.label_key) : (opt.symbol ?? opt.code);
   });
   let uomLabelFromOption = $derived(uomSpec?.symbol == null && selectedUomLabel !== undefined);
+  // Prose-label dropdowns (`label_key` options) treat units as translated
+  // words — the mono machine-code badge is never user-facing there, even
+  // when the host resolves its own display symbol (e.g. plural-aware).
+  let uomProseLabels = $derived.by(() => {
+    const opts = uomUsesDropdown(uomSpec) ? uomSpec?.options : undefined;
+    return !!opts?.some((o) => o.label_key);
+  });
+  let uomHideCode = $derived(uomLabelFromOption || uomProseLabels);
   let uomSymbol = $derived(
     uomSpec?.kind === "percent"
       ? "%"
@@ -346,7 +354,7 @@ import { extJsonParse } from '@primebrick/core';
             data-testid="{baseTestId}-uom-cta"
           >
             <span class="font-medium">{uomSymbol}</span>
-            {#if uomSpec?.code && uomSpec.code !== uomSymbol && !uomLabelFromOption}
+            {#if uomSpec?.code && uomSpec.code !== uomSymbol && !uomHideCode}
               <span class="font-mono text-sm ml-1">{uomSpec.code}</span>
             {/if}
             <ChevronDown class="size-3 ml-0.5 opacity-60" />
@@ -395,7 +403,7 @@ import { extJsonParse } from '@primebrick/core';
             data-testid="{baseTestId}-uom-cta"
           >
             <span class="font-medium">{uomSymbol}</span>
-            {#if uomSpec?.code && uomSpec.code !== uomSymbol && !uomLabelFromOption}
+            {#if uomSpec?.code && uomSpec.code !== uomSymbol && !uomHideCode}
               <span class="font-mono text-sm ml-1">{uomSpec.code}</span>
             {/if}
             <ChevronDown class="size-3 ml-0.5 opacity-60" />
