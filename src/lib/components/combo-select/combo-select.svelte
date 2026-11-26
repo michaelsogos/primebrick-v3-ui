@@ -805,6 +805,16 @@
     {/snippet}
   </Popover.Trigger>
   <Popover.Content align="start" class="w-(--bits-popover-anchor-width) min-w-56 p-0">
+    {#if loading}
+      <!-- Fetch-in-flight strip — flush to the popover's top edge like its
+           top border (zero gap, user-ratified 2026-11-26): the SAME animated
+           primary-gradient scan the ELT reload strip renders, self-contained
+           here so no consumer CSS is needed. -->
+      <div class="cb-loading-strip" aria-hidden="true">
+        <div class="cb-loading-underlay"></div>
+        <div class="cb-loading-comet"></div>
+      </div>
+    {/if}
     <!-- shouldFilter=false: filtering is owned by `filteredOptions` (label +
          value + getSearchKeywords). bits-ui's internal filter only matches the
          item `value` (+ keywords), which breaks searches by label — e.g. typing
@@ -877,7 +887,16 @@
           </Command.Item>
         {/if}
         {#if visibleOptions.length === 0 && !showCreateItem}
-          <Command.Empty>{$t('app.common.no_results')}</Command.Empty>
+          {#if loading}
+            <!-- Async fetch in flight — the popover opens IMMEDIATELY with
+                 a muted loading line instead of the false "no results"
+                 (user-ratified 2026-11-26). -->
+            <div class="py-6 text-center text-sm text-muted-foreground" data-testid={dataTestId ? `${dataTestId}-loading` : undefined}>
+              {$t('app.common.loading_data')}
+            </div>
+          {:else}
+            <Command.Empty>{$t('app.common.no_results')}</Command.Empty>
+          {/if}
         {:else if visibleOptions.length > 0}
           {#each visibleOptions as opt (opt.value)}
             {@const isDisabled = isOptionDisabled ? isOptionDisabled(opt.raw) : false}
@@ -993,3 +1012,60 @@
     </Command.Root>
   </Popover.Content>
 </Popover.Root>
+
+<style>
+  /* Fetch-in-flight strip — the ELT reload scan, self-contained: squared
+     track flush to the popover's top edge (its visual top border), dim
+     brand-gradient underlay + the ping-pong comet. */
+  .cb-loading-strip {
+    position: relative;
+    height: 2px;
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--radius-md, 6px) var(--radius-md, 6px) 0 0;
+    background: color-mix(in oklab, var(--muted) 60%, transparent);
+  }
+  .cb-loading-underlay {
+    position: absolute;
+    inset: 0;
+    opacity: 0.15;
+    background-image: linear-gradient(to right, #38bdf8, #6366f1, #8b5cf6, #6366f1, #38bdf8);
+    background-size: 200% 100%;
+    animation: cb-gradient-pan 3s linear infinite;
+  }
+  .cb-loading-comet {
+    position: absolute;
+    inset-block: 0;
+    left: 0;
+    width: 25%;
+    border-radius: 9999px;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      #38bdf8 35%,
+      #6366f1 50%,
+      #8b5cf6 65%,
+      transparent 100%
+    );
+    box-shadow: 0 0 6px 1px rgba(99, 102, 241, 0.9);
+    animation: cb-kitt-scan 0.85s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+  }
+  @keyframes cb-kitt-scan {
+    from { transform: translateX(0%); }
+    to   { transform: translateX(300%); }
+  }
+  @keyframes cb-gradient-pan {
+    from { background-position: 0% 0; }
+    to   { background-position: 200% 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cb-loading-underlay,
+    .cb-loading-comet {
+      animation: none;
+    }
+    .cb-loading-comet {
+      width: 100%;
+      box-shadow: none;
+    }
+  }
+</style>
