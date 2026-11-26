@@ -125,10 +125,21 @@ import { extJsonParse } from '@primebrick/core';
 
   // ── UoM adornment resolution ─────────────────────────────────────────
   let uomSpec = $derived(uom);
+  // Selected-option label — with a static dropdown and no explicit symbol
+  // the CTA mirrors the dropdown's own rendering (`label_key` translated);
+  // the machine `code` is selection identity, not user-facing prose.
+  let selectedUomLabel = $derived.by(() => {
+    const opts = uomUsesDropdown(uomSpec) ? uomSpec?.options : undefined;
+    if (!opts || !uomSpec?.code) return undefined;
+    const opt = opts.find((o) => o.code === uomSpec?.code);
+    if (!opt) return undefined;
+    return opt.label_key ? $t(opt.label_key) : (opt.symbol ?? opt.code);
+  });
+  let uomLabelFromOption = $derived(uomSpec?.symbol == null && selectedUomLabel !== undefined);
   let uomSymbol = $derived(
     uomSpec?.kind === "percent"
       ? "%"
-      : (uomSpec?.symbol ?? uomSpec?.code ?? ""),
+      : (uomSpec?.symbol ?? selectedUomLabel ?? uomSpec?.code ?? ""),
   );
   let uomIsPrefix = $derived(
     (uomSpec?.position ?? (uomSpec?.kind === "currency" ? "prefix" : "suffix")) === "prefix",
@@ -335,7 +346,7 @@ import { extJsonParse } from '@primebrick/core';
             data-testid="{baseTestId}-uom-cta"
           >
             <span class="font-medium">{uomSymbol}</span>
-            {#if uomSpec?.code && uomSpec.code !== uomSymbol}
+            {#if uomSpec?.code && uomSpec.code !== uomSymbol && !uomLabelFromOption}
               <span class="font-mono text-sm ml-1">{uomSpec.code}</span>
             {/if}
             <ChevronDown class="size-3 ml-0.5 opacity-60" />
@@ -384,7 +395,7 @@ import { extJsonParse } from '@primebrick/core';
             data-testid="{baseTestId}-uom-cta"
           >
             <span class="font-medium">{uomSymbol}</span>
-            {#if uomSpec?.code && uomSpec.code !== uomSymbol}
+            {#if uomSpec?.code && uomSpec.code !== uomSymbol && !uomLabelFromOption}
               <span class="font-mono text-sm ml-1">{uomSpec.code}</span>
             {/if}
             <ChevronDown class="size-3 ml-0.5 opacity-60" />
