@@ -90,10 +90,21 @@ export function schemaTypeIcon(schema: SchemaLike | undefined): {
 	return nullable ? { _icon: icon, _icon_dashed: true } : { _icon: icon };
 }
 
+/** `options_source` vocabularies whose VALUE SEMANTIC owns a type glyph —
+ *  the same icon the vocabulary's option rows carry in the picking
+ *  combobox (`iana.tzones` rows render `globe` in the dispatcher, so the
+ *  column's type icon IS the globe — user-ratified 2026-11-26). A bare
+ *  `text` type glyph would lie about what the value is. */
+const OPTIONS_SOURCE_TYPE_ICONS: Record<string, string> = {
+	'iana.tzones': 'globe',
+};
+
 /**
  * metaColumnIcon — the ONE canonical icon derivation for a metadata column
- * in a PICKER surface (field selectors, criteria builders, column menus):
- * the declared metadata `icon` wins when the author set one; otherwise the
+ * in a PICKER surface (field selectors, criteria builders, column menus).
+ * Precedence: the declared metadata `icon` wins when the author set one;
+ * a governed `options_source` vocabulary with its own semantic glyph comes
+ * next (the value IS a timezone/a role/…, never bare text); otherwise the
  * glyph derives from the column's wire shape via `schemaTypeIcon(
  * columnSchemaLeaf(col))` — format over type, badge vocabularies as tags,
  * refs as file-keys. Composing the two helpers by hand at every consumer
@@ -106,9 +117,13 @@ export function schemaTypeIcon(schema: SchemaLike | undefined): {
  */
 export function metaColumnIcon(
 	col: Pick<MetaColumn, 'type' | 'icon'> &
-		Partial<Pick<MetaColumn, 'format' | 'nullable' | 'badge'>>,
+		Partial<Pick<MetaColumn, 'format' | 'nullable' | 'badge' | 'options_source'>>,
 ): string {
-	return col.icon ?? schemaTypeIcon(columnSchemaLeaf(col))._icon;
+	return (
+		col.icon ??
+		(col.options_source ? OPTIONS_SOURCE_TYPE_ICONS[col.options_source] : undefined) ??
+		schemaTypeIcon(columnSchemaLeaf(col))._icon
+	);
 }
 
 /** Readable type line — honest about the shape, never a bare `string`
