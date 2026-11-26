@@ -25,4 +25,11 @@ describe('metaColumnIcon', () => {
 	it('unknown options_source falls through to the type glyph', () => {
 		expect(metaColumnIcon(col({ options_source: 'census.emits' }))).toBe('type');
 	});
+	it('revive_interval format carries the clipboard-clock cadence glyph — never bare text', () => {
+		expect(metaColumnIcon(col({ format: 'revive_interval' }))).toBe('clipboard-clock');
+	});
+	it('schedule_spec and revive_offset share the same cadence glyph (ratified convention)', () => {
+		expect(metaColumnIcon(col({ format: 'schedule_spec' }))).toBe('clipboard-clock');
+		expect(metaColumnIcon(col({ format: 'revive_offset' }))).toBe('clipboard-clock');
+	});
 });

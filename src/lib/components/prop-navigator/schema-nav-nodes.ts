@@ -46,6 +46,11 @@ const FORMAT_TYPE_ICONS: Record<string, string> = {
 	phone: 'phone',
 	color_hex: 'palette',
 	lang: 'languages',
+	// cadence family — scheduler and reviver share the ONE glyph
+	// (user-ratified convention: same icon as the widgets' assist CTA).
+	schedule_spec: 'clipboard-clock',
+	revive_interval: 'clipboard-clock',
+	revive_offset: 'clipboard-clock',
 };
 /** Runtime type name of a JSON literal — `2`→number, `"x"`→string. */
 function literalKind(v: unknown): string {

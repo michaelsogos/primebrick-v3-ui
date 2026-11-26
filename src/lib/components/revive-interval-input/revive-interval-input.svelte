@@ -195,7 +195,7 @@
         data-testid="{dataTestId}-field"
         trailing_ctas={!readonly && !disabled
           ? [{
-              icon: 'calendar-clock',
+              icon: 'clipboard-clock',
               label: $t('app.widgets.revive_interval.assist'),
               onclick: () => (assistOpen = true),
               'data-testid': `${dataTestId}-assist`,
