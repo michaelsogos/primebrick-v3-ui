@@ -534,6 +534,30 @@
     return filteredOptions.filter((opt) => !isOptionDisabled(opt.raw));
   });
 
+  // --- Render window (user-ratified 2026-11-26) ---
+  // A combobox is a SEARCH-FIRST control: mounting every matching row
+  // synchronously blocks the popover open for SECONDS on large vocabularies
+  // (measured 1.8s on the 3k-key `.entities.` i18n vocabulary — zero network
+  // involved, pure DOM mount). The initial window mounts instantly; scrolling
+  // near the bottom grows it progressively (client-side infinite scroll), a
+  // muted trailing row tells how much is still hidden, and narrowing by
+  // search re-windows on the reduced set. Server-paged consumers compose
+  // freely: `onLoadMore` fires only once the local window is exhausted.
+  const INITIAL_RENDER_LIMIT = 50;
+  const RENDER_CHUNK = 50;
+  let renderLimit = $state(INITIAL_RENDER_LIMIT);
+  // Re-window on search keystrokes / popover reopen — a fresh filter must
+  // not inherit a deep-scroll limit (it would re-mount hundreds of rows on
+  // every keystroke). NEVER on options identity: server page appends replace
+  // the array, and resetting there would collapse the scrolled window.
+  $effect(() => {
+    search;
+    open;
+    renderLimit = INITIAL_RENDER_LIMIT;
+  });
+  let renderedOptions = $derived(visibleOptions.slice(0, renderLimit));
+  let truncatedCount = $derived(Math.max(0, visibleOptions.length - renderedOptions.length));
+
   // --- Create mode ---
 
   // Show "Create" item when allowCreate is on, search is non-empty, and no
@@ -548,11 +572,18 @@
 
   let showCreateItem = $derived(allowCreate && search.trim() !== '' && !exactMatchExists);
 
-  // Infinite scroll — near-bottom hit fires the parent's next-page delegate.
+  // Infinite scroll — near-bottom hit first grows the client render window
+  // (progressive disclosure of the already-loaded vocabulary); the parent's
+  // server next-page delegate fires only once that window is exhausted —
+  // never prefetching pages the user hasn't scrolled into.
   function handleListScroll(e: Event) {
-    if (!onLoadMore || loadingMore) return;
     const el = e.currentTarget as HTMLElement;
-    if (el.scrollHeight - el.scrollTop - el.clientHeight < 48) onLoadMore();
+    if (el.scrollHeight - el.scrollTop - el.clientHeight >= 48) return;
+    if (truncatedCount > 0) {
+      renderLimit += RENDER_CHUNK;
+      return;
+    }
+    if (onLoadMore && !loadingMore) onLoadMore();
   }
 
   function handleCreate() {
@@ -898,7 +929,7 @@
             <Command.Empty>{$t('app.common.no_results')}</Command.Empty>
           {/if}
         {:else if visibleOptions.length > 0}
-          {#each visibleOptions as opt (opt.value)}
+          {#each renderedOptions as opt (opt.value)}
             {@const isDisabled = isOptionDisabled ? isOptionDisabled(opt.raw) : false}
             {@const isSelected = mode === "single" ? (value as string) === opt.value : selectedValues.includes(opt.value)}
             {#if separatorBeforeField && (opt.raw as Record<string, unknown>)[separatorBeforeField]}
@@ -1002,6 +1033,16 @@
               </div>
             </Command.Item>
           {/each}
+        {/if}
+        {#if truncatedCount > 0}
+          <!-- Render-window truncation hint — the list did NOT end: scrolling
+               reveals the next chunk, typing narrows the vocabulary. -->
+          <div
+            class="cb-truncation-hint py-2 text-center text-xs text-muted-foreground select-none"
+            data-testid={dataTestId ? `${dataTestId}-more` : undefined}
+          >
+            {$t(truncatedCount === 1 ? 'app.common.combo_more_items.one' : 'app.common.combo_more_items.other', { count: truncatedCount })}
+          </div>
         {/if}
         {#if loadingMore}
           <div class="flex items-center justify-center py-2" aria-hidden="true">
