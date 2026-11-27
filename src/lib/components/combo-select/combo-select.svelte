@@ -1,3 +1,16 @@
+<script lang="ts" module>
+  /**
+   * One popover filter badge — the VISIBLE alternative to hidden prefilters
+   * (user-ratified contract 2026-11-26: no combobox filter is ever "applied
+   * behind"). `terms` are the match alternatives — OR-ed WITHIN the badge;
+   * `label` is the chip text (already translated / meaningful for the user).
+   */
+  export type ComboFilterBadge = {
+    label: string;
+    terms: string[];
+  };
+</script>
+
 <script lang="ts">
   import { cn } from "../../utils/index.js";
   import { getT } from "../../bridges.js";
@@ -13,6 +26,7 @@
   import { Check } from '../../vendor/lucide.js';
   import { EyeDashed } from '../../vendor/lucide.js';
   import { tick, type Snippet } from "svelte";
+  import { SvelteSet } from "svelte/reactivity";
   import { inputTrailingIconColorClasses, inputGhostChromeClasses } from "../input/input-chrome.js";
   import type { TrailingCta } from "../input/text-input.svelte";
   import { menuListSelectedSurfaceDropdownClasses } from "../menu-row-chrome.js";
@@ -213,6 +227,24 @@
      */
     defaultSearch?: string;
     /**
+     * Popover filter badges — IMPOSED vocabulary constraints (meta/app logic,
+     * the user cannot remove them): render as muted chips WITHOUT X below the
+     * popover search input and AND across badges (within one badge its `terms`
+     * OR). Passing this prop (even empty) opts the combobox into the badge
+     * engine: Enter commits the typed draft as a removable user badge.
+     */
+    imposed_filters?: ComboFilterBadge[];
+    /**
+     * Popover filter badges — PRESET-REMOVABLE vocabulary constraints (sensible
+     * defaults the user CAN remove, e.g. the i18n-key family scope): render as
+     * chips WITH X and OR among themselves + the user badges + the live draft
+     * (the OR-group then ANDs with the imposed set). Removal persists for the
+     * component instance lifetime — a fresh mount restores the preset, but
+     * nothing ever re-imposes silently mid-session. The popover eraser clears
+     * draft + user badges + these presets in one gesture.
+     */
+    preset_filters?: ComboFilterBadge[];
+    /**
      * Trigger trailing zone extras — same contract as TextInput:
      *   `trailing`      — non-CTA content (badges, indicators), left of ctas.
      *   `trailing_ctas` — icon CTAs (`inputTrailingIconColorClasses` chrome),
@@ -292,6 +324,8 @@
     onLoadMore,
     loadingMore = false,
     defaultSearch = '',
+    imposed_filters,
+    preset_filters,
     trailing,
     trailing_ctas,
     truncateFrom = 'end',
@@ -458,6 +492,10 @@
     syncChange(opt.value);
     open = false;
     search = "";
+    // Selection consumes the search session — user badges reset with the
+    // draft (same lifecycle as `search`); preset removals survive so nothing
+    // the user explicitly removed comes back behind their back.
+    userFilterBadges = [];
   }
 
   function handleClearSingle() {
@@ -512,16 +550,85 @@
     }
   });
 
+  // --- Popover filter badges (user-ratified 2026-11-26) ---
+  // The visible/controlled alternative to hidden prefilters: imposed badges
+  // (muted, no X) AND across each other; preset-removable + user badges + the
+  // live draft OR among themselves. Opt-in: passing either prop activates the
+  // engine — consumers that pass neither keep the legacy plain-search
+  // behavior bit-for-bit (a lone draft narrows exactly as before).
+
+  type UserFilterBadge = { id: string; label: string; terms: string[] };
+  let userFilterBadges = $state<UserFilterBadge[]>([]);
+  /** Keys of preset badges the user removed — removal persists for the
+   *  component instance lifetime; a fresh mount restores the preset. */
+  const removedPresetKeys = new SvelteSet<string>();
+
+  const filterBadgesEnabled = $derived(imposed_filters !== undefined || preset_filters !== undefined);
+
+  function badgeKey(badge: ComboFilterBadge): string {
+    return badge.terms.join(' OR ');
+  }
+
+  let activePresetFilters = $derived(
+    (preset_filters ?? []).filter((b) => !removedPresetKeys.has(badgeKey(b))),
+  );
+
+  /** Enter commits the draft as a user badge — dedupe against existing user
+   *  badges (re-committing the same term is a no-op), input empties so the
+   *  next OR term can be typed. */
+  function commitFilterBadge() {
+    const term = search.trim();
+    if (!term) return;
+    if (!userFilterBadges.some((b) => b.terms.includes(term))) {
+      userFilterBadges.push({ id: term, label: term, terms: [term] });
+    }
+    search = '';
+  }
+
+  function removeUserFilterBadge(badge: UserFilterBadge) {
+    userFilterBadges = userFilterBadges.filter((b) => b.id !== badge.id);
+  }
+
+  function removePresetFilterBadge(badge: ComboFilterBadge) {
+    removedPresetKeys.add(badgeKey(badge));
+  }
+
+  /** Eraser contract: one click clears the draft (the input itself) plus
+   *  every removable badge — user AND preset; imposed badges are immutable
+   *  by definition. */
+  let removableBadgesExist = $derived(userFilterBadges.length > 0 || activePresetFilters.length > 0);
+  function clearRemovableFilterBadges() {
+    userFilterBadges = [];
+    for (const b of preset_filters ?? []) removedPresetKeys.add(badgeKey(b));
+  }
+
+  function optMatchesTerm(opt: NormalizedOption, term: string): boolean {
+    const lower = term.toLowerCase();
+    if (opt.label.toLowerCase().includes(lower)) return true;
+    if (opt.value.toLowerCase().includes(lower)) return true;
+    const kws = getSearchKeywords?.(opt.raw) ?? [];
+    return kws.some((k) => k.toLowerCase().includes(lower));
+  }
+
   // --- Filtering ---
 
   let filteredOptions = $derived.by<NormalizedOption[]>(() => {
-    if (!search) return normalizedOptions;
-    const lowerSearch = search.toLowerCase();
+    if (!filterBadgesEnabled) {
+      // Legacy path — plain single-term substring narrowing, byte-identical
+      // to the pre-badge behavior.
+      if (!search) return normalizedOptions;
+      return normalizedOptions.filter((opt) => optMatchesTerm(opt, search));
+    }
+    const imposed = imposed_filters ?? [];
+    const orTerms = [...activePresetFilters, ...userFilterBadges].flatMap((b) => b.terms);
+    const draft = search.trim();
+    if (draft) orTerms.push(draft);
     return normalizedOptions.filter((opt) => {
-      if (opt.label.toLowerCase().includes(lowerSearch)) return true;
-      if (opt.value.toLowerCase().includes(lowerSearch)) return true;
-      const kws = getSearchKeywords?.(opt.raw) ?? [];
-      return kws.some((k) => k.toLowerCase().includes(lowerSearch));
+      for (const badge of imposed) {
+        if (!badge.terms.some((term) => optMatchesTerm(opt, term))) return false;
+      }
+      if (orTerms.length > 0 && !orTerms.some((term) => optMatchesTerm(opt, term))) return false;
+      return true;
     });
   });
 
@@ -553,6 +660,8 @@
   $effect(() => {
     search;
     open;
+    userFilterBadges.length;
+    removedPresetKeys.size;
     renderLimit = INITIAL_RENDER_LIMIT;
   });
   let renderedOptions = $derived(visibleOptions.slice(0, renderLimit));
@@ -855,10 +964,22 @@
         <Command.Input
           bind:value={search}
           placeholder={searchPlaceholder ?? $t('app.search.placeholder')}
+          clear_enabled={removableBadgesExist}
+          on_clear={clearRemovableFilterBadges}
           onkeydown={(e) => {
             if (e.key === 'Enter' && showCreateItem) {
               e.preventDefault();
               handleCreate();
+            } else if (e.key === 'Enter' && filterBadgesEnabled && search.trim()) {
+              // Enter commits the draft as a user badge — the OR-accumulation
+              // gesture. The input empties, so a follow-up Enter with an empty
+              // draft falls through to bits-ui's native row selection.
+              // stopPropagation: bits-ui's root-level Enter handler must never
+              // row-select on the same keystroke — a selection would consume
+              // the search session and wipe the badge just committed.
+              e.preventDefault();
+              e.stopPropagation();
+              commitFilterBadge();
             }
           }}
         >
@@ -885,6 +1006,67 @@
             {/if}
           {/snippet}
         </Command.Input>
+      {/if}
+      {#if filterBadgesEnabled && (imposed_filters?.length || activePresetFilters.length || userFilterBadges.length)}
+        <!-- Applied-filter strip — the ratified visibility contract: every
+             filter acting on this list is a chip the user can see; imposed
+             ones are muted and sealed (no X), preset/user ones carry the
+             remove X. Nothing is ever applied behind. -->
+        <div class="flex flex-wrap items-center gap-1 px-1 pb-1.5" data-testid="combo-filter-badges">
+          {#each imposed_filters ?? [] as badge (badgeKey(badge))}
+            <Badge
+              variant="outline"
+              class="gap-1 text-muted-foreground opacity-80"
+              data-testid="combo-filter-badge"
+              data-kind="imposed"
+              data-term={badgeKey(badge)}
+            >
+              <span class="text-xs">{badge.label}</span>
+            </Badge>
+          {/each}
+          {#each activePresetFilters as badge (badgeKey(badge))}
+            <Badge
+              variant="secondary"
+              class="gap-1 pr-1"
+              data-testid="combo-filter-badge"
+              data-kind="preset"
+              data-term={badgeKey(badge)}
+            >
+              <span class="text-xs italic">{badge.label}</span>
+              <button
+                type="button"
+                class="ml-0.5 inline-flex size-4 cursor-pointer items-center justify-center rounded-full hover:bg-muted-foreground/20"
+                onclick={() => removePresetFilterBadge(badge)}
+                aria-label={$t('app.common.remove')}
+                data-testid="combo-filter-badge-remove"
+                data-term={badgeKey(badge)}
+              >
+                <X class="size-3" />
+              </button>
+            </Badge>
+          {/each}
+          {#each userFilterBadges as badge (badge.id)}
+            <Badge
+              variant="secondary"
+              class="gap-1 pr-1"
+              data-testid="combo-filter-badge"
+              data-kind="user"
+              data-term={badgeKey(badge)}
+            >
+              <span class="text-xs">{badge.label}</span>
+              <button
+                type="button"
+                class="ml-0.5 inline-flex size-4 cursor-pointer items-center justify-center rounded-full hover:bg-muted-foreground/20"
+                onclick={() => removeUserFilterBadge(badge)}
+                aria-label={$t('app.common.remove')}
+                data-testid="combo-filter-badge-remove"
+                data-term={badgeKey(badge)}
+              >
+                <X class="size-3" />
+              </button>
+            </Badge>
+          {/each}
+        </div>
       {/if}
       <Command.List bind:ref={listEl} onscroll={handleListScroll}>
         {#if showCreateItem}

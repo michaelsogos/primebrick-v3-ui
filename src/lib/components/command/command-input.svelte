@@ -11,12 +11,21 @@
 		class: className,
 		value = $bindable(""),
 		trailing,
+		clear_enabled = false,
+		on_clear,
 		...restProps
 	}: Omit<CommandPrimitive.InputProps, 'ref'> & {
 		ref?: HTMLInputElement | null;
 		/** Optional second trailing control, rendered left of the eraser
 		 *  (the `right-10` slot — e.g. a visibility/partition toggle). */
 		trailing?: Snippet;
+		/** Eraser stays enabled even with an empty input — the consumer carries
+		 *  extra clearable state beyond the typed text (e.g. combobox filter
+		 *  badges). Default false: empty input = disabled eraser, unchanged. */
+		clear_enabled?: boolean;
+		/** Fired after the input clears — the consumer wipes its own extra
+		 *  clearable state in the same gesture. */
+		on_clear?: () => void;
 	} = $props();
 </script>
 
@@ -68,10 +77,10 @@
 		     never pops the row's layout in and out. -->
 		<button
 			type="button"
-			onclick={() => { value = ''; ref?.focus(); }}
+			onclick={() => { value = ''; on_clear?.(); ref?.focus(); }}
 			class={inputTrailingIconButtonClasses}
 			aria-label="Clear search"
-			disabled={!value}
+			disabled={!value && !clear_enabled}
 			data-testid="command-input-clear"
 		>
 			<Eraser class="size-4" />
