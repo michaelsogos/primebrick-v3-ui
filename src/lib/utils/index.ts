@@ -17,3 +17,5 @@ export {
 	getResolvedIanaTimeZone,
 } from './iana-timezone.js';
 export { isWheelSelectionBelowMin } from './date-wheel-bounds.js';
+export { parseReviveAxisSpec, describeReviveAxis } from './revive-spec.js';
+export type { ReviveLiteral, ReviveDescription } from './revive-spec.js';
