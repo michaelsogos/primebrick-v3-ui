@@ -8,6 +8,11 @@
   export type ComboFilterBadge = {
     label: string;
     terms: string[];
+    /** `contains` (default): substring over label+value+keywords — the user-
+     *  typed-term semantics. `prefix`: the OPTION VALUE must start with the
+     *  term — the namespace-scope semantics (`app.`/`custom.`/`crm.`), where
+     *  substring matching would false-positive inside unrelated keys. */
+    match?: 'contains' | 'prefix';
   };
 </script>
 
@@ -610,6 +615,17 @@
     return kws.some((k) => k.toLowerCase().includes(lower));
   }
 
+  /** Badge-aware matching — honors the badge's `match` mode: `prefix` tests
+   *  the option VALUE only (namespace scopes), `contains` defers to the
+   *  substring semantics of user-typed terms. */
+  function optMatchesBadge(opt: NormalizedOption, badge: ComboFilterBadge): boolean {
+    if (badge.match === 'prefix') {
+      const value = opt.value.toLowerCase();
+      return badge.terms.some((term) => value.startsWith(term.toLowerCase()));
+    }
+    return badge.terms.some((term) => optMatchesTerm(opt, term));
+  }
+
   // --- Filtering ---
 
   let filteredOptions = $derived.by<NormalizedOption[]>(() => {
@@ -625,7 +641,7 @@
     if (draft) orTerms.push(draft);
     return normalizedOptions.filter((opt) => {
       for (const badge of imposed) {
-        if (!badge.terms.some((term) => optMatchesTerm(opt, term))) return false;
+        if (!optMatchesBadge(opt, badge)) return false;
       }
       if (orTerms.length > 0 && !orTerms.some((term) => optMatchesTerm(opt, term))) return false;
       return true;
