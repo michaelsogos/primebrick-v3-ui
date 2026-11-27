@@ -105,6 +105,23 @@
   const unitProse = (n: number, unit: SequenceReviveUnit) =>
     $t(`app.widgets.revive_interval.unit.${unit}.${n === 1 ? 'one' : 'other'}`);
 
+  // --- Focus-swap display (user-ratified 2026-11-26, task 10) -------------
+  // The wire value is ALWAYS the canonical English parseable literal — the
+  // display is the only localized surface: at rest the input renders the
+  // unit prose / localized pin instant, on focus it swaps to the canonical
+  // editable literal (typing semantics untouched, zero data migration).
+  let inputFocused = $state(false);
+
+  /** At-rest display — the localized rendering of the canonical value.
+   *  Empty and invalid values render as-is: there is nothing meaningful
+   *  to translate, and hiding the raw text would lose the user's input. */
+  const restDisplay = $derived.by(() => {
+    if (description.kind === 'interval')
+      return `${description.n} ${unitProse(description.n, description.unit)}`;
+    if (description.kind === 'pin') return pinLabel(description.at);
+    return value;
+  });
+
   /** First-letter uppercasing for standalone unit labels — a no-op for
    *  German (nouns born capitalized), correct for the other six locales. */
   const cap = (s: string) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s);
@@ -183,12 +200,20 @@
 </script>
 
 <div class={cn('space-y-1', className)} data-testid={dataTestId}>
-  <div class="relative" bind:this={inputWrap}>
+  <!-- focusin/focusout at the WRAPPER level — they bubble, so no interference
+       with the input's own event props: at rest the field shows restDisplay,
+       inside the focus ring it shows the canonical editable value. -->
+  <div
+    class="relative"
+    bind:this={inputWrap}
+    onfocusin={() => (inputFocused = true)}
+    onfocusout={() => (inputFocused = false)}
+  >
     <Popover.Root bind:open={assistOpen}>
       <TextInput
         {id}
         {name}
-        bind:value
+        bind:value={() => (inputFocused ? value : restDisplay), (v) => (value = v)}
         {placeholder}
         {readonly}
         {disabled}
