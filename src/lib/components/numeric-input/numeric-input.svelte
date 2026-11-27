@@ -24,8 +24,6 @@
   import { ChevronDown, Plus, Minus, Eraser } from "@primebrick/ui/vendor/lucide";
 
 import { extJsonParse } from '@primebrick/core';
-  type NumericAlign = "left" | "center" | "right";
-
   type Props = WithElementRef<
     Omit<HTMLInputAttributes, "type" | "files"> & {
       /**
@@ -65,10 +63,6 @@ import { extJsonParse } from '@primebrick/core';
        *  (number/decimal). Must be non-zero and ≤ (max − min) when both
        *  bounds exist; signed values allowed. */
       step?: string;
-      /** Text alignment of the value — default `"right"` (spreadsheet
-       *  convention: the number hugs its unit/stepper cluster instead of
-       *  floating away across the flex gap). `"left"` / `"center"` opt-in. */
-      align?: NumericAlign;
       /** Eraser trailing CTA — canonical anatomy: always rendered, disabled
        *  when the value is empty. Default `true`. */
       clearable?: boolean;
@@ -96,7 +90,6 @@ import { extJsonParse } from '@primebrick/core';
     errors = [],
     steppers = true,
     step,
-    align = "right",
     clearable = true,
     unsigned,
     min,
@@ -120,7 +113,7 @@ import { extJsonParse } from '@primebrick/core';
     min: () => min,
     max: () => max,
     step: () => step,
-    props: () => ({ kind, uom, step, align, min, max, lang, disabled: restProps.disabled }),
+    props: () => ({ kind, uom, step, min, max, lang, disabled: restProps.disabled }),
   });
 
   // ── UoM adornment resolution ─────────────────────────────────────────
@@ -307,9 +300,11 @@ import { extJsonParse } from '@primebrick/core';
     return Number.isNaN(n) ? undefined : n;
   });
 
-  let alignClass = $derived(
-    align === "center" ? "text-center" : align === "left" ? "text-left" : "text-right",
-  );
+  // Universal RIGHT alignment — user-ratified 2026-11-26 as a hard contract
+  // for EVERY NumericInput (numbers align right by convention), enforced at
+  // construction: the alignment prop is deliberately gone, there is no
+  // opt-out. Do not reintroduce one without a fresh user ratification.
+  const alignClass = "text-right";
 
   let baseTestId = $derived(restProps["data-testid"] ?? "numeric-input");
   let isDisabled = $derived(!!restProps.disabled || !!restProps.readonly);

@@ -15029,7 +15029,7 @@
           "column": 0
         },
         "end": {
-          "line": 499,
+          "line": 494,
           "column": 0
         }
       },
@@ -15054,11 +15054,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 90,
+              "line": 84,
               "column": 4
             },
             "end": {
-              "line": 90,
+              "line": 84,
               "column": 25
             }
           }
@@ -15074,11 +15074,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 91,
+              "line": 85,
               "column": 4
             },
             "end": {
-              "line": 91,
+              "line": 85,
               "column": 8
             }
           }
@@ -15094,11 +15094,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 92,
+              "line": 86,
               "column": 4
             },
             "end": {
-              "line": 92,
+              "line": 86,
               "column": 7
             }
           }
@@ -15120,11 +15120,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 93,
+              "line": 87,
               "column": 4
             },
             "end": {
-              "line": 93,
+              "line": 87,
               "column": 22
             }
           }
@@ -15148,11 +15148,11 @@
           "reactive": true,
           "source": {
             "start": {
-              "line": 94,
+              "line": 88,
               "column": 4
             },
             "end": {
-              "line": 94,
+              "line": 88,
               "column": 25
             }
           }
@@ -15168,11 +15168,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 95,
+              "line": 89,
               "column": 4
             },
             "end": {
-              "line": 95,
+              "line": 89,
               "column": 12
             }
           }
@@ -15195,11 +15195,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 96,
+              "line": 90,
               "column": 4
             },
             "end": {
-              "line": 96,
+              "line": 90,
               "column": 15
             }
           }
@@ -15222,11 +15222,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 97,
+              "line": 91,
               "column": 4
             },
             "end": {
-              "line": 97,
+              "line": 91,
               "column": 19
             }
           }
@@ -15242,39 +15242,12 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 98,
+              "line": 92,
               "column": 4
             },
             "end": {
-              "line": 98,
+              "line": 92,
               "column": 8
-            }
-          }
-        },
-        {
-          "name": "align",
-          "kind": "let",
-          "type": "string",
-          "typeSource": "default",
-          "value": "\"right\"",
-          "defaultValue": {
-            "raw": "\"right\"",
-            "kind": "literal",
-            "value": "right"
-          },
-          "isFunction": false,
-          "isFunctionDeclaration": false,
-          "isRequired": false,
-          "constant": false,
-          "reactive": false,
-          "source": {
-            "start": {
-              "line": 99,
-              "column": 4
-            },
-            "end": {
-              "line": 99,
-              "column": 19
             }
           }
         },
@@ -15296,11 +15269,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 100,
+              "line": 93,
               "column": 4
             },
             "end": {
-              "line": 100,
+              "line": 93,
               "column": 20
             }
           }
@@ -15316,11 +15289,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 101,
+              "line": 94,
               "column": 4
             },
             "end": {
-              "line": 101,
+              "line": 94,
               "column": 12
             }
           }
@@ -15336,11 +15309,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 102,
+              "line": 95,
               "column": 4
             },
             "end": {
-              "line": 102,
+              "line": 95,
               "column": 7
             }
           }
@@ -15356,11 +15329,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 103,
+              "line": 96,
               "column": 4
             },
             "end": {
-              "line": 103,
+              "line": 96,
               "column": 7
             }
           }
@@ -15383,11 +15356,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 104,
+              "line": 97,
               "column": 4
             },
             "end": {
-              "line": 104,
+              "line": 97,
               "column": 18
             }
           }
@@ -15404,11 +15377,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 105,
+              "line": 98,
               "column": 4
             },
             "end": {
-              "line": 105,
+              "line": 98,
               "column": 20
             }
           }
@@ -15428,11 +15401,11 @@
           "message": "Prop \"ref\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 90,
+              "line": 84,
               "column": 4
             },
             "end": {
-              "line": 90,
+              "line": 84,
               "column": 25
             }
           }
@@ -15444,11 +15417,11 @@
           "message": "Prop \"kind\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 91,
+              "line": 85,
               "column": 4
             },
             "end": {
-              "line": 91,
+              "line": 85,
               "column": 8
             }
           }
@@ -15460,11 +15433,11 @@
           "message": "Prop \"uom\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 92,
+              "line": 86,
               "column": 4
             },
             "end": {
-              "line": 92,
+              "line": 86,
               "column": 7
             }
           }
@@ -15476,11 +15449,11 @@
           "message": "Prop \"type_config\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 93,
+              "line": 87,
               "column": 4
             },
             "end": {
-              "line": 93,
+              "line": 87,
               "column": 22
             }
           }
@@ -15492,11 +15465,11 @@
           "message": "Prop \"onChange\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 95,
+              "line": 89,
               "column": 4
             },
             "end": {
-              "line": 95,
+              "line": 89,
               "column": 12
             }
           }
@@ -15508,11 +15481,11 @@
           "message": "Prop \"step\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 98,
+              "line": 92,
               "column": 4
             },
             "end": {
-              "line": 98,
+              "line": 92,
               "column": 8
             }
           }
@@ -15524,11 +15497,11 @@
           "message": "Prop \"unsigned\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 101,
+              "line": 94,
               "column": 4
             },
             "end": {
-              "line": 101,
+              "line": 94,
               "column": 12
             }
           }
@@ -15540,11 +15513,11 @@
           "message": "Prop \"min\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 102,
+              "line": 95,
               "column": 4
             },
             "end": {
-              "line": 102,
+              "line": 95,
               "column": 7
             }
           }
@@ -15556,11 +15529,11 @@
           "message": "Prop \"max\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 103,
+              "line": 96,
               "column": 4
             },
             "end": {
-              "line": 103,
+              "line": 96,
               "column": 7
             }
           }
@@ -15572,11 +15545,11 @@
           "message": "Prop \"class\" type could not be inferred; falling back to \"any\".",
           "source": {
             "start": {
-              "line": 105,
+              "line": 98,
               "column": 4
             },
             "end": {
-              "line": 105,
+              "line": 98,
               "column": 20
             }
           }
