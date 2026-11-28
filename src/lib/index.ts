@@ -10,6 +10,8 @@ export * from './icons/semantic-icons.js';
 export * from './bridges.js';
 
 export { useSelection } from './composables/useSelection.svelte.js';
+export { UseRemoteCheck } from './composables/useRemoteCheck.svelte.js';
+export type { RemoteCheckState, RemoteCheckProbe } from './composables/useRemoteCheck.svelte.js';
 
 export { default as SparklineBars } from './components/SparklineBars.svelte';
 export type { SparklineBucket, SparklineSeries } from './components/SparklineBars.svelte';

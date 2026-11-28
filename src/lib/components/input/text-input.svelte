@@ -24,7 +24,8 @@
 	import Input from "./input.svelte";
 	import { CopyButton } from "../copy-button/index.js";
 	import * as Tooltip from "../tooltip/index.js";
-	import { Eraser } from '@primebrick/ui/vendor/lucide';
+	import { Eraser, CircleCheckBig, LoaderCircle, TicketX, TriangleAlert } from '@primebrick/ui/vendor/lucide';
+	import type { RemoteCheckState } from '../../composables/useRemoteCheck.svelte.js';
 	import { inputTrailingIconButtonClasses, inputTrailingIconColorClasses } from './input-chrome.js';
 	import DynamicIcon from '../dynamic-icon/DynamicIcon.svelte';
 
@@ -44,6 +45,11 @@
 			copyAnimationDuration?: number;
 			// --- Extra trailing content (e.g. async status icon) ---
 			trailing?: Snippet;
+			// --- Remote-check status glyph — the async availability-probe
+			//     state machine (UseRemoteCheck) lives in the host form
+			//     wiring; the input only renders the canonical trailing
+			//     indicator (`remote-check-status` + `data-state`). ---
+			remoteCheck?: RemoteCheckState;
 			// --- Extra trailing CTAs — component-owned slots (preferred) ---
 			trailing_ctas?: TrailingCta[];
 		}
@@ -75,6 +81,7 @@ export type TrailingCta = {
 		copyAnimationDuration = 2000,
 		trailing,
 		trailing_ctas,
+		remoteCheck,
 		class: className,
 		...restProps
 	}: Props = $props();
@@ -95,7 +102,7 @@ export type TrailingCta = {
 	// trailing buttons (clear included) render in that same anatomy so the
 	// inter-CTA spacing can never diverge. Single-CTA keeps the canonical
 	// lone-CTA treatment (size-7, right-1.5).
-	let ctaCount = $derived(trailing_ctas?.length ?? 0);
+	let ctaCount = $derived((trailing_ctas?.length ?? 0) + (remoteCheck !== undefined ? 1 : 0));
 	let multiCta = $derived(ctaCount > 0);
 
 	let inputClass = $derived(
@@ -166,6 +173,25 @@ export type TrailingCta = {
 
 	{#if multiCta}
 		<div class="absolute top-1/2 right-1.5 z-10 flex -translate-y-1/2 items-center gap-1">
+			{#if remoteCheck !== undefined}
+				<span
+					data-testid="remote-check-status"
+					data-state={remoteCheck}
+					class="pointer-events-none inline-flex items-center justify-center p-0.5"
+				>
+					{#if remoteCheck === 'checking'}
+						<LoaderCircle class="size-4 animate-spin text-muted-foreground" />
+					{:else if remoteCheck === 'available'}
+						<CircleCheckBig class="size-4 text-green-500" />
+					{:else if remoteCheck === 'taken'}
+						<TicketX class="size-4 text-destructive" />
+					{:else if remoteCheck === 'error'}
+						<TriangleAlert class="size-4 text-yellow-500" />
+					{:else}
+						<CircleCheckBig class="size-4 text-muted-foreground/50" />
+					{/if}
+				</span>
+			{/if}
 			{#each trailing_ctas ?? [] as cta (cta.label)}
 				<button
 					type="button"
