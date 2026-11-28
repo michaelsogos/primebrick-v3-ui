@@ -115,6 +115,7 @@
     placeholder,
     readonly = false,
     disabled = false,
+    system_generated = false,
     'data-testid': dataTestId = 'sequence-input',
     class: className,
     ...rest
@@ -136,6 +137,11 @@
     placeholder?: string;
     readonly?: boolean;
     disabled?: boolean;
+    /** Meta-derived sequence ownership (`column.system_generated`): the
+     *  server allocates the value in the write transaction. The control
+     *  shows the forecast as an in-field ghost placeholder while untouched;
+     *  assist chrome is never offered because there is nothing to choose. */
+    system_generated?: boolean;
     'data-testid'?: string;
     class?: string;
   } & Omit<HTMLInputAttributes, 'value' | 'readonly' | 'disabled' | 'placeholder' | 'class' | 'type'> = $props();
@@ -502,6 +508,9 @@
 
   const shownNext = $derived(exprPreview ?? stripNext);
   const hasDirective = $derived(directive !== null);
+  const systemGeneratedPreview = $derived(system_generated && !directive && !existing ? shownNext : null);
+  const ghostPlaceholder = $derived(systemGeneratedPreview ? `${systemGeneratedPreview} — ${autoPlaceholder}` : autoPlaceholder);
+  const hideForecastStrip = $derived(system_generated && !directive && !existing);
 
   let inputWrap: HTMLElement | undefined = $state();
 </script>
@@ -513,11 +522,11 @@
         {id}
         {name}
         value={displayValue}
-        placeholder={autoPlaceholder}
+        placeholder={ghostPlaceholder}
         readonly={true}
         {disabled}
         data-testid="{dataTestId}-field"
-        trailing_ctas={!readonly && !disabled
+        trailing_ctas={!readonly && !disabled && !system_generated
           ? [{
               icon: 'sequence-numeric-right',
               label: $t('app.widgets.sequence.assist'),
@@ -595,7 +604,7 @@
   </div>
 
   <!-- Forecast strip -->
-  {#if shownNext !== null || stripErr}
+  {#if (shownNext !== null || stripErr) && !hideForecastStrip}
     <div class="flex items-start gap-1.5 px-1 text-xs" data-testid="{dataTestId}-strip">
       {#if stripErr}
         <CircleAlert class="mt-0.5 size-3.5 shrink-0 text-destructive" />

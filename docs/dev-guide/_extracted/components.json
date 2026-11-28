@@ -19319,7 +19319,7 @@
           "column": 0
         },
         "end": {
-          "line": 692,
+          "line": 701,
           "column": 0
         }
       },
@@ -19529,6 +19529,33 @@
           }
         },
         {
+          "name": "system_generated",
+          "kind": "let",
+          "type": "boolean",
+          "typeSource": "typescript",
+          "value": "false",
+          "defaultValue": {
+            "raw": "false",
+            "kind": "literal",
+            "value": false
+          },
+          "isFunction": false,
+          "isFunctionDeclaration": false,
+          "isRequired": false,
+          "constant": false,
+          "reactive": false,
+          "source": {
+            "start": {
+              "line": 118,
+              "column": 4
+            },
+            "end": {
+              "line": 118,
+              "column": 28
+            }
+          }
+        },
+        {
           "name": "data-testid",
           "localName": "dataTestId",
           "kind": "let",
@@ -19547,11 +19574,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 118,
+              "line": 119,
               "column": 4
             },
             "end": {
-              "line": 118,
+              "line": 119,
               "column": 48
             }
           }
@@ -19569,11 +19596,11 @@
           "reactive": false,
           "source": {
             "start": {
-              "line": 119,
+              "line": 120,
               "column": 4
             },
             "end": {
-              "line": 119,
+              "line": 120,
               "column": 20
             }
           }
